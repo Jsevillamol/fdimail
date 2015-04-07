@@ -74,6 +74,7 @@
     <ClCompile Include="UserList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Date.h" />
     <ClInclude Include="tElemTray.h" />
     <ClInclude Include="MailList.h" />
     <ClInclude Include="Mail.h" />

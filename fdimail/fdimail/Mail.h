@@ -3,9 +3,20 @@
 
 #include <string>
 #include <fstream>
+#include "Date.h"
 
 class Mail
 {
+private:
+	std::string id;
+	Date date;
+
+	std::string from;
+	std::string to;
+
+	std::string subject;
+	std::string body;
+
 public:
 	Mail();
 	~Mail();
