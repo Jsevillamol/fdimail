@@ -65,6 +65,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fdimail.cpp" />
+    <ClCompile Include="Mail.cpp" />
+    <ClCompile Include="MailList.cpp" />
+    <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="TrayList.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tElemTray.h" />
+    <ClInclude Include="MailList.h" />
+    <ClInclude Include="Mail.h" />
+    <ClInclude Include="Manager.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="TrayList.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

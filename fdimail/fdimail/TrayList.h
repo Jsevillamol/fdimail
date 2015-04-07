@@ -1,0 +1,24 @@
+#ifndef TRAYLIST
+#define TRAILIST
+#include <fstream>
+#include "tElemTray.h"
+
+class TrayList
+{
+private:
+	int counter;
+public:
+	TrayList();
+	~TrayList();
+
+	inline void initialize(){ this->counter = 0; }
+	inline bool full(){ return this->counter == MAX_ELEMS; }
+	inline int lenght(){ return this->counter; }
+	void save(std::ofstream &file)const;
+	void load(std::ifstream &file);
+	bool imput(const tElemenTray &elem);
+	int search(const std::string &idMail)const;
+	bool terminate(const std::string &idMail);
+	bool readMail(const std::string &idMail);
+};
+#endif

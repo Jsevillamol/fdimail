@@ -18,5 +18,52 @@
     <ClCompile Include="fdimail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MailList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrayList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MailList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tElemTray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
