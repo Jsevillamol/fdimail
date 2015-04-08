@@ -12,22 +12,22 @@ User::~User()
 
 }
 
-void save(std::ofstream &file)
+void User::save(std::ofstream &file)const
 {
 
 }
 
-bool load(std::ifstream &file)
+bool User::load(std::ifstream &file)
 {
 
 }
 
-bool validPassword(const std::string &password)
+bool User::validPassword(const std::string &password)const
 {
 
 }
 
-void changeTray()
+void User::changeTray()
 {
 
 }

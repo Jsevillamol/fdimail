@@ -12,32 +12,32 @@ TrayList::~TrayList()
 
 }
 
-void save(std::ofstream &file)
+void TrayList::save(std::ofstream &file)const
 {
 
 }
 
-void load(std::ifstream &file)
+void TrayList::load(std::ifstream &file)
 {
 
 }
 
-bool imput(const tElemenTray &elem)
+bool TrayList::imput(const tElemenTray &elem)
 {
 
 }
 
-int search(const std::string &idMail)
+int TrayList::search(const std::string &idMail)const
 {
 
 }
 
-bool terminate(const std::string &idMail)
+bool TrayList::terminate(const std::string &idMail)
 {
 
 }
 
-bool readMail(const std::string &idMail)
+bool TrayList::readMail(const std::string &idMail)
 {
 
 }

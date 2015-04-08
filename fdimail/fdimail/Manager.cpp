@@ -12,31 +12,31 @@ Manager::~Manager()
 
 }
 
-bool bootUp(const std::string &domain)
+bool Manager::bootUp(const std::string &domain)
 {
 
 }
 
-void shutDown()
+void Manager::shutDown()
 {
 
 }
-User* registerUser()
-{
-
-}
-
-User* creatAccount()
+User* Manager::registerUser()
 {
 
 }
 
-void sendMail(User &user, const std::string idMail)
+User* Manager::creatAccount()
 {
 
 }
 
-void terminateMail(User &user, const std::string &idMail)
+void Manager::sendMail(User &user, const std::string idMail)
+{
+
+}
+
+void Manager::terminateMail(User &user, const std::string &idMail)
 {
 
 }

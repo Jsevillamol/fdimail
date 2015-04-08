@@ -12,26 +12,26 @@ Session::~Session()
 
 }
 
-bool logIn(Manager* manager, User* user)
+bool Session::logIn(Manager* manager, User* user)
 {
 
 }
 
-void readMail()
+void Session::readMail()
 {
 
 }
 
-void sendMail()
+void Session::sendMail()
 {
 
 }
 
-void terminateMail()
+void Session::terminateMail()
 {
 
 }
-void fastRead()
+void Session::fastRead()
 {
 
 }

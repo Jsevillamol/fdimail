@@ -12,22 +12,22 @@ UserList::~UserList()
 
 }
 
-bool load(const std::string &name)
+bool UserList::load(const std::string &name)
 {
 
 }
 
-void save(const std::string &name)
+void UserList::save(const std::string &name)
 {
 
 }
 
-bool imput(const User &user)
+bool UserList::imput(const User &user)
 {
 
 }
 
-bool search(const std::string &idUser, int &place)
+bool UserList::search(const std::string &idUser, int &place)
 {
 
 }

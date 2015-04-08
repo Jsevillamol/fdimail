@@ -12,32 +12,32 @@ Mail::~Mail()
 
 }
 
-void newMail(const std::string &issuing)
+void Mail::newMail(const std::string &issuing)
 {
 
 }
 
-void answerMal(Mail &mail, const std::string issuing)
+void Mail::answerMal(Mail &mail, const std::string issuing)const
 {
 
 }
 
-void save(std::ofstream file)
+void Mail::save(std::ofstream file)const
 {
 
 }
 
-bool load(std::ifstream file)
+bool Mail::load(std::ifstream file)
 {
 
 }
 
-std::string to_string()
+std::string Mail::to_string()const
 {
 
 }
 
-std::string header()
+std::string Mail::header()const
 {
 	
 }

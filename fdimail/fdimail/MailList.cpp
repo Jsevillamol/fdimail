@@ -12,27 +12,27 @@ MailList::~MailList()
 
 }
 
-void save(const std::string name)
+void MailList::save(const std::string name)const
 {
 
 }
 
-bool load(const std::string name)
+bool MailList::load(const std::string name)
 {
 
 }
 
-bool imput(const Mail &mail)
+bool MailList::imput(const Mail &mail)
 {
 
 }
 
-bool search(const std::string &idMail, int &pos)
+bool MailList::search(const std::string &idMail, int &pos)const
 {
 
 }
 
-bool terminate(const std::string &idMail)
+bool MailList::terminate(const std::string &idMail)
 {
 
 }
