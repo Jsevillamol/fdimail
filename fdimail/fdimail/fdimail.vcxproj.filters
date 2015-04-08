@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Lists">
+      <UniqueIdentifier>{9c935cb3-4369-417f-b08d-2b40f542fb0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Auxiliar">
+      <UniqueIdentifier>{5bfbc9a8-e42f-440b-bac1-6d22833cb206}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fdimail.cpp">
@@ -47,26 +53,32 @@
     <ClInclude Include="Mail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MailList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TrayList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TrayList.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="UserList.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="MailList.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
     <ClInclude Include="tElemTray.h">
-      <Filter>Header Files</Filter>
+      <Filter>Auxiliar</Filter>
     </ClInclude>
     <ClInclude Include="Date.h">
-      <Filter>Header Files</Filter>
+      <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConstants.h">
+      <Filter>Auxiliar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,11 +2,13 @@
 #define TRAILIST
 #include <fstream>
 #include "tElemTray.h"
+#include "GlobalConstants.h"
 
 class TrayList
 {
 private:
 	int counter;
+	tElemenTray** list;
 public:
 	TrayList();
 	~TrayList();
@@ -16,7 +18,7 @@ public:
 	inline int lenght()const{ return this->counter; }
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
-	bool imput(const tElemenTray &elem);
+	bool insert(const tElemenTray &elem);
 	int search(const std::string &idMail)const;
 	bool terminate(const std::string &idMail);
 	bool readMail(const std::string &idMail);

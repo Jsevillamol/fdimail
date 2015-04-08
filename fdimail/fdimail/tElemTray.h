@@ -7,5 +7,6 @@ struct tElemenTray
 {
 	std::string idMail;
 	bool read;
-}tElemTray;
+};
+
 #endif

@@ -2,20 +2,23 @@
 #define MANAGER
 
 #include <string>
-#include "User.h"
+#include "MailList.h"
+#include "UserList.h"
 
 class Manager
 {
 private:
 	std::string domain;
+	MailList mailList;
+	UserList userList;
 public:
-	Manager();
+	Manager(const std::string &new_domain);
 	~Manager();
 
-	bool bootUp(const std::string &domain);
+	bool bootUp();
 	void shutDown();
 	User* registerUser();
-	User* creatAccount();
+	User* createAccount();
 	void sendMail(User &user, const std::string idMail);
 	void terminateMail(User &user, const std::string &idMail);
 };

@@ -3,11 +3,17 @@
 
 #include <string>
 #include <fstream>
+#include "TrayList.h"
 
 class User
 {
 private:
 	std::string name, password;
+
+	TrayList receivedMails;
+	TrayList sentMails;
+
+	bool active_list; //0 for received, 1 for sent
 public:
 	User();
 	~User();

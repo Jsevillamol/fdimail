@@ -9,6 +9,7 @@ class Mail
 {
 private:
 	std::string id;
+	int user_count; //number of users with access to mail
 	Date date;
 
 	std::string from;
@@ -18,13 +19,14 @@ private:
 	std::string body;
 
 public:
-	Mail();
+	Mail(const std::string &issuing); //newMail
+	Mail(const Mail &originalMail, const std::string &issuing); //answerMail
 	~Mail();
 
-	void newMail(const std::string &issuing);
-	void answerMal(Mail &mail, const std::string issuing)const;
-	void save(std::ofstream file)const;
-	bool load(std::ifstream file);
+	void save(std::ofstream &file)const;
+	bool load(std::ifstream &file);
+
+	int lowerCounter(){ return --user_count; }
 	std::string to_string()const;
 	std::string header()const;
 };

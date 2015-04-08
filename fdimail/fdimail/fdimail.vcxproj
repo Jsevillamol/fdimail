@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
+    <ClInclude Include="GlobalConstants.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="tElemTray.h" />
     <ClInclude Include="MailList.h" />
     <ClInclude Include="Mail.h" />

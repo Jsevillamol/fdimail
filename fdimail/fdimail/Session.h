@@ -6,6 +6,9 @@
 
 class Session
 {
+private:
+	Manager* manager;
+	User* user;
 public:
 	Session();
 	~Session();
