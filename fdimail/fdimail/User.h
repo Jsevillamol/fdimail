@@ -8,7 +8,7 @@
 class User
 {
 private:
-	std::string name, password;
+	std::string id, password;
 
 	TrayList receivedMails;
 	TrayList sentMails;

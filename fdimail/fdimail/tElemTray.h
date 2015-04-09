@@ -3,7 +3,7 @@
 
 #include <string>
 
-struct tElemenTray
+struct tElemTray
 {
 	std::string idMail;
 	bool read;
