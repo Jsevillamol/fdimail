@@ -14,7 +14,6 @@ public:
 	MailList(); //init
 	~MailList();
 
-	inline void init(){ this->counter = 0; }
 	inline bool full()const { return this->counter == MAX_MAILS; }
 	inline int lenght()const { return this->counter; }
 

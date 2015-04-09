@@ -12,7 +12,6 @@ public:
 	UserList();
 	~UserList();
 
-	inline void initialize(){ this->counter = 0; }
 	inline bool full()const{ return this->counter == MAX_USERS; }
 	inline int lenght()const{ return this->counter; }
 	bool load(const std::string &name);

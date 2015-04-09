@@ -13,7 +13,6 @@ public:
 	TrayList();
 	~TrayList();
 
-	inline void initialize(){ this->counter = 0; }
 	inline bool full()const{ return this->counter == MAX_ELEMS; }
 	inline int lenght()const{ return this->counter; }
 
