@@ -10,10 +10,9 @@ private:
 	Manager* manager;
 	User* user;
 public:
-	Session();
+	Session(Manager* new_manager, User* new_user); //logIn
 	~Session();
 
-	bool logIn(Manager* manager, User* user);
 	void readMail();
 	void sendMail();
 	void terminateMail();

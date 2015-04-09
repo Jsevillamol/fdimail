@@ -15,12 +15,11 @@ private:
 
 	bool active_list; //0 for received, 1 for sent
 public:
-	User();
-	~User();
+	User(const std::string &idUser, const std::string &password);
 
-	void initialize(const std::string &idUser, const std::string &password);
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
+
 	bool validPassword(const std::string &password)const;
 	void changeTray();
 };

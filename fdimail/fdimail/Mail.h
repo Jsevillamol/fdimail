@@ -1,6 +1,7 @@
 #ifndef MAIL
 #define MAIL
 
+
 #include <string>
 #include <fstream>
 #include "Date.h"
@@ -19,9 +20,9 @@ private:
 	std::string body;
 
 public:
-	Mail(const std::string &issuing); //newMail
-	Mail(const Mail &originalMail, const std::string &issuing); //answerMail
-	~Mail();
+
+	Mail newMail(const std::string &issuing);
+	Mail answerMail(const Mail &originalMail, const std::string &issuing);
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);

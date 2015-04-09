@@ -16,10 +16,13 @@ public:
 	inline void initialize(){ this->counter = 0; }
 	inline bool full()const{ return this->counter == MAX_ELEMS; }
 	inline int lenght()const{ return this->counter; }
+
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
+
 	bool insert(const tElemenTray &elem);
 	int search(const std::string &idMail)const;
+
 	bool terminate(const std::string &idMail);
 	bool readMail(const std::string &idMail);
 };

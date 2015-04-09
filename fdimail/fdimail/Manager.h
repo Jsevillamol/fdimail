@@ -17,8 +17,10 @@ public:
 
 	bool bootUp();
 	void shutDown();
+
 	User* registerUser();
 	User* createAccount();
+
 	void sendMail(User &user, const std::string idMail);
 	void terminateMail(User &user, const std::string &idMail);
 };

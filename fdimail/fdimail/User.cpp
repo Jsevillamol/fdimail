@@ -1,13 +1,7 @@
 #include "User.h"
 
 
-User::User()
-{
-
-}
-
-
-User::~User()
+User::User(const std::string &idUser, const std::string &password)
 {
 
 }

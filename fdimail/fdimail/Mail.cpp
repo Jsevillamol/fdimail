@@ -1,19 +1,13 @@
 #include "Mail.h"
 
-
-Mail::Mail(const std::string &issuing)
+Mail Mail::newMail(const std::string &issuing)
 {
-
+	return (*this);
 }
 
-Mail::Mail(const Mail &originalMail, const std::string &issuing)
+Mail Mail::answerMail(const Mail &originalMail, const std::string &issuing)
 {
-
-}
-
-Mail::~Mail()
-{
-
+	return(*this);
 }
 
 void Mail::save(std::ofstream &file) const

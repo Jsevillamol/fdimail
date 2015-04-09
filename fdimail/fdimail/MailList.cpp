@@ -1,10 +1,10 @@
 #include "MailList.h"
 
 
-//MailList::MailList()
-//{
-//
-//}
+MailList::MailList()
+{
+
+}
 
 
 MailList::~MailList()

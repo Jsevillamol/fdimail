@@ -1,6 +1,6 @@
 #ifndef LIST
 #define LIST
-
+//Probably wont be used, but may be useful to have around
 template <T, MAX>
 class List
 {
