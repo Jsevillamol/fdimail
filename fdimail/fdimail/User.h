@@ -20,7 +20,8 @@ public:
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
 
-	bool validPassword(const std::string &password)const;
-	void changeTray();
+	bool checkPassword(const std::string &possible_password)const 
+		{ return password == possible_password; }
+	void changeTray() { active_list = !active_list; }
 };
 #endif
