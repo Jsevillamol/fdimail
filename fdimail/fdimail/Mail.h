@@ -21,8 +21,10 @@ private:
 
 public:
 
+	std::string getid(){ return id; }
+
 	Mail newMail(const std::string &issuing);
-	Mail answerMail(const Mail &originalMail, const std::string &issuing);
+	Mail answerMail(const Mail &originalMail);
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
