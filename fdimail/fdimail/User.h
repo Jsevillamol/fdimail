@@ -10,10 +10,10 @@ class User
 private:
 	std::string id, password;
 
-	TrayList receivedMails;
-	TrayList sentMails;
+	TrayList inbox;
+	TrayList outbox;
 
-	bool active_list; //0 for received, 1 for sent
+	bool active_list; //0 for inbox, 1 for outbox
 public:
 	User(const std::string &idUser, const std::string &password);
 

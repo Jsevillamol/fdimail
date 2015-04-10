@@ -21,7 +21,8 @@ private:
 
 public:
 
-	std::string getid(){ return id; }
+	std::string getId() const { return id; }
+	int getCounter() const { return user_count; }
 
 	Mail newMail(const std::string &issuing);
 	Mail answerMail(const Mail &originalMail);

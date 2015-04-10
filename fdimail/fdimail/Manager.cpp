@@ -43,12 +43,17 @@ User* Manager::createAccount()
 	return n; //Placeholder
 }
 
-void Manager::sendMail(User &user, const std::string idMail)
+void Manager::sendMail(User &user, Mail* mail)
 {
+	//Add to database
+	mailList.insert(mail);
+
+	//Add to sender's inbox
+	user.inbox.insert(new tElemTray(mail->getId()));
 
 }
 
-void Manager::terminateMail(User &user, const std::string &idMail)
+void Manager::deleteMail(User &user, const std::string &idMail)
 {
-
+	mailList.delete_mail(idMail);
 }

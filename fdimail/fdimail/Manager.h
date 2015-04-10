@@ -21,7 +21,7 @@ public:
 	User* registerUser();
 	User* createAccount();
 
-	void sendMail(User &user, const std::string idMail);
-	void terminateMail(User &user, const std::string &idMail);
+	void sendMail(User &user, Mail* mail);
+	void deleteMail(User &user, const std::string &idMail);
 };
 #endif
