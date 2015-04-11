@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="fdimail.cpp" />
+    <ClCompile Include="GraphInter.cpp" />
     <ClCompile Include="Mail.cpp" />
     <ClCompile Include="MailList.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -77,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="Date.h" />
     <ClInclude Include="GlobalConstants.h" />
+    <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="tElemTray.h" />
     <ClInclude Include="MailList.h" />

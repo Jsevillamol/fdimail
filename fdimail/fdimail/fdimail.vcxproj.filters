@@ -48,6 +48,9 @@
     <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphInter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="GlobalConstants.h">
       <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphInter.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
