@@ -55,7 +55,7 @@ Mail Mail::answerMail(const Mail &originalMail)
 	std::cin >> WhatToSay;
 
 	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail.to_string;//ultimo mail;
+		<< originalMail.to_string();//ultimo mail;
 
 	this->body = BODY.str();
 

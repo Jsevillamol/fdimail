@@ -20,6 +20,8 @@ private:
 public:
 	User(const std::string &idUser, const std::string &password);
 
+	std::string getId() const { return id; }
+
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
 

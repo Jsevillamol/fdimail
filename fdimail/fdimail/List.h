@@ -56,12 +56,13 @@ bool List<T, MAX>::insert(T* const elem)
 	{
 		//Look for corresponding position
 		int pos;
-		search(elem.getId(), pos)
+		search(elem->getId(), pos);
 		//Make space for newcomer
 		shiftRight(pos);
 		//Insert the elem
 		list[pos] = elem;
 		counter++;
+		return true;
 	}
 	else return false;
 }
@@ -72,7 +73,7 @@ void List<T, MAX>::shiftRight(const int pos)
 	assert(counter < MAX);
 	for (int i = counter; i > pos; i--)
 	{
-		List[i] = List[i - 1];
+		list[i] = list[i - 1];
 	}
 }
 
@@ -83,9 +84,9 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 	while (left_key < right_key)
 	{
 		pos = (left_key + right_key) / 2;
-		if (list[pos].getId() == id)
+		if (list[pos]->getId() == id)
 			return true;
-		else if (list[pos].getId() < id)
+		else if (list[pos]->getId() < id)
 			left_key = pos + 1;
 		else
 			right_key = pos - 1;
@@ -94,10 +95,10 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 }
 
 template<class T, int MAX>
-T* List::get(const std::string &id)
+T* List<T, MAX>::get(const std::string &id)
 {
 	int pos;
-	if (search(id, pos)) return List[pos];
+	if (search(id, pos)) return list[pos];
 	else return nullptr;
 }
 
@@ -118,10 +119,10 @@ bool List<T, MAX>::destroy(const std::string &id)
 template<class T, int MAX>
 void List<T, MAX>::shiftLeft(const int pos)
 {
-	assert(0<=pos<counter)
+	assert(0 <= pos && pos < counter);
 	for (int i = pos; i < counter - 1; i++)
 	{
-		List[i] = List[i+1];
+		list[i] = list[i+1];
 	}
 }
 
