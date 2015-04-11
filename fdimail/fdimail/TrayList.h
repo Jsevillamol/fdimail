@@ -11,7 +11,7 @@ public:
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
 
-	virtual bool insert(tElemTray * const elem);
+	bool insert(tElemTray * const elem);
 
 	bool readMail(const std::string &idMail);
 };

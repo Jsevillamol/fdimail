@@ -21,7 +21,7 @@ public:
 	inline bool full() const  { return this->counter == MAX; }
 	inline int lenght() const { return this->counter; }
 
-	virtual bool insert(T* const elem);
+	bool insert(T* const elem);
 	bool search(const std::string &id, int &pos) const;
 	T* get(const std::string &id);
 	bool destroy(const std::string &id);

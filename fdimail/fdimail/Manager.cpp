@@ -76,6 +76,7 @@ void Manager::sendMail(User &user, Mail* mail)
 
 	//Add to sender's outbox
 	user.outbox.insert(new tElemTray(mail->getId()));
+	user.outbox.get(mail->getId())->read = true;
 
 	//Add to receiver's inbox
 	userList.get(mail->getReceiver())->inbox.insert(new tElemTray(mail->getId()));
