@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="fdimail.cpp" />
     <ClCompile Include="Mail.cpp" />
     <ClCompile Include="MailList.cpp" />
