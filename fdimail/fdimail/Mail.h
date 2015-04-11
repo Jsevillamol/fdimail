@@ -23,6 +23,7 @@ public:
 
 	std::string getId() const { return id; }
 	int getCounter() const { return user_count; }
+	std::string getReceiver() const { return to; }
 
 	Mail newMail(const std::string &issuing);
 	Mail answerMail(const Mail &originalMail);

@@ -23,7 +23,7 @@ public:
 
 	virtual bool insert(T* const elem);
 	bool search(const std::string &id, int &pos) const;
-
+	T* get(const std::string &id);
 	bool destroy(const std::string &id);
 };
 
@@ -91,6 +91,14 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 			right_key = pos - 1;
 	}
 	return false;
+}
+
+template<class T, int MAX>
+T* List::get(const std::string &id)
+{
+	int pos;
+	if (search(id, pos)) return List[pos];
+	else return nullptr;
 }
 
 template<class T, int MAX>

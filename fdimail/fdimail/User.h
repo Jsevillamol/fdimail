@@ -14,6 +14,9 @@ private:
 	TrayList outbox;
 
 	bool active_list; //0 for inbox, 1 for outbox
+
+	friend class Manager;
+
 public:
 	User(const std::string &idUser, const std::string &password);
 
