@@ -15,7 +15,7 @@ public:
 
 	void readMail();
 	void sendMail();
-	void terminateMail();
+	void deleteMail();
 	void fastRead();
 };
 #endif

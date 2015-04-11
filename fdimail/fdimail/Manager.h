@@ -11,6 +11,8 @@ private:
 	std::string domain;
 	MailList mailList;
 	UserList userList;
+
+	friend class Session;
 public:
 	Manager(const std::string &new_domain);
 	~Manager();
@@ -21,7 +23,7 @@ public:
 	User* registerUser();
 	User* createAccount();
 
-	void sendMail(User &user, Mail* mail);
-	void deleteMail(User &user, const std::string &idMail);
+	void sendMail(User* user, Mail* mail);
+	void deleteMail(User* user, const std::string &idMail);
 };
 #endif

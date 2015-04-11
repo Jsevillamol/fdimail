@@ -1,5 +1,5 @@
 #ifndef TRAYLIST
-#define TRAILIST
+#define TRAYLIST
 #include <fstream>
 #include "List.h"
 #include "tElemTray.h"

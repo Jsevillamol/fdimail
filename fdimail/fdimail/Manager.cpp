@@ -69,25 +69,25 @@ User* Manager::createAccount()
 	else return nullptr;
 }
 
-void Manager::sendMail(User &user, Mail* mail)
+void Manager::sendMail(User* user, Mail* mail)
 {
 	//Add to database
 	mailList.insert(mail);
 
 	//Add to sender's outbox
-	user.outbox.insert(new tElemTray(mail->getId()));
-	user.outbox.get(mail->getId())->read = true;
+	user->outbox.insert(new tElemTray(mail->getId()));
+	user->outbox.get(mail->getId())->read = true;
 
 	//Add to receiver's inbox
 	userList.get(mail->getReceiver())->inbox.insert(new tElemTray(mail->getId()));
 
 }
 
-void Manager::deleteMail(User &user, const std::string &idMail)
+void Manager::deleteMail(User* user, const std::string &idMail)
 {
 	//Delete from database
 	mailList.delete_mail(idMail);
 
 	//Delete from user's in/outbox
-	((user.active_list) ? user.outbox : user.inbox).destroy(idMail);
+	user->active_tray()->destroy(idMail);
 }

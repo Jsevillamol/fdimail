@@ -4,7 +4,7 @@
 #include <ctime>
 #include <iomanip>
 
-Mail Mail::newMail(const std::string &issuing)
+Mail* Mail::newMail(const std::string &issuing)
 {
 	std::ostringstream ID;
 
@@ -24,10 +24,11 @@ Mail Mail::newMail(const std::string &issuing)
 
 	std::cout << "Body: ";
 	std::cin >> this->body;
-	return (*this);
+
+	return this;
 }
 
-Mail Mail::answerMail(const Mail &originalMail)
+Mail* Mail::answerMail(const Mail &originalMail)
 {
 	std::ostringstream ID, BODY;
 	std::string WhatToSay;
@@ -59,7 +60,7 @@ Mail Mail::answerMail(const Mail &originalMail)
 
 	this->body = BODY.str();
 
-	return(*this);
+	return this;
 }
 
 void Mail::save(std::ofstream &file) const
