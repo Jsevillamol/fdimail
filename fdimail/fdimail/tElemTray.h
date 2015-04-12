@@ -10,6 +10,11 @@ struct tElemTray
 
 	tElemTray(std::string idMail) : idMail(idMail), read(false) {}
 	std::string getId() const { return idMail; }
+
+	void save(std::ofstream &file)
+	{
+		file << this->idMail << " " << this->read << std::endl;
+	}
 };
 
 #endif

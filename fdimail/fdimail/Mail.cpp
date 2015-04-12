@@ -30,13 +30,15 @@ Mail* Mail::newMail(const std::string &issuing)
 
 Mail* Mail::answerMail(const Mail* originalMail)
 {
-	std::ostringstream ID, BODY;
+	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
+
+	SUBJECT << "Re: " << originalMail->subject;
 
 	this->from = originalMail->to;
 	this->date = time(0);
 	this->to = originalMail->from;
-	this->subject = "Re: " + originalMail->subject;
+	this->subject = SUBJECT.str();
 
 
 	ID << originalMail->to << "_" << this->date;
@@ -65,7 +67,9 @@ Mail* Mail::answerMail(const Mail* originalMail)
 
 void Mail::save(std::ofstream &file) const
 {
-
+	file << this->from << std::endl << this->date << std::endl
+		<< this->to << std::endl << this->subject << std::endl 
+		<< this->body << "X";
 }
 
 bool Mail::load(std::ifstream &file)
@@ -77,9 +81,9 @@ std::string Mail::to_string()const
 {
 	std::ostringstream flow;
 
-	flow << this->from << " " << this->date << " " 
-		<< this->to << " " << this->subject << " " 
-		<< this->body;
+	flow << this->from << std::setw(15) << this->date << std::endl
+		<< this->to << std::endl << this->subject << std::endl
+		<< std::endl << this->body;
 
 	return flow.str();
 }

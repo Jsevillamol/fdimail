@@ -14,6 +14,8 @@ protected:
 	void shiftRight(const int pos);
 	//Eliminates pointer in pos
 	void shiftLeft(const int pos);
+	//Saves the data in the string
+	void save(const std::string &name)
 public:
 	List();
 	~List();
@@ -126,6 +128,23 @@ void List<T, MAX>::shiftLeft(const int pos)
 	{
 		list[i] = list[i+1];
 	}
+}
+
+template<class T, int MAX>
+void List<T, MAX>::save(const std::string &name)
+{
+	std::ofstream file;
+
+	file.open(name);
+
+	for (int i = 0; i < this->lenght(); i++)
+	{
+		this->list[i]->save(file);
+	}
+
+	file << "XXX";
+
+	file.close();
 }
 
 #endif // !LIST

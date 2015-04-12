@@ -9,7 +9,6 @@
 class MailList: public List<Mail, MAX_MAILS>
 {
 public:
-	void save(const std::string &name)const;
 	bool load(const std::string &name);
 
 	bool delete_mail(const std::string &id);

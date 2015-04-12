@@ -9,6 +9,5 @@ class UserList: public List<User, MAX_USERS>
 {
 public:
 	bool load(const std::string &name);
-	void save(const std::string &name) const;
 };
 #endif

@@ -1,8 +1,14 @@
 #include "TrayList.h"
+#include "tElemTray.h"
 
 void TrayList::save(std::ofstream &file)const
 {
+	file << this->counter << std::endl;
 
+	for (int i = 0; i < this->lenght(); i++)
+	{
+		this->list[i]->save(file);
+	}
 }
 
 void TrayList::load(std::ifstream &file)
