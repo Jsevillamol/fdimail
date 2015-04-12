@@ -21,9 +21,11 @@ Session::~Session()
 
 void Session::launch() //to do
 {
-	GraphInter::get()->drawTraylist(user->active_tray());
-	int opt = GraphInter::get()->mainMenu();
-	switch (opt){
+	int opt = 1;
+	do{
+		GraphInter::get()->drawTraylist(user->active_tray());
+		opt = GraphInter::get()->mainMenu();
+		switch (opt){
 		case 1:
 			readMail();
 			break;
@@ -32,7 +34,8 @@ void Session::launch() //to do
 			break;
 		case 3:
 			break;
-	}
+		}
+	} while (opt != 0);
 }
 
 void Session::readMail()
