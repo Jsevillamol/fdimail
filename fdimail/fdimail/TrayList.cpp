@@ -22,5 +22,11 @@ bool TrayList::insert(tElemTray * const elem)
 
 bool TrayList::readMail(const std::string &idMail)
 {
-	return true; //Placeholder
+	tElemTray* elem = get(idMail);
+	if (elem != nullptr)
+	{
+		elem->read = true;
+		return true;
+	}
+	else return false;
 }

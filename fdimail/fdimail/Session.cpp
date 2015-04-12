@@ -1,14 +1,17 @@
 #include "Session.h"
 #include "GraphInter.h"
 
-Session::Session(Manager* manager):
+Session::Session(Manager* manager) :
 manager(manager)
 {
-	int option = GraphInter::get()->mainMenu();
+	int option = GraphInter::get()->logMenu();
 	if (option == 1)
 		user = manager->createAccount();
+
 	else if (option == 2)
 		user = manager->registerUser();
+
+	if (user != nullptr) launch();
 }
 
 Session::~Session()
@@ -16,20 +19,58 @@ Session::~Session()
 
 }
 
+void Session::launch() //to do
+{
+	GraphInter::get()->drawTraylist(user->active_tray());
+	int opt = GraphInter::get()->mainMenu();
+	switch (opt){
+		case 1:
+			readMail();
+			break;
+		case 2:
+			deleteMail();
+			break;
+		case 3:
+			break;
+	}
+}
+
 void Session::readMail()
 {
 	//Select mail to read
-	int pos = 0; //= int(GraphInter::get()->inputBox(std::string("Which mail?")));
-	//Search mail
-	std::string id = (*(user->active_tray()))[pos]->getId();
+	std::string id = GraphInter::get()->selectMail(user->active_tray());
 	//Display mail
-	GraphInter::get()->drawMail(manager->mailList.get(id));
+	Mail* mail = manager->mailList.get(id);
+	GraphInter::get()->drawMail(mail);
 	//Change mail status to read
-	(*(user->active_tray()))[pos]->read = true;
+	user->active_tray()->get(id)->read = true;
 
 	GraphInter::get()->pause();
 
-	if (GraphInter::get()->mailMenu()); //Answer mail
+	if (GraphInter::get()->mailMenu())
+	{
+		Mail* new_mail = new Mail();
+		new_mail->answerMail(mail);
+	}
+}
+
+void Session::fastRead()
+{
+	//for mail not read
+	
+	for (int i = 0; i < user->active_tray()->lenght(); i++)
+	{
+		if (!(*(user->active_tray()))[i]->read)
+		{
+			std::string id = (*(user->active_tray()))[i]->getId();
+			//Display mail
+			GraphInter::get()->drawMail(manager->mailList.get(id));
+			//Change mail status to read
+			user->active_tray()->get(id)->read = true;
+
+			GraphInter::get()->pause();
+		}
+	}
 }
 
 void Session::sendMail()
@@ -40,10 +81,8 @@ void Session::sendMail()
 
 void Session::deleteMail()
 {
-
-}
-
-void Session::fastRead()
-{
-
+	//Select mail
+	std::string id = GraphInter::get()->selectMail(user->active_tray());
+	//Delete
+	manager->deleteMail(user, id);
 }

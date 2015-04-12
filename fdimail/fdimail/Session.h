@@ -13,6 +13,8 @@ public:
 	Session(Manager* manager); //logIn
 	~Session();
 
+	void launch();
+
 	void readMail();
 	void sendMail();
 	void deleteMail();

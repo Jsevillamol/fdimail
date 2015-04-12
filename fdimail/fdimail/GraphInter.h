@@ -20,9 +20,11 @@ public:
 	void drawHeader(const Mail* mail);
 	void showText(std::string &text);
 
+	int logMenu();
 	int mainMenu();
 	bool mailMenu();
 	std::string& inputBox(std::string &message);
+	std::string& selectMail(TrayList* tray);
 
 	void pause();
 

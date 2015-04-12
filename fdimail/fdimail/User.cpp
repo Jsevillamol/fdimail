@@ -3,7 +3,7 @@
 
 User::User(const std::string &idUser, const std::string &password)
 {
-
+	active_list = 0;
 }
 
 void User::save(std::ofstream &file)const

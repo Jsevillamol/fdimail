@@ -26,7 +26,7 @@ public:
 	std::string getReceiver() const { return to; }
 
 	Mail* newMail(const std::string &issuing);
-	Mail* answerMail(const Mail &originalMail);
+	Mail* answerMail(const Mail* originalMail);
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);

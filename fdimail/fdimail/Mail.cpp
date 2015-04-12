@@ -28,26 +28,26 @@ Mail* Mail::newMail(const std::string &issuing)
 	return this;
 }
 
-Mail* Mail::answerMail(const Mail &originalMail)
+Mail* Mail::answerMail(const Mail* originalMail)
 {
 	std::ostringstream ID, BODY;
 	std::string WhatToSay;
 
-	this->from = originalMail.to;
+	this->from = originalMail->to;
 	this->date = time(0);
-	this->to = originalMail.from;
-	this->subject = "Re: " + originalMail.subject;
+	this->to = originalMail->from;
+	this->subject = "Re: " + originalMail->subject;
 
 
-	ID << originalMail.to << "_" << this->date;
+	ID << originalMail->to << "_" << this->date;
 	this->id = ID.str();
 
 
 
-	std::cout << "From: " << originalMail.to << std::endl;
+	std::cout << "From: " << originalMail->to << std::endl;
 
 	std::cout << "To: ";
-	this->to = originalMail.from;
+	this->to = originalMail->from;
 
 	std::cout << "Subject: ";
 	std::cin >> this->subject;
@@ -56,7 +56,7 @@ Mail* Mail::answerMail(const Mail &originalMail)
 	std::cin >> WhatToSay;
 
 	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail.to_string();//ultimo mail;
+		<< originalMail->to_string();//ultimo mail;
 
 	this->body = BODY.str();
 
