@@ -14,8 +14,6 @@ protected:
 	void shiftRight(const int pos);
 	//Eliminates pointer in pos
 	void shiftLeft(const int pos);
-	//Saves the data in the string
-	void save(const std::string &name)
 public:
 	List();
 	~List();
@@ -27,6 +25,7 @@ public:
 	bool search(const std::string &id, int &pos) const;
 	T* get(const std::string &id);
 	bool destroy(const std::string &id);
+	void save(const std::string &name);
 
 	T* operator [](int i) { return list[i]; }
 };
