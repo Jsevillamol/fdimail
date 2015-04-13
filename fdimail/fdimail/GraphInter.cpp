@@ -1,4 +1,5 @@
 #include "GraphInter.h"
+#include <iostream>
 
 GraphInter* GraphInter::inter = nullptr;
 
@@ -72,5 +73,6 @@ std::string& selectMail(TrayList* tray)
 
 void pause()
 {
-
+	std::cin.sync();
+	std::cin.get();
 }
