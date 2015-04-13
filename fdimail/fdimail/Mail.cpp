@@ -1,4 +1,5 @@
 #include "Mail.h"
+#include "Date.h"
 #include <sstream>
 #include <iostream>
 #include <ctime>
@@ -120,7 +121,7 @@ std::string Mail::header()const
 {
 	std::ostringstream lowFlow;
 
-	lowFlow << this->from << std::setw(29) << this->to << std::setw(29) << this->date;
+	lowFlow << this->from << std::setw(29) << this->to << std::setw(29) << showDay(this->date);
 
 	return lowFlow.str();
 }
