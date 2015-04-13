@@ -26,6 +26,7 @@ public:
 	T* get(const std::string &id);
 	bool destroy(const std::string &id);
 	void save(const std::string &name);
+	bool load(const std::string &name);
 
 	T* operator [](int i) { return list[i]; }
 };
@@ -144,5 +145,26 @@ void List<T, MAX>::save(const std::string &name)
 	file << "XXX";
 
 	file.close();
+}
+
+template<class T, int MAX>
+bool List<T, MAX>::load(const std::string &name)
+{
+	std::ifstream file;
+	bool right;
+
+	file.open(name);
+
+	if (file.is_open())
+	{
+		right = true;
+
+		for (int i = 0; (i < this->lenght()) && (right); i++)
+		{
+			if (!this->list[i]->load(file)) right = false;
+		}
+		return right;
+	}
+	else return false;
 }
 #endif // !LIST

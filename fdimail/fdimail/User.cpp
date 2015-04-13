@@ -16,5 +16,22 @@ void User::save(std::ofstream &file)const
 
 bool User::load(std::ifstream &file)
 {
-	return true; //Placeholder
+	bool correct = true;
+
+	file >> this->id;
+
+	if (!file.fail())
+	{
+		file >> this->password;
+
+		if (!file.fail())
+		{
+			this->outbox.load(file);
+			this->inbox.load(file);
+		}
+		else correct = false;
+	}
+	else correct = false;
+
+	return correct;
 }

@@ -74,6 +74,34 @@ void Mail::save(std::ofstream &file) const
 
 bool Mail::load(std::ifstream &file)
 {
+	file >> this->from;
+
+	if (!file.fail())
+	{
+		file >> this->date;
+
+		if (!file.fail())
+		{
+			file >> this->to;
+
+			if (!file.fail())
+			{
+				file >> this->subject;
+
+				if (!file.fail())
+				{
+					file >> this->body;
+
+					if (!file.fail()) return true;
+					else return false;
+				}
+				else return false;
+			}
+			else return false;
+		}
+		else return false;
+	}
+	else return false;
 	return true;//Placeholder
 }
 
