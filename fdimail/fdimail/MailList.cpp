@@ -1,10 +1,5 @@
 #include "MailList.h"
 
-bool MailList::load(const std::string &name)
-{
-	return true; //Placeholder
-}
-
 bool MailList::delete_mail(const std::string &id)
 {
 	int pos;
