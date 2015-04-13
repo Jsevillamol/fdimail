@@ -5,11 +5,13 @@ GraphInter* GraphInter::inter = nullptr;
 
 GraphInter::GraphInter()
 {
+
 }
 
 
 GraphInter::~GraphInter()
 {
+
 }
 
 GraphInter* GraphInter::get()
@@ -57,16 +59,14 @@ bool GraphInter::mailMenu()
 	return false;//Placeholder
 }
 
-std::string& GraphInter::inputBox(std::string &message)
+std::string GraphInter::inputBox(std::string &message)
 {
-	return message;//Placeholder
+	return "";//Placeholder
 }
 
-std::string& GraphInter::selectMail(TrayList* tray)
+std::string GraphInter::selectMail(TrayList* tray)
 {
-	std::string var;
-
-	return var;//Placeholder
+	return "";//Placeholder
 }
 
 void GraphInter::pause()
