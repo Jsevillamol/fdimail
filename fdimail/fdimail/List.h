@@ -152,6 +152,7 @@ bool List<T, MAX>::load(const std::string &name)
 {
 	std::ifstream file;
 	bool right;
+	T* example;
 
 	file.open(name);
 
@@ -159,10 +160,15 @@ bool List<T, MAX>::load(const std::string &name)
 	{
 		right = true;
 
-		for (int i = 0; (i < this->lenght()) && (right); i++)
+		for (int i = 0; (i < MAX) && (right); i++)
 		{
-			if (!this->list[i]->load(file)) right = false;
+			example = new T;
+
+			if (!example->load(file)) right = false;
+
+			list[counter++] = example;
 		}
+
 		return right;
 	}
 	else return false;

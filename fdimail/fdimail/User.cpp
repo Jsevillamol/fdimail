@@ -5,6 +5,8 @@ User::User(const std::string &idUser, const std::string &password)
 	active_list = 0;
 }
 
+User::User(){}
+
 void User::save(std::ofstream &file)const
 {
 	file << this->id << std::endl 

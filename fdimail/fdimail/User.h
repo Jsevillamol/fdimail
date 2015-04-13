@@ -20,6 +20,7 @@ private:
 
 public:
 	User(const std::string &idUser, const std::string &password);
+	User();
 
 	std::string getId() const { return id; }
 	TrayList* active_tray() { return (active_list) ? &outbox : &inbox; }
