@@ -23,8 +23,8 @@ public:
 	int logMenu();
 	int mainMenu();
 	bool mailMenu();
-	std::string& inputBox(std::string &message);
-	std::string& selectMail(TrayList* tray);
+	std::string inputBox(std::string &message);
+	std::string selectMail(TrayList* tray);
 
 	void pause();
 
