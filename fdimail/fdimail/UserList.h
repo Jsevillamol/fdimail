@@ -7,7 +7,6 @@
 
 class UserList: public List<User, MAX_USERS>
 {
-public:
-	bool load(const std::string &name);
+	//Parece que esto sobra
 };
 #endif
