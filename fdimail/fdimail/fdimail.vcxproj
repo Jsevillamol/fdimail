@@ -73,7 +73,6 @@
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="TrayList.cpp" />
     <ClCompile Include="User.cpp" />
-    <ClCompile Include="UserList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />

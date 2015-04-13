@@ -36,9 +36,6 @@
     <ClCompile Include="TrayList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -44,24 +44,22 @@ void showText(std::string &text)
 
 int logMenu()
 {
-	return 0;
+	return 0;//Placeholder
 }
 
 int mainMenu()
 {
-	return 0;
+	return 0;//Placeholder
 }
 
 bool mailMenu()
 {
-	return true;
+	return false;//Placeholder
 }
 
 std::string& inputBox(std::string &message)
 {
-	std::string var;
-
-	return var;//Placeholder
+	return message;//Placeholder
 }
 
 std::string& selectMail(TrayList* tray)
