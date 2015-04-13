@@ -69,7 +69,7 @@ void Mail::save(std::ofstream &file) const
 {
 	file << this->from << std::endl << this->date << std::endl
 		<< this->to << std::endl << this->subject << std::endl 
-		<< this->body << "X";
+		<< this->body << std::endl << "X" << std::endl;
 }
 
 bool Mail::load(std::ifstream &file)
@@ -92,8 +92,7 @@ std::string Mail::header()const
 {
 	std::ostringstream lowFlow;
 
-	lowFlow << this->from << " " 
-		<< this->to << " " << this->date;
+	lowFlow << this->from << " " << this->to << " " << this->date;
 
 	return lowFlow.str();
 }

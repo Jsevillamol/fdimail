@@ -145,5 +145,4 @@ void List<T, MAX>::save(const std::string &name)
 
 	file.close();
 }
-
 #endif // !LIST

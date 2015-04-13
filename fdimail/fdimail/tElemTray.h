@@ -15,6 +15,10 @@ struct tElemTray
 	{
 		file << this->idMail << " " << this->read << std::endl;
 	}
+	void load(std::ifstream &file)
+	{
+		file >> this->idMail >> this->read;
+	}
 };
 
 #endif

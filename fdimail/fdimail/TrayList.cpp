@@ -13,7 +13,12 @@ void TrayList::save(std::ofstream &file)const
 
 void TrayList::load(std::ifstream &file)
 {
+	file >> this->counter;
 
+	for (int i = 0; (i < this->lenght()) && (!file.fail()); i++)
+	{
+		this->list[i]->load(file);
+	}
 }
 
 bool TrayList::insert(tElemTray * const elem)
