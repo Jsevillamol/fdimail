@@ -14,6 +14,8 @@ manager(manager)
 	if (user != nullptr) launch();
 }
 
+Session::Session() {}
+
 Session::~Session()
 {
 
@@ -22,9 +24,10 @@ Session::~Session()
 void Session::launch() //to do
 {
 	int opt = 1;
+	Session* sesion = new Session;
 	do{
 		GraphInter::get()->drawTraylist(user->active_tray());
-		opt = GraphInter::get()->mainMenu();
+		opt = GraphInter::get()->mainMenu(sesion);
 		switch (opt){
 		case 1:
 			readMail();

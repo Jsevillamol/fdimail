@@ -1,7 +1,10 @@
 #ifndef GRAPHINTER
 #define GRAPHINTER
-#include "TrayList.h"
 #include "Mail.h"
+#include "TrayList.h"
+#include "Session.h"
+#include <iomanip>
+#include <iostream>
 
 //Graphical Interface. May be used to implement SFML, as of now prints through the console
 class GraphInter
@@ -21,12 +24,14 @@ public:
 	void showText(std::string &text);
 
 	int logMenu();
-	int mainMenu();
+	int mainMenu(Session* sesion);
 	bool mailMenu();
 	std::string inputBox(std::string &message);
 	std::string selectMail(TrayList* tray);
 
 	void pause();
-
+	int digitBetween(int a, int b);
+	std::string center_word(std::string number, int lenght);
+	void linea();
 };
 #endif //GRAPHINTER
