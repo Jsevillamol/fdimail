@@ -8,7 +8,7 @@
 
 class Mail
 {
-private:
+public:
 	std::string id;
 	int user_count; //number of users with access to mail
 	Date date;
@@ -18,8 +18,6 @@ private:
 
 	std::string subject;
 	std::string body;
-
-public:
 
 	std::string getId() const { return id; }
 	int getCounter() const { return user_count; }

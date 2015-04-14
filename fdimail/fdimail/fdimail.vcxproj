@@ -79,10 +79,10 @@
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Manager.h" />
     <ClInclude Include="tElemTray.h" />
     <ClInclude Include="MailList.h" />
     <ClInclude Include="Mail.h" />
-    <ClInclude Include="Manager.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="TrayList.h" />
     <ClInclude Include="User.h" />
