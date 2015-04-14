@@ -18,17 +18,21 @@ public:
 	static GraphInter* get();
 	static void load();
 
+	//Core functions
+	int mainMenu(); //Options: sign in and sign up
+	void logMenu(std::string &username, std::string &password); //Returns username and password
+	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
+	std::string selectMail(TrayList* tray); //Shows active tray, returns idMail of mail selected
+	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
+	Mail newMail(std::string sender); //Returns a full mail
+	Mail answerMail(Mail &originalMail); //Returns an answer mail
+
+	//Auxiliar funtions. Implement or not
 	void drawMail(const Mail* mail);
 	void drawTraylist(TrayList* list);
 	void drawHeader(const Mail* mail);
 	void showText(std::string &text);
-
-	int logMenu();
-	int mainMenu(Session* sesion);
-	bool mailMenu();
 	std::string inputBox(std::string &message);
-	std::string selectMail(TrayList* tray);
-
 	void pause();
 	int digitBetween(int a, int b);
 	std::string center_word(std::string number, int lenght);
