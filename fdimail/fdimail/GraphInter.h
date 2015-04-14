@@ -24,7 +24,7 @@ public:
 	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
 	std::string selectMail(TrayList* tray); //Shows active tray, returns idMail of mail selected
 	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
-	Mail newMail(std::string sender); //Returns a full mail
+	Mail newMail(std::string &sender); //Returns a full mail
 	Mail answerMail(Mail &originalMail); //Returns an answer mail
 
 	//Auxiliar funtions. Implement or not
@@ -33,13 +33,8 @@ public:
 	void drawHeader(const Mail* mail);
 	void showText(std::string &text);
 
-	User regist(User* user);
 	std::string valid_user();
 	std::string valid_password();
-
-	int logMenu();
-	int mainMenu(Session* sesion);
-	bool mailMenu();
 	std::string inputBox(std::string &message);
 	void pause();
 	int digitBetween(int a, int b);
