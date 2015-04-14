@@ -24,9 +24,50 @@ void GraphInter::load()
 	if (inter = nullptr) inter = new GraphInter;
 }
 
-void GraphInter::drawMail(const Mail* mail)
+int GraphInter::drawMail(const Mail* mail, Session* sesion)
 {
+	std::cout << mail->to_string();
 
+	linea();
+
+	if (sesion->getUser()->getTray() == 0)
+	{
+		std::cout << "1- Answer" << std::endl
+			<< "0- Exit to inbox" << std::endl;
+
+		return digitBetween(0, 1);
+	}
+	else
+	{
+		std::cout << "0- Exit to outbox" << std::endl;
+
+		return digitBetween(0, 0);
+	}
+	
+}
+
+User GraphInter::regist(User* user)
+{
+	int option = logMenu();
+	User* newUser = new User;
+
+	std::string id, password;
+
+	do
+	{
+		if (option == 1)
+		{
+			newUser->setId(valid_user());
+
+			newUser->setPassword(valid_password());
+
+			return *newUser;
+		}
+		else if (option == 2)
+		{
+
+		}
+	} while (option != 0);
 }
 
 void GraphInter::drawTraylist(TrayList* list)
@@ -87,7 +128,7 @@ int GraphInter::mainMenu(Session* sesion)
 		<< std::setw(3) << "2- Send mail" << std::endl
 		<< std::setw(3) << "3- Delete mail" << std::endl;
 
-	if (sesion->getUser()->active_tray() == 0)
+	if (sesion->getUser()->getTray() == 0)
 	{
 		std::cout << std::setw(3) << "4- See outbox" << std::endl;
 	}
@@ -180,4 +221,68 @@ void GraphInter::linea()
 	std::cout << std::setfill('-')
 		<< std::setw(79) << '-'
 		<< std::endl << std::setfill(' ');
+}
+
+std::string GraphInter::valid_user()
+{
+	std::string id;
+
+	std::cout << "Choose your id: " << std::endl;
+
+	std::cin >> id;
+
+	for (int i = 0; i < id.size(); i++)
+	{
+		if (id[i] == ' ')
+		{
+			std::cout << "Error, your id cannot contain a space" << std::endl;
+
+			std::cin >> id;
+		}
+	}
+
+	while (id.size() > 15)
+	{
+		std::cout << "Error, your id cannot be longer than 15 characters " << std::endl;
+
+		std::cin >> id;
+	}
+
+	id = id + "@fdimail.com";
+
+	return id;
+}
+
+std::string check_user()
+{
+	std::string id;
+
+	std::cout << "Enter your id:" << std::endl;
+
+	std::cin >> id;
+
+
+}
+
+std::string GraphInter::valid_password()
+{
+	std::string password, second_password;
+
+	std::cout << "Choose your password:" << std::endl;
+
+	std::cin >> password;
+
+	std::cout << "Confirm your password:" << std::endl;
+
+	std::cin >> second_password;
+
+	while (second_password != password)
+	{
+		std::cout << "Error, you must repeat your first password" << std::endl
+			<< "Confirm your password:" << std::endl;
+
+		std::cin >> second_password;
+	}
+
+	return password;
 }

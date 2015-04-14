@@ -18,10 +18,14 @@ public:
 	static GraphInter* get();
 	static void load();
 
-	void drawMail(const Mail* mail);
+	int drawMail(const Mail* mail, Session* sesion);
 	void drawTraylist(TrayList* list);
 	void drawHeader(const Mail* mail);
 	void showText(std::string &text);
+
+	User regist(User* user);
+	std::string valid_user();
+	std::string valid_password();
 
 	int logMenu();
 	int mainMenu(Session* sesion);
