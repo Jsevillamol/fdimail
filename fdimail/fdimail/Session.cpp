@@ -1,36 +1,37 @@
 #include "Session.h"
 #include "GraphInter.h"
 
-Session::Session(Manager* manager, Session* sesion) :
+Session::Session(Manager* manager) :
 manager(manager)
 {
-	int option = GraphInter::get()->logMenu();
-	if (option == 1)
-		user = manager->createAccount();
+	int option;
+	do{
+		option = GraphInter::get()->mainMenu();
+		if (option == 1)
+			user = manager->createAccount();
 
-	else if (option == 2)
-		user = manager->registerUser();
+		else if (option == 2)
+			user = manager->registerUser();
 
-	if (user != nullptr) launch(sesion);
+		if (option != 0) launch();
+	} while (option != 0);
 }
-
-Session::Session() {}
 
 Session::~Session()
 {
 
 }
 
-void Session::launch(Session* sesion) //to do
+void Session::launch() //to do
 {
 	int opt = 1;
 
 	do{
 		GraphInter::get()->drawTraylist(user->active_tray());
-		opt = GraphInter::get()->mainMenu(sesion);
+		opt = GraphInter::get()->sessionMenu(this);
 		switch (opt){
 		case 1:
-			readMail(sesion);
+			readMail();
 			break;
 		case 2:
 			deleteMail();
@@ -41,13 +42,13 @@ void Session::launch(Session* sesion) //to do
 	} while (opt != 0);
 }
 
-void Session::readMail(Session* sesion)
+void Session::readMail()
 {
 	//Select mail to read
 	std::string id = GraphInter::get()->selectMail(user->active_tray());
 	//Display mail
 	Mail* mail = manager->mailList.get(id);
-	GraphInter::get()->drawMail(mail, sesion);
+	GraphInter::get()->drawMail(mail);
 	//Change mail status to read
 	user->active_tray()->get(id)->read = true;
 
@@ -60,7 +61,7 @@ void Session::readMail(Session* sesion)
 	}
 }
 
-void Session::fastRead(Session* sesion)
+void Session::fastRead()
 {
 	//for mail not read
 	
@@ -70,7 +71,7 @@ void Session::fastRead(Session* sesion)
 		{
 			std::string id = (*(user->active_tray()))[i]->getId();
 			//Display mail
-			GraphInter::get()->drawMail(manager->mailList.get(id), sesion);
+			GraphInter::get()->drawMail(manager->mailList.get(id));
 			//Change mail status to read
 			user->active_tray()->get(id)->read = true;
 

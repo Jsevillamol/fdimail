@@ -12,19 +12,18 @@ private:
 	User* user;
 	Mail* mail;
 public:
-	Session(Manager* manager, Session* sesion); //logIn
-	Session::Session();
+	Session(Manager* manager); //logIn
 	~Session();
 
-	void launch(Session* sesion);
+	void launch();
 
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }
 	Mail* getMail(){ return mail; }
 
-	void readMail(Session* sesion);
+	void readMail();
 	void sendMail();
 	void deleteMail();
-	void fastRead(Session* sesion);
+	void fastRead();
 };
 #endif
