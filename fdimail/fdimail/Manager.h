@@ -4,6 +4,7 @@
 #include <string>
 #include "MailList.h"
 #include "UserList.h"
+#include "User.h"
 
 class Manager
 {

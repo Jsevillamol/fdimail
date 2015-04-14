@@ -32,6 +32,14 @@ public:
 	void drawTraylist(TrayList* list);
 	void drawHeader(const Mail* mail);
 	void showText(std::string &text);
+
+	User regist(User* user);
+	std::string valid_user();
+	std::string valid_password();
+
+	int logMenu();
+	int mainMenu(Session* sesion);
+	bool mailMenu();
 	std::string inputBox(std::string &message);
 	void pause();
 	int digitBetween(int a, int b);
