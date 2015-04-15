@@ -62,20 +62,26 @@ int GraphInter::mainMenu()
 		<< std::setw(3) << "0- Exit" << std::endl;
 
 	return digitBetween(0, 2);
+
+
 }
 
-void GraphInter::logMenu(std::string &username, std::string &password)
+int GraphInter::logMenu(std::string &username, std::string &password)
 {
 	int option;
 
-	do
-	{
-		option = mainMenu();
+	option = mainMenu();
 
+	if (option != 0)
+	{
 		username = valid_user();
 
-		password = valid_password();
-	}while (option != 0);
+		std::cout << "Enter password:" << std::endl;
+
+		std::cin >> password;
+	}
+	
+	return option;
 }
 
 int GraphInter::sessionMenu(Session* sesion)
@@ -309,3 +315,27 @@ void GraphInter::drawTraylist(TrayList* list)
 		std::cout << std::setw(3) << (i + 1)
 			<< " - " << thisMail << std::endl;*/
 }
+
+std::string GraphInter::check_password(std::string password)
+{
+	std::string newPassword;
+
+	std::cout << "Confirm your password: " << std::endl;
+
+	std::cin >> newPassword;
+
+	while (newPassword != password)
+	{
+		std::cout << "Error, te passwords are not the same" << std::endl
+			<< "Enter your password:" << std::endl;
+
+		std::cin >> password;
+
+		std::cout << "Repeat your password:" << std::endl;
+
+		std::cin >> newPassword;
+	}
+
+	return password;
+}
+

@@ -20,7 +20,7 @@ public:
 
 	//Core functions
 	int mainMenu(); //Options: sign in and sign up
-	void logMenu(std::string &username, std::string &password); //Returns username and password
+	int logMenu(std::string &username, std::string &password); //Returns username and password
 	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
 	std::string selectMail(TrayList* tray); //Shows active tray, returns idMail of mail selected
 	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
@@ -39,6 +39,7 @@ public:
 	void pause();
 	int digitBetween(int a, int b);
 	std::string center_word(std::string number, int lenght);
+	std::string check_password(std::string password);
 	void linea();
 };
 #endif //GRAPHINTER
