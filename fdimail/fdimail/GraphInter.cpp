@@ -24,36 +24,6 @@ void GraphInter::load()
 	if (inter = nullptr) inter = new GraphInter;
 }
 
-/*int GraphInter::drawMail(const Mail* mail, Session* sesion)
-{
-	std::cout << mail->to_string();
-
-	linea();
-
-	if (sesion->getUser()->getTray() == 0)
-	{
-		std::cout << "1- Answer" << std::endl
-			<< "0- Exit to inbox" << std::endl;
-
-		return digitBetween(0, 1);
-	}
-	else
-	{
-		std::cout << "0- Exit to outbox" << std::endl;
-
-		return digitBetween(0, 0);
-	}
-}*/
-
-
-/*int mainMenu(); //Options: sign in and sign up
-void logMenu(std::string &username, std::string &password); //Returns username and password
-int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
-std::string selectMail(TrayList* tray); //Shows active tray, returns idMail of mail selected
-bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
-Mail newMail(std::string &sender); //Returns a full mail
-Mail answerMail(Mail &originalMail);*/
-
 int GraphInter::mainMenu()
 {
 	std::cout << "Choose your desired option: " << std::endl
@@ -62,8 +32,6 @@ int GraphInter::mainMenu()
 		<< std::setw(3) << "0- Exit" << std::endl;
 
 	return digitBetween(0, 2);
-
-
 }
 
 int GraphInter::logMenu(std::string &username, std::string &password)
@@ -86,10 +54,11 @@ int GraphInter::logMenu(std::string &username, std::string &password)
 
 int GraphInter::sessionMenu(Session* sesion)
 {
+	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
+
 	std::string title = center_word("Inbox", 79);
 
-	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl
-		<< title << std::endl << "R N" << std::setw(7)
+	std::cout << title << std::endl << "R N" << std::setw(7)
 		<< "FROM" << std::setw(29) << "SUBJECT" << std::setw(29)
 		<< "DATE" << std::endl << std::endl;
 
@@ -135,6 +104,17 @@ int GraphInter::sessionMenu(Session* sesion)
 	return digitBetween(0, 5);
 }
 
+std::string GraphInter::selectMail(Session* sesion)
+{
+	int number;
+
+	std::cout << "Enter the number of the mail you choose:" << std::endl;
+
+	number = digitBetween(1, sesion->getUser()->active_tray()->lenght());
+
+	return (*(sesion->getUser()->active_tray()))[number-1]->idMail;
+}
+
 bool GraphInter::mailMenu()
 {
 	int option;
@@ -152,22 +132,65 @@ bool GraphInter::mailMenu()
 
 Mail GraphInter::newMail(std::string &sender)
 {
-	MailList list;
+	std::ostringstream ID;
+	Mail mail;
 
-	Mail* newMail;
+	mail.from = sender;
+	mail.date = time(0);
 
-	newMail = list.get(sender);
+	ID << sender << "_" << mail.date;
+	mail.id = ID.str();
 
-	return *newMail;
+	std::cout << "From: " << sender << std::endl;
+
+	std::cout << "To: ";
+	std::cin >> mail.to;
+
+	std::cout << "Subject: ";
+	std::cin >> mail.subject;
+
+	std::cout << "Body: ";
+	std::getline(std::cin, mail.body, '#');
+
+	return mail;
 }
-std::string GraphInter::inputBox(std::string &message)
-{
-	return "";//Placeholder
-}
 
-std::string GraphInter::selectMail(TrayList* tray)
+Mail GraphInter::answerMail(Mail &originalMail)
 {
-	return "";//Placeholder
+	Mail mail;
+	std::ostringstream ID, BODY, SUBJECT;
+	std::string WhatToSay;
+
+	SUBJECT << "Re: " << originalMail.subject;
+
+	mail.from = originalMail.to;
+	mail.date = time(0);
+	mail.to = originalMail.from;
+	mail.subject = SUBJECT.str();
+
+
+	ID << originalMail.to << "_" << mail.date;
+	mail.id = ID.str();
+
+
+
+	std::cout << "From: " << originalMail.to << std::endl;
+
+	std::cout << "To: ";
+	mail.to = originalMail.from;
+
+	std::cout << "Subject: ";
+	std::cin >> mail.subject;
+
+	std::cout << "Body: ";
+	std::cin >> WhatToSay;
+
+	BODY << WhatToSay << std::endl << std::endl
+		<< originalMail.to_string();//ultimo mail;
+
+	mail.body = BODY.str();
+
+	return mail;
 }
 
 void GraphInter::pause()
@@ -288,32 +311,6 @@ std::string GraphInter::valid_password()
 void GraphInter::drawMail(const Mail* mail)
 {
 	std::cout << mail->to_string();
-}
-
-void GraphInter::drawTraylist(TrayList* list)
-{
-	/*std::string title = center_word("Inbox", 79);
-
-	std::cout << "Mail of " << () << std::endl
-		<< title << std::endl << "R N" << std::setw(7)
-		<< "FROM" << std::setw(29) << "SUBJECT" << std::setw(29)
-		<< "DATE" << std::endl << std::endl;
-
-	linea();
-
-	for (int i = 0; i < sesion->getUser()->active_tray()->lenght(); i++)
-	{
-		if ((*(sesion->getUser()->active_tray()))[i]->read)
-		{
-			std::cout << "*";
-		}
-
-		std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
-
-		std::string thisMail = sesion->getManager()->getMailList().get(id)->header();
-
-		std::cout << std::setw(3) << (i + 1)
-			<< " - " << thisMail << std::endl;*/
 }
 
 std::string GraphInter::check_password(std::string password)

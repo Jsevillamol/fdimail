@@ -22,16 +22,13 @@ public:
 	int mainMenu(); //Options: sign in and sign up
 	int logMenu(std::string &username, std::string &password); //Returns username and password
 	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
-	std::string selectMail(TrayList* tray); //Shows active tray, returns idMail of mail selected
+	std::string selectMail(Session* sesion); //Shows active tray, returns idMail of mail selected
 	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
 	Mail newMail(std::string &sender); //Returns a full mail
 	Mail answerMail(Mail &originalMail); //Returns an answer mail
 
 	//Auxiliar funtions. Implement or not
 	void drawMail(const Mail* mail);
-	void drawTraylist(TrayList* list);
-	void drawHeader(const Mail* mail);
-	void showText(std::string &text);
 
 	std::string valid_user();
 	std::string valid_password();
