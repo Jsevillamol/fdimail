@@ -20,7 +20,7 @@ public:
 
 	//Core functions
 	int mainMenu(); //Options: sign in and sign up
-	int logMenu(std::string &username, std::string &password); //Returns username and password
+	void logMenu(std::string &username, std::string &password); //Returns username and password
 	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
 	std::string selectMail(Session* sesion); //Shows active tray, returns idMail of mail selected
 	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)

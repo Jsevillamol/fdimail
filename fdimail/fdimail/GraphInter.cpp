@@ -34,22 +34,13 @@ int GraphInter::mainMenu()
 	return digitBetween(0, 2);
 }
 
-int GraphInter::logMenu(std::string &username, std::string &password)
+void GraphInter::logMenu(std::string &username, std::string &password)
 {
-	int option;
+	username = valid_user();
 
-	option = mainMenu();
+	std::cout << "Enter password:" << std::endl;
 
-	if (option != 0)
-	{
-		username = valid_user();
-
-		std::cout << "Enter password:" << std::endl;
-
-		std::cin >> password;
-	}
-	
-	return option;
+	std::cin >> password;
 }
 
 int GraphInter::sessionMenu(Session* sesion)
@@ -283,29 +274,6 @@ std::string GraphInter::valid_user()
 	id = id + "@fdimail.com";
 
 	return id;
-}
-
-std::string GraphInter::valid_password()
-{
-	std::string password, second_password;
-
-	std::cout << "Choose your password:" << std::endl;
-
-	std::cin >> password;
-
-	std::cout << "Confirm your password:" << std::endl;
-
-	std::cin >> second_password;
-
-	while (second_password != password)
-	{
-		std::cout << "Error, you must repeat your first password" << std::endl
-			<< "Confirm your password:" << std::endl;
-
-		std::cin >> second_password;
-	}
-
-	return password;
 }
 
 void GraphInter::drawMail(const Mail* mail)

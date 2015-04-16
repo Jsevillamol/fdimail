@@ -4,6 +4,7 @@
 #include <string>
 #include "MailList.h"
 #include "UserList.h"
+#include "GraphInter.h"
 #include "User.h"
 
 class Manager
@@ -11,6 +12,7 @@ class Manager
 private:
 	std::string domain;
 	MailList mailList;
+	GraphInter inter;
 	UserList userList;
 
 	friend class Session;

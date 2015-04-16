@@ -28,7 +28,8 @@ void Session::launch() //to do
 
 	do{
 		opt = GraphInter::get()->sessionMenu(this);
-		switch (opt){
+		switch (opt)
+		{
 		case 1:
 			readMail();
 			break;

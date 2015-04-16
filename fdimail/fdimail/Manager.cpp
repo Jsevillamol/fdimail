@@ -1,6 +1,5 @@
 #include "Manager.h"
 #include <sstream>
-#include <iostream>
 
 Manager::Manager(const std::string &new_domain) :
 	domain(new_domain)
@@ -34,12 +33,11 @@ void Manager::shutDown()
 
 User* Manager::registerUser()
 {
-	std::string idUser, password;
-	std::cin >> idUser;
+	std::string idUser, password, last_password;
+	inter.logMenu(idUser, last_password);
 	User* user;
 	if (user = userList.get(idUser))
 	{
-		std::cin >> password;
 		if (user->checkPassword(password))
 			return user;
 		else
@@ -57,11 +55,11 @@ User* Manager::registerUser()
 
 User* Manager::createAccount()
 {
-	std::string idUser, password;
-	std::cin >> idUser;
+	std::string idUser, password, last_password;
+	inter.logMenu(idUser, last_password);
+	password = inter.check_password(last_password);
 	if (!userList.get(idUser))
 	{
-		std::cin >> password;
 		User* user = new User(idUser, password);
 		userList.insert(user);
 		return user;
