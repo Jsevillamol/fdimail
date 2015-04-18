@@ -11,7 +11,7 @@ class GraphInter
 {
 private:
 	static GraphInter* inter;
-	GraphInter(); //to prevent instantation
+	GraphInter();//to prevent instantation
 public:
 	~GraphInter();
 

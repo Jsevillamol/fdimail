@@ -15,7 +15,6 @@ private:
 	GraphInter inter;
 	UserList userList;
 
-	friend class Session;
 public:
 	Manager(const std::string &new_domain);
 	~Manager();

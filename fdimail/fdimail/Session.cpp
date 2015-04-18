@@ -17,6 +17,8 @@ manager(manager)
 	} while (option != 0);
 }
 
+Session::Session() {}
+
 Session::~Session()
 {
 
@@ -47,7 +49,7 @@ void Session::readMail()
 	//Select mail to read
 	std::string id = GraphInter::get()->selectMail(this);
 	//Display mail
-	Mail* mail = manager->mailList.get(id);
+	Mail* mail = manager->getMailList().get(id);
 	GraphInter::get()->drawMail(mail);
 	//Change mail status to read
 	user->active_tray()->get(id)->read = true;
@@ -71,7 +73,7 @@ void Session::fastRead()
 		{
 			std::string id = (*(user->active_tray()))[i]->getId();
 			//Display mail
-			GraphInter::get()->drawMail(manager->mailList.get(id));
+			GraphInter::get()->drawMail(manager->getMailList().get(id));
 			//Change mail status to read
 			user->active_tray()->get(id)->read = true;
 
