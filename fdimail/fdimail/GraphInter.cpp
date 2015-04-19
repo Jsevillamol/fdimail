@@ -262,13 +262,12 @@ std::string GraphInter::valid_user()
 
 			std::cin >> id;
 		}
-	}
+		if (id.size())
+		{
+			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl;
 
-	while (id.size() > 15)
-	{
-		std::cout << "Error, your id cannot be longer than 15 characters " << std::endl;
-
-		std::cin >> id;
+			std::cin >> id;
+		}
 	}
 
 	id = id + "@fdimail.com";
@@ -296,7 +295,7 @@ std::string GraphInter::check_password(std::string password)
 
 		std::cin >> password;
 
-		std::cout << "Repeat your password:" << std::endl;
+		std::cout << "Confirm your password:" << std::endl;
 
 		std::cin >> newPassword;
 	}
