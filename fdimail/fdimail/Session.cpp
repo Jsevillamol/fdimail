@@ -28,6 +28,7 @@ Session::~Session()
 
 void Session::launch() //to do
 {
+	Session* sesion = new Session;
 	int opt = 1;
 
 	do{
@@ -60,8 +61,7 @@ void Session::readMail()
 
 	if (GraphInter::get()->mailMenu())
 	{
-		Mail* new_mail = new Mail();
-		new_mail->answerMail(mail);
+		GraphInter::get()->answerMail(*mail);
 	}
 }
 
@@ -86,8 +86,7 @@ void Session::fastRead()
 
 void Session::sendMail()
 {
-	Mail* mail = new Mail;
-	manager->sendMail(user, mail->newMail(user->getId()));
+	manager->sendMail(user, GraphInter::get()->newMail(user->getId()));
 }
 
 void Session::deleteMail()

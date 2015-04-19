@@ -34,7 +34,9 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 
 	std::cout << "Enter password:" << std::endl;
 
+	std::cin.sync();
 	std::cin >> password;
+	std::cin.clear();
 }
 
 int GraphInter::sessionMenu()
@@ -118,57 +120,57 @@ bool GraphInter::mailMenu()
 	else return false;
 }
 
-Mail GraphInter::newMail(std::string &sender)
+Mail* GraphInter::newMail(std::string &sender)
 {
 	std::ostringstream ID;
-	Mail mail;
+	Mail* mail = new Mail;
 
-	mail.from = sender;
-	mail.date = time(0);
+	mail->from = sender;
+	mail->date = time(0);
 
-	ID << sender << "_" << mail.date;
-	mail.id = ID.str();
+	ID << sender << "_" << mail->date;
+	mail->id = ID.str();
 
 	std::cout << "From: " << sender << std::endl;
 
 	std::cout << "To: ";
-	std::cin >> mail.to;
+	std::cin >> mail->to;
 
 	std::cout << "Subject: ";
-	std::cin >> mail.subject;
+	std::cin >> mail->subject;
 
 	std::cout << "Body: ";
-	std::getline(std::cin, mail.body, '#');
+	std::getline(std::cin, mail->body, '#');
 
 	return mail;
 }
 
-Mail GraphInter::answerMail(Mail &originalMail)
+Mail* GraphInter::answerMail(Mail &originalMail)
 {
-	Mail mail;
+	Mail* mail = new Mail;
 	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
 
 	SUBJECT << "Re: " << originalMail.subject;
 
-	mail.from = originalMail.to;
-	mail.date = time(0);
-	mail.to = originalMail.from;
-	mail.subject = SUBJECT.str();
+	mail->from = originalMail.to;
+	mail->date = time(0);
+	mail->to = originalMail.from;
+	mail->subject = SUBJECT.str();
 
 
-	ID << originalMail.to << "_" << mail.date;
-	mail.id = ID.str();
+	ID << originalMail.to << "_" << mail->date;
+	mail->id = ID.str();
 
 
 
 	std::cout << "From: " << originalMail.to << std::endl;
 
 	std::cout << "To: ";
-	mail.to = originalMail.from;
+	mail->to = originalMail.from;
 
 	std::cout << "Subject: ";
-	std::cin >> mail.subject;
+	std::cin >> mail->subject;
 
 	std::cout << "Body: ";
 	std::cin >> WhatToSay;
@@ -176,7 +178,7 @@ Mail GraphInter::answerMail(Mail &originalMail)
 	BODY << WhatToSay << std::endl << std::endl
 		<< originalMail.to_string();//ultimo mail;
 
-	mail.body = BODY.str();
+	mail->body = BODY.str();
 
 	return mail;
 }
@@ -246,24 +248,33 @@ void GraphInter::linea()
 std::string GraphInter::valid_user()
 {
 	std::string id;
+	int i;
 
 	std::cout << "Choose your id: " << std::endl;
 
+	std::cin.sync();
 	std::cin >> id;
+	std::cin.clear();
 
-	for (int i = 0; i < id.size(); i++)
+	for (i = 0; i < id.size(); i++)
 	{
 		if (id[i] == ' ')
 		{
-			std::cout << "Error, your id cannot contain a space" << std::endl;
+			std::cout << "Error, your id cannot contain a space" << std::endl
+				<< "Choose your id: " << std::endl;
 
+			std::cin.sync();
 			std::cin >> id;
+			std::cin.clear();
 		}
-		if (id.size())
+		if (id.size() > 15)
 		{
-			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl;
+			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
+				<< "Choose your id: " << std::endl;
 
+			std::cin.sync();
 			std::cin >> id;
+			std::cin.clear();
 		}
 	}
 

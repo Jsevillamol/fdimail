@@ -23,9 +23,6 @@ public:
 	int getCounter() const { return user_count; }
 	std::string getReceiver() const { return to; }
 
-	Mail* newMail(const std::string &issuing);
-	Mail* answerMail(const Mail* originalMail);
-
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
 
