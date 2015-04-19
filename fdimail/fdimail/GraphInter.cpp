@@ -4,15 +4,9 @@
 
 GraphInter* GraphInter::inter = nullptr;
 
-GraphInter::GraphInter()
-{
+GraphInter::GraphInter() {}
 
-}
-
-GraphInter::~GraphInter()
-{
-
-}
+GraphInter::~GraphInter() {}
 
 GraphInter* GraphInter::get()
 {
@@ -43,8 +37,10 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	std::cin >> password;
 }
 
-int GraphInter::sessionMenu(Session* sesion)
+int GraphInter::sessionMenu()
 {
+	Session* sesion = new Session;
+
 	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
 
 	std::string title = center_word("Inbox", 79);
@@ -95,9 +91,10 @@ int GraphInter::sessionMenu(Session* sesion)
 	return digitBetween(0, 5);
 }
 
-std::string GraphInter::selectMail(Session* sesion)
+std::string GraphInter::selectMail()
 {
 	int number;
+	Session* sesion = new Session;
 
 	std::cout << "Enter the number of the mail you choose:" << std::endl;
 

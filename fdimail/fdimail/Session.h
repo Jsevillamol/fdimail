@@ -1,6 +1,7 @@
 #ifndef SESSION
 #define SESSION
 
+#include "GraphInter.h"
 #include "Manager.h"
 #include "User.h"
 #include "Mail.h"

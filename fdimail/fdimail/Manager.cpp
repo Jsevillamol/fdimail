@@ -34,7 +34,7 @@ void Manager::shutDown()
 User* Manager::registerUser()
 {
 	std::string idUser, password, last_password;
-	inter.logMenu(idUser, last_password);
+	GraphInter::get()->logMenu(idUser, last_password);
 	User* user;
 	if (user = userList.get(idUser))
 	{
@@ -56,8 +56,8 @@ User* Manager::registerUser()
 User* Manager::createAccount()
 {
 	std::string idUser, password, last_password;
-	inter.logMenu(idUser, last_password);
-	password = inter.check_password(last_password);
+	GraphInter::get()->logMenu(idUser, last_password);
+	password = GraphInter::get()->check_password(last_password);
 	if (!userList.get(idUser))
 	{
 		User* user = new User(idUser, password);

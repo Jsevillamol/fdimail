@@ -12,7 +12,6 @@ class Manager
 private:
 	std::string domain;
 	MailList mailList;
-	GraphInter inter;
 	UserList userList;
 
 public:
