@@ -24,7 +24,7 @@ void Session::launch()
 	int opt = 1;
 
 	do{
-		opt = GraphInter::get()->sessionMenu();
+		opt = GraphInter::get()->sessionMenu(this);
 		switch (opt)
 		{
 		case 1:
@@ -49,7 +49,7 @@ void Session::launch()
 void Session::readMail()
 {
 	//Select mail to read
-	std::string id = GraphInter::get()->selectMail();
+	std::string id = GraphInter::get()->selectMail(this);
 	//Display mail
 	Mail* mail = manager->getMailList().get(id);
 	GraphInter::get()->drawMail(mail);
@@ -91,7 +91,7 @@ void Session::sendMail()
 void Session::deleteMail()
 {
 	//Select mail
-	std::string id = GraphInter::get()->selectMail();
+	std::string id = GraphInter::get()->selectMail(this);
 	//Delete
 	manager->deleteMail(user, id);
 }

@@ -15,7 +15,7 @@ GraphInter* GraphInter::get()
 
 void GraphInter::load()
 {
-	if (inter = nullptr) inter = new GraphInter;
+	if (inter == nullptr) inter = new GraphInter;
 }
 
 int GraphInter::mainMenu()
@@ -39,13 +39,20 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	std::cin.clear();
 }
 
-int GraphInter::sessionMenu()
+int GraphInter::sessionMenu(Session* sesion)
 {
-	Session* sesion = new Session;
+	std::string title;
 
 	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
 
-	std::string title = center_word("Inbox", 79);
+	if (sesion->getUser()->getTray() == 0)
+	{
+		title = center_word("Inbox", 79);
+	}
+	else if (sesion->getUser()->getTray() != 0)
+	{
+		title = center_word("Outbox", 79);
+	}
 
 	std::cout << title << std::endl << "R N" << std::setw(7)
 		<< "FROM" << std::setw(29) << "SUBJECT" << std::setw(29)
@@ -79,9 +86,9 @@ int GraphInter::sessionMenu()
 	{
 		std::cout << std::setw(3) << "4- See outbox" << std::endl;
 	}
-	else
+	else if (sesion->getUser()->getTray() != 0)
 	{
-		std::cout << std::setw(3) << "4- See iutbox" << std::endl;
+		std::cout << std::setw(3) << "4- See inbox" << std::endl;
 	}
 	std::cout << std::setw(3) << "5- fast read of unread mails" << std::endl
 		<< std::setw(3) << "0- Sign out" << std::endl;
@@ -93,10 +100,9 @@ int GraphInter::sessionMenu()
 	return digitBetween(0, 5);
 }
 
-std::string& GraphInter::selectMail()
+std::string GraphInter::selectMail(Session* sesion)
 {
 	int number;
-	Session* sesion = new Session;
 
 	std::cout << "Enter the number of the mail you choose:" << std::endl;
 
@@ -217,7 +223,7 @@ int GraphInter::digitBetween(int a, int b)
 	return digit;
 }
 
-std::string& GraphInter::center_word(std::string word, int lenght)
+std::string GraphInter::center_word(std::string word, int lenght)
 {
 	if (word.size() == lenght) return word;
 
@@ -245,7 +251,7 @@ void GraphInter::linea()
 		<< std::endl << std::setfill(' ');
 }
 
-std::string& GraphInter::valid_user()
+std::string GraphInter::valid_user()
 {
 	std::string id;
 
@@ -287,7 +293,7 @@ void GraphInter::drawMail(const Mail* mail)
 	std::cout << mail->to_string();
 }
 
-std::string& GraphInter::check_password(std::string password)
+std::string GraphInter::check_password(std::string password)
 {
 	std::string newPassword;
 
