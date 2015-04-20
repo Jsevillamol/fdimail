@@ -24,7 +24,7 @@ public:
 	int sessionMenu(); //Shows active tray, returns user options (read mail, delete mail, etc)
 	std::string selectMail(); //Shows active tray, returns idMail of mail selected
 	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
-	Mail* newMail(std::string &sender); //Returns a full mail
+	Mail* newMail(const std::string &sender); //Returns a full mail
 	Mail* answerMail(Mail &originalMail); //Returns an answer mail
 
 	//Auxiliar funtions. Implement or not

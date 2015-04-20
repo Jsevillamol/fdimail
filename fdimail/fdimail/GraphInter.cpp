@@ -120,7 +120,7 @@ bool GraphInter::mailMenu()
 	else return false;
 }
 
-Mail* GraphInter::newMail(std::string &sender)
+Mail* GraphInter::newMail(const std::string &sender)
 {
 	std::ostringstream ID;
 	Mail* mail = new Mail;

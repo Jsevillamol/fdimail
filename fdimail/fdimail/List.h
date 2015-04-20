@@ -85,6 +85,7 @@ template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
 	int left_key = 0, right_key = counter;
+	pos = 0;
 	while (left_key < right_key)
 	{
 		pos = (left_key + right_key) / 2;
@@ -152,7 +153,7 @@ bool List<T, MAX>::load(const std::string &name)
 {
 	std::ifstream file;
 	bool right;
-	T* example;
+	T* elem;
 
 	file.open(name);
 
@@ -162,11 +163,11 @@ bool List<T, MAX>::load(const std::string &name)
 
 		for (int i = 0; (i < MAX) && (right); i++)
 		{
-			example = new T;
+			elem = new T;
 
-			if (!example->load(file)) right = false;
+			if (!elem->load(file)) right = false;
 
-			list[counter++] = example;
+			list[counter++] = elem;
 		}
 
 		return right;
