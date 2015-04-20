@@ -19,7 +19,7 @@ private:
 	friend class Session;
 
 public:
-	User(const std::string &idUser, const std::string &password);
+	User(const std::string idUser, const std::string password);
 	User();
 
 	const std::string& getId() const { return id; }

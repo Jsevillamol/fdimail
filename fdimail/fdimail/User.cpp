@@ -1,6 +1,7 @@
 #include "User.h"
 
-User::User(const std::string &idUser, const std::string &password)
+User::User(const std::string idUser, const std::string password):
+id(idUser), password(password)
 {
 	active_list = 0;
 }

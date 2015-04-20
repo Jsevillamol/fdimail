@@ -1,7 +1,7 @@
 #ifndef LIST
 #define LIST
 #include <assert.h>
-
+#include <iostream>
 //Template for lists
 template <class T, int MAX>
 class List
@@ -103,7 +103,10 @@ template<class T, int MAX>
 T* List<T, MAX>::get(const std::string &id)
 {
 	int pos;
-	if (search(id, pos)) return list[pos];
+	if (search(id, pos)){
+		std::cout << "Found!" << std::endl;
+		return list[pos];
+	}
 	else return nullptr;
 }
 

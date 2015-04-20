@@ -293,7 +293,7 @@ void GraphInter::drawMail(const Mail* mail)
 	std::cout << mail->to_string();
 }
 
-std::string GraphInter::check_password(std::string password)
+void GraphInter::check_password(std::string& password)
 {
 	std::string newPassword;
 
@@ -303,7 +303,7 @@ std::string GraphInter::check_password(std::string password)
 
 	while (newPassword != password)
 	{
-		std::cout << "Error, te passwords are not the same" << std::endl
+		std::cout << "Error, the passwords are not the same" << std::endl
 			<< "Enter your password:" << std::endl;
 
 		std::cin >> password;
@@ -312,7 +312,5 @@ std::string GraphInter::check_password(std::string password)
 
 		std::cin >> newPassword;
 	}
-
-	return password;
 }
 

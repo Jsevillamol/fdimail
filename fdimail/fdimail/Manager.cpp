@@ -57,9 +57,10 @@ User* Manager::createAccount()
 {
 	std::string idUser, password, last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
-	password = GraphInter::get()->check_password(last_password);
+	
 	if (!userList.get(idUser))
 	{
+		GraphInter::get()->check_password(last_password);
 		User* user = new User(idUser, password);
 		userList.insert(user);
 		return user;
@@ -69,16 +70,20 @@ User* Manager::createAccount()
 
 void Manager::sendMail(User* user, Mail* mail)
 {
-	//Add to database
-	mailList.insert(mail);
+	if (userList.get(mail->getReceiver()) != nullptr)
+	{
+		//Add to database
+		mailList.insert(mail);
 
-	//Add to sender's outbox
-	user->outbox.insert(new tElemTray(mail->getId()));
-	user->outbox.get(mail->getId())->read = true;
+		//Add to sender's outbox
+		user->outbox.insert(new tElemTray(mail->getId()));
+		user->outbox.get(mail->getId())->read = true;
 
-	//Add to receiver's inbox
-	userList.get(mail->getReceiver())->inbox.insert(new tElemTray(mail->getId()));
-
+		//Add to receiver's inbox
+		std::cout << userList.get("Jaime") << std::endl;
+		userList.get(mail->getReceiver())->inbox.insert(new tElemTray(mail->getId()));
+	}
+	else std::cout << "Destinatary not found in the user database" << std::endl;
 }
 
 void Manager::deleteMail(User* user, const std::string &idMail)

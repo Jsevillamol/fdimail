@@ -36,7 +36,7 @@ public:
 	void pause();
 	int digitBetween(int a, int b);
 	std::string center_word(std::string number, int lenght);
-	std::string check_password(std::string password);
+	void check_password(std::string& password);
 	void linea();
 };
 #endif //GRAPHINTER

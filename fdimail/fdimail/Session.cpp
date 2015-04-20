@@ -21,7 +21,7 @@ manager(manager)
 
 void Session::launch()
 {
-	int opt = 1;
+	int opt;
 
 	do{
 		opt = GraphInter::get()->sessionMenu(this);
