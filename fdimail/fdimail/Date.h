@@ -6,9 +6,9 @@
 
 typedef std::time_t Date;
 
-std::string showDate(Date d);
+std::string& showDate(Date d);
 
-std::string showDay(Date d);
+std::string& showDay(Date d);
 
 
 #endif // !DATE

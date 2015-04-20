@@ -23,8 +23,6 @@ public:
 	User();
 
 	std::string getId() const { return id; }
-	std::string setId(std::string newId){ return id = newId; }
-	std::string setPassword(std::string newPassword){ return password = newPassword; }
 	TrayList* active_tray() { return (active_list) ? &outbox : &inbox; }
 	bool* getTray(){ return &active_list; }
 

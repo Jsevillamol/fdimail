@@ -1,6 +1,6 @@
 #include"Date.h"
 
-std::string showDate(Date d)
+std::string& showDate(Date d)
 {
 	std::ostringstream resultado;
 	tm ltm;
@@ -10,7 +10,7 @@ std::string showDate(Date d)
 	return resultado.str();
 }
 
-std::string showDay(Date d)
+std::string& showDay(Date d)
 {
 	std::ostringstream resultado;
 	tm ltm;

@@ -93,7 +93,7 @@ int GraphInter::sessionMenu()
 	return digitBetween(0, 5);
 }
 
-std::string GraphInter::selectMail()
+std::string& GraphInter::selectMail()
 {
 	int number;
 	Session* sesion = new Session;
@@ -217,7 +217,7 @@ int GraphInter::digitBetween(int a, int b)
 	return digit;
 }
 
-std::string GraphInter::center_word(std::string word, int lenght)
+std::string& GraphInter::center_word(std::string word, int lenght)
 {
 	if (word.size() == lenght) return word;
 
@@ -245,23 +245,22 @@ void GraphInter::linea()
 		<< std::endl << std::setfill(' ');
 }
 
-std::string GraphInter::valid_user()
+std::string& GraphInter::valid_user()
 {
 	std::string id;
-	int i;
 
-	std::cout << "Choose your id: " << std::endl;
+	std::cout << "Enter your id: " << std::endl;
 
 	std::cin.sync();
 	std::cin >> id;
 	std::cin.clear();
 
-	for (i = 0; i < id.size(); i++)
+	for (int i = 0; i < id.size(); i++)
 	{
 		if (id[i] == ' ')
 		{
 			std::cout << "Error, your id cannot contain a space" << std::endl
-				<< "Choose your id: " << std::endl;
+				<< "Enter your id: " << std::endl;
 
 			std::cin.sync();
 			std::cin >> id;
@@ -270,7 +269,7 @@ std::string GraphInter::valid_user()
 		if (id.size() > 15)
 		{
 			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
-				<< "Choose your id: " << std::endl;
+				<< "Enter your id: " << std::endl;
 
 			std::cin.sync();
 			std::cin >> id;
@@ -288,7 +287,7 @@ void GraphInter::drawMail(const Mail* mail)
 	std::cout << mail->to_string();
 }
 
-std::string GraphInter::check_password(std::string password)
+std::string& GraphInter::check_password(std::string password)
 {
 	std::string newPassword;
 

@@ -44,7 +44,7 @@ bool Mail::load(std::ifstream &file)
 	else return false;
 }
 
-std::string Mail::to_string()const
+std::string& Mail::to_string()const
 {
 	std::ostringstream flow;
 
@@ -55,7 +55,7 @@ std::string Mail::to_string()const
 	return flow.str();
 }
 
-std::string Mail::header()const
+std::string& Mail::header()const
 {
 	std::ostringstream lowFlow;
 

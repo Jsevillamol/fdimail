@@ -39,9 +39,16 @@ void Session::launch() //to do
 			readMail();
 			break;
 		case 2:
-			deleteMail();
+			sendMail();
 			break;
 		case 3:
+			deleteMail();
+			break;
+		case 4:
+			user->changeTray();
+			break;
+		case 5:
+			fastRead();
 			break;
 		}
 	} while (opt != 0);
