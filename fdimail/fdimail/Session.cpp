@@ -15,20 +15,12 @@ manager(manager)
 		else if (option == 2)
 			user = manager->registerUser();
 
-		if (option != 0) launch();
-	} while (option != 0);
+		if (user != nullptr) launch();
+	} while (option != 0 && user != nullptr);
 }
 
-Session::Session() {}
-
-Session::~Session()
+void Session::launch()
 {
-
-}
-
-void Session::launch() //to do
-{
-	Session* sesion = new Session;
 	int opt = 1;
 
 	do{

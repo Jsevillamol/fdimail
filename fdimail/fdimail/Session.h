@@ -14,8 +14,7 @@ private:
 	Mail* mail;
 public:
 	Session(Manager* manager); //logIn
-	Session();
-	~Session();
+	Session(){}
 
 	void launch();
 

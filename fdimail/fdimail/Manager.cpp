@@ -4,7 +4,7 @@
 Manager::Manager(const std::string &new_domain) :
 	domain(new_domain)
 {
-	if (!bootUp()) throw "Could not boot";
+	if (!bootUp());// throw "Could not boot";
 }
 
 
@@ -35,8 +35,8 @@ User* Manager::registerUser()
 {
 	std::string idUser, password, last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
-	User* user;
-	if (user = userList.get(idUser))
+	User* user = (userList.get(idUser));
+	if  (user != nullptr)
 	{
 		if (user->checkPassword(password))
 			return user;
