@@ -1,7 +1,6 @@
 #ifndef MAIL
 #define MAIL
 
-
 #include <string>
 #include <fstream>
 #include "Date.h"
@@ -21,7 +20,7 @@ public:
 
 	std::string getId() const { return id; }
 	int getCounter() const { return user_count; }
-	std::string getReceiver() const { return to; }
+	const std::string& getReceiver() const { return to; }
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);

@@ -16,7 +16,7 @@ manager(manager)
 			user = manager->registerUser();
 
 		if (user != nullptr) launch();
-	} while (option != 0 && user != nullptr);
+	} while (option != 0);
 }
 
 void Session::launch()

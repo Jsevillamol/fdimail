@@ -7,7 +7,7 @@ template <class T, int MAX>
 class List
 {
 protected:
-	T** list;
+	T* list [MAX];
 	int counter;
 
 	//Moves the list one space right from pos to end
@@ -34,7 +34,6 @@ public:
 template <class T, int MAX>
 List<T,MAX>::List() : counter(0)
 {
-	list = new T*[MAX];
 	for (int i=0; i < MAX; i++)
 	{
 		list[i] = nullptr;
@@ -50,7 +49,6 @@ List<T, MAX>::~List()
 		list[i] = nullptr;
 	}
 
-	delete[] list;
 }
 
 template<class T, int MAX>
