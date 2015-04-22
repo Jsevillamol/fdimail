@@ -87,4 +87,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="fdimail.com_mails.txt" />
+    <Text Include="fdimail.com_users.txt" />
+  </ItemGroup>
 </Project>

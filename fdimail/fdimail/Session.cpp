@@ -48,11 +48,9 @@ void Session::launch()
 
 void Session::readMail()
 {
-	std::string error = "Error, you have no mails to read";
-
 	if (this->getUser()->active_tray()->lenght() == 0)
 	{
-		GraphInter::get()->error(error);
+		GraphInter::get()->error("Error, you have no mails to read");
 	}
 	else
 	{
@@ -99,11 +97,9 @@ void Session::sendMail()
 
 void Session::deleteMail()
 {
-	std::string error = "Error, you have no mails to delete";
-
 	if (this->getUser()->active_tray()->lenght() == 0)
 	{
-		GraphInter::get()->error(error);
+		GraphInter::get()->error("Error, you have no mails to delete");
 	}
 	else
 	{

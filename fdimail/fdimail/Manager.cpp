@@ -4,7 +4,7 @@
 Manager::Manager(const std::string &new_domain) :
 	domain(new_domain)
 {
-	if (!bootUp());// throw "Could not boot";
+	if (!bootUp()) GraphInter::get()->error("Could not boot");
 }
 
 

@@ -314,7 +314,7 @@ void GraphInter::check_password(std::string& password)
 	}
 }
 
-void GraphInter::error(std::string &error)
+void GraphInter::error(const char error[])
 {
 	std::cout << error << std::endl;
 }
