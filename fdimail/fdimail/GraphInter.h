@@ -33,6 +33,7 @@ public:
 	std::string valid_user();
 	std::string valid_password();
 	std::string inputBox(std::string &message);
+	void error(std::string &error);
 	void pause();
 	int digitBetween(int a, int b);
 	std::string center_word(std::string number, int lenght);

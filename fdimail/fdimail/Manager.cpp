@@ -38,7 +38,7 @@ User* Manager::registerUser()
 	User* user = (userList.get(idUser));
 	if  (user != nullptr)
 	{
-		if (user->checkPassword(password))
+		if (user->checkPassword(last_password))
 			return user;
 		else
 		{
@@ -55,13 +55,13 @@ User* Manager::registerUser()
 
 User* Manager::createAccount()
 {
-	std::string idUser, password, last_password;
+	std::string idUser, last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 	
 	if (!userList.get(idUser))
 	{
 		GraphInter::get()->check_password(last_password);
-		User* user = new User(idUser, password);
+		User* user = new User(idUser, last_password);
 		userList.insert(user);
 		return user;
 	}
@@ -76,12 +76,12 @@ void Manager::sendMail(User* user, Mail* mail)
 		mailList.insert(mail);
 
 		//Add to sender's outbox
-		user->outbox.insert(new tElemTray(mail->getId()));
-		user->outbox.get(mail->getId())->read = true;
+		user->getOutbox()->insert(new tElemTray(mail->getId()));
+		user->getOutbox()->get(mail->getId())->read = true;
 
 		//Add to receiver's inbox
 		std::cout << userList.get("Jaime") << std::endl;
-		userList.get(mail->getReceiver())->inbox.insert(new tElemTray(mail->getId()));
+		userList.get(mail->getReceiver())->getInbox()->insert(new tElemTray(mail->getId()));
 	}
 	else std::cout << "Destinatary not found in the user database" << std::endl;
 }

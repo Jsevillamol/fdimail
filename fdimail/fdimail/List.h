@@ -167,8 +167,8 @@ bool List<T, MAX>::load(const std::string &name)
 			elem = new T;
 
 			if (!elem->load(file)) right = false;
-
-			list[counter++] = elem;
+			
+			else list[counter++] = elem;
 		}
 
 		return right;

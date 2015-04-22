@@ -15,15 +15,14 @@ private:
 
 	bool active_list; //0 for inbox, 1 for outbox
 
-	friend class Manager;
-	friend class Session;
-
 public:
 	User(const std::string idUser, const std::string password);
 	User();
 
 	const std::string& getId() const { return id; }
-	TrayList* active_tray() { return (active_list) ? &outbox : &inbox; }
+	TrayList* getInbox() { return &inbox; }
+	TrayList* getOutbox() { return &outbox; }
+	TrayList* active_tray() { return active_list ? &outbox : &inbox; }
 	bool* getTray(){ return &active_list; }
 
 	void save(std::ofstream &file)const;

@@ -45,11 +45,11 @@ int GraphInter::sessionMenu(Session* sesion)
 
 	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
 
-	if (sesion->getUser()->getTray() == 0)
+	if (!sesion->getUser()->getTray())
 	{
 		title = center_word("Inbox", 79);
 	}
-	else if (sesion->getUser()->getTray() != 0)
+	else if (sesion->getUser()->getTray())
 	{
 		title = center_word("Outbox", 79);
 	}
@@ -82,11 +82,11 @@ int GraphInter::sessionMenu(Session* sesion)
 		<< std::setw(3) << "2- Send mail" << std::endl
 		<< std::setw(3) << "3- Delete mail" << std::endl;
 
-	if (sesion->getUser()->getTray() == 0)
+	if (!sesion->getUser()->getTray())
 	{
 		std::cout << std::setw(3) << "4- See outbox" << std::endl;
 	}
-	else if (sesion->getUser()->getTray() != 0)
+	else if (sesion->getUser()->getTray())
 	{
 		std::cout << std::setw(3) << "4- See inbox" << std::endl;
 	}
@@ -103,7 +103,7 @@ int GraphInter::sessionMenu(Session* sesion)
 std::string GraphInter::selectMail(Session* sesion)
 {
 	int number;
-
+	
 	std::cout << "Enter the number of the mail you choose:" << std::endl;
 
 	number = digitBetween(1, sesion->getUser()->active_tray()->lenght());
@@ -314,3 +314,7 @@ void GraphInter::check_password(std::string& password)
 	}
 }
 
+void GraphInter::error(std::string &error)
+{
+	std::cout << error << std::endl;
+}

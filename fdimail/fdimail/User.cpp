@@ -15,11 +15,14 @@ void User::save(std::ofstream &file)const
 	
 	this->outbox.save(file);
 	this->inbox.save(file);
+
+	file << "X" << std::endl;
 }
 
 bool User::load(std::ifstream &file)
 {
 	bool correct = true;
+	std::string ignore;
 
 	file >> this->id;
 
@@ -31,6 +34,8 @@ bool User::load(std::ifstream &file)
 		{
 			this->outbox.load(file);
 			this->inbox.load(file);
+
+			file >> ignore;
 		}
 		else correct = false;
 	}
