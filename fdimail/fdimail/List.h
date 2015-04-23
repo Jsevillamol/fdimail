@@ -171,6 +171,8 @@ bool List<T, MAX>::load(const std::string &name)
 			else list[counter++] = elem;
 		}
 
+		file.close();
+
 		return right;
 	}
 	else return false;

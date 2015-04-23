@@ -179,7 +179,7 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	std::cin >> mail->subject;
 
 	std::cout << "Body: ";
-	std::cin >> WhatToSay;
+	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
 		<< originalMail.to_string();//ultimo mail;

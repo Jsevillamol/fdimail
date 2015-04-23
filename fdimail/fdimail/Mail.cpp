@@ -16,7 +16,7 @@ bool Mail::load(std::ifstream &file)
 {
 	file >> this->from;
 
-	if (!file.fail())
+	if (from != "XXX" && !file.fail())
 	{
 		file >> this->date;
 
@@ -26,11 +26,11 @@ bool Mail::load(std::ifstream &file)
 
 			if (!file.fail())
 			{
-				file >> this->subject;
+				std::getline(file, this->subject);
 
 				if (!file.fail())
 				{
-					file >> this->body;
+					std::getline(file, this->body, '#');
 
 					if (!file.fail()) return true;
 					else return false;
@@ -48,7 +48,7 @@ std::string& Mail::to_string()const
 {
 	std::ostringstream flow;
 
-	flow << this->from << std::setw(15) << showDate(this->date) << std::endl
+	flow << this->from << std::left << std::setw(15) << showDate(this->date) << std::endl
 		<< this->to << std::endl << this->subject << std::endl
 		<< std::endl << this->body;
 

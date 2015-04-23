@@ -18,8 +18,9 @@ bool Manager::bootUp()
 	std::ostringstream mail_file, user_file;
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
-	if(mailList.load(mail_file.str()) && userList.load(user_file.str())) return true;
-	else return false;
+	if (!mailList.load(mail_file.str())) GraphInter::get()->error("Could not load maillist");
+	if (!userList.load(user_file.str())) GraphInter::get()->error("Could not load userlist");
+	return true;
 }
 
 void Manager::shutDown()
