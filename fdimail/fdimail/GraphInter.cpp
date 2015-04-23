@@ -55,7 +55,7 @@ int GraphInter::sessionMenu(Session* sesion)
 	}
 
 	std::cout << title << std::endl << "R N" << std::setw(7)
-		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(29)
+		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
 		<< "DATE" << std::endl << std::endl;
 
 	for (int i = 0; i < sesion->getUser()->active_tray()->lenght(); i++)

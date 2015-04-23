@@ -61,7 +61,7 @@ const std::string Mail::to_string() const
 {
 	std::ostringstream flow;
 
-	flow << this->from << std::left << std::setw(15) << showDate(this->date) << std::endl
+	flow << this->from << std::setw(35) << showDate(this->date) << std::endl
 		<< this->to << std::endl << this->subject << std::endl
 		<< std::endl << this->body;
 
@@ -72,7 +72,7 @@ const std::string Mail::header()const
 {
 	std::ostringstream lowFlow;
 
-	lowFlow << this->from << std::setw(16) << this->subject << std::setw(37) << showDay(this->date);
+	lowFlow << this->from << std::setw(16) << this->subject << std::setw(39) << showDay(this->date);
 
 	return lowFlow.str();
 }
