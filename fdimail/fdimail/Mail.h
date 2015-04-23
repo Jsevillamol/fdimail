@@ -28,7 +28,7 @@ public:
 	bool load(std::ifstream &file);
 
 	int lowerCounter(){ return --user_count; }
-	std::string& to_string()const;
-	std::string& header()const;
+	const std::string to_string()const;
+	const std::string header()const;
 };
 #endif

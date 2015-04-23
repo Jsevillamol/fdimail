@@ -100,6 +100,7 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 template<class T, int MAX>
 T* List<T, MAX>::get(const std::string &id)
 {
+	std::cout << "Get in list: " << this << std::endl;
 	int pos;
 	if (search(id, pos)){
 		std::cout << "Found " << id << "in pos: " << pos << std::endl;
