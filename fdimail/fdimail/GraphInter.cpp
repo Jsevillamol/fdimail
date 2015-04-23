@@ -70,14 +70,14 @@ int GraphInter::sessionMenu(Session* sesion)
 
 		std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
 
-		std::cout << "Id of mail to show in main menu: " << id << std::endl;
+		/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
 		std::cout << "Id of session: " << id << std::endl;
-		std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;
-		//Here the mails are modified an loaded with trash!!
+		std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
+
 		Mail * mail = sesion->getManager()->getMailList()->get(id);
 
-		std::cout << "Dir of mail: " << mail << std::endl;
-
+		//std::cout << "Dir of mail: " << mail << std::endl;
+		assert(mail != nullptr);
 		std::string thisMail = mail->header();
 
 		std::cout << std::setw(3) << (i + 1)

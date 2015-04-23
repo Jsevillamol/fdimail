@@ -80,7 +80,7 @@ void Manager::sendMail(User* user, Mail* mail)
 		user->getOutbox()->get(mail->getId())->read = true;
 
 		//Add to receiver's inbox
-		std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
+		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
 		userList.get(mail->getReceiver())->getInbox()->insert(new tElemTray(mail->getId()));
 	}
 	else std::cout << "Destinatary not found in the user database" << std::endl;

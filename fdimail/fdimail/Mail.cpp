@@ -9,7 +9,7 @@ void Mail::save(std::ofstream &file) const
 {
 	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl
 		<< this->to << std::endl << this->subject << std::endl 
-		<< this->body << std::endl << "#" << std::endl;
+		<< this->body << "#" << std::endl;
 }
 
 bool Mail::load(std::ifstream &file)

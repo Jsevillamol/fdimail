@@ -82,9 +82,9 @@ void List<T, MAX>::shiftRight(const int pos)
 template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
-	int left_key = 0, right_key = counter;
+	int left_key = 0, right_key = counter-1;
 	pos = 0;
-	while (left_key < right_key)
+	while (left_key <= right_key)
 	{
 		pos = (left_key + right_key) / 2;
 		if (list[pos]->getId() == id)
@@ -100,15 +100,15 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 template<class T, int MAX>
 T* List<T, MAX>::get(const std::string &id)
 {
-	std::cout << "Get in list: " << this << std::endl;
+	//std::cout << "Get in list: " << this << std::endl;
 	int pos;
 	if (search(id, pos)){
-		std::cout << "Found " << id << "in pos: " << pos << std::endl;
+		//std::cout << "Found " << id << "in pos: " << pos << std::endl;
 		return list[pos];
 	}
 	else 
 	{
-		std::cout << id << " not found" << std::endl;
+		//std::cout << id << " not found" << std::endl;
 		return nullptr;
 	}
 }
