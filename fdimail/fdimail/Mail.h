@@ -18,7 +18,9 @@ public:
 	std::string subject;
 	std::string body;
 
-	std::string getId() const { return id; }
+	Mail(): user_count(0) {}
+
+	const std::string& getId() const { return id; }
 	int getCounter() const { return user_count; }
 	const std::string& getReceiver() const { return to; }
 

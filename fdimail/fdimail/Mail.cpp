@@ -7,32 +7,45 @@
 
 void Mail::save(std::ofstream &file) const
 {
-	file << this->from << std::endl << this->date << std::endl
+	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl
 		<< this->to << std::endl << this->subject << std::endl 
-		<< this->body << std::endl << "X" << std::endl;
+		<< this->body << std::endl << "#" << std::endl;
 }
 
 bool Mail::load(std::ifstream &file)
 {
-	file >> this->from;
+	file >> this->id;
 
-	if (from != "XXX" && !file.fail())
+	if (id != "XXX" && !file.fail())
 	{
-		file >> this->date;
+		file >> this->user_count;
 
 		if (!file.fail())
 		{
-			file >> this->to;
+			file >> this->date;
 
 			if (!file.fail())
 			{
-				std::getline(file, this->subject);
+				file >> this->from;
 
 				if (!file.fail())
 				{
-					std::getline(file, this->body, '#');
+					file >> this->to;
 
-					if (!file.fail()) return true;
+					if (!file.fail())
+					{
+						file.ignore();
+						std::getline(file, this->subject);
+
+						if (!file.fail())
+						{
+							std::getline(file, this->body, '#');
+
+							if (!file.fail()) return true;
+							else return false;
+						}
+						else return false;
+					}
 					else return false;
 				}
 				else return false;

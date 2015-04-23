@@ -8,6 +8,7 @@ struct tElemTray
 	std::string idMail;
 	bool read;
 
+	tElemTray() {}
 	tElemTray(std::string idMail) : idMail(idMail), read(false) {}
 	std::string getId() const { return idMail; }
 

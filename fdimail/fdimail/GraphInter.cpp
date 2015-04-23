@@ -69,7 +69,14 @@ int GraphInter::sessionMenu(Session* sesion)
 
 		std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
 
-		std::string thisMail = sesion->getManager()->getMailList().get(id)->header();
+		std::cout << "Id of mail to show in main menu: " << id << std::endl;
+
+		//Here the mails are modified an loaded with trash!!
+		Mail * mail = (sesion->getManager()->getMailList()).get(id);
+
+		std::cout << "Dir of mail: " << mail << std::endl;
+
+		std::string thisMail = mail->header();
 
 		std::cout << std::setw(3) << (i + 1)
 			<< " - " << thisMail << std::endl;
@@ -133,6 +140,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 
 	mail->from = sender;
 	mail->date = time(0);
+	mail->user_count = 2;
 
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
@@ -143,7 +151,8 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::cin >> mail->to;
 
 	std::cout << "Subject: ";
-	std::cin >> mail->subject;
+	std::cin.ignore();
+	getline(std::cin, mail->subject);
 
 	std::cout << "Body: ";
 	std::getline(std::cin, mail->body, '#');
@@ -261,27 +270,32 @@ std::string GraphInter::valid_user()
 	std::cin >> id;
 	std::cin.clear();
 
-	for (int i = 0; i < id.size(); i++)
+	if (id.size() > 15)
 	{
-		if (id[i] == ' ')
-		{
-			std::cout << "Error, your id cannot contain a space" << std::endl
-				<< "Enter your id: " << std::endl;
+		std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
+			<< "Enter your id: " << std::endl;
 
-			std::cin.sync();
-			std::cin >> id;
-			std::cin.clear();
-		}
-		if (id.size() > 15)
-		{
-			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
-				<< "Enter your id: " << std::endl;
+		std::cin.sync();
+		std::cin >> id;
+		std::cin.clear();
+	}
 
-			std::cin.sync();
-			std::cin >> id;
-			std::cin.clear();
+	else
+	{
+		for (int i = 0; i < id.size(); i++)
+		{
+			if (id[i] == ' ')
+			{
+				std::cout << "Error, your id cannot contain a space" << std::endl
+					<< "Enter your id: " << std::endl;
+
+				std::cin.sync();
+				std::cin >> id;
+				std::cin.clear();
+			}
 		}
 	}
+	
 
 	id = id + "@fdimail.com";
 

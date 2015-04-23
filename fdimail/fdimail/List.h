@@ -102,10 +102,14 @@ T* List<T, MAX>::get(const std::string &id)
 {
 	int pos;
 	if (search(id, pos)){
-		std::cout << "Found!" << std::endl;
+		std::cout << "Found " << id << "in pos: " << pos << std::endl;
 		return list[pos];
 	}
-	else return nullptr;
+	else 
+	{
+		std::cout << id << " not found" << std::endl;
+		return nullptr;
+	}
 }
 
 template<class T, int MAX>
@@ -173,7 +177,7 @@ bool List<T, MAX>::load(const std::string &name)
 
 		file.close();
 
-		return right;
+		return true;
 	}
 	else return false;
 }
