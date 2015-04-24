@@ -55,7 +55,7 @@ int GraphInter::sessionMenu(Session* sesion)
 	}
 
 	std::cout << title << std::endl << "R N" << std::setw(7)
-		<< "FROM" << std::setw(29) << "SUBJECT" << std::setw(29)
+		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(29)
 		<< "DATE" << std::endl << std::endl;
 
 	linea();
@@ -80,27 +80,27 @@ int GraphInter::sessionMenu(Session* sesion)
 		assert(mail != nullptr);
 		std::string thisMail = mail->header();
 
-		std::cout << std::setw(3) << (i + 1)
+		std::cout << std::setw(2) << (i + 1)
 			<< " - " << thisMail << std::endl;
 	}
 
 	linea();
 
 	std::cout << "Choose your desired option: " << std::endl
-		<< std::setw(3) << "1- Read mail" << std::endl
-		<< std::setw(3) << "2- Send mail" << std::endl
-		<< std::setw(3) << "3- Delete mail" << std::endl;
+		<< "   1- Read mail" << std::endl
+		<< "   2- Send mail" << std::endl
+		<< "   3- Delete mail" << std::endl;
 
 	if (!sesion->getUser()->getTray())
 	{
-		std::cout << std::setw(3) << "4- See outbox" << std::endl;
+		std::cout << "   4- See outbox" << std::endl;
 	}
 	else if (sesion->getUser()->getTray())
 	{
-		std::cout << std::setw(3) << "4- See inbox" << std::endl;
+		std::cout << "   4- See inbox" << std::endl;
 	}
-	std::cout << std::setw(3) << "5- fast read of unread mails" << std::endl
-		<< std::setw(3) << "0- Sign out" << std::endl;
+	std::cout << "   5- fast read of unread mails" << std::endl
+		<< "   0- Sign out" << std::endl;
 
 	linea();
 
@@ -109,10 +109,18 @@ int GraphInter::sessionMenu(Session* sesion)
 	return digitBetween(0, 5);
 }
 
+int GraphInter::WhatToDelete()
+{
+	std::cout << "1- Choose mail" << std::endl
+		<< "0- Delete all mails" << std::endl;
+
+	return digitBetween(0, 1);
+}
+
 std::string GraphInter::selectMail(Session* sesion)
 {
 	int number;
-	
+
 	std::cout << "Enter the number of the mail you choose:" << std::endl;
 
 	number = digitBetween(1, sesion->getUser()->active_tray()->lenght());
@@ -156,7 +164,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::cin.ignore();
 	getline(std::cin, mail->subject);
 
-	std::cout << "Body: ";
+	std::cout << "Body (enter '#' to end the body): ";
 	std::getline(std::cin, mail->body, '#');
 
 	return mail;
@@ -189,7 +197,7 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	std::cout << "Subject: ";
 	std::cin >> mail->subject;
 
-	std::cout << "Body: ";
+	std::cout << "Body (enter '#' to end the body): ";
 	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
@@ -265,39 +273,39 @@ void GraphInter::linea()
 std::string GraphInter::valid_user()
 {
 	std::string id;
+	bool id_right;
 
 	std::cout << "Enter your id: " << std::endl;
 
-	std::cin.sync();
-	std::cin >> id;
-	std::cin.clear();
-
-	if (id.size() > 15)
+	do
 	{
-		std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
-			<< "Enter your id: " << std::endl;
+		id_right = true;
 
 		std::cin.sync();
-		std::cin >> id;
+		std::getline(std::cin, id);
 		std::cin.clear();
-	}
 
-	else
-	{
-		for (int i = 0; i < id.size(); i++)
+		if (id.size() > 15)
 		{
-			if (id[i] == ' ')
-			{
-				std::cout << "Error, your id cannot contain a space" << std::endl
-					<< "Enter your id: " << std::endl;
+			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
+				<< "Enter your id: " << std::endl;
 
-				std::cin.sync();
-				std::cin >> id;
-				std::cin.clear();
-			}
+			id_right = false;
 		}
-	}
-	
+		else
+		{
+			for (int i = 0; i < id.size() && id_right; i++)
+			{
+				if (id[i] == ' ')
+				{
+					std::cout << "Error, your id cannot contain a space" << std::endl
+						<< "Enter your id: " << std::endl;
+
+					id_right = false;
+				}
+			}
+		}		
+	} while (!id_right);
 
 	id = id + "@fdimail.com";
 

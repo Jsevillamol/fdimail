@@ -65,7 +65,12 @@ User* Manager::createAccount()
 		userList.insert(user);
 		return user;
 	}
-	else return nullptr;
+	else
+	{
+		GraphInter::get()->error("This username already exists");
+
+		return nullptr;
+	}
 }
 
 void Manager::sendMail(User* user, Mail* mail)

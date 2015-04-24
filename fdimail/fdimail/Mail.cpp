@@ -72,7 +72,7 @@ const std::string Mail::header()const
 {
 	std::ostringstream lowFlow;
 
-	lowFlow << this->from << std::setw(16) << this->subject << std::setw(39) << showDay(this->date);
+	lowFlow << std::setw(30) << std::left << this->from << std::setw(32) << std::left << this->subject << showDay(this->date);
 
 	return lowFlow.str();
 }

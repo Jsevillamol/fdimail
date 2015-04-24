@@ -36,6 +36,7 @@ public:
 	void error(const char error[]);
 	void pause();
 	int digitBetween(int a, int b);
+	int WhatToDelete();
 	std::string center_word(std::string number, int lenght);
 	void check_password(std::string& password);
 	void linea();

@@ -25,7 +25,7 @@ void TrayList::load(std::ifstream &file)
 
 bool TrayList::insert(tElemTray * const elem)
 {
-	std::cout << "Inserting in TrayList the object " << elem << std::endl;
+	//std::cout << "Inserting in TrayList the object " << elem << std::endl;
 	if (counter < MAX_ELEMS)
 	{
 		list[counter++] = elem;
