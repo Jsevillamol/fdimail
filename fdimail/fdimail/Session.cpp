@@ -15,7 +15,12 @@ manager(manager)
 		else if (option == 2)
 			user = manager->registerUser();
 
-		if (user != nullptr && option != 0) launch();
+		if (user != nullptr && option != 0)
+		{
+			GraphInter::get()->clearConsole();
+			launch();
+		}
+		GraphInter::get()->clearConsole();
 	} while (option != 0);
 }
 
@@ -25,6 +30,7 @@ void Session::launch()
 
 	do{
 		opt = GraphInter::get()->sessionMenu(this);
+		GraphInter::get()->clearConsole();
 		switch (opt)
 		{
 		case 1:
@@ -38,12 +44,14 @@ void Session::launch()
 			break;
 		case 4:
 			user->changeTray();
+			GraphInter::get()->clearConsole();
 			break;
 		case 5:
+			GraphInter::get()->clearConsole();
 			fastRead();
 			break;
 		}
-		GraphInter::get()->linea();
+		GraphInter::get()->clearConsole();
 	} while (opt != 0);
 }
 
@@ -52,11 +60,14 @@ void Session::readMail()
 	if (this->getUser()->active_tray()->lenght() == 0)
 	{
 		GraphInter::get()->error("Error, you have no mails to read");
+		GraphInter::get()->pause();
+		GraphInter::get()->clearConsole();
 	}
 	else
 	{
 		//Select mail to read
 		std::string id = GraphInter::get()->selectMail(this);
+		GraphInter::get()->clearConsole();
 		//Display mail
 		Mail* mail = manager->getMailList()->get(id);
 		GraphInter::get()->drawMail(mail);
@@ -81,6 +92,8 @@ void Session::fastRead()
 	if (j == user->active_tray()->lenght() - 1 && (*(user->active_tray()))[j]->read)
 	{
 		GraphInter::get()->error("You do not have any unread mails");
+		GraphInter::get()->pause();
+		GraphInter::get()->clearConsole();
 	}
 	else
 	{
@@ -99,11 +112,13 @@ void Session::fastRead()
 				GraphInter::get()->pause();
 			}
 		}
+		GraphInter::get()->clearConsole();
 	}
 }
 
 void Session::sendMail()
 {
+	GraphInter::get()->clearConsole();
 	manager->sendMail(user, GraphInter::get()->newMail(user->getId()));
 }
 
@@ -112,6 +127,8 @@ void Session::deleteMail()
 	if (this->getUser()->active_tray()->lenght() == 0)
 	{
 		GraphInter::get()->error("Error, you have no mails to delete");
+		GraphInter::get()->pause();
+		GraphInter::get()->clearConsole();
 	}
 	else
 	{
@@ -122,11 +139,16 @@ void Session::deleteMail()
 		{
 			//Select mail
 			std::string id = GraphInter::get()->selectMail(this);
+
+			GraphInter::get()->clearConsole();
 			//Delete
 			manager->deleteMail(user, id);
 		}
 		else if (option == 0)
 		{
+
+			GraphInter::get()->clearConsole();
+
 			for (int i = 0; i < longitud; i++)
 			{
 				std::string newId = (*(this->getUser()->active_tray()))[0]->idMail;

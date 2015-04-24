@@ -68,7 +68,7 @@ User* Manager::createAccount()
 	else
 	{
 		GraphInter::get()->error("This username already exists");
-
+		GraphInter::get()->pause();
 		return nullptr;
 	}
 }

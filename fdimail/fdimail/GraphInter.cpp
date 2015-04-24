@@ -45,13 +45,13 @@ int GraphInter::sessionMenu(Session* sesion)
 
 	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
 
-	if (!sesion->getUser()->getTray())
-	{
-		title = center_word("Inbox", 79);
-	}
-	else if (sesion->getUser()->getTray())
+	if (sesion->getUser()->getTray())
 	{
 		title = center_word("Outbox", 79);
+	}
+	else if (!sesion->getUser()->getTray())
+	{
+		title = center_word("inbox", 79);
 	}
 
 	std::cout << title << std::endl << "R N" << std::setw(7)
@@ -87,20 +87,20 @@ int GraphInter::sessionMenu(Session* sesion)
 	linea();
 
 	std::cout << "Choose your desired option: " << std::endl
-		<< "   1- Read mail" << std::endl
-		<< "   2- Send mail" << std::endl
-		<< "   3- Delete mail" << std::endl;
+		<< "  1- Read mail" << std::endl
+		<< "  2- Send mail" << std::endl
+		<< "  3- Delete mail" << std::endl;
 
 	if (!sesion->getUser()->getTray())
 	{
-		std::cout << "   4- See outbox" << std::endl;
+		std::cout << "  4- See outbox" << std::endl;
 	}
 	else if (sesion->getUser()->getTray())
 	{
-		std::cout << "   4- See inbox" << std::endl;
+		std::cout << "  4- See inbox" << std::endl;
 	}
-	std::cout << "   5- fast read of unread mails" << std::endl
-		<< "   0- Sign out" << std::endl;
+	std::cout << "  5- fast read of unread mails" << std::endl
+		<< "  0- Sign out" << std::endl;
 
 	linea();
 

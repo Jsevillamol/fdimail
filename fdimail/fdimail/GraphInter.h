@@ -35,6 +35,7 @@ public:
 	std::string inputBox(std::string &message);
 	void error(const char error[]);
 	void pause();
+	void clearConsole(){ system("cls"); }
 	int digitBetween(int a, int b);
 	int WhatToDelete();
 	std::string center_word(std::string number, int lenght);
