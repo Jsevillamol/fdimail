@@ -39,6 +39,7 @@ public:
 	void clearConsole(){ system("cls"); }
 	int digitBetween(int a, int b);
 	int WhatToDelete();
+	int SureToSend();
 	std::string center_word(std::string number, int lenght, std::string arround);
 	std::string tab_word(std::string word);
 	void check_password(std::string& password);
