@@ -23,9 +23,10 @@ public:
 	void logMenu(std::string &username, std::string &password); //Returns username and password
 	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
 	std::string selectMail(Session* sesion); //Shows active tray, returns idMail of mail selected
-	bool mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
+	int mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
 	Mail* newMail(const std::string &sender); //Returns a full mail
 	Mail* answerMail(Mail &originalMail); //Returns an answer mail
+	Mail* forward(Mail &originaltMail);
 
 	//Auxiliar funtions. Implement or not
 	void drawMail(const Mail* mail);
@@ -38,7 +39,8 @@ public:
 	void clearConsole(){ system("cls"); }
 	int digitBetween(int a, int b);
 	int WhatToDelete();
-	std::string center_word(std::string number, int lenght);
+	std::string center_word(std::string number, int lenght, std::string arround);
+	std::string tab_word(std::string word);
 	void check_password(std::string& password);
 	void linea();
 };

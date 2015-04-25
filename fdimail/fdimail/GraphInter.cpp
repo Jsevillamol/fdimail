@@ -1,6 +1,7 @@
 #include "GraphInter.h"
 #include "Session.h"
 #include <iostream>
+#include <iomanip>
 
 GraphInter* GraphInter::inter = nullptr;
 
@@ -21,9 +22,9 @@ void GraphInter::load()
 int GraphInter::mainMenu()
 {
 	std::cout << "Choose your desired option: " << std::endl
-		<< std::setw(3) << "1- Sign up" << std::endl
-		<< std::setw(3) << "2- Sign in" << std::endl
-		<< std::setw(3) << "0- Exit" << std::endl;
+		<< std::setw(12) << "1- Sign up" << std::endl
+		<< std::setw(12) << "2- Sign in" << std::endl
+		<< std::setw(9) << "0- Exit" << std::endl;
 
 	return digitBetween(0, 2);
 }
@@ -45,13 +46,13 @@ int GraphInter::sessionMenu(Session* sesion)
 
 	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
 
-	if (sesion->getUser()->getTray())
+	if (sesion->getUser()->active_tray() == sesion->getUser()->getOutbox())
 	{
-		title = center_word("Outbox", 79);
+		title = center_word("Outbox", HORIZONTAL, "-");
 	}
-	else if (!sesion->getUser()->getTray())
+	else if (sesion->getUser()->active_tray() == sesion->getUser()->getInbox())
 	{
-		title = center_word("inbox", 79);
+		title = center_word("Inbox", HORIZONTAL, "-");
 	}
 
 	std::cout << title << std::endl << "R N" << std::setw(7)
@@ -60,47 +61,53 @@ int GraphInter::sessionMenu(Session* sesion)
 
 	linea();
 
-	for (int i = 0; i < sesion->getUser()->active_tray()->lenght(); i++)
+	if (sesion->getUser()->active_tray()->lenght() == 0)
 	{
-		if ((*(sesion->getUser()->active_tray()))[i]->read)
-		{
-			std::cout << '*';
-		}
-		else std::cout << ' ';
-
-		std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
-
-		/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
-		std::cout << "Id of session: " << id << std::endl;
-		std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
-
-		Mail * mail = sesion->getManager()->getMailList()->get(id);
-
-		//std::cout << "Dir of mail: " << mail << std::endl;
-		assert(mail != nullptr);
-		std::string thisMail = mail->header();
-
-		std::cout << std::setw(2) << (i + 1)
-			<< " - " << thisMail << std::endl;
+		std::cout << center_word("You have no mails", HORIZONTAL, " ");
 	}
+	else
+	{
+		for (int i = 0; i < sesion->getUser()->active_tray()->lenght(); i++)
+		{
+			if ((*(sesion->getUser()->active_tray()))[i]->read)
+			{
+				std::cout << '*';
+			}
+			else std::cout << ' ';
 
+			std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
+
+			/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
+			std::cout << "Id of session: " << id << std::endl;
+			std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
+
+			Mail * mail = sesion->getManager()->getMailList()->get(id);
+
+			//std::cout << "Dir of mail: " << mail << std::endl;
+			assert(mail != nullptr);
+			std::string thisMail = mail->header();
+
+			std::cout << std::setw(2) << (i + 1)
+				<< " - " << thisMail << std::endl;
+		}
+	}
 	linea();
 
 	std::cout << "Choose your desired option: " << std::endl
-		<< "  1- Read mail" << std::endl
-		<< "  2- Send mail" << std::endl
-		<< "  3- Delete mail" << std::endl;
+		<< tab_word("1- Read mail")
+		<< tab_word("2- Send mail")
+		<< tab_word("3- Delete mail");
 
-	if (!sesion->getUser()->getTray())
+	if (sesion->getUser()->active_tray() == sesion->getUser()->getInbox())
 	{
-		std::cout << "  4- See outbox" << std::endl;
+		std::cout << tab_word("4- See outbox");
 	}
-	else if (sesion->getUser()->getTray())
+	else if (sesion->getUser()->active_tray() == sesion->getUser()->getOutbox())
 	{
-		std::cout << "  4- See inbox" << std::endl;
+		std::cout << tab_word("4- See inbox");
 	}
-	std::cout << "  5- fast read of unread mails" << std::endl
-		<< "  0- Sign out" << std::endl;
+	std::cout << tab_word("5- fast read of unread mails")
+		<< tab_word("0- Sign out");
 
 	linea();
 
@@ -111,8 +118,8 @@ int GraphInter::sessionMenu(Session* sesion)
 
 int GraphInter::WhatToDelete()
 {
-	std::cout << "1- Choose mail" << std::endl
-		<< "0- Delete all mails" << std::endl;
+	std::cout << tab_word("1- Choose mail")
+		<< tab_word("0- Delete all mails");
 
 	return digitBetween(0, 1);
 }
@@ -128,19 +135,16 @@ std::string GraphInter::selectMail(Session* sesion)
 	return (*(sesion->getUser()->active_tray()))[number-1]->idMail;
 }
 
-bool GraphInter::mailMenu()
+int GraphInter::mailMenu()
 {
 	int option;
 
 	std::cout << "Choose an option:" << std::endl
-		<< "1- Answer" << std::endl
-		<< "0- Exit to sesion menu" << std::endl;
+		<< tab_word("1- Answer")
+		<< tab_word("2- Forward")
+		<< tab_word("0- Exit to sesion menu");
 
-	option = digitBetween(0, 1);
-
-	if (option == 1) return true;
-
-	else return false;
+	return digitBetween(0, 2);
 }
 
 Mail* GraphInter::newMail(const std::string &sender)
@@ -183,19 +187,47 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	mail->to = originalMail.from;
 	mail->subject = SUBJECT.str();
 
+	ID << originalMail.to << "_" << mail->date;
+	mail->id = ID.str();
+
+	std::cout << "From: " << originalMail.to << std::endl;
+
+	std::cout << "To: " << originalMail.from << std::endl;
+
+	std::cout << "Subject: " << mail->subject << std::endl;
+
+	std::cout << "Body (enter '#' to end the body): ";
+	std::getline(std::cin, WhatToSay, '#');
+
+	BODY << WhatToSay << std::endl << std::endl
+		<< originalMail.to_string();//ultimo mail;
+
+	mail->body = BODY.str();
+
+	return mail;
+}
+
+Mail* GraphInter::forward(Mail &originalMail)
+{
+	Mail* mail = new Mail;
+	std::ostringstream ID, BODY, SUBJECT;
+	std::string WhatToSay;
+
+	SUBJECT << "Re: " << originalMail.subject;
+
+	mail->from = originalMail.to;
+	mail->date = time(0);
+	mail->subject = SUBJECT.str();
 
 	ID << originalMail.to << "_" << mail->date;
 	mail->id = ID.str();
 
-
-
 	std::cout << "From: " << originalMail.to << std::endl;
 
 	std::cout << "To: ";
-	mail->to = originalMail.from;
+	std::cin >> mail->to;
 
-	std::cout << "Subject: ";
-	std::cin >> mail->subject;
+	std::cout << "Subject: " << mail->subject << std::endl;
 
 	std::cout << "Body (enter '#' to end the body): ";
 	std::getline(std::cin, WhatToSay, '#');
@@ -242,7 +274,7 @@ int GraphInter::digitBetween(int a, int b)
 	return digit;
 }
 
-std::string GraphInter::center_word(std::string word, int lenght)
+std::string GraphInter::center_word(std::string word, int lenght, std::string arround)
 {
 	if (word.size() == lenght) return word;
 
@@ -252,15 +284,26 @@ std::string GraphInter::center_word(std::string word, int lenght)
 		{
 			if (word.size() % 2 == 0)
 			{
-				word = word + "-";
+				word = word + arround;
 			}
 			else if (word.size() % 2 == 1)
 			{
-				word = "-" + word;
+				word = arround + word;
 			}
 		}
+		word = word + "\n";
+
 		return word;
 	}
+}
+
+std::string GraphInter::tab_word(std::string word)
+{
+	std::ostringstream tab;
+
+	tab << std::setw(2 + word.size()) << word << std::endl;
+
+	return tab.str();
 }
 
 void GraphInter::linea()
@@ -314,7 +357,7 @@ std::string GraphInter::valid_user()
 
 void GraphInter::drawMail(const Mail* mail)
 {
-	std::cout << mail->to_string();
+	std::cout << mail->to_string() << std::endl;
 }
 
 void GraphInter::check_password(std::string& password)
