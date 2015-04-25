@@ -157,8 +157,6 @@ std::string GraphInter::selectMail(Session* sesion)
 
 int GraphInter::mailMenu()
 {
-	int option;
-
 	std::cout << "Choose an option:" << std::endl
 		<< tab_word("1- Answer")
 		<< tab_word("2- Forward")
