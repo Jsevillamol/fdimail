@@ -75,9 +75,9 @@ int GraphInter::sessionMenu(Session* sesion)
 		{
 			if ((*(sesion->getUser()->active_tray()))[i]->read)
 			{
-				std::cout << '*';
+				std::cout << ' ';
 			}
-			else std::cout << ' ';
+			else std::cout << '*';
 
 			std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
 
