@@ -26,6 +26,10 @@ int GraphInter::mainMenu()
 		<< std::setw(12) << "2- Sign in" << std::endl
 		<< std::setw(9) << "0- Exit" << std::endl;
 
+	linea();
+
+	std::cout << "Enter an option:" << std::endl;
+
 	return digitBetween(0, 2);
 }
 
@@ -121,6 +125,10 @@ int GraphInter::WhatToDelete()
 	std::cout << tab_word("1- Choose mail")
 		<< tab_word("0- Delete all mails");
 
+	linea();
+
+	std::cout << "Enter an option:" << std::endl;
+
 	return digitBetween(0, 1);
 }
 
@@ -143,6 +151,10 @@ int GraphInter::mailMenu()
 		<< tab_word("1- Answer")
 		<< tab_word("2- Forward")
 		<< tab_word("0- Exit to sesion menu");
+
+	linea();
+
+	std::cout << "Enter an option:" << std::endl;
 
 	return digitBetween(0, 2);
 }

@@ -96,15 +96,7 @@ void Session::fastRead()
 {
 	int j, i;
 	
-	for (j = 0; j < user->active_tray()->lenght() && (*(user->active_tray()))[j]->read; j++) {}
-
-	if (j == user->active_tray()->lenght() && (*(user->active_tray()))[j]->read)
-	{
-		GraphInter::get()->error("You do not have any unread mail");
-		GraphInter::get()->pause();
-		GraphInter::get()->clearConsole();
-	}
-	else if (user->active_tray()->lenght() == 0)
+	if (user->active_tray()->lenght() == 0)
 	{
 		GraphInter::get()->error("You do not have any mail on your active tray");
 		GraphInter::get()->pause();
@@ -112,22 +104,34 @@ void Session::fastRead()
 	}
 	else
 	{
-		for (i = 0; i < user->active_tray()->lenght(); i++)
-		{
-			if (!(*(user->active_tray()))[i]->read)
-			{
-				std::string id = (*(user->active_tray()))[i]->getId();
-				//Display mail
-				GraphInter::get()->drawMail(manager->getMailList()->get(id));
-				//Change mail status to read
-				user->active_tray()->get(id)->read = true;
+		for (j = 0; j < user->active_tray()->lenght() && (*(user->active_tray()))[j]->read; j++) {}
 
-				GraphInter::get()->error("\n");
-				GraphInter::get()->linea();
-				GraphInter::get()->pause();
-			}
+		if (j == user->active_tray()->lenght() && (*(user->active_tray()))[j-1]->read)
+		{
+			GraphInter::get()->error("You do not have any unread mail");
+			GraphInter::get()->pause();
+			GraphInter::get()->clearConsole();
 		}
-		GraphInter::get()->clearConsole();
+
+		else
+		{
+			for (i = 0; i < user->active_tray()->lenght(); i++)
+			{
+				if (!(*(user->active_tray()))[i]->read)
+				{
+					std::string id = (*(user->active_tray()))[i]->getId();
+					//Display mail
+					GraphInter::get()->drawMail(manager->getMailList()->get(id));
+					//Change mail status to read
+					user->active_tray()->get(id)->read = true;
+
+					GraphInter::get()->error("\n");
+					GraphInter::get()->linea();
+					GraphInter::get()->pause();
+				}
+			}
+			GraphInter::get()->clearConsole();
+		}
 	}
 }
 
