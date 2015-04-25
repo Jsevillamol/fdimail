@@ -137,8 +137,14 @@ void Session::fastRead()
 
 void Session::sendMail()
 {
-	GraphInter::get()->clearConsole();
-	manager->sendMail(user, GraphInter::get()->newMail(user->getId()));
+	int option = GraphInter::get()->SureToSend();
+
+	if (option == 1)
+	{
+		GraphInter::get()->clearConsole();
+		manager->sendMail(user, GraphInter::get()->newMail(user->getId()));
+	}
+
 	GraphInter::get()->clearConsole();
 }
 

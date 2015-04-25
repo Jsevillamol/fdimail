@@ -110,7 +110,7 @@ int GraphInter::sessionMenu(Session* sesion)
 	{
 		std::cout << tab_word("4- See inbox");
 	}
-	std::cout << tab_word("5- fast read of unread mails")
+	std::cout << tab_word("5- Fast read of unread mails")
 		<< tab_word("0- Sign out");
 
 	linea();
@@ -124,6 +124,18 @@ int GraphInter::WhatToDelete()
 {
 	std::cout << tab_word("1- Choose mail")
 		<< tab_word("0- Delete all mails");
+
+	linea();
+
+	std::cout << "Enter an option:" << std::endl;
+
+	return digitBetween(0, 1);
+}
+
+int GraphInter::SureToSend()
+{
+	std::cout << tab_word("1- Send Mail")
+		<< tab_word("0- Exit to session menu");
 
 	linea();
 
@@ -150,7 +162,7 @@ int GraphInter::mailMenu()
 	std::cout << "Choose an option:" << std::endl
 		<< tab_word("1- Answer")
 		<< tab_word("2- Forward")
-		<< tab_word("0- Exit to sesion menu");
+		<< tab_word("0- Exit to session menu");
 
 	linea();
 
@@ -180,7 +192,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::cin.ignore();
 	getline(std::cin, mail->subject);
 
-	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): " << std::endl;
 	std::getline(std::cin, mail->body, '#');
 
 	return mail;
@@ -208,7 +220,7 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 
 	std::cout << "Subject: " << mail->subject << std::endl;
 
-	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): " << std::endl;
 	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
@@ -241,7 +253,7 @@ Mail* GraphInter::forward(Mail &originalMail)
 
 	std::cout << "Subject: " << mail->subject << std::endl;
 
-	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): " << std::endl;
 	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
@@ -321,7 +333,7 @@ std::string GraphInter::tab_word(std::string word)
 void GraphInter::linea()
 {
 	std::cout << std::setfill('-')
-		<< std::setw(79) << '-'
+		<< std::setw(HORIZONTAL) << '-'
 		<< std::endl << std::setfill(' ');
 }
 
