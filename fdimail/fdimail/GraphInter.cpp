@@ -174,7 +174,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::cout << "From: " << sender << std::endl;
 
 	std::cout << "To: ";
-	std::cin >> mail->to;
+	std::getline(std::cin, mail->to);
 
 	std::cout << "Subject: ";
 	std::cin.ignore();
@@ -182,6 +182,11 @@ Mail* GraphInter::newMail(const std::string &sender)
 
 	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
 	std::getline(std::cin, mail->body, '#');
+
+	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	{
+		mail = nullptr;
+	}
 
 	return mail;
 }
@@ -216,6 +221,11 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 
 	mail->body = BODY.str();
 
+	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	{
+		mail = nullptr;
+	}
+
 	return mail;
 }
 
@@ -237,7 +247,7 @@ Mail* GraphInter::forward(Mail &originalMail)
 	std::cout << "From: " << originalMail.to << std::endl;
 
 	std::cout << "To: ";
-	std::cin >> mail->to;
+	std::getline(std::cin, mail->to);
 
 	std::cout << "Subject: " << mail->subject << std::endl;
 
@@ -248,6 +258,11 @@ Mail* GraphInter::forward(Mail &originalMail)
 		<< originalMail.to_string();//ultimo mail;
 
 	mail->body = BODY.str();
+
+	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	{
+		mail = nullptr;
+	}
 
 	return mail;
 }
