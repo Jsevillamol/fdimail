@@ -44,17 +44,17 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	std::cin.clear();
 }
 
-int GraphInter::sessionMenu(Session* sesion)
+int GraphInter::sessionMenu(Session* session)
 {
 	std::string title;
 
-	std::cout << "Mail of " << (sesion->getUser()->getId()) << std::endl;
+	std::cout << "Mail of " << (session->getUser()->getId()) << std::endl;
 
-	if (sesion->getUser()->active_tray() == sesion->getUser()->getOutbox())
+	if (session->active_list)
 	{
 		title = center_word("Outbox", HORIZONTAL, "-");
 	}
-	else if (sesion->getUser()->active_tray() == sesion->getUser()->getInbox())
+	else
 	{
 		title = center_word("Inbox", HORIZONTAL, "-");
 	}
@@ -65,27 +65,27 @@ int GraphInter::sessionMenu(Session* sesion)
 
 	linea();
 
-	if (sesion->getUser()->active_tray()->lenght() == 0)
+	if (session->active_tray()->lenght() == 0)
 	{
 		std::cout << center_word("You have no mails", HORIZONTAL, " ");
 	}
 	else
 	{
-		for (int i = 0; i < sesion->getUser()->active_tray()->lenght(); i++)
+		for (int i = 0; i < session->active_tray()->lenght(); i++)
 		{
-			if ((*(sesion->getUser()->active_tray()))[i]->read)
+			if (session->active_tray()->operator[](i)->read)
 			{
 				std::cout << ' ';
 			}
 			else std::cout << '*';
 
-			std::string id = (*(sesion->getUser()->active_tray()))[i]->idMail;
+			std::string id = session->active_tray()->operator[](i)->idMail;
 
 			/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
 			std::cout << "Id of session: " << id << std::endl;
 			std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
 
-			Mail * mail = sesion->getManager()->getMailList()->get(id);
+			Mail * mail = session->getManager()->getMailList()->get(id);
 
 			//std::cout << "Dir of mail: " << mail << std::endl;
 			assert(mail != nullptr);
@@ -102,13 +102,13 @@ int GraphInter::sessionMenu(Session* sesion)
 		<< tab_word("2- Send mail")
 		<< tab_word("3- Delete mail");
 
-	if (sesion->getUser()->active_tray() == sesion->getUser()->getInbox())
-	{
-		std::cout << tab_word("4- See outbox");
-	}
-	else if (sesion->getUser()->active_tray() == sesion->getUser()->getOutbox())
+	if (session->active_list)
 	{
 		std::cout << tab_word("4- See inbox");
+	}
+	else
+	{
+		std::cout << tab_word("4- See outbox");
 	}
 	std::cout << tab_word("5- fast read of unread mails")
 		<< tab_word("0- Sign out");
@@ -132,15 +132,15 @@ int GraphInter::WhatToDelete()
 	return digitBetween(0, 1);
 }
 
-std::string GraphInter::selectMail(Session* sesion)
+std::string GraphInter::selectMail(Session* session)
 {
 	int number;
 
 	std::cout << "Enter the number of the mail you choose:" << std::endl;
 
-	number = digitBetween(1, sesion->getUser()->active_tray()->lenght());
+	number = digitBetween(1, session->active_tray()->lenght());
 
-	return (*(sesion->getUser()->active_tray()))[number-1]->idMail;
+	return (*(session->active_tray()))[number-1]->idMail;
 }
 
 int GraphInter::mailMenu()

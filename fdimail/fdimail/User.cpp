@@ -2,9 +2,7 @@
 
 User::User(const std::string idUser, const std::string password):
 id(idUser), password(password)
-{
-	active_list = 0;
-}
+{}
 
 User::User(){}
 

@@ -12,6 +12,10 @@ private:
 	Manager* manager;
 	User* user;
 public:
+	bool active_list; //0 for inbox, 1 for outbox
+	void changeTray() { active_list = !active_list; }
+	TrayList* active_tray() { return (active_list) ?user->getOutbox() :user->getInbox(); }
+
 	Session(Manager* manager); //logIn
 	Session(){}
 

@@ -91,11 +91,11 @@ void Manager::sendMail(User* user, Mail* mail)
 	else std::cout << "Destinatary not found in the user database" << std::endl;
 }
 
-void Manager::deleteMail(User* user, const std::string &idMail)
+void Manager::deleteMail(TrayList* box, const std::string &idMail)
 {
 	//Delete from database
 	mailList.delete_mail(idMail);
 
 	//Delete from user's in/outbox
-	user->active_tray()->destroy(idMail);
+	box->destroy(idMail);
 }

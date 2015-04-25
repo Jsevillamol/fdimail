@@ -27,6 +27,6 @@ public:
 	MailList* getMailList(){ return &mailList; }
 
 	void sendMail(User* user, Mail* mail);
-	void deleteMail(User* user, const std::string &idMail);
+	void deleteMail(TrayList* box, const std::string &idMail);
 };
 #endif
