@@ -180,7 +180,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::cin.ignore();
 	getline(std::cin, mail->subject);
 
-	std::cout << "Body (enter '#' to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
 	std::getline(std::cin, mail->body, '#');
 
 	return mail;
@@ -208,7 +208,7 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 
 	std::cout << "Subject: " << mail->subject << std::endl;
 
-	std::cout << "Body (enter '#' to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
 	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
@@ -241,7 +241,7 @@ Mail* GraphInter::forward(Mail &originalMail)
 
 	std::cout << "Subject: " << mail->subject << std::endl;
 
-	std::cout << "Body (enter '#' to end the body): ";
+	std::cout << "Body (enter '#' and (ENTER) to end the body): ";
 	std::getline(std::cin, WhatToSay, '#');
 
 	BODY << WhatToSay << std::endl << std::endl
