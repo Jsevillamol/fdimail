@@ -105,14 +105,14 @@ void Session::fastRead()
 		bool something_to_read = false;
 		for (int i = 0; i < user->active_tray()->lenght(); i++)
 		{
-			if (!(*(user->active_tray()))[i]->read)
+			if (!user->active_tray()->operator[](i)->read)
 			{
 				something_to_read = true;
-				std::string id = (*(user->active_tray()))[i]->getId();
+				std::string id = user->active_tray()->operator[](i)->getId();
 				//Display mail
 				GraphInter::get()->drawMail(manager->getMailList()->get(id));
 				//Change mail status to read
-				user->active_tray()->get(id)->read = true;
+				user->active_tray()->operator[](i)->read = true;
 
 				GraphInter::get()->error("\n");
 				GraphInter::get()->linea();
