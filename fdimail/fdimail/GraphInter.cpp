@@ -22,9 +22,9 @@ void GraphInter::load()
 int GraphInter::mainMenu()
 {
 	std::cout << "Choose your desired option: " << std::endl
-		<< std::setw(12) << "1- Sign up" << std::endl
-		<< std::setw(12) << "2- Sign in" << std::endl
-		<< std::setw(9) << "0- Exit" << std::endl;
+		<< tab_word("1- Sign up")
+		<< tab_word("2- Sign in")
+		<< tab_word("0- Exit");
 
 	linea();
 
