@@ -42,13 +42,15 @@ User* Manager::registerUser()
 			return user;
 		else
 		{
-			std::cout << "Wrong password"<< std::endl;
+			GraphInter::get()->error("Wrong password");
+			GraphInter::get()->pause();
 			return nullptr;
 		}
 	}
 	else
 	{
-		std::cout << "User does not exist" << std::endl;
+		GraphInter::get()->error("User does not exist");
+		GraphInter::get()->pause();
 		return nullptr;
 	}
 }
@@ -73,7 +75,7 @@ User* Manager::createAccount()
 	}
 }
 
-void Manager::sendMail(User* user, Mail* mail)
+bool Manager::sendMail(User* user, Mail* mail)
 {
 	if (userList.get(mail->getReceiver()) != nullptr)
 	{
@@ -87,8 +89,10 @@ void Manager::sendMail(User* user, Mail* mail)
 		//Add to receiver's inbox
 		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
 		userList.get(mail->getReceiver())->getInbox()->insert(new tElemTray(mail->getId()));
+
+		return true;
 	}
-	else std::cout << "Destinatary not found in the user database" << std::endl;
+	else return false;
 }
 
 void Manager::deleteMail(TrayList* box, const std::string &idMail)

@@ -285,7 +285,7 @@ int GraphInter::digitBetween(int a, int b)
 
 	do
 	{
-		std::cin.sync(); //Por si quedan datos basura en el buffer
+		std::cin.sync();
 		std::cin >> digit;
 
 		if (std::cin.fail())
@@ -307,9 +307,7 @@ int GraphInter::digitBetween(int a, int b)
 
 std::string GraphInter::center_word(std::string word, int lenght, std::string arround)
 {
-	if (word.size() == lenght) return word;
-
-	else
+	if (word.size() != lenght)
 	{
 		for (int i = word.size(); i < lenght; i++)
 		{
@@ -322,10 +320,10 @@ std::string GraphInter::center_word(std::string word, int lenght, std::string ar
 				word = arround + word;
 			}
 		}
-		word = word + "\n";
-
-		return word;
 	}
+	word = word + "\n";
+
+	return word;
 }
 
 std::string GraphInter::tab_word(std::string word)
@@ -368,7 +366,7 @@ std::string GraphInter::valid_user()
 		}
 		else
 		{
-			for (int i = 0; i < id.size() && id_right; i++)
+			for (int i = 0; i < int(id.size()) && id_right; i++)
 			{
 				if (id[i] == ' ')
 				{

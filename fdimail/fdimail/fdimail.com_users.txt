@@ -15,9 +15,13 @@ jaime@fdimail.com
 adios
 1
 jaime@fdimail.com_1429883649 1
-0
+1
+victor@fdimail.com_1430049996 0
 victor@fdimail.com
 hola
-0
-0
+2
+victor@fdimail.com_1430047497 1
+victor@fdimail.com_1430049996 1
+1
+victor@fdimail.com_1430047497 0
 XXX

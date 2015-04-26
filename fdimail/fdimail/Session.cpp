@@ -137,7 +137,22 @@ void Session::fastRead()
 void Session::sendMail()
 {
 	GraphInter::get()->clearConsole();
-	manager->sendMail(user, GraphInter::get()->newMail(user->getId()));
+
+	Mail* mail = GraphInter::get()->newMail(user->getId());
+
+	if (mail == nullptr)
+	{
+		GraphInter::get()->error("Mail not send");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		if (!manager->sendMail(user, mail))
+		{
+			GraphInter::get()->error("The mail could not be sent, destinatary not found");
+			GraphInter::get()->pause();
+		}
+	}
 	GraphInter::get()->clearConsole();
 }
 
