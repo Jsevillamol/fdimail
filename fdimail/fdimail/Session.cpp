@@ -125,7 +125,7 @@ void Session::fastRead()
 				GraphInter::get()->pause();
 			}
 		}
-		if (something_to_read)
+		if (!something_to_read)
 		{
 			GraphInter::get()->error("You do not have any unread mail");
 			GraphInter::get()->pause();
