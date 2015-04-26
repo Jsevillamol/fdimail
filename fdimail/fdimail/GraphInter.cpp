@@ -19,6 +19,11 @@ void GraphInter::load()
 	if (inter == nullptr) inter = new GraphInter;
 }
 
+void GraphInter::close()
+{
+	if (inter != nullptr) delete inter;
+}
+
 int GraphInter::mainMenu()
 {
 	std::cout << "Choose your desired option: " << std::endl

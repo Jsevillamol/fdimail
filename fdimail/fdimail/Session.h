@@ -17,7 +17,7 @@ public:
 	TrayList* active_tray() { return (active_list) ?user->getOutbox() :user->getInbox(); }
 
 	Session(Manager* manager); //logIn
-	Session(){}
+	~Session();
 
 	void launch();
 

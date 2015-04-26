@@ -28,6 +28,11 @@ manager(manager)
 	} while (option != 0);
 }
 
+Session::~Session()
+{
+	GraphInter::close();
+}
+
 void Session::launch()
 {
 	active_list = false;

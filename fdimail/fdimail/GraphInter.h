@@ -17,6 +17,7 @@ public:
 
 	static GraphInter* get();
 	static void load();
+	static void close();
 
 	//Core functions
 	int mainMenu(); //Options: sign in and sign up
