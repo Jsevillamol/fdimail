@@ -183,6 +183,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 
 	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
 	{
+		delete mail;
 		mail = nullptr;
 	}
 
@@ -221,6 +222,7 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 
 	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
 	{
+		delete mail;
 		mail = nullptr;
 	}
 
@@ -259,6 +261,7 @@ Mail* GraphInter::forward(Mail &originalMail)
 
 	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
 	{
+		delete mail;
 		mail = nullptr;
 	}
 
