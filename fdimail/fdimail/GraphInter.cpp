@@ -223,7 +223,13 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	std::cout << "Subject: " << mail->subject << std::endl;
 
 	std::cout << "Body (enter twice (ENTER) to end the body): " << std::endl;
-	std::getline(std::cin, WhatToSay, '#');
+	
+	std::string line;
+	mail->body = "";
+	do{
+		std::getline(std::cin, line);
+		mail->body += line;
+	} while (line != "");
 
 	BODY << WhatToSay << std::endl << std::endl
 		<< originalMail.to_string();//ultimo mail;
@@ -261,7 +267,13 @@ Mail* GraphInter::forward(Mail &originalMail)
 	std::cout << "Subject: " << mail->subject << std::endl;
 
 	std::cout << "Body (enter twice (ENTER) to end the body): " << std::endl;
-	std::getline(std::cin, WhatToSay, '#');
+	
+	std::string line;
+	mail->body = "";
+	do{
+		std::getline(std::cin, line);
+		mail->body += line;
+	} while (line != "");
 
 	BODY << WhatToSay << std::endl << std::endl
 		<< originalMail.to_string();//ultimo mail;
