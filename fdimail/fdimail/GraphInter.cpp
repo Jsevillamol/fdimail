@@ -181,7 +181,6 @@ Mail* GraphInter::newMail(const std::string &sender)
 	std::getline(std::cin, mail->to);
 
 	std::cout << "Subject: ";
-	std::cin.ignore();
 	getline(std::cin, mail->subject);
 
 	std::cout << "Body (enter '#' and (ENTER) to end the body): " << std::endl;
