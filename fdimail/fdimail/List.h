@@ -101,7 +101,7 @@ template<class T, int MAX>
 T* List<T, MAX>::get(const std::string &id)
 {
 	//std::cout << "Get in list: " << this << std::endl;
-	int pos;
+	int pos = 0;
 	if (search(id, pos)){
 		//std::cout << "Found " << id << "in pos: " << pos << std::endl;
 		return list[pos];

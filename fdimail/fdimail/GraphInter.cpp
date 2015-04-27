@@ -89,7 +89,7 @@ int GraphInter::sessionMenu(Session* session)
 			/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
 			std::cout << "Id of session: " << id << std::endl;
 			std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
-			std::cout << "Id: " << id << std::endl;
+			//std::cout << "Id: " << id << std::endl;
 			Mail * mail = session->getManager()->getMailList()->get(id);
 
 			//std::cout << "Dir of mail: " << mail << std::endl;
