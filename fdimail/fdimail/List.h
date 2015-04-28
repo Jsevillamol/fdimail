@@ -1,7 +1,6 @@
 #ifndef LIST
 #define LIST
 #include <assert.h>
-#include <iostream>
 //Template for lists
 template <class T, int MAX>
 class List
