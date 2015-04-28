@@ -2,6 +2,7 @@
 #include "Session.h"
 #include <iostream>
 #include <iomanip>
+#include <assert.h>
 
 GraphInter* GraphInter::inter = nullptr;
 
@@ -90,7 +91,7 @@ int GraphInter::sessionMenu(Session* session)
 			std::cout << "Id of session: " << id << std::endl;
 			std::cout << "MailList direction: " << (sesion->getManager()->getMailList()) << std::endl;*/
 			//std::cout << "Id: " << id << std::endl;
-			Mail * mail = session->getManager()->getMailList()->get(id);
+			Mail* mail = session->getManager()->getMailList()->get(id);
 
 			//std::cout << "Dir of mail: " << mail << std::endl;
 			assert(mail != nullptr);
