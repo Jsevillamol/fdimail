@@ -18,7 +18,7 @@ public:
 	Manager(const std::string &new_domain);
 	~Manager();
 
-	bool bootUp();
+	void bootUp();
 	void shutDown();
 
 	User* registerUser();
