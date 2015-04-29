@@ -17,8 +17,9 @@ void Manager::bootUp()
 	std::ostringstream mail_file, user_file;
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
-	if (!mailList.load(mail_file.str())) GraphInter::get()->error("Could not load maillist");
-	if (!userList.load(user_file.str())) GraphInter::get()->error("Could not load userlist");
+
+	manualyMails(mail_file.str());
+	manualyUsers(user_file.str());	
 }
 
 void Manager::shutDown()
@@ -101,4 +102,38 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 
 	//Delete from user's in/outbox
 	box->destroy(idMail);
+}
+
+void Manager::manualyUsers(const std::string &name)
+{
+	std::string userLocation = "Hola"; //to avoid the string to be empty
+
+	while (userLocation != "" && !userList.load(name))
+	{
+		GraphInter::get()->error("Could not load this");
+		GraphInter::get()->error("Enter the file location ((ENTER) for continue)");
+		GraphInter::get()->enter(userLocation);
+
+		if (userLocation != "")
+		{
+			//busca en location
+		}
+	}
+}
+
+void Manager::manualyMails(const std::string &name)
+{
+	std::string mailLocation = "Hola"; //to avoid the string to be empty
+
+	while (mailLocation != "" && !mailList.load(name))
+	{
+		GraphInter::get()->error("Could not load this");
+		GraphInter::get()->error("Enter the file location ((ENTER) for continue)");
+		GraphInter::get()->enter(mailLocation);
+
+		if (mailLocation != "")
+		{
+			//busca en location
+		}
+	}
 }

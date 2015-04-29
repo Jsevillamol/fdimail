@@ -1,6 +1,7 @@
 #ifndef LIST
 #define LIST
 #include <assert.h>
+#include <iostream>
 //Template for lists
 template <class T, int MAX>
 class List
@@ -25,7 +26,7 @@ public:
 	T* get(const std::string &id);
 	bool destroy(const std::string &id);
 	void save(const std::string &name);
-	bool load(const std::string &name);
+	bool load(const std::string &name/*, const std::string &url*/);
 	void manualy(const std::string &name);
 
 	T* operator [](int i) { return list[i]; }
@@ -104,7 +105,7 @@ T* List<T, MAX>::get(const std::string &id)
 	int pos = 0;
 	if (search(id, pos))
 	{
-		//std::cout << "Found " << id << "in pos: " << pos << std::endl;
+		std::cout << "Found " + id << "in pos: " << pos;
 		return list[pos];
 	}
 	else 
@@ -156,7 +157,7 @@ void List<T, MAX>::save(const std::string &name)
 }
 
 template<class T, int MAX>
-bool List<T, MAX>::load(const std::string &name)
+bool List<T, MAX>::load(const std::string &name/*, const std::string &url*/)
 {
 	std::ifstream file;
 	bool right;

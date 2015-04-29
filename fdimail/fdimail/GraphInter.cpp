@@ -181,7 +181,8 @@ Mail* GraphInter::newMail(const std::string &sender)
 	error("From: " + sender);
 
 	error("To: ");
-	std::getline(std::cin, mail->to);
+	std::cin.ignore();
+	enter(mail->to);
 
 	error("Subject: ");
 	enter(mail->subject);
@@ -265,6 +266,7 @@ Mail* GraphInter::forward(Mail &originalMail)
 	error("From: " + originalMail.to);
 
 	error("To: ");
+	std::cin.ignore();
 	enter(mail->to);
 
 	error("Subject: " + mail->subject);
