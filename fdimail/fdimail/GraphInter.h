@@ -35,13 +35,15 @@ public:
 	std::string valid_user();
 	std::string valid_password();
 	std::string inputBox(std::string &message);
-	void error(const char error[]);
+	void error(std::string error);
+	void enter(std::string &word);
+	void enter(int &digit);
 	void pause();
 	void clearConsole(){ system("cls"); }
 	int digitBetween(int a, int b);
 	int WhatToDelete();
 	std::string center_word(std::string number, int lenght, std::string arround);
-	std::string tab_word(std::string word);
+	void tab_word(std::string word);
 	void check_password(std::string& password);
 	void linea();
 };

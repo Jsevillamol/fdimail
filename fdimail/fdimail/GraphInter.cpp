@@ -1,5 +1,6 @@
 #include "GraphInter.h"
 #include "Session.h"
+#include <sstream>
 #include <iostream>
 #include <iomanip>
 #include <assert.h>
@@ -27,14 +28,14 @@ void GraphInter::close()
 
 int GraphInter::mainMenu()
 {
-	std::cout << "Choose your desired option: " << std::endl
-		<< tab_word("1- Sign up")
-		<< tab_word("2- Sign in")
-		<< tab_word("0- Exit");
+	error("Choose your desired option: ");
+	tab_word("1- Sign up");
+	tab_word("2- Sign in");
+	tab_word("0- Exit");
 
 	linea();
 
-	std::cout << "Enter an option:" << std::endl;
+	error("Enter an option:");
 
 	return digitBetween(0, 2);
 }
@@ -43,16 +44,15 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
 
-	std::cout << "Enter password:" << std::endl;
+	error("Enter password:");
 
-	std::cin.sync();
-	std::cin >> password;
-	std::cin.clear();
+	enter(password);
 }
 
 int GraphInter::sessionMenu(Session* session)
 {
 	std::string title;
+	std::ostringstream menu;
 
 	std::cout << "Mail of " << (session->getUser()->getId()) << std::endl;
 
@@ -65,15 +65,17 @@ int GraphInter::sessionMenu(Session* session)
 		title = center_word("Inbox", HORIZONTAL, "-");
 	}
 
-	std::cout << title << std::endl << "R N" << std::setw(7)
+	menu << title << "\n" << "R N" << std::setw(7)
 		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
-		<< "DATE" << std::endl << std::endl;
+		<< "DATE" << std::endl;
+
+	error(menu.str());
 
 	linea();
 
 	if (session->active_tray()->lenght() == 0)
 	{
-		std::cout << center_word("You have no mails", HORIZONTAL, " ");
+		error(center_word("You have no mails", HORIZONTAL, " "));
 	}
 	else
 	{
@@ -81,9 +83,9 @@ int GraphInter::sessionMenu(Session* session)
 		{
 			if (session->active_tray()->operator[](i)->read)
 			{
-				std::cout << ' ';
+				error(" ");
 			}
-			else std::cout << '*';
+			else error("*");
 
 			std::string id = session->active_tray()->operator[](i)->idMail;
 
@@ -96,28 +98,29 @@ int GraphInter::sessionMenu(Session* session)
 			//std::cout << "Dir of mail: " << mail << std::endl;
 			assert(mail != nullptr);
 			std::string thisMail = mail->header();
+			std::ostringstream show;
 
-			std::cout << std::setw(2) << (i + 1)
-				<< " - " << thisMail << std::endl;
+			show << std::setw(3) << (i + 1) << " - " << thisMail;
+			error(show.str());
 		}
 	}
 	linea();
 
-	std::cout << "Choose your desired option: " << std::endl
-		<< tab_word("1- Read mail")
-		<< tab_word("2- Send mail")
-		<< tab_word("3- Delete mail");
+	error("Choose your desired option: ");
+	tab_word("1- Read mail");
+	tab_word("2- Send mail");
+	tab_word("3- Delete mail");
 
 	if (session->active_list)
 	{
-		std::cout << tab_word("4- See inbox");
+		tab_word("4- See inbox");
 	}
 	else
 	{
-		std::cout << tab_word("4- See outbox");
+		tab_word("4- See outbox");
 	}
-	std::cout << tab_word("5- fast read of unread mails")
-		<< tab_word("0- Sign out");
+	tab_word("5- fast read of unread mails");
+	tab_word("0- Sign out");
 
 	linea();
 
@@ -128,12 +131,12 @@ int GraphInter::sessionMenu(Session* session)
 
 int GraphInter::WhatToDelete()
 {
-	std::cout << tab_word("1- Choose mail")
-		<< tab_word("0- Delete all mails");
+	tab_word("1- Choose mail");
+	tab_word("0- Delete all mails");
 
 	linea();
 
-	std::cout << "Enter an option:" << std::endl;
+	error("Enter an option:");
 
 	return digitBetween(0, 1);
 }
@@ -142,7 +145,7 @@ std::string GraphInter::selectMail(Session* session)
 {
 	int number;
 
-	std::cout << "Enter the number of the mail you choose:" << std::endl;
+	error("Enter the number of the mail you choose:");
 
 	number = digitBetween(1, session->active_tray()->lenght());
 
@@ -151,14 +154,14 @@ std::string GraphInter::selectMail(Session* session)
 
 int GraphInter::mailMenu()
 {
-	std::cout << "Choose an option:" << std::endl
-		<< tab_word("1- Answer")
-		<< tab_word("2- Forward")
-		<< tab_word("0- Exit to sesion menu");
+	error("Choose an option:");
+	tab_word("1- Answer");
+	tab_word("2- Forward");
+	tab_word("0- Exit to sesion menu");
 
 	linea();
 
-	std::cout << "Enter an option:" << std::endl;
+	error("Enter an option:");
 
 	return digitBetween(0, 2);
 }
@@ -175,21 +178,20 @@ Mail* GraphInter::newMail(const std::string &sender)
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
-	std::cout << "From: " << sender << std::endl;
+	error("From: " + sender);
 
-	std::cout << "To: ";
-	std::cin.ignore();
+	error("To: ");
 	std::getline(std::cin, mail->to);
 
-	std::cout << "Subject: ";
-	getline(std::cin, mail->subject);
+	error("Subject: ");
+	enter(mail->subject);
 
-	std::cout << "Body (enter twice (ENTER) to end the body): " << std::endl;
+	error("Body (enter twice (ENTER) to end the body): ");
 
 	std::string line;
 	mail->body = "";
 	do{
-		std::getline(std::cin, line);
+		enter(line);
 		mail->body += line;
 	} while (line != "");
 
@@ -217,18 +219,18 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	ID << originalMail.to << "_" << mail->date;
 	mail->id = ID.str();
 
-	std::cout << "From: " << originalMail.to << std::endl;
+	error("From: " + originalMail.to);
 
-	std::cout << "To: " << originalMail.from << std::endl;
+	error("To: " + originalMail.from);
 
-	std::cout << "Subject: " << mail->subject << std::endl;
+	error("Subject: " + mail->subject);
 
-	std::cout << "Body (enter twice (ENTER) to end the body): " << std::endl;
+	error("Body (enter twice (ENTER) to end the body): ");
 	
 	std::string line;
 	mail->body = "";
 	do{
-		std::getline(std::cin, line);
+		enter(line);
 		mail->body += line;
 	} while (line != "");
 
@@ -260,19 +262,19 @@ Mail* GraphInter::forward(Mail &originalMail)
 	ID << originalMail.to << "_" << mail->date;
 	mail->id = ID.str();
 
-	std::cout << "From: " << originalMail.to << std::endl;
+	error("From: " + originalMail.to);
 
-	std::cout << "To: ";
-	std::getline(std::cin, mail->to);
+	error("To: ");
+	enter(mail->to);
 
-	std::cout << "Subject: " << mail->subject << std::endl;
+	error("Subject: " + mail->subject);
 
-	std::cout << "Body (enter twice (ENTER) to end the body): " << std::endl;
+	error("Body (enter twice (ENTER) to end the body): ");
 	
 	std::string line;
 	mail->body = "";
 	do{
-		std::getline(std::cin, line);
+		enter(line);
 		mail->body += line;
 	} while (line != "");
 
@@ -303,18 +305,16 @@ int GraphInter::digitBetween(int a, int b)
 
 	do
 	{
-		std::cin.sync();
-		std::cin >> digit;
+		enter(digit);
 
 		if (std::cin.fail())
 		{
-			std::cout << "Error, enter a digit" << std::endl;
-			std::cin.clear();
+			error("Error, enter a digit");
 		}
 
 		else if (digit < a || digit > b)
 		{
-			std::cout << "Error, enter a digit between " << a << " and " << b << std::endl;
+			error("Error, enter a digit between " + std::to_string(a) + " and " + std::to_string(b));
 			digit = -1;
 		}
 
@@ -344,13 +344,13 @@ std::string GraphInter::center_word(std::string word, int lenght, std::string ar
 	return word;
 }
 
-std::string GraphInter::tab_word(std::string word)
+void GraphInter::tab_word(std::string word)
 {
 	std::ostringstream tab;
 
-	tab << std::setw(2 + word.size()) << word << std::endl;
+	tab << std::setw(2 + word.size()) << word;
 
-	return tab.str();
+	error(tab.str());
 }
 
 void GraphInter::linea()
@@ -365,20 +365,18 @@ std::string GraphInter::valid_user()
 	std::string id;
 	bool id_right;
 
-	std::cout << "Enter your id: " << std::endl;
+	error("Enter your id: ");
 
 	do
 	{
 		id_right = true;
 
-		std::cin.sync();
-		std::getline(std::cin, id);
-		std::cin.clear();
+		enter(id);
 
 		if (id.size() > 15)
 		{
-			std::cout << "Error, your id cannot be longer than 15 characters " << std::endl
-				<< "Enter your id: " << std::endl;
+			error("Error, your id cannot be longer than 15 characters ");
+			error("Enter your id: ");
 
 			id_right = false;
 		}
@@ -388,8 +386,8 @@ std::string GraphInter::valid_user()
 			{
 				if (id[i] == ' ')
 				{
-					std::cout << "Error, your id cannot contain a space" << std::endl
-						<< "Enter your id: " << std::endl;
+					error("Error, your id cannot contain a space");
+					error("Enter your id: ");
 
 					id_right = false;
 				}
@@ -417,18 +415,32 @@ void GraphInter::check_password(std::string& password)
 
 	while (newPassword != password)
 	{
-		std::cout << "Error, the passwords are not the same" << std::endl
-			<< "Enter your password:" << std::endl;
+		error("Error, the passwords are not the same");
+		error("Enter your password:");
 
-		std::cin >> password;
+		enter(password);
 
-		std::cout << "Confirm your password:" << std::endl;
+		error("Confirm your password:");
 
-		std::cin >> newPassword;
+		enter(newPassword);
 	}
 }
 
-void GraphInter::error(const char error[])
+void GraphInter::error(std::string error)
 {
 	std::cout << error << std::endl;
+}
+
+void GraphInter::enter(std::string &word)
+{
+	std::cin.sync();
+	std::getline(std::cin, word);
+	std::cin.clear();
+}
+
+void GraphInter::enter(int &digit)
+{
+	std::cin.sync();
+	std::cin >> digit;
+	std::cin.clear();
 }
