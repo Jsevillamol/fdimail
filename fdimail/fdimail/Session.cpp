@@ -89,11 +89,13 @@ void Session::readMail()
 
 		if (option == 1)
 		{
-			GraphInter::get()->answerMail(*mail);
+			Mail* answer = GraphInter::get()->answerMail(*mail);
 		}
 		else if (option == 2)
 		{
-			GraphInter::get()->forward(*mail);
+			Mail* forward = GraphInter::get()->forward(*mail);
+
+			
 		}
 	}
 }
@@ -149,7 +151,51 @@ void Session::sendMail()
 	{
 		if (!manager->sendMail(user, mail))
 		{
-			GraphInter::get()->error("The mail could not be sent, destinatary not found");
+			GraphInter::get()->error("The mail could not be sent, some recipients were not foud");
+			GraphInter::get()->pause();
+		}
+	}
+	GraphInter::get()->clearConsole();
+}
+
+void Session::answerMail(Mail &originalMail)
+{
+	GraphInter::get()->clearConsole();
+
+	Mail* answer = GraphInter::get()->answerMail(originalMail);
+
+	if (answer == nullptr)
+	{
+		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		if (!manager->sendMail(user, answer))
+		{
+			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
+			GraphInter::get()->pause();
+		}
+	}
+	GraphInter::get()->clearConsole();
+}
+
+void Session::forwardMail(Mail &originalMail)
+{
+	GraphInter::get()->clearConsole();
+
+	Mail* forward = GraphInter::get()->forward(originalMail);
+
+	if (forward == nullptr)
+	{
+		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		if (!manager->forward(user, forward))
+		{
+			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
 			GraphInter::get()->pause();
 		}
 	}

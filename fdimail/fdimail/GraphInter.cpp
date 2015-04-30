@@ -180,9 +180,17 @@ Mail* GraphInter::newMail(const std::string &sender)
 
 	error("From: " + sender);
 
-	error("To: ");
-	std::cin.ignore();
-	enter(mail->to);
+	error("How many recipients do you want this mail to be sent?");
+	mail->recipient_count = digitBetween(1, MAX_RECIPIENTS);
+
+	for (int i = 0; i < mail->recipient_count; i++)
+	{
+		error("To: ");
+		std::cin.ignore();
+		enter(mail->recipients[i]);
+	}
+
+	mail->user_count = mail->recipient_count + 1;
 
 	error("Subject: ");
 	enter(mail->subject);
@@ -265,9 +273,17 @@ Mail* GraphInter::forward(Mail &originalMail)
 
 	error("From: " + originalMail.to);
 
-	error("To: ");
-	std::cin.ignore();
-	enter(mail->to);
+	error("How many recipients do you want this mail to be sent?");
+	mail->recipient_count = digitBetween(1, MAX_RECIPIENTS);
+
+	for (int i = 0; i < mail->recipient_count; i++)
+	{
+		error("To: ");
+		std::cin.ignore();
+		enter(mail->recipients[i]);
+	}
+
+	mail->user_count = mail->recipient_count + 1;
 
 	error("Subject: " + mail->subject);
 
