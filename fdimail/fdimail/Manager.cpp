@@ -81,7 +81,7 @@ bool Manager::sendMail(User* user, Mail* mail)
 
 	for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
 
-	if (i == mail->recipient_count - 1 && userList.get(mail->recipients[i]) != nullptr)
+	if (i == mail->recipient_count && userList.get(mail->recipients[i-1]) != nullptr)
 	{
 		//Add to database
 		mailList.insert(mail);
@@ -142,9 +142,9 @@ bool Manager::sendMail(User* user, Mail* mail)
 	}*/
 }
 
-bool Manager::forward(User* user, Mail* mail)
+bool Manager::answer(User* user, Mail* mail)
 {
-	if (userList.get(mail->to) != nullptr)
+	if (userList.get(mail->recipients[0]) != nullptr)
 	{
 		//Add to database
 		mailList.insert(mail);
@@ -155,7 +155,7 @@ bool Manager::forward(User* user, Mail* mail)
 
 		//Add to receiver's inbox
 		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-		userList.get(mail->to)->getInbox()->insert(new tElemTray(mail->getId()));
+		userList.get(mail->recipients[0])->getInbox()->insert(new tElemTray(mail->getId()));
 
 		return true;
 	}

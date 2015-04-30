@@ -181,13 +181,31 @@ Mail* GraphInter::newMail(const std::string &sender)
 	error("From: " + sender);
 
 	error("How many recipients do you want this mail to be sent?");
-	mail->recipient_count = digitBetween(1, MAX_RECIPIENTS);
+	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
 	for (int i = 0; i < mail->recipient_count; i++)
 	{
-		error("To: ");
+		if (i == 0)
+		{
+			error("To: ");
+		}
+		else
+		{
+			error("CC: ");
+		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
+
+		for (int j = 0; j < i; j++)
+		{
+			for (int k = 0; k < i; k++)
+			{
+				if (j != k && mail->recipients[j] == mail->recipients[k])
+				{
+					error("You have already choose this destinatary, you cannot choose it again");
+				}
+			}
+		}
 	}
 
 	mail->user_count = mail->recipient_count + 1;
@@ -204,7 +222,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 		mail->body += line;
 	} while (line != "");
 
-	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	if (mail->body == "" || mail->from == "" || mail->recipients == 0 || mail->subject == "")
 	{
 		delete mail;
 		return nullptr;
@@ -212,25 +230,27 @@ Mail* GraphInter::newMail(const std::string &sender)
 	else return mail;
 }
 
-Mail* GraphInter::answerMail(Mail &originalMail)
+Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 {
 	Mail* mail = new Mail;
 	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
 
-	SUBJECT << "Re: " << originalMail.subject;
+	SUBJECT << "Re: " << originalMail->subject;
 
-	mail->from = originalMail.to;
+	mail->from = sender;
 	mail->date = time(0);
-	mail->to = originalMail.from;
+
+	mail->recipient_count = 1;
+	mail->recipients[0] = originalMail->from;
 	mail->subject = SUBJECT.str();
 
-	ID << originalMail.to << "_" << mail->date;
+	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
-	error("From: " + originalMail.to);
+	error("From: " + sender);
 
-	error("To: " + originalMail.from);
+	error("To: " + originalMail->from);
 
 	error("Subject: " + mail->subject);
 
@@ -244,11 +264,11 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	} while (line != "");
 
 	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail.to_string();//ultimo mail;
+		<< originalMail->to_string();//ultimo mail;
 
 	mail->body = BODY.str();
 
-	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	if (mail->body == "" || mail->from == "" || mail->subject == "")
 	{
 		delete mail;
 		return nullptr;
@@ -256,31 +276,49 @@ Mail* GraphInter::answerMail(Mail &originalMail)
 	else return mail;
 }
 
-Mail* GraphInter::forward(Mail &originalMail)
+Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 {
 	Mail* mail = new Mail;
 	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
 
-	SUBJECT << "Re: " << originalMail.subject;
+	SUBJECT << "Re: " << originalMail->subject;
 
-	mail->from = originalMail.to;
+	mail->from = sender;
 	mail->date = time(0);
 	mail->subject = SUBJECT.str();
 
-	ID << originalMail.to << "_" << mail->date;
+	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
-	error("From: " + originalMail.to);
+	error("From: " + sender);
 
 	error("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(1, MAX_RECIPIENTS);
 
 	for (int i = 0; i < mail->recipient_count; i++)
 	{
-		error("To: ");
+		if (i == 0)
+		{
+			error("To: ");
+		}
+		else
+		{
+			error("CC: ");
+		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
+
+		for (int j = 0; j < i; j++)
+		{
+			for (int k = 0; k < i; k++)
+			{
+				if (mail->recipients[j] == mail->recipients[k])
+				{
+					error("You have already choose this destinatary, you cannot choose it again");
+				}
+			}
+		}
 	}
 
 	mail->user_count = mail->recipient_count + 1;
@@ -297,11 +335,11 @@ Mail* GraphInter::forward(Mail &originalMail)
 	} while (line != "");
 
 	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail.to_string();//ultimo mail;
+		<< originalMail->to_string();//ultimo mail;
 
 	mail->body = BODY.str();
 
-	if (mail->body == "" || mail->from == "" || mail->to == "" || mail->subject == "")
+	if (mail->body == "" || mail->from == "" || mail->subject == "")
 	{
 		delete mail;
 		return nullptr;

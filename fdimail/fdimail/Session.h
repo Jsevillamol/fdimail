@@ -26,8 +26,8 @@ public:
 
 	void readMail();
 	void sendMail();
-	void answerMail(Mail &originalMail);
-	void forwardMail(Mail &originalMail);
+	void answerMail(Mail* &originalMail);
+	void forwardMail(Mail* &originalMail);
 	void deleteMail();
 	void fastRead();
 };

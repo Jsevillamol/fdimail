@@ -16,7 +16,6 @@ public:
 	std::string recipients[MAX_RECIPIENTS];
 
 	std::string from;
-	std::string to;
 
 	std::string subject;
 	std::string body;

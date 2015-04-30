@@ -89,13 +89,11 @@ void Session::readMail()
 
 		if (option == 1)
 		{
-			Mail* answer = GraphInter::get()->answerMail(*mail);
+			answerMail(mail);
 		}
 		else if (option == 2)
 		{
-			Mail* forward = GraphInter::get()->forward(*mail);
-
-			
+			forwardMail(mail);	
 		}
 	}
 }
@@ -158,11 +156,11 @@ void Session::sendMail()
 	GraphInter::get()->clearConsole();
 }
 
-void Session::answerMail(Mail &originalMail)
+void Session::answerMail(Mail* &originalMail)
 {
 	GraphInter::get()->clearConsole();
 
-	Mail* answer = GraphInter::get()->answerMail(originalMail);
+	Mail* answer = GraphInter::get()->answerMail(originalMail, user->getId());
 
 	if (answer == nullptr)
 	{
@@ -171,7 +169,7 @@ void Session::answerMail(Mail &originalMail)
 	}
 	else
 	{
-		if (!manager->sendMail(user, answer))
+		if (!manager->answer(user, answer))
 		{
 			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
 			GraphInter::get()->pause();
@@ -180,11 +178,11 @@ void Session::answerMail(Mail &originalMail)
 	GraphInter::get()->clearConsole();
 }
 
-void Session::forwardMail(Mail &originalMail)
+void Session::forwardMail(Mail* &originalMail)
 {
 	GraphInter::get()->clearConsole();
 
-	Mail* forward = GraphInter::get()->forward(originalMail);
+	Mail* forward = GraphInter::get()->forward(originalMail, user->getId());
 
 	if (forward == nullptr)
 	{
@@ -193,7 +191,7 @@ void Session::forwardMail(Mail &originalMail)
 	}
 	else
 	{
-		if (!manager->forward(user, forward))
+		if (!manager->sendMail(user, forward))
 		{
 			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
 			GraphInter::get()->pause();
