@@ -79,7 +79,7 @@ int GraphInter::sessionMenu(Session* session)
 	}
 	else
 	{
-		for (int i = 0; i < session->active_tray()->lenght(); i++)
+		for (int i = session->active_tray()->lenght()-1; i >= 0; i--)
 		{
 			if (session->active_tray()->operator[](i)->read)
 			{
