@@ -196,9 +196,9 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
-		for (int j = 0; j < i; j++)
+		for (int j = 0; j <= i; j++)
 		{
-			for (int k = 0; k < i; k++)
+			for (int k = 0; k <= i; k++)
 			{
 				if (j != k && mail->recipients[j] == mail->recipients[k])
 				{
@@ -208,26 +208,39 @@ Mail* GraphInter::newMail(const std::string &sender)
 		}
 	}
 
-	mail->user_count = mail->recipient_count + 1;
-
-	error("Subject: ");
-	enter(mail->subject);
-
-	error("Body (enter twice (ENTER) to end the body): ");
-
-	std::string line;
-	mail->body = "";
-	do{
-		enter(line);
-		mail->body += line;
-	} while (line != "");
-
-	if (mail->body == "" || mail->from == "" || mail->recipients == 0 || mail->subject == "")
+	if (mail->recipient_count == 0)
 	{
 		delete mail;
 		return nullptr;
 	}
-	else return mail;
+	else
+	{
+		mail->user_count = mail->recipient_count + 1;
+
+		error("Subject: ");
+		enter(mail->subject);
+
+		if (mail->subject == "")
+		{
+			mail->subject = "No subject";
+		}
+
+		error("Body (enter twice (ENTER) to end the body): ");
+
+		std::string line;
+		mail->body = "";
+		do{
+			enter(line);
+			mail->body += line;
+		} while (line != "");
+
+		if (mail->body == "")
+		{
+			delete mail;
+			return nullptr;
+		}
+		else return mail;
+	}
 }
 
 Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
@@ -278,6 +291,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 
 Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 {
+	int i;
 	Mail* mail = new Mail;
 	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
@@ -294,9 +308,9 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 	error("From: " + sender);
 
 	error("How many recipients do you want this mail to be sent?");
-	mail->recipient_count = digitBetween(1, MAX_RECIPIENTS);
+	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
-	for (int i = 0; i < mail->recipient_count; i++)
+	for (i = 0; i < mail->recipient_count && mail->recipients[i] != ""; i++)
 	{
 		if (i == 0)
 		{
@@ -320,31 +334,44 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 			}
 		}
 	}
-
-	mail->user_count = mail->recipient_count + 1;
-
-	error("Subject: " + mail->subject);
-
-	error("Body (enter twice (ENTER) to end the body): ");
 	
-	std::string line;
-	mail->body = "";
-	do{
-		enter(line);
-		mail->body += line;
-	} while (line != "");
-
-	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail->to_string();//ultimo mail;
-
-	mail->body = BODY.str();
-
-	if (mail->body == "" || mail->from == "" || mail->subject == "")
+	if (mail->recipient_count == 0)
 	{
 		delete mail;
 		return nullptr;
 	}
-	else return mail;
+	else if (mail->recipients[i] == "")
+	{
+		delete mail;
+		return nullptr;
+	}
+	else
+	{
+		mail->user_count = mail->recipient_count + 1;
+
+		error("Subject: " + mail->subject);
+
+		error("Body (enter twice (ENTER) to end the body): ");
+
+		std::string line;
+		mail->body = "";
+		do{
+			enter(line);
+			mail->body += line;
+		} while (line != "");
+
+		BODY << WhatToSay << std::endl << std::endl
+			<< originalMail->to_string();//ultimo mail;
+
+		mail->body = BODY.str();
+
+		if (mail->body == "")
+		{
+			delete mail;
+			return nullptr;
+		}
+		else return mail;
+	}
 }
 
 void GraphInter::pause()
