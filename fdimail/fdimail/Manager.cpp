@@ -18,8 +18,12 @@ void Manager::bootUp()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	manualyMails(mail_file.str());
-	manualyUsers(user_file.str());	
+	if (!mailList.load(mail_file.str())) 
+		if (!mailList.load(GraphInter::get()->manual())) 
+			GraphInter::get()->error("Could not load mailList");
+	if (!userList.load(user_file.str())) 
+		if (!userList.load(GraphInter::get()->manual()))
+			GraphInter::get()->error("Could not load userList");
 }
 
 void Manager::shutDown()
@@ -27,6 +31,7 @@ void Manager::shutDown()
 	std::ostringstream mail_file, user_file;
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
+
 	mailList.save(mail_file.str());
 	userList.save(user_file.str());
 }
@@ -104,7 +109,7 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	box->destroy(idMail);
 }
 
-void Manager::manualyUsers(const std::string &name)
+/*void Manager::manualyUsers(const std::string &name)
 {
 	std::string userLocation = "Hola"; //to avoid the string to be empty
 
@@ -136,4 +141,4 @@ void Manager::manualyMails(const std::string &name)
 			//busca en location
 		}
 	}
-}
+}*/

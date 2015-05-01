@@ -100,7 +100,7 @@ int GraphInter::sessionMenu(Session* session)
 			std::string thisMail = mail->header();
 			std::ostringstream show;
 
-			show << std::setw(3) << (i + 1) << " - " << thisMail;
+			show << std::setw(3) << (session->active_tray()->lenght() - i) << " - " << thisMail;
 			error(show.str());
 		}
 	}
@@ -426,6 +426,15 @@ void GraphInter::check_password(std::string& password)
 
 		enter(newPassword);
 	}
+}
+
+std::string GraphInter::manual()
+{
+	std::string file_name;
+
+	enter(file_name);
+
+	return file_name;
 }
 
 void GraphInter::error(std::string error)

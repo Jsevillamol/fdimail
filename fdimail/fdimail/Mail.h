@@ -22,6 +22,7 @@ public:
 
 	const std::string& getId() const { return id; }
 	int getCounter() const { return user_count; }
+	std::string getReciver() const { return to; }
 	const std::string& getReceiver() const { return to; }
 
 	void save(std::ofstream &file)const;
