@@ -170,6 +170,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 {
 	std::ostringstream ID;
 	Mail* mail = new Mail;
+	int i;
 
 	mail->from = sender;
 	mail->date = time(0);
@@ -183,7 +184,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	error("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
-	for (int i = 0; i < mail->recipient_count; i++)
+	for (i = 0; i < mail->recipient_count && mail->recipients[i] != ""; i++)
 	{
 		if (i == 0)
 		{
@@ -196,11 +197,11 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
-		for (int j = 0; j <= i; j++)
+		for (int j = 0; j < i; j++)
 		{
-			for (int k = 0; k <= i; k++)
+			for (int k = 0; k < i; k++)
 			{
-				if (j != k && mail->recipients[j] == mail->recipients[k])
+				if (mail->recipients[j] == mail->recipients[k])
 				{
 					error("You have already choose this destinatary, you cannot choose it again");
 				}
@@ -209,6 +210,11 @@ Mail* GraphInter::newMail(const std::string &sender)
 	}
 
 	if (mail->recipient_count == 0)
+	{
+		delete mail;
+		return nullptr;
+	}
+	else if (mail->recipients[i] == "")
 	{
 		delete mail;
 		return nullptr;
@@ -270,23 +276,23 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 	error("Body (enter twice (ENTER) to end the body): ");
 	
 	std::string line;
-	mail->body = "";
+	WhatToSay = "";
 	do{
 		enter(line);
-		mail->body += line;
+		WhatToSay += line;
 	} while (line != "");
 
-	BODY << WhatToSay << std::endl << std::endl
-		<< originalMail->to_string();//ultimo mail;
+	if (WhatToSay == "")
+	{
+		WhatToSay = "No body";
+	}
+
+	BODY << WhatToSay << std::endl << linea()
+		<< std::endl << originalMail->to_string();//ultimo mail;
 
 	mail->body = BODY.str();
 
-	if (mail->body == "" || mail->from == "" || mail->subject == "")
-	{
-		delete mail;
-		return nullptr;
-	}
-	else return mail;
+	return mail;
 }
 
 Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
@@ -304,6 +310,10 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
+
+	error(center_word("Forwarded mail", HORIZONTAL, " "));
+
+	error("");
 
 	error("From: " + sender);
 
@@ -335,12 +345,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		}
 	}
 	
-	if (mail->recipient_count == 0)
-	{
-		delete mail;
-		return nullptr;
-	}
-	else if (mail->recipients[i] == "")
+	if (mail->recipient_count == 0 || mail->recipients[i] == "")
 	{
 		delete mail;
 		return nullptr;
@@ -354,23 +359,23 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		error("Body (enter twice (ENTER) to end the body): ");
 
 		std::string line;
-		mail->body = "";
+		WhatToSay = "";
 		do{
 			enter(line);
-			mail->body += line;
+			WhatToSay += line;
 		} while (line != "");
 
-		BODY << WhatToSay << std::endl << std::endl
-			<< originalMail->to_string();//ultimo mail;
+		if (WhatToSay == "")
+		{
+			WhatToSay = "No body";
+		}
+
+		BODY << WhatToSay << std::endl << linea()
+			<< std::endl << originalMail->to_string();//ultimo mail;
 
 		mail->body = BODY.str();
 
-		if (mail->body == "")
-		{
-			delete mail;
-			return nullptr;
-		}
-		else return mail;
+		return mail;
 	}
 }
 
@@ -436,11 +441,15 @@ void GraphInter::tab_word(std::string word)
 	error(tab.str());
 }
 
-void GraphInter::linea()
+std::string GraphInter::linea()
 {
-	std::cout << std::setfill('-')
+	std::ostringstream line;
+
+	line << std::setfill('-')
 		<< std::setw(79) << '-'
 		<< std::endl << std::setfill(' ');
+
+	return line.str();
 }
 
 std::string GraphInter::valid_user()

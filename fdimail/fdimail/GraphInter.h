@@ -45,6 +45,6 @@ public:
 	std::string center_word(std::string number, int lenght, std::string arround);
 	void tab_word(std::string word);
 	void check_password(std::string& password);
-	void linea();
+	std::string linea();
 };
 #endif //GRAPHINTER
