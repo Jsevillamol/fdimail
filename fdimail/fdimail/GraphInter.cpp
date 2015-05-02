@@ -428,14 +428,7 @@ void GraphInter::check_password(std::string& password)
 	}
 }
 
-std::string GraphInter::manual()
-{
-	std::string file_name;
-
-	enter(file_name);
-
-	return file_name;
-}
+void GraphInter::clearConsole(){ system("cls"); }
 
 void GraphInter::error(std::string error)
 {

@@ -18,12 +18,8 @@ void Manager::bootUp()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	if (!mailList.load(mail_file.str())) 
-		if (!mailList.load(GraphInter::get()->manual())) 
-			GraphInter::get()->error("Could not load mailList");
-	if (!userList.load(user_file.str())) 
-		if (!userList.load(GraphInter::get()->manual()))
-			GraphInter::get()->error("Could not load userList");
+	manualyMails(mail_file.str());
+	manualyUsers(user_file.str());
 }
 
 void Manager::shutDown()
@@ -109,36 +105,44 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	box->destroy(idMail);
 }
 
-/*void Manager::manualyUsers(const std::string &name)
+void Manager::manualyUsers(std::string &name)
 {
 	std::string userLocation = "Hola"; //to avoid the string to be empty
 
 	while (userLocation != "" && !userList.load(name))
 	{
-		GraphInter::get()->error("Could not load this");
-		GraphInter::get()->error("Enter the file location ((ENTER) for continue)");
+		GraphInter::get()->error("Could not load userList");
+		GraphInter::get()->error("Enter the file url ((ENTER) for continue)");
 		GraphInter::get()->enter(userLocation);
 
 		if (userLocation != "")
 		{
-			//busca en location
+			name = userLocation;
 		}
+	}
+	if (userLocation == "")
+	{
+		GraphInter::get()->error("Could not load userlist");
 	}
 }
 
-void Manager::manualyMails(const std::string &name)
+void Manager::manualyMails(std::string &name)
 {
 	std::string mailLocation = "Hola"; //to avoid the string to be empty
 
 	while (mailLocation != "" && !mailList.load(name))
 	{
-		GraphInter::get()->error("Could not load this");
-		GraphInter::get()->error("Enter the file location ((ENTER) for continue)");
+		GraphInter::get()->error("Could not load mailList");
+		GraphInter::get()->error("Enter the file url ((ENTER) for continue)");
 		GraphInter::get()->enter(mailLocation);
 
 		if (mailLocation != "")
 		{
-			//busca en location
+			name = mailLocation;
 		}
 	}
-}*/
+	if (mailLocation == "")
+	{
+		GraphInter::get()->error("Could not load maillist");
+	}
+}

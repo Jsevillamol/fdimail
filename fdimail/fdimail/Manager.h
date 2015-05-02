@@ -14,8 +14,8 @@ private:
 	MailList mailList;
 	UserList userList;
 
-	void manualyUsers(const std::string &name);
-	void manualyMails(const std::string &name);
+	void manualyUsers(std::string &name);
+	void manualyMails(std::string &name);
 
 public:
 	Manager(const std::string &new_domain);
