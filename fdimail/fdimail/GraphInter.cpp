@@ -184,7 +184,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	error("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
-	for (i = 0; i < mail->recipient_count && mail->recipients[i] != ""; i++)
+	for (i = 0; i < mail->recipient_count; i++)
 	{
 		if (i == 0)
 		{
@@ -197,24 +197,27 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
-		for (int j = 0; j < i; j++)
+		if (mail->recipients[i] == "")
 		{
-			for (int k = 0; k < i; k++)
+			mail->recipient_count--;
+			i--;
+		}
+		else
+		{
+			for (int j = 0; j <= i; j++)
 			{
-				if (mail->recipients[j] == mail->recipients[k])
+				for (int k = 0; k <= i; k++)
 				{
-					error("You have already choose this destinatary, you cannot choose it again");
+					if (k != j && mail->recipients[j] == mail->recipients[k])
+					{
+						error("You have already choose this destinatary, you cannot choose it again");
+					}
 				}
 			}
 		}
 	}
 
 	if (mail->recipient_count == 0)
-	{
-		delete mail;
-		return nullptr;
-	}
-	else if (mail->recipients[i] == "")
 	{
 		delete mail;
 		return nullptr;
@@ -333,19 +336,27 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
-		for (int j = 0; j < i; j++)
+		if (mail->recipients[i] == "")
 		{
-			for (int k = 0; k < i; k++)
+			mail->recipient_count--;
+			i--;
+		}
+		else
+		{
+			for (int j = 0; j <= i; j++)
 			{
-				if (mail->recipients[j] == mail->recipients[k])
+				for (int k = 0; k <= i; k++)
 				{
-					error("You have already choose this destinatary, you cannot choose it again");
+					if (k != j && mail->recipients[j] == mail->recipients[k])
+					{
+						error("You have already choose this destinatary, you cannot choose it again");
+					}
 				}
 			}
 		}
 	}
 	
-	if (mail->recipient_count == 0 || mail->recipients[i] == "")
+	if (mail->recipient_count == 0)
 	{
 		delete mail;
 		return nullptr;
