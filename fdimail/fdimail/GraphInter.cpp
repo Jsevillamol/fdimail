@@ -270,6 +270,10 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
+	error(center_word("Answered mail", HORIZONTAL, " "));
+
+	error("");
+
 	error("From: " + sender);
 
 	error("To: " + originalMail->from);
