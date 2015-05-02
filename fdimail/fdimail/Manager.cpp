@@ -120,10 +120,6 @@ void Manager::manualyUsers(std::string &name)
 			name = userLocation;
 		}
 	}
-	if (userLocation == "")
-	{
-		GraphInter::get()->error("Could not load userlist");
-	}
 }
 
 void Manager::manualyMails(std::string &name)
@@ -140,9 +136,5 @@ void Manager::manualyMails(std::string &name)
 		{
 			name = mailLocation;
 		}
-	}
-	if (mailLocation == "")
-	{
-		GraphInter::get()->error("Could not load maillist");
 	}
 }
