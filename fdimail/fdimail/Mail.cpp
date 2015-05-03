@@ -7,8 +7,13 @@
 
 void Mail::save(std::ofstream &file) const
 {
-	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl
-		<< this->to << std::endl << this->subject << std::endl 
+	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl;
+
+	for (int i = 0; i < this->recipient_count; i++)
+	{
+		file << this->recipients[i] << std::endl;
+	}
+	file << std::endl << this->subject << std::endl 
 		<< this->body << "#" << std::endl;
 }
 
@@ -30,7 +35,10 @@ bool Mail::load(std::ifstream &file)
 
 				if (!file.fail())
 				{
-					file >> this->to;
+					for (int i = 0; i < this->user_count - 1; i++)
+					{
+						file >> this->recipients[i];
+					}
 
 					if (!file.fail())
 					{
@@ -61,8 +69,13 @@ const std::string Mail::to_string() const
 {
 	std::ostringstream flow;
 
-	flow << "From: " << this->from << std::setw(55) << showDate(this->date) << std::endl
-		<< "To: " << this->to << std::endl << "Subject: " << this->subject << std::endl
+	flow << "From: " << this->from << std::setw(55) << showDate(this->date) << std::endl;
+
+	for (int i = 0; i < this->recipient_count; i++)
+	{
+		flow << "To: " << this->recipients[i];
+	}
+	flow << std::endl << "Subject: " << this->subject << std::endl
 		<< std::endl << this->body;
 
 	return flow.str();
