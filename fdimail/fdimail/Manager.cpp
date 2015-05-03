@@ -76,11 +76,11 @@ User* Manager::createAccount()
 	}
 }
 
-bool Manager::sendMail(User* user, Mail* mail)
+void Manager::sendMail(User* user, Mail* mail)
 {
 	int i;
 
-	for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
+	/*for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
 
 	if (i == mail->recipient_count && userList.get(mail->recipients[i-1]) != nullptr)
 	{
@@ -99,12 +99,12 @@ bool Manager::sendMail(User* user, Mail* mail)
 		}
 		return true;
 	}
-	else return false;	
+	else return false;*/	
 
 	//esta funcion tendria que ser void, y los errores se sacarian directamente por aqui, no podria evitar
 	//relacionar manager con graphinter
 
-	/*for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
+	for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
 
 	if (i != 0 || userList.get(mail->recipients[i]) != nullptr)
 	{
@@ -132,15 +132,8 @@ bool Manager::sendMail(User* user, Mail* mail)
 	}
 	else
 	{
-		if (mail->recipient_count == 1)
-		{
-			GraphInter::get()->error("The mail could not be sent, destinatary not found");
-		}
-		else
-		{
-			GraphInter::get()->error("The mail could not be sent, one of the recipients were found");
-		}
-	}*/
+		GraphInter::get()->error("The mail could not be sent, destinatary not found");
+	}
 }
 
 bool Manager::answer(User* user, Mail* mail)
