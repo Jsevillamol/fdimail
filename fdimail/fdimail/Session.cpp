@@ -147,11 +147,7 @@ void Session::sendMail()
 	}
 	else
 	{
-		if (!manager->sendMail(user, mail))
-		{
-			GraphInter::get()->error("The mail could not be sent, some recipients were not foud");
-			GraphInter::get()->pause();
-		}
+		manager->sendMail(user, mail);
 	}
 	GraphInter::get()->clearConsole();
 }
@@ -169,11 +165,7 @@ void Session::answerMail(Mail* &originalMail)
 	}
 	else
 	{
-		if (!manager->answer(user, answer))
-		{
-			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
-			GraphInter::get()->pause();
-		}
+		manager->answer(user, answer);
 	}
 	GraphInter::get()->clearConsole();
 }
@@ -191,11 +183,7 @@ void Session::forwardMail(Mail* &originalMail)
 	}
 	else
 	{
-		if (!manager->sendMail(user, forward))
-		{
-			GraphInter::get()->error("The mail could not be sent, destinatary not foud");
-			GraphInter::get()->pause();
-		}
+		manager->sendMail(user, forward);
 	}
 	GraphInter::get()->clearConsole();
 }
