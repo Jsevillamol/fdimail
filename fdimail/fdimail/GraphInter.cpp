@@ -206,12 +206,11 @@ Mail* GraphInter::newMail(const std::string &sender)
 		{
 			for (int j = 0; j <= i; j++)
 			{
-				for (int k = 0; k <= i; k++)
+				if (i != j && mail->recipients[j] == mail->recipients[i])
 				{
-					if (k != j && mail->recipients[j] == mail->recipients[k])
-					{
-						error("You have already choose this destinatary, you cannot choose it again");
-					}
+					error("You have already choose this destinatary, you cannot choose it again");
+
+					i--;
 				}
 			}
 		}
@@ -349,12 +348,11 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		{
 			for (int j = 0; j <= i; j++)
 			{
-				for (int k = 0; k <= i; k++)
+				if (i != j && mail->recipients[j] == mail->recipients[i])
 				{
-					if (k != j && mail->recipients[j] == mail->recipients[k])
-					{
-						error("You have already choose this destinatary, you cannot choose it again");
-					}
+					error("You have already choose this destinatary, you cannot choose it again");
+
+					i--;
 				}
 			}
 		}
