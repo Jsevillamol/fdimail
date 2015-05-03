@@ -23,21 +23,11 @@ void TrayList::load(std::ifstream &file)
 	}
 }
 
-int TrayList::search(std::string &id, int pos)
+bool TrayList::search(std::string &id, int &pos)
 {
-	int left_key = 0, right_key = counter - 1;
-	pos = 0;
-	while (left_key <= right_key)
-	{
-		pos = (left_key + right_key) / 2;
-		if (list[pos]->getId() == id)
-			return pos;
-		else if (list[pos]->getId() < id)
-			left_key = pos + 1;
-		else
-			right_key = pos - 1;
-	}
-	return -1;
+	for (pos = 0; pos < this->counter && list[pos]->getId() != id; pos++);
+	if (pos < this->counter) return true;
+	else return false;
 }
 
 bool TrayList::insert(tElemTray * const elem)

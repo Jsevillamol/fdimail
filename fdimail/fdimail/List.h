@@ -175,7 +175,7 @@ bool List<T, MAX>::load(const std::string &name)
 
 			if (!elem->load(file)) right = false;
 			
-			else list[counter++] = elem;
+			else this->insert(elem);
 		}
 
 		file.close();
