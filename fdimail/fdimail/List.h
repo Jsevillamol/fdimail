@@ -157,7 +157,7 @@ void List<T, MAX>::save(const std::string &name)
 }
 
 template<class T, int MAX>
-bool List<T, MAX>::load(const std::string &name/*, const std::string &url*/)
+bool List<T, MAX>::load(const std::string &name)
 {
 	std::ifstream file;
 	bool right;
