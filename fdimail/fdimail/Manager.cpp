@@ -78,61 +78,26 @@ User* Manager::createAccount()
 
 void Manager::sendMail(User* user, Mail* mail)
 {
-	int i;
+	//Add to database
+	mailList.insert(mail);
 
-	/*for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
+	//Add to sender's outbox
+	user->getOutbox()->insert(new tElemTray(mail->getId()));
+	user->getOutbox()->get(mail->getId())->read = true;
 
-	if (i == mail->recipient_count && userList.get(mail->recipients[i-1]) != nullptr)
+	for (int j = 0; j < mail->recipient_count; j++)
 	{
-		//Add to database
-		mailList.insert(mail);
-
-		//Add to sender's outbox
-		user->getOutbox()->insert(new tElemTray(mail->getId()));
-		user->getOutbox()->get(mail->getId())->read = true;
-
-		for (int j = 0; j < mail->recipient_count; j++)
+		if (userList.get(mail->recipients[j]) != nullptr)
 		{
-			//Add to receiver's inbox
-			//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-			userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
+		//Add to receiver's inbox
+		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
+		userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
 		}
-		return true;
-	}
-	else return false;*/	
-
-	//esta funcion tendria que ser void, y los errores se sacarian directamente por aqui, no podria evitar
-	//relacionar manager con graphinter
-
-	for (i = 0; i < mail->recipient_count && userList.get(mail->recipients[i]) != nullptr; i++) {}
-
-	if (i != 0 || userList.get(mail->recipients[i]) != nullptr)
-	{
-		//Add to database
-		mailList.insert(mail);
-
-		//Add to sender's outbox
-		user->getOutbox()->insert(new tElemTray(mail->getId()));
-		user->getOutbox()->get(mail->getId())->read = true;
-
-		for (int j = 0; j < mail->recipient_count; j++)
+		else
 		{
-			if (userList.get(mail->recipients[j]) != nullptr)
-			{
-			//Add to receiver's inbox
-			//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-			userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
-			}
-			else
-			{
-				GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
-				GraphInter::get()->error("The mail was not sent to him");
-			}
+			GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
+			GraphInter::get()->error("The mail was not sent to him");
 		}
-	}
-	else
-	{
-		GraphInter::get()->error("The mail could not be sent, destinatary not found");
 	}
 }
 
