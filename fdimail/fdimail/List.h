@@ -184,22 +184,4 @@ bool List<T, MAX>::load(const std::string &name/*, const std::string &url*/)
 	}
 	else return false;
 }
-
-template<class T, int MAX>
-void List<T, MAX>::manualy(const std::string &name)
-{
-	std::string location = "Hola"; // To avoid the string to be empty
-
-	while (location != "" && !this->load(name))
-	{
-		GraphInter::get()->error("Could not load " << this);
-		GraphInter::get()->error("Enter the file location ((ENTER) for continue)");
-		GraphInter::get()->enter(location);
-
-		if (location != "")
-		{
-			//busca en location
-		}
-	}
-}
 #endif // !LIST
