@@ -143,12 +143,12 @@ void Session::sendMail()
 	if (mail == nullptr)
 	{
 		GraphInter::get()->error("Mail not sent");
-		GraphInter::get()->pause();
 	}
 	else
 	{
 		manager->sendMail(user, mail);
 	}
+	GraphInter::get()->pause();
 	GraphInter::get()->clearConsole();
 }
 
@@ -161,12 +161,12 @@ void Session::answerMail(Mail* &originalMail)
 	if (answer == nullptr)
 	{
 		GraphInter::get()->error("Mail not sent");
-		GraphInter::get()->pause();
 	}
 	else
 	{
 		manager->answer(user, answer);
 	}
+	GraphInter::get()->pause();
 	GraphInter::get()->clearConsole();
 }
 
@@ -179,12 +179,12 @@ void Session::forwardMail(Mail* &originalMail)
 	if (forward == nullptr)
 	{
 		GraphInter::get()->error("Mail not sent");
-		GraphInter::get()->pause();
 	}
 	else
 	{
 		manager->sendMail(user, forward);
 	}
+	GraphInter::get()->pause();
 	GraphInter::get()->clearConsole();
 }
 

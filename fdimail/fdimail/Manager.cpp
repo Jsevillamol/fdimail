@@ -89,9 +89,9 @@ void Manager::sendMail(User* user, Mail* mail)
 	{
 		if (userList.get(mail->recipients[j]) != nullptr)
 		{
-		//Add to receiver's inbox
-		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-		userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
+			//Add to receiver's inbox
+			//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
+			userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
 		}
 		else
 		{
