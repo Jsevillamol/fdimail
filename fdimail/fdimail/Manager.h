@@ -29,7 +29,7 @@ public:
 
 	MailList* getMailList(){ return &mailList; }
 
-	bool sendMail(User* user, Mail* mail);
+	void sendMail(User* user, Mail* mail);
 	bool answer(User* user, Mail* mail);
 	void deleteMail(TrayList* box, const std::string &idMail);
 };
