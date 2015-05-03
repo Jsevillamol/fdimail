@@ -11,6 +11,8 @@ public:
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
 
+	int search(std::string &id, int pos);
+
 	bool insert(tElemTray * const elem);
 
 	bool readMail(const std::string &idMail);
