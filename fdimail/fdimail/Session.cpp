@@ -109,7 +109,7 @@ void Session::fastRead()
 	else
 	{
 		bool something_to_read = false;
-		for (int i = 0; i < active_tray()->lenght(); i++)
+		for (int i = active_tray()->lenght() - 1; i >= 0; i--)
 		{
 			if (!active_tray()->operator[](i)->read)
 			{
@@ -120,7 +120,6 @@ void Session::fastRead()
 				//Change mail status to read
 				active_tray()->operator[](i)->read = true;
 
-				GraphInter::get()->error("\n");
 				GraphInter::get()->linea();
 				GraphInter::get()->pause();
 			}

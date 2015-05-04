@@ -9,11 +9,11 @@ void Mail::save(std::ofstream &file) const
 {
 	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl;
 
-	for (int i = 0; i < this->recipient_count; i++)
+	for (int i = 0; i < this->user_count - 1; i++)
 	{
 		file << this->recipients[i] << std::endl;
 	}
-	file << std::endl << this->subject << std::endl 
+	file << this->subject << std::endl 
 		<< this->body << "#" << std::endl;
 }
 
@@ -35,7 +35,7 @@ bool Mail::load(std::ifstream &file)
 
 				if (!file.fail())
 				{
-					for (int i = 0; i < this->user_count - 2; i++)
+					for (int i = 0; i < this->user_count - 1; i++)
 					{
 						file >> this->recipients[i];
 					}

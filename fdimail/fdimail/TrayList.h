@@ -13,7 +13,7 @@ public:
 
 	bool search(std::string &id, int &pos);
 
-	bool insert(tElemTray * const elem);
+	void insert(tElemTray * const elem);
 
 	bool readMail(const std::string &idMail);
 };
