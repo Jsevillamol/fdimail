@@ -79,25 +79,35 @@ User* Manager::createAccount()
 void Manager::sendMail(User* user, Mail* mail)
 {
 	//Add to database
-	mailList.insert(mail);
+	if (mailList.insert(mail)){
 
-	//Add to sender's outbox
-	user->getOutbox()->insert(new tElemTray(mail->getId()));
-	user->getOutbox()->get(mail->getId())->read = true;
+		//Add to sender's outbox
+		if (user->getOutbox()->insert(new tElemTray(mail->getId()))){
+			user->getOutbox()->get(mail->getId())->read = true;
+		}
+		else{
+			GraphInter::get()->error("Your outbox is full");
+		}
 
-	for (int j = 0; j < mail->recipient_count; j++)
-	{
-		if (userList.get(mail->recipients[j]) != nullptr)
+		for (int j = 0; j < mail->recipient_count; j++)
 		{
-			//Add to receiver's inbox
-			//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-			userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
+			if (userList.get(mail->recipients[j]) != nullptr)
+			{
+				//Add to receiver's inbox
+				//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
+				if (!userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()))){
+					GraphInter::get()->error("Destinatary " + mail->recipients[j] + " inbox is full");
+				}
+			}
+			else
+			{
+				GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
+				GraphInter::get()->error("The mail was not sent to him");
+			}
 		}
-		else
-		{
-			GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
-			GraphInter::get()->error("The mail was not sent to him");
-		}
+	}
+	else{
+		GraphInter::get()->error("MailList full");
 	}
 }
 
