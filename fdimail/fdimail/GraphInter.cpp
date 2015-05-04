@@ -467,6 +467,7 @@ std::string GraphInter::linea()
 	std::ostringstream line;
 
 	line << std::setfill('-')
+		<< std::setw(HORIZONTAL) << '-'
 		<< std::setfill(' ');
 
 	return line.str();
