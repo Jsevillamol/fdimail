@@ -120,7 +120,6 @@ void Session::fastRead()
 				//Change mail status to read
 				active_tray()->operator[](i)->read = true;
 
-				GraphInter::get()->error("\n");
 				GraphInter::get()->linea();
 				GraphInter::get()->pause();
 			}

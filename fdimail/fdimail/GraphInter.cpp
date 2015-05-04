@@ -33,7 +33,7 @@ int GraphInter::mainMenu()
 	tab_word("2- Sign in");
 	tab_word("0- Exit");
 
-	linea();
+	error(linea());
 
 	error("Enter an option:");
 
@@ -65,6 +65,8 @@ int GraphInter::sessionMenu(Session* session)
 		title = center_word("Inbox", HORIZONTAL, "-");
 	}
 
+	error(linea());
+
 	menu << title << "\n" << "R N" << std::setw(7)
 		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
 		<< "DATE" << std::endl;
@@ -81,11 +83,16 @@ int GraphInter::sessionMenu(Session* session)
 	{
 		for (int i = session->active_tray()->lenght()-1; i >= 0; i--)
 		{
-			if (session->active_tray()->operator[](i)->read)
+			std::ostringstream show;
+
+			if (!session->active_tray()->operator[](i)->read)
 			{
-				error(" ");
+				show << "*";
 			}
-			else error("*");
+			else
+			{
+				show << " ";
+			}
 
 			std::string id = session->active_tray()->operator[](i)->idMail;
 
@@ -98,13 +105,12 @@ int GraphInter::sessionMenu(Session* session)
 			//std::cout << "Dir of mail: " << mail << std::endl;
 			assert(mail != nullptr);
 			std::string thisMail = mail->header();
-			std::ostringstream show;
 
-			show << std::setw(3) << (session->active_tray()->lenght() - i) << " - " << thisMail;
+			show << std::setw(2) << (session->active_tray()->lenght() - i) << " - " << thisMail;
 			error(show.str());
 		}
 	}
-	linea();
+	error(linea());
 
 	error("Choose your desired option: ");
 	tab_word("1- Read mail");
@@ -122,7 +128,7 @@ int GraphInter::sessionMenu(Session* session)
 	tab_word("5- fast read of unread mails");
 	tab_word("0- Sign out");
 
-	linea();
+	error(linea());
 
 	std::cout << "Enter an option:" << std::endl;
 
@@ -131,10 +137,12 @@ int GraphInter::sessionMenu(Session* session)
 
 int GraphInter::WhatToDelete()
 {
+	error(linea());
+
 	tab_word("1- Choose mail");
 	tab_word("0- Delete all mails");
 
-	linea();
+	error(linea());
 
 	error("Enter an option:");
 
@@ -159,7 +167,7 @@ int GraphInter::mailMenu()
 	tab_word("2- Forward");
 	tab_word("0- Exit to sesion menu");
 
-	linea();
+	error(linea());
 
 	error("Enter an option:");
 
@@ -460,7 +468,7 @@ std::string GraphInter::linea()
 
 	line << std::setfill('-')
 		<< std::setw(79) << '-'
-		<< std::endl << std::setfill(' ');
+		<< std::setfill(' ');
 
 	return line.str();
 }

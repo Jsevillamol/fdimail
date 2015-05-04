@@ -30,15 +30,18 @@ bool TrayList::search(std::string &id, int &pos)
 	else return false;
 }
 
-bool TrayList::insert(tElemTray * const elem)
+void TrayList::insert(tElemTray * const elem)
 {
 	//std::cout << "Inserting in TrayList the object " << elem << std::endl;
-	if (counter < MAX_ELEMS)
+	if (counter == MAX_ELEMS)
+	{
+		shiftLeft(counter);
+		list[counter++] = elem;
+	}
+	else
 	{
 		list[counter++] = elem;
-		return true;
 	}
-	else return false;
 }
 
 bool TrayList::readMail(const std::string &idMail)

@@ -1,49 +1,7 @@
-adios@fdimail.com
-adios
-1
-adios@fdimail.com_1429883737 1
-0
-hola@fdimail.com
-hola
-0
-0
-jaime@fdimail.com
-adios
-4
-jaime@fdimail.com_1429883649 1
-jaime@fdimail.com_1430147543 1
-jaime@fdimail.com_1430147682 1
-jaime@fdimail.com_1430147805 1
-3
-victor@fdimail.com_1430049996 0
-jaime@fdimail.com_1430147543 0
-jaime@fdimail.com_1430147805 0
-nuria@fdimail.com
-hola
-0
-0
-nuria@fdimail.com
-hola
-0
-0
-nuria@fdimail.com
-hola
-0
-0
 victor@fdimail.com
 hola
-4
-victor@fdimail.com_1430047497 1
-victor@fdimail.com_1430049996 1
-victor@fdimail.com_1430146420 1
-victor@fdimail.com_1430146518 1
-4
-victor@fdimail.com_1430047497 1
-victor@fdimail.com_1430146420 1
-victor@fdimail.com_1430146518 1
-jaime@fdimail.com_1430147682 0
-h@fdimail.com
-hola
-0
-0
+1
+victor@fdimail.com_1430723333 1
+1
+victor@fdimail.com_1430723333 0
 XXX
