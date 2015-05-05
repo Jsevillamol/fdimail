@@ -62,6 +62,7 @@ void Session::launch()
 		case 6:
 			GraphInter::get()->clearConsole();
 			manager->deleteAccount(user->getId());
+			opt = 0;
 		}
 	} while (opt != 0);
 }

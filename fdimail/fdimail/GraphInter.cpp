@@ -192,15 +192,19 @@ Mail* GraphInter::newMail(const std::string &sender)
 	{
 		if (i == 0)
 		{
-			error("To: ");
+			error("To ('Me' for send it to yourself): ");
 		}
 		else
 		{
-			error("CC: ");
+			error("CC ('Me' for send it to yourself): ");
 		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
+		if (mail->recipients[i] == "Me")
+		{
+			mail->recipients[i] = sender;
+		}
 		if (mail->recipients[i] == "")
 		{
 			mail->recipient_count--;
@@ -333,15 +337,19 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 	{
 		if (i == 0)
 		{
-			error("To: ");
+			error("To ('Me' for send it to yourself): ");
 		}
 		else
 		{
-			error("CC: ");
+			error("CC ('Me' for send it to yourself): ");
 		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
 
+		if (mail->recipients[i] == "Me")
+		{
+			mail->recipients[i] = sender;
+		}
 		if (mail->recipients[i] == "")
 		{
 			mail->recipient_count--;
