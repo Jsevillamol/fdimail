@@ -1,6 +1,7 @@
 #ifndef LIST
 #define LIST
 #include <assert.h>
+#include <iostream>
 //Template for lists
 template <class T, int MAX>
 class List
@@ -26,7 +27,6 @@ public:
 	bool destroy(const std::string &id);
 	void save(const std::string &name);
 	bool load(const std::string &name/*, const std::string &url*/);
-	void manualy(const std::string &name);
 
 	T* operator [](int i) { return list[i]; }
 };
@@ -83,23 +83,21 @@ template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
 	int left_key = 0, right_key = counter-1;
-	pos = (left_key + right_key) / 2;
+	pos = (left_key + right_key) / 2;;
 	while (left_key <= right_key)
 	{
-		if (list[pos]->getId() == id)
-		{
+		if (list[pos]->getId() == id){
 			return true;
 		}
-		else if (list[pos]->getId() < id)
-		{
+		else if (list[pos]->getId() < id){
 			left_key = pos + 1;
 		}
-		else
-		{
+		else { //if id < list[pos]->getId()
 			right_key = pos - 1;
 		}
 		pos = (left_key + right_key) / 2;
 	}
+	pos = left_key;
 	return false;
 }
 
