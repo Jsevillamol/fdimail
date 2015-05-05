@@ -76,6 +76,21 @@ User* Manager::createAccount()
 	}
 }
 
+bool Manager::deleteAccount(std::string &id){
+	User* user = userList.get(id);
+	if (user != nullptr){
+		//Delete inbox
+		for (int i = 0; i < user->getInbox()->length(); i++){
+			mailList.delete_mail(user->getInbox()->operator[](i)->getId());
+		}
+		//Delete outbox
+		for (int i = 0; i < user->getOutbox()->length(); i++){
+			mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
+		}
+		userList.delete_user(id);
+	}
+}
+
 void Manager::sendMail(User* user, Mail* mail)
 {
 	//Add to database

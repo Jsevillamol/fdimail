@@ -24,7 +24,9 @@ public:
 	bool insert(T* const elem);
 	bool search(const std::string &id, int &pos) const;
 	T* get(const std::string &id);
-	bool destroy(const std::string &id);
+
+	bool destroy(const std::string &id); //Deletes the pointers
+
 	void save(const std::string &name);
 	bool load(const std::string &name/*, const std::string &url*/);
 

@@ -27,6 +27,8 @@ public:
 	User* registerUser();
 	User* createAccount();
 
+	bool deleteAccount(std::string &id);
+
 	MailList* getMailList(){ return &mailList; }
 
 	void sendMail(User* user, Mail* mail);
