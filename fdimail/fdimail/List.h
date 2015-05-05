@@ -83,7 +83,7 @@ template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
 	int left_key = 0, right_key = counter-1;
-	pos = (left_key + right_key) / 2;;
+	pos = (left_key + right_key) / 2;
 	while (left_key <= right_key)
 	{
 		if (list[pos]->getId() == id)
