@@ -85,12 +85,12 @@ void Manager::deleteAccount(const std::string &id)
 	//Delete inbox
 	for (int i = 0; i < inlenth; i++)
 	{
-		mailList.delete_mail(user->getInbox()->operator[](0)->getId());
+		mailList.delete_mail(user->getInbox()->operator[](i)->getId());
 	}
 	//Delete outbox
 	for (int i = 0; i < outlenth; i++)
 	{
-		mailList.delete_mail(user->getOutbox()->operator[](0)->getId());
+		mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
 	}
 	userList.destroy(id);
 }
