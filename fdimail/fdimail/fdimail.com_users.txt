@@ -1,10 +1,5 @@
 victor@fdimail.com
 hola
-3
-victor@fdimail.com_1430726234 1
-victor@fdimail.com_1430726360 1
-victor@fdimail.com_1430828845 1
-2
-victor@fdimail.com_1430726360 0
-victor@fdimail.com_1430828845 0
+0
+0
 XXX

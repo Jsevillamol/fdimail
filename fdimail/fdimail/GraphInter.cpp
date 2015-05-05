@@ -128,7 +128,7 @@ int GraphInter::sessionMenu(Session* session)
 
 	std::cout << "Enter an option:" << std::endl;
 
-	return digitBetween(0, 5);
+	return digitBetween(0, 6);
 }
 
 int GraphInter::WhatToDelete()

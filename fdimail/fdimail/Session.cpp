@@ -61,12 +61,7 @@ void Session::launch()
 			break;
 		case 6:
 			GraphInter::get()->clearConsole();
-			if (!manager->deleteAccount(user->getId))
-			{
-				GraphInter::get()->error("This account does not exist, you cannot delete it");
-				GraphInter::get()->pause();
-			}
-			GraphInter::get()->clearConsole();
+			manager->deleteAccount(user->getId());
 		}
 	} while (opt != 0);
 }
