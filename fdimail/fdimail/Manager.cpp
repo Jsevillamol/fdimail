@@ -18,8 +18,8 @@ void Manager::bootUp()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	manualyMails(mail_file.str());
-	manualyUsers(user_file.str());
+	manualMails(mail_file.str());
+	manualUsers(user_file.str());
 }
 
 void Manager::shutDown()
@@ -87,7 +87,7 @@ bool Manager::deleteAccount(std::string &id){
 		for (int i = 0; i < user->getOutbox()->length(); i++){
 			mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
 		}
-		userList.delete_user(id);
+		userList.destroy(id);
 		return true;
 	}
 	else return false;
