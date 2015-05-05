@@ -75,13 +75,13 @@ int GraphInter::sessionMenu(Session* session)
 
 	linea();
 
-	if (session->active_tray()->lenght() == 0)
+	if (session->active_tray()->length() == 0)
 	{
 		error(center_word("You have no mails", HORIZONTAL, " "));
 	}
 	else
 	{
-		for (int i = session->active_tray()->lenght()-1; i >= 0; i--)
+		for (int i = session->active_tray()->length()-1; i >= 0; i--)
 		{
 			std::ostringstream show;
 
@@ -101,7 +101,7 @@ int GraphInter::sessionMenu(Session* session)
 			assert(mail != nullptr);
 			std::string thisMail = mail->header();
 
-			show << std::setw(2) << (session->active_tray()->lenght() - i) << " - " << thisMail;
+			show << std::setw(2) << (session->active_tray()->length() - i) << " - " << thisMail;
 			error(show.str());
 		}
 	}
@@ -150,7 +150,7 @@ std::string GraphInter::selectMail(Session* session)
 
 	error("Enter the number of the mail you choose:");
 
-	number = digitBetween(1, session->active_tray()->lenght());
+	number = digitBetween(1, session->active_tray()->length());
 
 	return (*(session->active_tray()))[number-1]->idMail;
 }
@@ -426,11 +426,11 @@ int GraphInter::digitBetween(int a, int b)
 	return digit;
 }
 
-std::string GraphInter::center_word(std::string word, int lenght, std::string arround)
+std::string GraphInter::center_word(std::string word, int length, std::string arround)
 {
-	if (word.size() != lenght)
+	if (word.size() != length)
 	{
-		for (int i = word.size(); i < lenght; i++)
+		for (int i = word.size(); i < length; i++)
 		{
 			if (word.size() % 2 == 0)
 			{

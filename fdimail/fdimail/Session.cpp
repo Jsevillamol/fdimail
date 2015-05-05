@@ -65,7 +65,7 @@ void Session::launch()
 
 void Session::readMail()
 {
-	if (this->active_tray()->lenght() == 0)
+	if (this->active_tray()->length() == 0)
 	{
 		GraphInter::get()->error("Error, you have no mails to read");
 		GraphInter::get()->pause();
@@ -100,7 +100,7 @@ void Session::readMail()
 
 void Session::fastRead()
 {	
-	if (active_tray()->lenght() == 0)
+	if (active_tray()->length() == 0)
 	{
 		GraphInter::get()->error("You do not have any mail on your active tray");
 		GraphInter::get()->pause();
@@ -109,7 +109,7 @@ void Session::fastRead()
 	else
 	{
 		bool something_to_read = false;
-		for (int i = active_tray()->lenght() - 1; i >= 0; i--)
+		for (int i = active_tray()->length() - 1; i >= 0; i--)
 		{
 			if (!active_tray()->operator[](i)->read)
 			{
@@ -189,7 +189,7 @@ void Session::forwardMail(Mail* &originalMail)
 
 void Session::deleteMail()
 {
-	if (this->active_tray()->lenght() == 0)
+	if (this->active_tray()->length() == 0)
 	{
 		GraphInter::get()->error("Error, you have no mails to delete");
 		GraphInter::get()->pause();
@@ -198,7 +198,7 @@ void Session::deleteMail()
 	else
 	{
 		int option = GraphInter::get()->WhatToDelete();
-		int longitud = this->active_tray()->lenght();
+		int longitud = this->active_tray()->length();
 
 		if (option == 1)
 		{

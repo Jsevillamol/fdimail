@@ -5,7 +5,7 @@ void TrayList::save(std::ofstream &file)const
 {
 	file << this->counter << std::endl;
 
-	for (int i = 0; i < this->lenght(); i++)
+	for (int i = 0; i < this->length(); i++)
 	{
 		this->list[i]->save(file);
 	}
@@ -15,7 +15,7 @@ void TrayList::load(std::ifstream &file)
 {
 	file >> this->counter;
 
-	for (int i = 0; (i < this->lenght()) && (!file.fail()); i++)
+	for (int i = 0; (i < this->length()) && (!file.fail()); i++)
 	{
 		tElemTray* elem = new tElemTray();
 		elem->load(file);

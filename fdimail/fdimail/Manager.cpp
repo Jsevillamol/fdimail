@@ -88,7 +88,9 @@ bool Manager::deleteAccount(std::string &id){
 			mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
 		}
 		userList.delete_user(id);
+		return true;
 	}
+	else return false;
 }
 
 void Manager::sendMail(User* user, Mail* mail)
@@ -152,7 +154,7 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	box->destroy(idMail);
 }
 
-void Manager::manualyUsers(std::string &name)
+void Manager::manualUsers(std::string &name)
 {
 	std::string userLocation = "Hola"; //to avoid the string to be empty
 
@@ -169,7 +171,7 @@ void Manager::manualyUsers(std::string &name)
 	}
 }
 
-void Manager::manualyMails(std::string &name)
+void Manager::manualMails(std::string &name)
 {
 	std::string mailLocation = "Hola"; //to avoid the string to be empty
 

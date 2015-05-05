@@ -42,7 +42,7 @@ public:
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
-	std::string center_word(std::string number, int lenght, std::string arround);
+	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);
 	void check_password(std::string& password);
 	std::string linea();

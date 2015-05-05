@@ -19,7 +19,7 @@ public:
 	~List();
 
 	inline bool full() const  { return this->counter == MAX; }
-	inline int lenght() const { return this->counter; }
+	inline int length() const { return this->counter; }
 
 	bool insert(T* const elem);
 	bool search(const std::string &id, int &pos) const;
@@ -151,7 +151,7 @@ void List<T, MAX>::save(const std::string &name)
 
 	file.open(name);
 
-	for (int i = 0; i < this->lenght(); i++)
+	for (int i = 0; i < this->length(); i++)
 	{
 		this->list[i]->save(file);
 	}
