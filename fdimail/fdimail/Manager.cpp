@@ -61,7 +61,7 @@ User* Manager::createAccount()
 	std::string idUser, last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 	
-	if (!userList.get(idUser))
+	if (userList.get(idUser) == nullptr)
 	{
 		GraphInter::get()->check_password(last_password);
 		User* user = new User(idUser, last_password);
