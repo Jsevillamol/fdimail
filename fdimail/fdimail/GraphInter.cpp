@@ -54,7 +54,7 @@ int GraphInter::sessionMenu(Session* session)
 	std::string title;
 	std::ostringstream menu;
 
-	std::cout << "Mail of " << (session->getUser()->getId()) << std::endl;
+	error("Mail of " + session->getUser()->getId());
 
 	if (session->active_list)
 	{
@@ -96,13 +96,8 @@ int GraphInter::sessionMenu(Session* session)
 
 			std::string id = session->active_tray()->operator[](i)->idMail;
 
-			/*std::cout << "Id of mail to show in main menu: " << id << std::endl;
-			std::cout << "Id of session: " << id << std::endl;
-			std::cout << "MailList direction: " << (session->getManager()->getMailList()) << std::endl;*/
-			//std::cout << "Id: " << id << std::endl;
 			Mail* mail = session->getManager()->getMailList()->get(id);
 
-			//std::cout << "Dir of mail: " << mail << std::endl;
 			assert(mail != nullptr);
 			std::string thisMail = mail->header();
 
@@ -276,7 +271,6 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
-
 	error(center_word("Answered mail", HORIZONTAL, " "));
 
 	error("");

@@ -36,7 +36,7 @@ void TrayList::insert(tElemTray * const elem)
 	if (counter == MAX_ELEMS)
 	{
 		shiftLeft(counter);
-		list[counter++] = elem;
+		list[counter] = elem;
 	}
 	else
 	{
