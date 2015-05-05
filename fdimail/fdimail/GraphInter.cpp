@@ -73,7 +73,7 @@ int GraphInter::sessionMenu(Session* session)
 
 	error(menu.str());
 
-	linea();
+	error(linea());
 
 	if (session->active_tray()->length() == 0)
 	{
