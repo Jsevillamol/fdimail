@@ -18,8 +18,8 @@ void Manager::bootUp()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	manualyMails(mail_file.str());
-	manualyUsers(user_file.str());
+	manualMails(mail_file.str());
+	manualUsers(user_file.str());
 }
 
 void Manager::shutDown()

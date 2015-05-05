@@ -120,7 +120,8 @@ int GraphInter::sessionMenu(Session* session)
 	{
 		tab_word("4- See outbox");
 	}
-	tab_word("5- fast read of unread mails");
+	tab_word("5- Fast read of unread mails");
+	tab_word("6- Delete account");
 	tab_word("0- Sign out");
 
 	error(linea());
