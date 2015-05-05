@@ -86,13 +86,16 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 	pos = (left_key + right_key) / 2;;
 	while (left_key <= right_key)
 	{
-		if (list[pos]->getId() == id){
+		if (list[pos]->getId() == id)
+		{
 			return true;
 		}
-		else if (list[pos]->getId() < id){
+		else if (list[pos]->getId() < id)
+		{
 			left_key = pos + 1;
 		}
-		else { //if id < list[pos]->getId()
+		else //if id < list[pos]->getId()
+		{
 			right_key = pos - 1;
 		}
 		pos = (left_key + right_key) / 2;
