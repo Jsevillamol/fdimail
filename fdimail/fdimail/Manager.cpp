@@ -97,12 +97,14 @@ void Manager::sendMail(User* user, Mail* mail)
 			{
 				GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
 				GraphInter::get()->error("He was not sent the mail");
+				GraphInter::get()->pause();
 			}
-		}
+		}		
 	}
 	else
 	{
 		GraphInter::get()->error("MailList full");
+		GraphInter::get()->pause();
 	}
 }
 

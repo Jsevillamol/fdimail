@@ -142,12 +142,12 @@ void Session::sendMail()
 	if (mail == nullptr)
 	{
 		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->pause();
 	}
 	else
 	{
 		manager->sendMail(user, mail);
 	}
-	GraphInter::get()->pause();
 	GraphInter::get()->clearConsole();
 }
 
