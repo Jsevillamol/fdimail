@@ -69,7 +69,6 @@
     <ClCompile Include="fdimail.cpp" />
     <ClCompile Include="GraphInter.cpp" />
     <ClCompile Include="Mail.cpp" />
-    <ClCompile Include="MailList.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="TrayList.cpp" />
@@ -82,6 +81,7 @@
     <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="tContact.h" />
     <ClInclude Include="tElemTray.h" />
     <ClInclude Include="MailList.h" />
     <ClInclude Include="Mail.h" />

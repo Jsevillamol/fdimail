@@ -128,13 +128,14 @@ int GraphInter::sessionMenu(Session* session)
 	}
 	tab_word("5- Fast read of unread mails");
 	tab_word("6- Account options");
+	tab_word("7- Asign a name to a user");
 	tab_word("0- Sign out");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 6);
+	return digitBetween(0, 7);
 }
 
 //Little options menu
@@ -150,6 +151,37 @@ int GraphInter::WhatToDelete()
 	display("Enter an option:");
 
 	return digitBetween(0, 1);
+}
+
+std::string GraphInter::SearchFastName(User* user, std::string &name)
+{
+	bool is_alias = true;
+	bool alias_found = false;
+	int i;
+
+	for (int j = 0; j < name.size() && is_alias; j++)
+	{
+		if (name[j] == '@')
+		{
+			is_alias = false;
+		}
+	}
+
+	if (!is_alias) return name;
+
+	else
+	{
+		for (i = 0; i < user->getName() && !alias_found; i++)
+		{
+			if (user->getNumName(i).alias == name)
+			{
+				alias_found = true;
+			}
+		}
+
+		if (alias_found) return user->getNumName(i).user;
+		else return name;
+	}
 }
 
 //Little options menu
@@ -223,10 +255,15 @@ Mail* GraphInter::newMail(const std::string &sender)
 		}
 		else
 		{
-			display("CC ('Me' for send it to yourself): ");
+			display("BCC ('Me' for send it to yourself): ");
 		}
+
+		std::string recipient;
+
 		std::cin.ignore();
-		enter(mail->recipients[i]);
+		enter(recipient);
+
+		mail->recipients[i] = SearchFastName(, recipient);
 
 		if (mail->recipients[i] == "Me")
 		{
@@ -370,10 +407,15 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		}
 		else
 		{
-			display("CC ('Me' for send it to yourself): ");
+			display("BCC ('Me' for send it to yourself): ");
 		}
+
+		std::string recipient;
+
 		std::cin.ignore();
-		enter(mail->recipients[i]);
+		enter(recipient);
+
+		mail->recipients[i] = SearchFastName(, recipient);
 
 		if (mail->recipients[i] == "Me")
 		{

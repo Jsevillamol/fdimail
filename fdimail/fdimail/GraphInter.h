@@ -1,6 +1,7 @@
 #ifndef GRAPHINTER
 #define GRAPHINTER
 #include "Mail.h"
+#include "User.h"
 #include "TrayList.h"
 #include <iomanip>
 #include <iostream>
@@ -47,6 +48,7 @@ public:
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
+	std::string SearchFastName(User* user, std::string &name);
 	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);

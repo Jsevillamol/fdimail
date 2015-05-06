@@ -118,6 +118,85 @@ void Manager::ChangePassword(User* user)
 	user->setPassword(newPassword);
 }
 
+void Manager::AddFastName(User* user)
+{
+	if (user->fullNames())
+	{
+		GraphInter::get()->display("You cannot asign more alias");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		int i, j;
+		std::string idUser, newId;
+		bool name_right;
+
+		GraphInter::get()->display("Enter the user id you want:");
+		GraphInter::get()->enter(idUser);
+
+		if (userList.get(idUser) == nullptr)
+		{
+			GraphInter::get()->display("This user does not exist");
+			GraphInter::get()->pause();
+		}
+		else
+		{
+			for (i = 0; i < user->getName() && user->getNumName(i).user != idUser; i++) {}
+
+			if (i != user->getName())
+			{
+				GraphInter::get()->display("This username already has an alias");
+				GraphInter::get()->pause();
+			}
+			else
+			{
+				GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
+
+				do
+				{
+					name_right = true;
+
+					GraphInter::get()->enter(newId);
+
+					if (newId.size() == 0)
+					{
+						GraphInter::get()->display("Error, the alias cannot be empty");
+						name_right = false;
+					}
+					else
+					{
+						for (int k = 0; k < newId.size() && name_right; k++)
+						{
+							if (newId[i] == '@')
+							{
+								GraphInter::get()->display("Error, the alias cannot contain '@'");
+								name_right = false;
+							}
+							else if (newId[i] == ' ')
+							{
+								GraphInter::get()->display("Error, the alias cannot contain a space");
+								name_right = false;
+							}
+						}
+					}
+				} while (!name_right);
+
+				for (j = 0; j < user->getName() && user->getNumName(j).alias != newId; j++) {}
+
+				if (j != user->getName())
+				{
+					GraphInter::get()->display("This alias is already asigned to an user");
+					GraphInter::get()->pause();
+				}
+				else
+				{
+					user->getNumName(user->upNameCount()) = tContact(idUser, newId);
+				}
+			}
+		}
+	}
+}
+
 //it search the mail recipients, and if it find them
 //send the mail you choose to the recpiets it finds
 void Manager::sendMail(User* user, Mail* mail)
