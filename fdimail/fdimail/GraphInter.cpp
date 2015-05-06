@@ -51,7 +51,7 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 
 int GraphInter::sessionMenu(Session* session)
 {
-	std::string title;
+	std::string title, thisMail;
 	std::ostringstream menu;
 
 	error("Mail of " + session->getUser()->getId());
@@ -98,8 +98,12 @@ int GraphInter::sessionMenu(Session* session)
 
 			Mail* mail = session->getManager()->getMailList()->get(id);
 
-			assert(mail != nullptr);
-			std::string thisMail = mail->header();
+			if (mail == nullptr)
+			{
+				mail = errorMail(session->getUser()->getId());
+			}
+	
+			thisMail = mail->header();
 
 			show << std::setw(2) << (session->active_tray()->length() - i) << " - " << thisMail;
 			error(show.str());
@@ -401,6 +405,28 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 
 		return mail;
 	}
+}
+
+Mail* GraphInter::errorMail(const std::string &sender)
+{
+	std::ostringstream ID;
+	Mail* mail = new Mail;
+
+	mail->from = "Tecnical Service";
+	mail->date = time(0);
+	mail->user_count = 2;
+
+	ID << sender << "_" << mail->date;
+	mail->id = ID.str();
+
+	mail->recipient_count = 1;
+	mail->recipients[0] = sender;
+
+	mail->subject = "Mail error";
+
+	mail->body = "It seems that this mail does not exist";
+
+	return mail;
 }
 
 void GraphInter::pause()

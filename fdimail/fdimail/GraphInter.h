@@ -28,6 +28,7 @@ public:
 	Mail* newMail(const std::string &sender); //Returns a full mail
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); //Returns an answer mail
 	Mail* forward(Mail* &originalMail, const std::string &sender);
+	Mail* errorMail(const std::string &sender);
 
 	//Auxiliar funtions. Implement or not
 	void drawMail(const Mail* mail);

@@ -118,7 +118,7 @@ void Manager::sendMail(User* user, Mail* mail)
 				GraphInter::get()->error("He was not sent the mail");
 				GraphInter::get()->pause();
 			}
-		}		
+		}
 	}
 	else
 	{
@@ -149,11 +149,18 @@ bool Manager::answer(User* user, Mail* mail)
 
 void Manager::deleteMail(TrayList* box, const std::string &idMail)
 {
-	//Delete from database
-	mailList.delete_mail(idMail);
+	Mail* mail = mailList.get(idMail);
 
 	//Delete from user's in/outbox
 	box->destroy(idMail);
+
+	mail->user_count--;
+
+	if (mail->user_count == 0)
+	{
+		//Delete from database
+		mailList.delete_mail(idMail);
+	}
 }
 
 void Manager::manualUsers(std::string &name)

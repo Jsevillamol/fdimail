@@ -48,6 +48,9 @@
     <ClCompile Include="GraphInter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Encript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Encript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

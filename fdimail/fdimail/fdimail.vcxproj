@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Encript.cpp" />
     <ClCompile Include="fdimail.cpp" />
     <ClCompile Include="GraphInter.cpp" />
     <ClCompile Include="Mail.cpp" />
@@ -76,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Encript.h" />
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
