@@ -139,6 +139,11 @@ void Manager::AddFastName(User* user)
 			GraphInter::get()->display("This user does not exist");
 			GraphInter::get()->pause();
 		}
+		else if (idUser == user->getId())
+		{
+			GraphInter::get()->display("There is already an asigned alias for your own username");
+			GraphInter::get()->pause();
+		}
 		else
 		{
 			for (i = 0; i < user->getName() && user->getNumName(i).user != idUser; i++) {}
@@ -150,17 +155,25 @@ void Manager::AddFastName(User* user)
 			}
 			else
 			{
-				GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
-
 				do
 				{
 					name_right = true;
 
+					GraphInter::get()->clearConsole();
+					GraphInter::get()->display("User: " + idUser);
+					GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
 					GraphInter::get()->enter(newId);
 
 					if (newId.size() == 0)
 					{
 						GraphInter::get()->display("Error, the alias cannot be empty");
+						GraphInter::get()->pause();
+						name_right = false;
+					}
+					else if (newId == "Me")
+					{
+						GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
+						GraphInter::get()->pause();
 						name_right = false;
 					}
 					else
@@ -170,11 +183,13 @@ void Manager::AddFastName(User* user)
 							if (newId[i] == '@')
 							{
 								GraphInter::get()->display("Error, the alias cannot contain '@'");
+								GraphInter::get()->pause();
 								name_right = false;
 							}
 							else if (newId[i] == ' ')
 							{
 								GraphInter::get()->display("Error, the alias cannot contain a space");
+								GraphInter::get()->pause();
 								name_right = false;
 							}
 						}

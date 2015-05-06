@@ -8,9 +8,10 @@
 //It saves a mail in the file you choose
 void Mail::save(std::ofstream &file) const
 {
-	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl;
+	file << this->id << std::endl << this->user_count << std::endl << this->date
+		<< std::endl << this->from << std::endl << this->recipient_count << std::endl;
 
-	for (int i = 0; i < this->user_count - 1; i++)
+	for (int i = 0; i < this->recipient_count; i++)
 	{
 		file << this->recipients[i] << std::endl;
 	}
@@ -37,21 +38,27 @@ bool Mail::load(std::ifstream &file)
 
 				if (!file.fail())
 				{
-					for (int i = 0; i < this->user_count - 1; i++)
-					{
-						file >> this->recipients[i];
-					}
+					file >> this->recipient_count;
 
 					if (!file.fail())
 					{
-						file.ignore();
-						std::getline(file, this->subject);
+						for (int i = 0; i < this->user_count - 1; i++)
+						{
+							file >> this->recipients[i];
+						}
 
 						if (!file.fail())
 						{
-							std::getline(file, this->body, '#');
+							file.ignore();
+							std::getline(file, this->subject);
 
-							if (!file.fail()) return true;
+							if (!file.fail())
+							{
+								std::getline(file, this->body, '#');
+
+								if (!file.fail()) return true;
+								else return false;
+							}
 							else return false;
 						}
 						else return false;

@@ -64,9 +64,11 @@ void Session::launch()
 		case 6:
 			GraphInter::get()->clearConsole();
 			AccountOptions(opt);
+			GraphInter::get()->clearConsole();
 		case 7:
 			GraphInter::get()->clearConsole();
 			manager->AddFastName(user);
+			GraphInter::get()->clearConsole();
 		}
 	} while (opt != 0);
 }
@@ -236,6 +238,37 @@ void Session::deleteMail()
 				manager->deleteMail(active_tray(), newId);
 			}
 		}
+	}
+}
+
+std::string Session::SearchFastName(User* user, std::string &name)
+{
+	bool is_alias = true;
+	bool alias_found = false;
+	int i;
+
+	for (int j = 0; j < name.size() && is_alias; j++)
+	{
+		if (name[j] == '@')
+		{
+			is_alias = false;
+		}
+	}
+
+	if (!is_alias) return name;
+
+	else
+	{
+		for (i = 0; i < user->getName() && !alias_found; i++)
+		{
+			if (user->getNumName(i).alias == name)
+			{
+				alias_found = true;
+			}
+		}
+
+		if (alias_found) return user->getNumName(i).user;
+		else return name;
 	}
 }
 

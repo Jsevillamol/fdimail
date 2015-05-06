@@ -1,7 +1,7 @@
 #include "User.h"
 
 User::User(const std::string idUser, const std::string password):
-id(idUser), password(sha1(password))
+id(idUser), password(sha1(password)), fastname_count(0)
 {}
 
 User::User(){}
@@ -45,8 +45,9 @@ bool User::load(std::ifstream &file)
 				this->outbox.load(file);
 				this->inbox.load(file);
 
+				return true;
 			}
-			return true;
+			else return false;
 		}
 		else return false;
 	}
