@@ -43,14 +43,14 @@ User* Manager::registerUser()
 			return user;
 		else
 		{
-			GraphInter::get()->error("Wrong password");
+			GraphInter::get()->display("Wrong password");
 			GraphInter::get()->pause();
 			return nullptr;
 		}
 	}
 	else
 	{
-		GraphInter::get()->error("User does not exist");
+		GraphInter::get()->display("User does not exist");
 		GraphInter::get()->pause();
 		return nullptr;
 	}
@@ -63,14 +63,14 @@ User* Manager::createAccount()
 	
 	if (userList.get(idUser) == nullptr)
 	{
-		GraphInter::get()->check_password(last_password);
+		GraphInter::get()->checkPassword(last_password);
 		User* user = new User(idUser, last_password);
 		userList.insert(user);
 		return user;
 	}
 	else
 	{
-		GraphInter::get()->error("This username already exists");
+		GraphInter::get()->display("This username already exists");
 		GraphInter::get()->pause();
 		return nullptr;
 	}
@@ -95,6 +95,20 @@ void Manager::deleteAccount(const std::string &id)
 	userList.destroy(id);
 }
 
+void Manager::ChangeUsername(User* user)
+{
+	std::string newUsername = GraphInter::get()->changeUsername();
+
+	user->setId(newUsername);
+}
+
+void Manager::ChangePassword(User* user)
+{
+	std::string newPassword = GraphInter::get()->changePassword();
+
+	user->setPassword(newPassword);
+}
+
 void Manager::sendMail(User* user, Mail* mail)
 {
 	//Add to database
@@ -114,15 +128,15 @@ void Manager::sendMail(User* user, Mail* mail)
 			}
 			else
 			{
-				GraphInter::get()->error("Destinatary " + mail->recipients[j] + " not found");
-				GraphInter::get()->error("He was not sent the mail");
+				GraphInter::get()->display("Destinatary " + mail->recipients[j] + " not found");
+				GraphInter::get()->display("He was not sent the mail");
 				GraphInter::get()->pause();
 			}
 		}
 	}
 	else
 	{
-		GraphInter::get()->error("MailList full");
+		GraphInter::get()->display("MailList full");
 		GraphInter::get()->pause();
 	}
 }
@@ -169,8 +183,8 @@ void Manager::manualUsers(std::string &name)
 
 	while (userLocation != "" && !userList.load(name))
 	{
-		GraphInter::get()->error("Could not load userList");
-		GraphInter::get()->error("Enter the file url ((ENTER) for continue)");
+		GraphInter::get()->display("Could not load userList");
+		GraphInter::get()->display("Enter the file url ((ENTER) for continue)");
 		GraphInter::get()->enter(userLocation);
 
 		if (userLocation != "")
@@ -186,8 +200,8 @@ void Manager::manualMails(std::string &name)
 
 	while (mailLocation != "" && !mailList.load(name))
 	{
-		GraphInter::get()->error("Could not load mailList");
-		GraphInter::get()->error("Enter the file url ((ENTER) for continue)");
+		GraphInter::get()->display("Could not load mailList");
+		GraphInter::get()->display("Enter the file url ((ENTER) for continue)");
 		GraphInter::get()->enter(mailLocation);
 
 		if (mailLocation != "")

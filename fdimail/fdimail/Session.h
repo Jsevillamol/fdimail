@@ -21,6 +21,8 @@ public:
 
 	void launch();
 
+	void AccountOptions(int &option);
+
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }
 

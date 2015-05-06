@@ -28,14 +28,14 @@ void GraphInter::close()
 
 int GraphInter::mainMenu()
 {
-	error("Choose your desired option: ");
+	display("Choose your desired option: ");
 	tab_word("1- Sign up");
 	tab_word("2- Sign in");
 	tab_word("0- Exit");
 
-	error(linea());
+	display(linea());
 
-	error("Enter an option:");
+	display("Enter an option:");
 
 	return digitBetween(0, 2);
 }
@@ -44,7 +44,7 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
 
-	error("Enter password:");
+	display("Enter password:");
 
 	enter(password);
 }
@@ -54,7 +54,7 @@ int GraphInter::sessionMenu(Session* session)
 	std::string title, thisMail;
 	std::ostringstream menu;
 
-	error("Mail of " + session->getUser()->getId());
+	display("Mail of " + session->getUser()->getId());
 
 	if (session->active_list)
 	{
@@ -65,19 +65,19 @@ int GraphInter::sessionMenu(Session* session)
 		title = center_word("Inbox", HORIZONTAL, "-");
 	}
 
-	error(linea());
+	display(linea());
 
 	menu << title << "\n" << "R N" << std::setw(7)
 		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
 		<< "DATE" << std::endl;
 
-	error(menu.str());
+	display(menu.str());
 
-	error(linea());
+	display(linea());
 
 	if (session->active_tray()->length() == 0)
 	{
-		error(center_word("You have no mails", HORIZONTAL, " "));
+		display(center_word("You have no mails", HORIZONTAL, " "));
 	}
 	else
 	{
@@ -106,12 +106,12 @@ int GraphInter::sessionMenu(Session* session)
 			thisMail = mail->header();
 
 			show << std::setw(2) << (session->active_tray()->length() - i) << " - " << thisMail;
-			error(show.str());
+			display(show.str());
 		}
 	}
-	error(linea());
+	display(linea());
 
-	error("Choose your desired option: ");
+	display("Choose your desired option: ");
 	tab_word("1- Read mail");
 	tab_word("2- Send mail");
 	tab_word("3- Delete mail");
@@ -125,35 +125,51 @@ int GraphInter::sessionMenu(Session* session)
 		tab_word("4- See outbox");
 	}
 	tab_word("5- Fast read of unread mails");
-	tab_word("6- Delete account");
+	tab_word("6- Account options");
 	tab_word("0- Sign out");
 
-	error(linea());
+	display(linea());
 
-	std::cout << "Enter an option:" << std::endl;
+	display("Enter an option:");
 
 	return digitBetween(0, 6);
 }
 
 int GraphInter::WhatToDelete()
 {
-	error(linea());
+	display(linea());
 
 	tab_word("1- Choose mail");
 	tab_word("0- Delete all mails");
 
-	error(linea());
+	display(linea());
 
-	error("Enter an option:");
+	display("Enter an option:");
 
 	return digitBetween(0, 1);
+}
+
+int GraphInter::AccountOptions()
+{
+	display(linea());
+
+	tab_word("1- Change username");
+	tab_word("2- Change password");
+	tab_word("3- Delete account");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 3);
 }
 
 std::string GraphInter::selectMail(Session* session)
 {
 	int number;
 
-	error("Enter the number of the mail you choose:");
+	display("Enter the number of the mail you choose:");
 
 	number = digitBetween(1, session->active_tray()->length());
 
@@ -162,14 +178,14 @@ std::string GraphInter::selectMail(Session* session)
 
 int GraphInter::mailMenu()
 {
-	error("Choose an option:");
+	display("Choose an option:");
 	tab_word("1- Answer");
 	tab_word("2- Forward");
 	tab_word("0- Exit to sesion menu");
 
-	error(linea());
+	display(linea());
 
-	error("Enter an option:");
+	display("Enter an option:");
 
 	return digitBetween(0, 2);
 }
@@ -187,20 +203,20 @@ Mail* GraphInter::newMail(const std::string &sender)
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
-	error("From: " + sender);
+	display("From: " + sender);
 
-	error("How many recipients do you want this mail to be sent?");
+	display("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
 	for (i = 0; i < mail->recipient_count; i++)
 	{
 		if (i == 0)
 		{
-			error("To ('Me' for send it to yourself): ");
+			display("To ('Me' for send it to yourself): ");
 		}
 		else
 		{
-			error("CC ('Me' for send it to yourself): ");
+			display("CC ('Me' for send it to yourself): ");
 		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
@@ -220,7 +236,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 			{
 				if (i != j && mail->recipients[j] == mail->recipients[i])
 				{
-					error("You have already choose this destinatary, you cannot choose it again");
+					display("You have already choose this destinatary, you cannot choose it again");
 
 					i--;
 				}
@@ -237,7 +253,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	{
 		mail->user_count = mail->recipient_count + 1;
 
-		error("Subject: ");
+		display("Subject: ");
 		enter(mail->subject);
 
 		if (mail->subject == "")
@@ -245,7 +261,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 			mail->subject = "No subject";
 		}
 
-		error("Body (enter twice (ENTER) to end the body): ");
+		display("Body (enter twice (ENTER) to end the body): ");
 
 		std::string line;
 		mail->body = "";
@@ -280,17 +296,17 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
-	error(center_word("Answered mail", HORIZONTAL, " "));
+	display(center_word("Answered mail", HORIZONTAL, " "));
 
-	error("");
+	display("");
 
-	error("From: " + sender);
+	display("From: " + sender);
 
-	error("To: " + originalMail->from);
+	display("To: " + originalMail->from);
 
-	error("Subject: " + mail->subject);
+	display("Subject: " + mail->subject);
 
-	error("Body (enter twice (ENTER) to end the body): ");
+	display("Body (enter twice (ENTER) to end the body): ");
 	
 	std::string line;
 	WhatToSay = "";
@@ -328,24 +344,24 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 	ID << sender << "_" << mail->date;
 	mail->id = ID.str();
 
-	error(center_word("Forwarded mail", HORIZONTAL, " "));
+	display(center_word("Forwarded mail", HORIZONTAL, " "));
 
-	error("");
+	display("");
 
-	error("From: " + sender);
+	display("From: " + sender);
 
-	error("How many recipients do you want this mail to be sent?");
+	display("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
 	for (i = 0; i < mail->recipient_count && mail->recipients[i] != ""; i++)
 	{
 		if (i == 0)
 		{
-			error("To ('Me' for send it to yourself): ");
+			display("To ('Me' for send it to yourself): ");
 		}
 		else
 		{
-			error("CC ('Me' for send it to yourself): ");
+			display("CC ('Me' for send it to yourself): ");
 		}
 		std::cin.ignore();
 		enter(mail->recipients[i]);
@@ -365,7 +381,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 			{
 				if (i != j && mail->recipients[j] == mail->recipients[i])
 				{
-					error("You have already choose this destinatary, you cannot choose it again");
+					display("You have already choose this destinatary, you cannot choose it again");
 
 					i--;
 				}
@@ -382,9 +398,9 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 	{
 		mail->user_count = mail->recipient_count + 1;
 
-		error("Subject: " + mail->subject);
+		display("Subject: " + mail->subject);
 
-		error("Body (enter twice (ENTER) to end the body): ");
+		display("Body (enter twice (ENTER) to end the body): ");
 
 		std::string line;
 		WhatToSay = "";
@@ -447,12 +463,12 @@ int GraphInter::digitBetween(int a, int b)
 
 		if (std::cin.fail())
 		{
-			error("Error, enter a digit");
+			display("Error, enter a digit");
 		}
 
 		else if (digit < a || digit > b)
 		{
-			error("Error, enter a digit between " + std::to_string(a) + " and " + std::to_string(b));
+			display("Error, enter a digit between " + std::to_string(a) + " and " + std::to_string(b));
 			digit = -1;
 		}
 
@@ -488,7 +504,7 @@ void GraphInter::tab_word(std::string word)
 
 	tab << std::setw(2 + word.size()) << word;
 
-	error(tab.str());
+	display(tab.str());
 }
 
 std::string GraphInter::linea()
@@ -507,7 +523,7 @@ std::string GraphInter::valid_user()
 	std::string id;
 	bool id_right;
 
-	error("Enter your id: ");
+	display("Enter your id: ");
 
 	do
 	{
@@ -517,8 +533,8 @@ std::string GraphInter::valid_user()
 
 		if (id.size() > 15)
 		{
-			error("Error, your id cannot be longer than 15 characters ");
-			error("Enter your id: ");
+			display("Error, your id cannot be longer than 15 characters ");
+			display("Enter your id: ");
 
 			id_right = false;
 		}
@@ -528,8 +544,8 @@ std::string GraphInter::valid_user()
 			{
 				if (id[i] == ' ')
 				{
-					error("Error, your id cannot contain a space");
-					error("Enter your id: ");
+					display("Error, your id cannot contain a space");
+					display("Enter your id: ");
 
 					id_right = false;
 				}
@@ -547,22 +563,69 @@ void GraphInter::drawMail(const Mail* mail)
 	std::cout << mail->to_string() << std::endl;
 }
 
-void GraphInter::check_password(std::string& password)
+std::string GraphInter::changeUsername()
+{
+	std::string data;
+
+	display("Enter your new username");
+
+	enter(data);
+
+	checkUsername(data);
+
+	return data;
+}
+
+std::string GraphInter::changePassword()
+{
+	std::string data;
+
+	display("Enter your new password");
+
+	enter(data);
+
+	checkPassword(data);
+
+	return data;
+}
+
+void GraphInter::checkUsername(std::string& password)
 {
 	std::string newPassword;
 
-	std::cout << "Confirm your password: " << std::endl;
+	display("Confirm your new username: ");
 
-	std::cin >> newPassword;
+	enter(newPassword);
 
 	while (newPassword != password)
 	{
-		error("Error, the passwords are not the same");
-		error("Enter your password:");
+		display("Error, usernames are not the same");
+		display("Enter your new username:");
 
 		enter(password);
 
-		error("Confirm your password:");
+		display("Confirm your username:");
+
+		enter(newPassword);
+	}
+}
+
+void GraphInter::checkPassword(std::string &password)
+{
+	std::string newPassword;
+
+	display("Confirm your password: ");
+
+	enter(newPassword);
+
+	while (newPassword != password)
+	{
+		display("Error, passwords are not the same");
+		display("Enter your new passwords:");
+
+		enter(password);
+
+		display("Confirm your passwords:");
 
 		enter(newPassword);
 	}
@@ -570,7 +633,7 @@ void GraphInter::check_password(std::string& password)
 
 void GraphInter::clearConsole(){ system("cls"); }
 
-void GraphInter::error(std::string error)
+void GraphInter::display(std::string error)
 {
 	std::cout << error << std::endl;
 }

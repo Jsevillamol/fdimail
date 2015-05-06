@@ -1,7 +1,7 @@
 #include "User.h"
 
 User::User(const std::string idUser, const std::string password):
-id(idUser), password(password)
+id(idUser), password(sha1(password))
 {}
 
 User::User(){}

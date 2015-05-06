@@ -36,16 +36,20 @@ public:
 	std::string valid_user();
 	std::string valid_password();
 	std::string inputBox(std::string &message);
-	void error(std::string error);
+	void display(std::string error);
 	void enter(std::string &word);
 	void enter(int &digit);
 	void pause();
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
+	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);
-	void check_password(std::string& password);
+	std::string changeUsername();
+	std::string changePassword();
+	void checkUsername(std::string &password);
+	void checkPassword(std::string &password);
 	std::string linea();
 };
 #endif //GRAPHINTER

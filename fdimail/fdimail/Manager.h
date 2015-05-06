@@ -28,6 +28,8 @@ public:
 	User* createAccount();
 
 	void deleteAccount(const std::string &id);
+	void ChangeUsername(User* user);
+	void ChangePassword(User* user);
 
 	MailList* getMailList(){ return &mailList; }
 

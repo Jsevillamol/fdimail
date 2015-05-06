@@ -61,8 +61,7 @@ void Session::launch()
 			break;
 		case 6:
 			GraphInter::get()->clearConsole();
-			manager->deleteAccount(user->getId());
-			opt = 0;
+			AccountOptions(opt);
 		}
 	} while (opt != 0);
 }
@@ -71,7 +70,7 @@ void Session::readMail()
 {
 	if (this->active_tray()->length() == 0)
 	{
-		GraphInter::get()->error("Error, you have no mails to read");
+		GraphInter::get()->display("Error, you have no mails to read");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
 	}
@@ -106,7 +105,7 @@ void Session::fastRead()
 {	
 	if (active_tray()->length() == 0)
 	{
-		GraphInter::get()->error("You do not have any mail on your active tray");
+		GraphInter::get()->display("You do not have any mail on your active tray");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
 	}
@@ -130,7 +129,7 @@ void Session::fastRead()
 		}
 		if (!something_to_read)
 		{
-			GraphInter::get()->error("You do not have any unread mail");
+			GraphInter::get()->display("You do not have any unread mail");
 			GraphInter::get()->pause();
 		}
 		GraphInter::get()->clearConsole();
@@ -145,7 +144,7 @@ void Session::sendMail()
 
 	if (mail == nullptr)
 	{
-		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->display("Mail not sent");
 		GraphInter::get()->pause();
 	}
 	else
@@ -163,7 +162,7 @@ void Session::answerMail(Mail* &originalMail)
 
 	if (answer == nullptr)
 	{
-		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->display("Mail not sent");
 	}
 	else
 	{
@@ -181,7 +180,7 @@ void Session::forwardMail(Mail* &originalMail)
 
 	if (forward == nullptr)
 	{
-		GraphInter::get()->error("Mail not sent");
+		GraphInter::get()->display("Mail not sent");
 	}
 	else
 	{
@@ -195,7 +194,7 @@ void Session::deleteMail()
 {
 	if (this->active_tray()->length() == 0)
 	{
-		GraphInter::get()->error("Error, you have no mails to delete");
+		GraphInter::get()->display("Error, you have no mails to delete");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
 	}
@@ -224,5 +223,24 @@ void Session::deleteMail()
 				manager->deleteMail(active_tray(), newId);
 			}
 		}
+	}
+}
+
+void Session::AccountOptions(int &option)
+{
+	int menu = GraphInter::get()->AccountOptions();
+
+	if (menu == 1)
+	{
+		manager->ChangeUsername(user);
+	}
+	else if (menu == 2)
+	{
+		manager->ChangePassword(user);
+	}
+	else if (menu == 3)
+	{
+		manager->deleteAccount(user->getId());
+		option = 0;
 	}
 }

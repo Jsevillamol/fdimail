@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include "TrayList.h"
+#include "Encript.h"
 
 class User
 {
@@ -20,6 +21,8 @@ public:
 	User();
 
 	const std::string& getId() const { return id; }
+	std::string& setId(std::string newId) { return id = newId + "@fdimail.com"; }
+	std::string& setPassword(std::string newPassword){ return password = sha1(newPassword); }
 	TrayList* getInbox() { return &inbox; }
 	TrayList* getOutbox() { return &outbox; }
 	TrayList* active_tray() { return active_list ? &outbox : &inbox; }
@@ -29,7 +32,7 @@ public:
 	bool load(std::ifstream &file);
 
 	bool checkPassword(const std::string &possible_password)const 
-		{ return password == possible_password; }
+		{ return password == sha1(possible_password); }
 	
 };
 #endif
