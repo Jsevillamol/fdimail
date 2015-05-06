@@ -3,7 +3,6 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
-#include <assert.h>
 
 GraphInter* GraphInter::inter = nullptr;
 
