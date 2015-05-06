@@ -7,6 +7,12 @@
 #include "GraphInter.h"
 #include "User.h"
 
+/*
+This class is responsible for dealing with every sessions,
+so that the mails are sent, or the account are manipulated
+It also loads and saves the mails and the users from the save files
+*/
+
 class Manager
 {
 private:

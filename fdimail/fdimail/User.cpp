@@ -6,6 +6,7 @@ id(idUser), password(sha1(password))
 
 User::User(){}
 
+//Saves the user datos on the file you choose
 void User::save(std::ofstream &file)const
 {
 	file << this->id << std::endl 
@@ -15,6 +16,7 @@ void User::save(std::ofstream &file)const
 	this->inbox.save(file);
 }
 
+//Loads the user datos from the file you choose
 bool User::load(std::ifstream &file)
 {
 	file >> this->id;

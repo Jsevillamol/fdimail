@@ -6,6 +6,11 @@
 #include "TrayList.h"
 #include "Encript.h"
 
+/*
+Contains the user variables, and the
+functions necessary for working with it
+*/
+
 class User
 {
 private:

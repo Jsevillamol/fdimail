@@ -12,6 +12,9 @@ Manager::~Manager()
 	shutDown();
 }
 
+//Loads the users and mails from the default files
+//If the load cannot de made, it asks you to enter
+//the savefile location
 void Manager::bootUp()
 {
 	std::ostringstream mail_file, user_file;
@@ -22,6 +25,7 @@ void Manager::bootUp()
 	manualUsers(user_file.str());
 }
 
+//It saves the users and mails on the default files
 void Manager::shutDown()
 {
 	std::ostringstream mail_file, user_file;
@@ -32,6 +36,7 @@ void Manager::shutDown()
 	userList.save(user_file.str());
 }
 
+//Allows a user to enter in his account, if is already exist
 User* Manager::registerUser()
 {
 	std::string idUser, password, last_password;
@@ -56,6 +61,7 @@ User* Manager::registerUser()
 	}
 }
 
+//It allows a new user to create an account
 User* Manager::createAccount()
 {
 	std::string idUser, last_password;
@@ -76,6 +82,7 @@ User* Manager::createAccount()
 	}
 }
 
+//Allows a user to delete his account
 void Manager::deleteAccount(const std::string &id)
 {
 	User* user = userList.get(id);
@@ -95,6 +102,7 @@ void Manager::deleteAccount(const std::string &id)
 	userList.destroy(id);
 }
 
+//Allows a user to change his username
 void Manager::ChangeUsername(User* user)
 {
 	std::string newUsername = GraphInter::get()->changeUsername();
@@ -102,6 +110,7 @@ void Manager::ChangeUsername(User* user)
 	user->setId(newUsername);
 }
 
+//Allows a user to change his password
 void Manager::ChangePassword(User* user)
 {
 	std::string newPassword = GraphInter::get()->changePassword();
@@ -109,6 +118,8 @@ void Manager::ChangePassword(User* user)
 	user->setPassword(newPassword);
 }
 
+//it search the mail recipients, and if it find them
+//send the mail you choose to the recpiets it finds
 void Manager::sendMail(User* user, Mail* mail)
 {
 	//Add to database
@@ -141,6 +152,7 @@ void Manager::sendMail(User* user, Mail* mail)
 	}
 }
 
+//Send an answer mail
 bool Manager::answer(User* user, Mail* mail)
 {
 	if (userList.get(mail->recipients[0]) != nullptr)
@@ -161,6 +173,7 @@ bool Manager::answer(User* user, Mail* mail)
 	else return false;
 }
 
+//Delete the mail you choose from the thay where you are
 void Manager::deleteMail(TrayList* box, const std::string &idMail)
 {
 	Mail* mail = mailList.get(idMail);
@@ -177,6 +190,8 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	}
 }
 
+//Asks you for the userfile location, just if
+//is not found in the default url
 void Manager::manualUsers(std::string &name)
 {
 	std::string userLocation = "Hola"; //to avoid the string to be empty
@@ -194,6 +209,8 @@ void Manager::manualUsers(std::string &name)
 	}
 }
 
+//Asks you for the mailfile location, just if
+//is not found in the default url
 void Manager::manualMails(std::string &name)
 {
 	std::string mailLocation = "Hola"; //to avoid the string to be empty

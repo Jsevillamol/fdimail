@@ -1,6 +1,11 @@
 #ifndef SHA1_HPP
 #define SHA1_HPP
 
+/*
+Class responsible for encript te users passwords, 
+so that anyone can read it on the save file
+*/
+
 #include <iostream>
 #include <string>
 

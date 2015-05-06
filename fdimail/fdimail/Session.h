@@ -6,6 +6,11 @@
 #include "User.h"
 #include "Mail.h"
 
+/*
+This class is responsible for the user session, 
+for what he can do on it
+*/
+
 class Session
 {
 private:

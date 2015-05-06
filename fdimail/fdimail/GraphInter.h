@@ -5,6 +5,11 @@
 #include <iomanip>
 #include <iostream>
 
+/*
+Class responsible for interact with the user
+through the console
+*/
+
 class Session;
 //Graphical Interface. May be used to implement SFML, as of now prints through the console
 class GraphInter
@@ -20,13 +25,13 @@ public:
 	static void close();
 
 	//Core functions
-	int mainMenu(); //Options: sign in and sign up
-	void logMenu(std::string &username, std::string &password); //Returns username and password
-	int sessionMenu(Session* sesion); //Shows active tray, returns user options (read mail, delete mail, etc)
-	std::string selectMail(Session* sesion); //Shows active tray, returns idMail of mail selected
-	int mailMenu(); //Shows mail, returns options answer (true) or return to sessionMenu (false)
-	Mail* newMail(const std::string &sender); //Returns a full mail
-	Mail* answerMail(Mail* &originalMail, const std::string &sender); //Returns an answer mail
+	int mainMenu(); 
+	void logMenu(std::string &username, std::string &password);
+	int sessionMenu(Session* sesion); 
+	std::string selectMail(Session* sesion); 
+	int mailMenu(); 
+	Mail* newMail(const std::string &sender); 
+	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
 	Mail* forward(Mail* &originalMail, const std::string &sender);
 	Mail* errorMail(const std::string &sender);
 

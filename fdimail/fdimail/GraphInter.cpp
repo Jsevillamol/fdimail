@@ -25,6 +25,7 @@ void GraphInter::close()
 	if (inter != nullptr) delete inter;
 }
 
+//Options: sign in and sign up
 int GraphInter::mainMenu()
 {
 	display("Choose your desired option: ");
@@ -39,6 +40,7 @@ int GraphInter::mainMenu()
 	return digitBetween(0, 2);
 }
 
+//Returns username and password
 void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
@@ -48,6 +50,7 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	enter(password);
 }
 
+//Shows active tray, returns user options (read mail, delete mail, etc)
 int GraphInter::sessionMenu(Session* session)
 {
 	std::string title, thisMail;
@@ -134,6 +137,7 @@ int GraphInter::sessionMenu(Session* session)
 	return digitBetween(0, 6);
 }
 
+//Little options menu
 int GraphInter::WhatToDelete()
 {
 	display(linea());
@@ -148,6 +152,7 @@ int GraphInter::WhatToDelete()
 	return digitBetween(0, 1);
 }
 
+//Little options menu
 int GraphInter::AccountOptions()
 {
 	display(linea());
@@ -164,6 +169,7 @@ int GraphInter::AccountOptions()
 	return digitBetween(0, 3);
 }
 
+//Shows active tray, returns idMail of mail selected
 std::string GraphInter::selectMail(Session* session)
 {
 	int number;
@@ -175,6 +181,7 @@ std::string GraphInter::selectMail(Session* session)
 	return (*(session->active_tray()))[number-1]->idMail;
 }
 
+//Shows mail, returns options answer, forward, or return to sessionMenu
 int GraphInter::mailMenu()
 {
 	display("Choose an option:");
@@ -189,6 +196,7 @@ int GraphInter::mailMenu()
 	return digitBetween(0, 2);
 }
 
+//Returns a full mail
 Mail* GraphInter::newMail(const std::string &sender)
 {
 	std::ostringstream ID;
@@ -278,6 +286,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 	}
 }
 
+//Returns an answer mail
 Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 {
 	Mail* mail = new Mail;
@@ -327,6 +336,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 	return mail;
 }
 
+//Returns a forward mail
 Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 {
 	int i;
@@ -422,6 +432,8 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 	}
 }
 
+//Returns a default mail, which is sent when one of the 
+//user active tray mails does not exist
 Mail* GraphInter::errorMail(const std::string &sender)
 {
 	std::ostringstream ID;
@@ -444,6 +456,8 @@ Mail* GraphInter::errorMail(const std::string &sender)
 	return mail;
 }
 
+//It pauses the program, you must
+//press 'ENTER' for continue
 void GraphInter::pause()
 {
 	std::cin.sync();
@@ -476,6 +490,8 @@ int GraphInter::digitBetween(int a, int b)
 	return digit;
 }
 
+//It centers a string on the middle of the pantalla,
+//and surround it with what you want (space, guion...)
 std::string GraphInter::center_word(std::string word, int length, std::string arround)
 {
 	if (word.size() != length)
@@ -497,6 +513,8 @@ std::string GraphInter::center_word(std::string word, int length, std::string ar
 	return word;
 }
 
+//It prints the word you choose on console,
+//after two empty spaces
 void GraphInter::tab_word(std::string word)
 {
 	std::ostringstream tab;
@@ -506,6 +524,7 @@ void GraphInter::tab_word(std::string word)
 	display(tab.str());
 }
 
+//Returns a guion line
 std::string GraphInter::linea()
 {
 	std::ostringstream line;
@@ -517,6 +536,8 @@ std::string GraphInter::linea()
 	return line.str();
 }
 
+//Check the username to not have spaces, and
+//not be longer than 15 characters
 std::string GraphInter::valid_user()
 {
 	std::string id;
@@ -557,11 +578,13 @@ std::string GraphInter::valid_user()
 	return id;
 }
 
+//Draws a complete mail
 void GraphInter::drawMail(const Mail* mail)
 {
 	std::cout << mail->to_string() << std::endl;
 }
 
+//Allow you to change your username
 std::string GraphInter::changeUsername()
 {
 	std::string data = valid_user();
@@ -571,6 +594,7 @@ std::string GraphInter::changeUsername()
 	return data;
 }
 
+//Allow you to change your password
 std::string GraphInter::changePassword()
 {
 	std::string data;
@@ -584,6 +608,8 @@ std::string GraphInter::changePassword()
 	return data;
 }
 
+//Asks you to enter your username again, and
+//checks both are the same.
 void GraphInter::checkUsername(std::string& username)
 {
 	std::string newUsername;
@@ -611,6 +637,8 @@ void GraphInter::checkUsername(std::string& username)
 	}
 }
 
+//Asks you to enter your password again, and
+//checks both are the same.
 void GraphInter::checkPassword(std::string &password)
 {
 	std::string newPassword;
@@ -632,13 +660,16 @@ void GraphInter::checkPassword(std::string &password)
 	}
 }
 
+//Clears the console
 void GraphInter::clearConsole(){ system("cls"); }
 
+//Prints on the console the word you choose
 void GraphInter::display(std::string error)
 {
 	std::cout << error << std::endl;
 }
 
+//Enters in console the word you choose
 void GraphInter::enter(std::string &word)
 {
 	std::cin.sync();
@@ -646,6 +677,7 @@ void GraphInter::enter(std::string &word)
 	std::cin.clear();
 }
 
+//Enters in console the digit you choose
 void GraphInter::enter(int &digit)
 {
 	std::cin.sync();

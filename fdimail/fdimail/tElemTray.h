@@ -3,6 +3,11 @@
 
 #include <string>
 
+/*
+This struct is responsible for load and save the id of a mail
+and its read status
+*/
+
 struct tElemTray
 {
 	std::string idMail;

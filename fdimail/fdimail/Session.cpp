@@ -33,6 +33,8 @@ Session::~Session()
 	GraphInter::close();
 }
 
+//Internal part of sessionMenu(), it leds you 
+//choose what to do on your session 
 void Session::launch()
 {
 	active_list = false;
@@ -66,6 +68,8 @@ void Session::launch()
 	} while (opt != 0);
 }
 
+//It shows you the mail you choose, 
+//so you can read it
 void Session::readMail()
 {
 	if (this->active_tray()->length() == 0)
@@ -101,6 +105,8 @@ void Session::readMail()
 	}
 }
 
+//It shows you all the mails that you did not
+//read from your imput box
 void Session::fastRead()
 {	
 	if (active_tray()->length() == 0)
@@ -136,6 +142,7 @@ void Session::fastRead()
 	}
 }
 
+//If it can, sends the mail to the users who must be sent
 void Session::sendMail()
 {
 	GraphInter::get()->clearConsole();
@@ -154,6 +161,7 @@ void Session::sendMail()
 	GraphInter::get()->clearConsole();
 }
 
+//If it can, sends an ansewr mail
 void Session::answerMail(Mail* &originalMail)
 {
 	GraphInter::get()->clearConsole();
@@ -172,6 +180,7 @@ void Session::answerMail(Mail* &originalMail)
 	GraphInter::get()->clearConsole();
 }
 
+//If it can, sends a forward mail
 void Session::forwardMail(Mail* &originalMail)
 {
 	GraphInter::get()->clearConsole();
@@ -190,6 +199,7 @@ void Session::forwardMail(Mail* &originalMail)
 	GraphInter::get()->clearConsole();
 }
 
+//Deletes the mail you choose from the tray where you are
 void Session::deleteMail()
 {
 	if (this->active_tray()->length() == 0)
@@ -226,6 +236,9 @@ void Session::deleteMail()
 	}
 }
 
+//Internal part of AccountOptions(), it
+//let you choose what to do with your
+//account
 void Session::AccountOptions(int &option)
 {
 	int menu = GraphInter::get()->AccountOptions();

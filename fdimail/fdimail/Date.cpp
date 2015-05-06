@@ -1,5 +1,6 @@
 #include"Date.h"
 
+//Shows the complete date, day and hour
 std::string showDate(Date d)
 {
 	std::ostringstream resultado;
@@ -10,6 +11,7 @@ std::string showDate(Date d)
 	return resultado.str();
 }
 
+//Shows only the day, month and year 
 std::string showDay(Date d)
 {
 	std::ostringstream resultado;

@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iomanip>
 
+//It saves a mail in the file you choose
 void Mail::save(std::ofstream &file) const
 {
 	file << this->id << std::endl << this->user_count << std::endl << this->date << std::endl << this->from << std::endl;
@@ -17,6 +18,7 @@ void Mail::save(std::ofstream &file) const
 		<< this->body << "#" << std::endl;
 }
 
+//It loads a mail from the file you choose
 bool Mail::load(std::ifstream &file)
 {
 	file >> this->id;
@@ -65,6 +67,9 @@ bool Mail::load(std::ifstream &file)
 	else return false;
 }
 
+//It transform a mail to a string form 
+//so that you can work with all the mail
+//at once
 const std::string Mail::to_string() const
 {
 	std::ostringstream flow;
@@ -81,6 +86,8 @@ const std::string Mail::to_string() const
 	return flow.str();
 }
 
+//Takes the mail sender, its subject, and its date (just the day)
+//and transform it into a string
 const std::string Mail::header()const
 {
 	std::ostringstream lowFlow;
