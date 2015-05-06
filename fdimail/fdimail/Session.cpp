@@ -33,7 +33,11 @@ Session::~Session()
 	GraphInter::close();
 }
 
-//Internal part of sessionMenu(), it leds you 
+/****************************************************************/
+/*                            MENUS                             */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+//Internal part of sessionMenu(), it lets you 
 //choose what to do on your session 
 void Session::launch()
 {
@@ -72,6 +76,32 @@ void Session::launch()
 		}
 	} while (opt != 0);
 }
+
+//Internal part of AccountOptions(), it
+//let you choose what to do with your
+//account
+void Session::AccountOptions(int &option)
+{
+	int menu = GraphInter::get()->AccountOptions();
+
+	if (menu == 1)
+	{
+		manager->ChangeUsername(user);
+	}
+	else if (menu == 2)
+	{
+		manager->ChangePassword(user);
+	}
+	else if (menu == 3)
+	{
+		manager->deleteAccount(user->getId());
+		option = 0;
+	}
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                                 MAIN MENU OPTIONS                                 */
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 //It shows you the mail you choose, 
 //so you can read it
@@ -241,55 +271,5 @@ void Session::deleteMail()
 	}
 }
 
-std::string Session::SearchFastName(User* user, std::string &name)
-{
-	bool is_alias = true;
-	bool alias_found = false;
-	int i;
 
-	for (int j = 0; j < name.size() && is_alias; j++)
-	{
-		if (name[j] == '@')
-		{
-			is_alias = false;
-		}
-	}
 
-	if (!is_alias) return name;
-
-	else
-	{
-		for (i = 0; i < user->getName() && !alias_found; i++)
-		{
-			if (user->getNumName(i).alias == name)
-			{
-				alias_found = true;
-			}
-		}
-
-		if (alias_found) return user->getNumName(i).user;
-		else return name;
-	}
-}
-
-//Internal part of AccountOptions(), it
-//let you choose what to do with your
-//account
-void Session::AccountOptions(int &option)
-{
-	int menu = GraphInter::get()->AccountOptions();
-
-	if (menu == 1)
-	{
-		manager->ChangeUsername(user);
-	}
-	else if (menu == 2)
-	{
-		manager->ChangePassword(user);
-	}
-	else if (menu == 3)
-	{
-		manager->deleteAccount(user->getId());
-		option = 0;
-	}
-}

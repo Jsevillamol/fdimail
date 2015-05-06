@@ -3,7 +3,7 @@
 
 /*
 Class responsible for encript te users passwords, 
-so that anyone can read it on the save file
+so that no one can read them from the save file
 */
 
 #include <iostream>

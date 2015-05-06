@@ -27,7 +27,6 @@ public:
 	void launch();
 
 
-	std::string SearchFastName(User* user, std::string &name);
 	void AccountOptions(int &option);
 
 	Manager* getManager(){ return manager; }

@@ -28,7 +28,7 @@ public:
 	inline bool full() const  { return this->counter == MAX; }
 	inline int length() const { return this->counter; }
 
-	bool insert(T* const elem);
+	bool insert(T* elem);
 	bool search(const std::string &id, int &pos) const;
 	T* get(const std::string &id);
 
@@ -63,7 +63,7 @@ List<T, MAX>::~List()
 //It search the position where an element should be,
 //makes space for him, and inserts it in this position
 template<class T, int MAX>
-bool List<T, MAX>::insert(T* const elem)
+bool List<T, MAX>::insert(T* elem)
 {
 	if (counter < MAX)
 	{

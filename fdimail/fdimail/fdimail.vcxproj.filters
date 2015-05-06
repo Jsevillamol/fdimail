@@ -19,6 +19,9 @@
     <Filter Include="Auxiliar">
       <UniqueIdentifier>{5bfbc9a8-e42f-440b-bac1-6d22833cb206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="List Elements">
+      <UniqueIdentifier>{4a068f0a-627f-4836-81b9-d72f8bb1cbb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fdimail.cpp">
@@ -48,14 +51,11 @@
     <ClCompile Include="Encript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ContactList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mail.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Session.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -71,9 +71,6 @@
     <ClInclude Include="MailList.h">
       <Filter>Lists</Filter>
     </ClInclude>
-    <ClInclude Include="tElemTray.h">
-      <Filter>Auxiliar</Filter>
-    </ClInclude>
     <ClInclude Include="Date.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
@@ -86,11 +83,23 @@
     <ClInclude Include="Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Encript.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ContactList.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="Mail.h">
+      <Filter>List Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>List Elements</Filter>
     </ClInclude>
     <ClInclude Include="tContact.h">
-      <Filter>Header Files</Filter>
+      <Filter>List Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="tElemTray.h">
+      <Filter>List Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Encript.h">
+      <Filter>Auxiliar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
