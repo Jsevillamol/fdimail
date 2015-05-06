@@ -21,7 +21,7 @@ public:
 	User();
 
 	const std::string& getId() const { return id; }
-	std::string& setId(std::string newId) { return id = newId + "@fdimail.com"; }
+	std::string& setId(std::string newId) { return id = newId ; }
 	std::string& setPassword(std::string newPassword){ return password = sha1(newPassword); }
 	TrayList* getInbox() { return &inbox; }
 	TrayList* getOutbox() { return &outbox; }

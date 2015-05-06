@@ -564,11 +564,7 @@ void GraphInter::drawMail(const Mail* mail)
 
 std::string GraphInter::changeUsername()
 {
-	std::string data;
-
-	display("Enter your new username");
-
-	enter(data);
+	std::string data = valid_user();
 
 	checkUsername(data);
 
@@ -588,24 +584,30 @@ std::string GraphInter::changePassword()
 	return data;
 }
 
-void GraphInter::checkUsername(std::string& password)
+void GraphInter::checkUsername(std::string& username)
 {
-	std::string newPassword;
+	std::string newUsername;
 
 	display("Confirm your new username: ");
 
-	enter(newPassword);
+	enter(newUsername);
 
-	while (newPassword != password)
+	newUsername += "@fdimail.com";
+
+	while (newUsername != username)
 	{
 		display("Error, usernames are not the same");
 		display("Enter your new username:");
 
-		enter(password);
+		enter(username);
+
+		username += "@fdimail.com";
 
 		display("Confirm your username:");
 
-		enter(newPassword);
+		enter(newUsername);
+
+		newUsername += "@fdimail.com";
 	}
 }
 
