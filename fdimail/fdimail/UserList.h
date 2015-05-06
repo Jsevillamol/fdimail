@@ -5,6 +5,11 @@
 #include "List.h"
 #include "User.h"
 
+/*
+Derived class from list, responsible
+for work whith users
+*/
+
 class UserList: public List<User, MAX_USERS> {};
 
 #endif

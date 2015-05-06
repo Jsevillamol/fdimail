@@ -2,6 +2,13 @@
 #define LIST
 #include <assert.h>
 #include <iostream>
+
+/*
+This is a base class for all the list this program has
+We have used a template to be able to work whith diferent
+types of arguments
+*/
+
 //Template for lists
 template <class T, int MAX>
 class List
@@ -53,6 +60,8 @@ List<T, MAX>::~List()
 
 }
 
+//It search the position where an element should be,
+//makes space for him, and inserts it in this position
 template<class T, int MAX>
 bool List<T, MAX>::insert(T* const elem)
 {
@@ -71,6 +80,8 @@ bool List<T, MAX>::insert(T* const elem)
 	else return false;
 }
 
+//It moves every elemnts on the list
+//to the right from the position you choose
 template<class T, int MAX>
 void List<T, MAX>::shiftRight(const int pos)
 {
@@ -81,6 +92,8 @@ void List<T, MAX>::shiftRight(const int pos)
 	}
 }
 
+//Searchs the position where 
+//an element should be
 template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
@@ -106,6 +119,9 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 	return false;
 }
 
+//Using the id of an element, searchs it 
+//on the list and returns the position 
+//where it is placed
 template<class T, int MAX>
 T* List<T, MAX>::get(const std::string &id)
 {
@@ -120,6 +136,8 @@ T* List<T, MAX>::get(const std::string &id)
 	}
 }
 
+//Searchs for the element you choose
+//on the list, and deletes it
 template<class T, int MAX>
 bool List<T, MAX>::destroy(const std::string &id)
 {
@@ -134,6 +152,8 @@ bool List<T, MAX>::destroy(const std::string &id)
 	else return false;
 }
 
+//It moves every elemnts on the list
+//to the right from the position you choose
 template<class T, int MAX>
 void List<T, MAX>::shiftLeft(const int pos)
 {
@@ -144,6 +164,9 @@ void List<T, MAX>::shiftLeft(const int pos)
 	}
 }
 
+//Saves all the elements of the list on the
+//file you choose, and put the scentinel at
+//the end of the file
 template<class T, int MAX>
 void List<T, MAX>::save(const std::string &name)
 {
@@ -161,6 +184,8 @@ void List<T, MAX>::save(const std::string &name)
 	file.close();
 }
 
+//Loads the elemrnts of the list
+//from the file you choose
 template<class T, int MAX>
 bool List<T, MAX>::load(const std::string &name)
 {
