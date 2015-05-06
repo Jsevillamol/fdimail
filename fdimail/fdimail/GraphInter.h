@@ -34,7 +34,6 @@ public:
 	void drawMail(const Mail* mail);
 
 	std::string valid_user();
-	std::string valid_password();
 	std::string inputBox(std::string &message);
 	void display(std::string error);
 	void enter(std::string &word);
