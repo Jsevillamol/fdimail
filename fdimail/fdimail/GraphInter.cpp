@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <conio.h>
 
 GraphInter* GraphInter::inter = nullptr;
 
@@ -45,9 +46,9 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
 
-	display("Enter password:");
+	display("Enter your password");
 
-	enter(password);
+	password = HidePassword();
 }
 
 //Shows active tray, returns user options (read mail, delete mail, etc)
@@ -128,15 +129,14 @@ int GraphInter::sessionMenu(Session* session)
 	}
 	tab_word("5- Fast read of unread mails");
 	tab_word("6- Account options");
-	tab_word("7- Asign an alias to a user");
-	tab_word("8- Delete the alias of a user");
+	tab_word("7- Alias options");
 	tab_word("0- Sign out");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 8);
+	return digitBetween(0, 7);
 }
 
 //Little options menu
@@ -164,12 +164,13 @@ void GraphInter::showFastNames()
 	display(linea());
 }
 
-int GraphInter::DeleteFastName()
+int GraphInter::FastName()
 {
 	showFastNames();
 
-	tab_word("1- Choose name");
-	tab_word("2- Delete all names");
+	tab_word("1- Add an alias");
+	tab_word("2- Delete an alias");
+	tab_word("3- Delete all names");
 	tab_word("0- Exit to session menu");
 
 	display(linea());
@@ -606,6 +607,13 @@ std::string GraphInter::valid_user()
 
 					id_right = false;
 				}
+				else if (id[i] == '@')
+				{
+					display("Error, your id cannot contain a '@'");
+					display("Enter your id: ");
+
+					id_right = false;
+				}
 			}
 		}		
 	} while (!id_right);
@@ -624,7 +632,26 @@ void GraphInter::drawMail(const Mail* mail)
 //Allow you to change your username
 std::string GraphInter::changeUsername()
 {
-	std::string data = valid_user();
+	bool name_ok;
+	std::string data;
+
+	do
+	{
+		clearConsole();
+
+		name_ok = true;
+
+		data = valid_user();
+
+		if (userlist->get(data) != nullptr)
+		{
+			display("This username alreay exists");
+			pause();
+
+			name_ok = false;
+		}
+	} while (!name_ok);
+	
 
 	checkUsername(data);
 
@@ -682,18 +709,18 @@ void GraphInter::checkPassword(std::string &password)
 
 	display("Confirm your password: ");
 
-	enter(newPassword);
+	newPassword = HidePassword();
 
 	while (newPassword != password)
 	{
 		display("Error, passwords are not the same");
 		display("Enter your new passwords:");
 
-		enter(password);
+		password = HidePassword();
 
 		display("Confirm your passwords:");
 
-		enter(newPassword);
+		newPassword = HidePassword();
 	}
 }
 
@@ -720,4 +747,41 @@ void GraphInter::enter(int &digit)
 	std::cin.sync();
 	std::cin >> digit;
 	std::cin.clear();
+}
+
+void GraphInter::enter(char word[])
+{
+	std::cin.sync();
+	std::cin >> word;
+	std::cin.clear();
+}
+
+std::string GraphInter::HidePassword()
+{
+	int i = 0;
+	std::cout.flush();
+	char word[50];
+
+	do
+	{
+		word[i] = (unsigned char)_getch();
+
+		if (word[i] != 8)  // no es retroceso
+		{
+			std::cout << '*';  // muestra por pantalla
+			i++;
+		}
+		else if (i>0)    // es retroceso y hay caracteres
+		{
+			std::cout << (char)8 << (char)32 << (char)8;
+			i--;  //el caracter a borrar e el backspace
+		}
+		std::cout.flush();
+
+	} while (word[i - 1] != 13);  // si presiona ENTER
+
+	word[i - 1] = NULL;
+	display("");
+
+	return word;
 }

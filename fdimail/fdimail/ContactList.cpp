@@ -2,11 +2,10 @@
 
 std::string ContactList::SearchFastName(std::string &name)
 {
-	bool is_alias = true;
 	bool alias_found = false;
 	int i;
 
-	for (int j = 0; j < name.size() && is_alias; j++)
+	for (int j = 0; j < name.size(); j++)
 	{
 		if (name[j] == '@')
 		{

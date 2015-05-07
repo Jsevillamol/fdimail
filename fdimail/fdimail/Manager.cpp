@@ -1,4 +1,5 @@
 #include "Manager.h"
+#include "Session.h"
 #include <sstream>
 
 Manager::Manager(const std::string &new_domain) :
@@ -39,7 +40,8 @@ void Manager::shutDown()
 //Allows a user to enter in his account, if is already exist
 User* Manager::registerUser()
 {
-	std::string idUser, password, last_password;
+	std::string idUser;
+	std::string last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 	User* user = (userList.get(idUser));
 	if  (user != nullptr)
@@ -64,7 +66,8 @@ User* Manager::registerUser()
 //It allows a new user to create an account
 User* Manager::createAccount()
 {
-	std::string idUser, last_password;
+	std::string idUser;
+	std::string last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 	
 	if (userList.get(idUser) == nullptr)
@@ -125,7 +128,7 @@ void Manager::ChangePassword(User* user)
 
 void Manager::AddFastName(User* user)
 {
-	if (user->getContactlist()->length() == MAX_FASTNAMES)
+	if (user->getContactlist()->full())
 	{
 		GraphInter::get()->display("You cannot asign more alias");
 		GraphInter::get()->pause();
@@ -136,10 +139,10 @@ void Manager::AddFastName(User* user)
 		std::string idUser, newId;
 		bool name_right;
 
-		GraphInter::get()->display("Enter the user id you want:");
+		GraphInter::get()->display("Enter the user id you want to asign:");
 		GraphInter::get()->enter(idUser);
 
-		if (userList.get(idUser) == nullptr)
+		if (userList.get(idUser) == nullptr || userList.get(idUser + "@fdimail.com") == nullptr)
 		{
 			GraphInter::get()->display("This user does not exist");
 			GraphInter::get()->pause();
@@ -173,12 +176,14 @@ void Manager::AddFastName(User* user)
 					{
 						GraphInter::get()->display("Error, the alias cannot be empty");
 						GraphInter::get()->pause();
+
 						name_right = false;
 					}
 					else if (newId == "Me")
 					{
 						GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
 						GraphInter::get()->pause();
+
 						name_right = false;
 					}
 					else
@@ -189,30 +194,68 @@ void Manager::AddFastName(User* user)
 							{
 								GraphInter::get()->display("Error, the alias cannot contain '@'");
 								GraphInter::get()->pause();
+
 								name_right = false;
 							}
 							else if (newId[i] == ' ')
 							{
 								GraphInter::get()->display("Error, the alias cannot contain a space");
 								GraphInter::get()->pause();
+
 								name_right = false;
 							}
+						}
+
+						for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
+
+						if (j != user->getContactlist()->length())
+						{
+							GraphInter::get()->display("This alias is already asigned to an user");
+							GraphInter::get()->pause();
+
+							name_right = false;
 						}
 					}
 				} while (!name_right);
 
-				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
+				tContact* newContact = new tContact(idUser, newId);
 
-				if (j != user->getContactlist()->length())
-				{
-					GraphInter::get()->display("This alias is already asigned to an user");
-					GraphInter::get()->pause();
-				}
-				else
-				{
-					tContact* newContact = new tContact(idUser, newId);
+				user->getContactlist()->insert(newContact);
+			}
+		}
+	}
+}
 
-					user->getContactlist()->insert(newContact);
+void Manager::AliasOptions(Session* session)
+{
+	int option = GraphInter::get()->FastName();
+
+	if (option == 1)
+	{
+		AddFastName(session->getUser());
+	}
+	else
+	{
+		if (session->getUser()->getContactlist()->length() == 0)
+		{
+			GraphInter::get()->display("You have no alias to delete");
+			GraphInter::get()->pause();
+		}
+		else
+		{
+			if (option == 2)
+			{
+				std::string name = GraphInter::get()->selectMail(session);
+
+				deleteName(session->getUser(), name);
+			}
+			else if (option == 3)
+			{
+				int namelenth = session->getUser()->getContactlist()->length();
+
+				for (int i = 0; i < namelenth; i++)
+				{
+					session->getUser()->getContactlist()->destroy(session->getUser()->getContactlist()->operator[](i)->getId());
 				}
 			}
 		}

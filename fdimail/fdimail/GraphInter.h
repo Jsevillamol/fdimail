@@ -2,6 +2,7 @@
 #define GRAPHINTER
 #include "Mail.h"
 #include "TrayList.h"
+#include "UserList.h"
 #include "ContactList.h"
 #include <iomanip>
 #include <iostream>
@@ -12,12 +13,14 @@ through the console
 */
 
 class Session;
+class User;
 //Graphical Interface. May be used to implement SFML, as of now prints through the console
 class GraphInter
 {
 private:
 	static GraphInter* inter;
 	ContactList* contactlist;
+	UserList* userlist;
 	Session* session;
 	User* user;
 	GraphInter();//to prevent instantation
@@ -47,12 +50,14 @@ public:
 	void display(std::string error);
 	void enter(std::string &word);
 	void enter(int &digit);
+	void enter(char word[]);
+	std::string HidePassword();
 	void pause();
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
 	void showFastNames();
-	int DeleteFastName();
+	int FastName();
 	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);
