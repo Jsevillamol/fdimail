@@ -665,7 +665,7 @@ std::string GraphInter::changePassword()
 
 	display("Enter your new password");
 
-	enter(data);
+	data = HidePassword();
 
 	checkPassword(data);
 
