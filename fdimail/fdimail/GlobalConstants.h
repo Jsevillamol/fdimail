@@ -8,17 +8,16 @@ const int MAX_MAILS = 20,//Mails per user
 		MAX_RECIPIENTS = 10,//N of users who can be sent the same mail at once
 		MAX_FASTNAMES = 10,
 		HORIZONTAL = 79,
-		CENSORED_CHARS = 34;
+		CENSORED_CHARS = 26;
 
 const char forbidden[CENSORED_CHARS] =
 {
 	',', ';', '.', ':', '-',
-	'_', '{', '}', 'ç', '[',
-	']', '+', '*', '/', '¡',
-	'¿', '?', '=', ')', '(',
-	'&', '¬', '€', '%', '$',
-	'#', '·', '@', '"', '|',
-	'!', 'º', 'ª', ' '
+	'_', '{', '}', '[', ']', 
+	'*', '/', '?', '=', ')',
+	'(', '&', '%', '$', '#',
+	'@', '"', '|', '!', ' ',
+	'+'
 };
 
 #endif // !GCONSTANTS
