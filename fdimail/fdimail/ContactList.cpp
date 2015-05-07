@@ -23,17 +23,12 @@ std::string ContactList::SearchFastName(std::string &name)
 
 	if (alias_found) return this->list[i]->getId();
 
-	else 
+	else if (name != "Me")
 	{
-		for (int i = 0; i < maillist->length(); i++)
-		{
-			if (maillist->operator[](i)->getId == name + "@fdimail.com")
-			{
-				return name + "@fdimail.com";
-			}
-		}
+		return name + "@fdimail.com";
 	}
-	return name;
+
+	else return name;
 }
 
 void ContactList::save(std::ofstream &file)const

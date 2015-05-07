@@ -2,6 +2,7 @@
 #define CONTACTLIST
 #include "List.h"
 #include "tContact.h"
+#include "MailList.h"
 #include "GlobalConstants.h"
 
 class ContactList : public List < tContact, MAX_FASTNAMES >
