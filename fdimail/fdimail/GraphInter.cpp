@@ -581,18 +581,19 @@ std::string GraphInter::valid_user()
 	std::string id;
 	bool id_right;
 
-	display("Enter your id: ");
-
 	do
 	{
+		clearConsole();
+
 		id_right = true;
 
+		display("Enter your id: ");
 		enter(id);
 
 		if (id.size() > 15)
 		{
 			display("Error, your id cannot be longer than 15 characters ");
-			display("Enter your id: ");
+			pause();
 
 			id_right = false;
 		}
@@ -600,19 +601,15 @@ std::string GraphInter::valid_user()
 		{
 			for (int i = 0; i < int(id.size()) && id_right; i++)
 			{
-				if (id[i] == ' ')
+				for (int j = 0; j < CENSORED_CHARS; j++)
 				{
-					display("Error, your id cannot contain a space");
-					display("Enter your id: ");
+					if (id[i] == forbidden[j])
+					{
+						display("Error, your id cannot contain this character");
+						pause();
 
-					id_right = false;
-				}
-				else if (id[i] == '@')
-				{
-					display("Error, your id cannot contain a '@'");
-					display("Enter your id: ");
-
-					id_right = false;
+						id_right = false;
+					}
 				}
 			}
 		}		
