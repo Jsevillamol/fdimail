@@ -88,8 +88,13 @@ void Manager::deleteAccount(const std::string &id)
 	User* user = userList.get(id);
 	int inlenth = user->getInbox()->length();
 	int outlenth = user->getOutbox()->length();
+	int namelenth = user->getContactlist()->length();
 
 	//Delete inbox
+	for (int i = 0; i < namelenth; i++)
+	{
+		user->getContactlist()->destroy(user->getContactlist()->operator[](i)->getId());
+	}
 	for (int i = 0; i < inlenth; i++)
 	{
 		mailList.delete_mail(user->getInbox()->operator[](i)->getId());
@@ -120,7 +125,7 @@ void Manager::ChangePassword(User* user)
 
 void Manager::AddFastName(User* user)
 {
-	if (user->fullNames())
+	if (user->getContactlist()->length() == MAX_FASTNAMES)
 	{
 		GraphInter::get()->display("You cannot asign more alias");
 		GraphInter::get()->pause();
@@ -146,9 +151,9 @@ void Manager::AddFastName(User* user)
 		}
 		else
 		{
-			for (i = 0; i < user->getName() && user->getNumName(i).user != idUser; i++) {}
+			for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
 
-			if (i != user->getName())
+			if (i != user->getContactlist()->length())
 			{
 				GraphInter::get()->display("This username already has an alias");
 				GraphInter::get()->pause();
@@ -196,16 +201,18 @@ void Manager::AddFastName(User* user)
 					}
 				} while (!name_right);
 
-				for (j = 0; j < user->getName() && user->getNumName(j).alias != newId; j++) {}
+				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
 
-				if (j != user->getName())
+				if (j != user->getContactlist()->length())
 				{
 					GraphInter::get()->display("This alias is already asigned to an user");
 					GraphInter::get()->pause();
 				}
 				else
 				{
-					user->getNumName(user->upNameCount()) = tContact(idUser, newId);
+					tContact* newContact = new tContact(idUser, newId);
+
+					user->getContactlist()->insert(newContact);
 				}
 			}
 		}
@@ -282,6 +289,11 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 		//Delete from database
 		mailList.delete_mail(idMail);
 	}
+}
+
+void Manager::deleteName(User* user, const std::string &idName)
+{
+	user->getContactlist()->destroy(idName);
 }
 
 //Asks you for the userfile location, just if

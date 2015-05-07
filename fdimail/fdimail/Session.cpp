@@ -71,7 +71,7 @@ void Session::launch()
 			GraphInter::get()->clearConsole();
 		case 7:
 			GraphInter::get()->clearConsole();
-			manager->AddFastName(user);
+			manager->AddFastName(this->getUser());
 			GraphInter::get()->clearConsole();
 		}
 	} while (opt != 0);

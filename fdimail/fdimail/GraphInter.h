@@ -2,6 +2,7 @@
 #define GRAPHINTER
 #include "Mail.h"
 #include "TrayList.h"
+#include "ContactList.h"
 #include <iomanip>
 #include <iostream>
 
@@ -16,7 +17,9 @@ class GraphInter
 {
 private:
 	static GraphInter* inter;
+	ContactList* contactlist;
 	Session* session;
+	User* user;
 	GraphInter();//to prevent instantation
 public:
 	~GraphInter();
@@ -48,6 +51,8 @@ public:
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
+	void showFastNames();
+	int DeleteFastName();
 	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);

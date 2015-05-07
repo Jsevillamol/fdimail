@@ -1,7 +1,7 @@
 #include "User.h"
 
 User::User(const std::string idUser, const std::string password):
-id(idUser), password(sha1(password)), fastname_count(0)
+id(idUser), password(sha1(password))
 {}
 
 User::User(){}
@@ -10,14 +10,9 @@ User::User(){}
 void User::save(std::ofstream &file)const
 {
 	file << this->id << std::endl
-		<< this->password << std::endl
-		<< this->fastname_count << std::endl;
+		<< this->password << std::endl;
 
-	for (int i = 0; i < this->fastname_count; i++)
-	{
-		file << this->fast_names[i].user << " " << this->fast_names[i].alias << std::endl;
-	}
-	
+	this->contactList->save(file);
 	this->outbox.save(file);
 	this->inbox.save(file);
 }
@@ -33,21 +28,12 @@ bool User::load(std::ifstream &file)
 
 		if (!file.fail())
 		{
-			file >> this->fastname_count;
+			this->contactList->load(file);
+			
+			this->outbox.load(file);
+			this->inbox.load(file);
 
-			if (!file.fail())
-			{
-				for (int i = 0; i < this->fastname_count && !file.fail(); i++)
-				{
-					file >> this->fast_names[i].user;
-					file >> this->fast_names[i].alias;
-				}
-				this->outbox.load(file);
-				this->inbox.load(file);
-
-				return true;
-			}
-			else return false;
+			return true;
 		}
 		else return false;
 	}

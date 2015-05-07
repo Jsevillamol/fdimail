@@ -129,13 +129,14 @@ int GraphInter::sessionMenu(Session* session)
 	tab_word("5- Fast read of unread mails");
 	tab_word("6- Account options");
 	tab_word("7- Asign an alias to a user");
+	tab_word("8- Delete the alias of a user");
 	tab_word("0- Sign out");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 7);
+	return digitBetween(0, 8);
 }
 
 //Little options menu
@@ -144,16 +145,39 @@ int GraphInter::WhatToDelete()
 	display(linea());
 
 	tab_word("1- Choose mail");
-	tab_word("0- Delete all mails");
+	tab_word("2- Delete all mails");
+	tab_word("0- Exit to session menu");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 1);
+	return digitBetween(0, 2);
 }
 
+void GraphInter::showFastNames()
+{
+	for (int i = 0; i < user->getContactlist()->length(); i++)
+	{
+		display(user->getContactlist()->operator[](i)->user + ": " + user->getContactlist()->operator[](i)->alias);
+	}
+	display(linea());
+}
 
+int GraphInter::DeleteFastName()
+{
+	showFastNames();
+
+	tab_word("1- Choose name");
+	tab_word("2- Delete all names");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 2);
+}
 
 //Little options menu
 int GraphInter::AccountOptions()
@@ -234,7 +258,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = session->SearchFastName(session->getUser(), recipient);
+		mail->recipients[i] = contactlist->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "Me")
 		{
@@ -386,7 +410,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = session->SearchFastName(session->getUser(), recipient);
+		mail->recipients[i] = contactlist->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "Me")
 		{

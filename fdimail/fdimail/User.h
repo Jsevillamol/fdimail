@@ -17,7 +17,7 @@ class User
 private:
 	std::string id, password;
 
-	ContactList contactList;
+	ContactList* contactList;
 
 	TrayList inbox;
 	TrayList outbox;
@@ -34,6 +34,7 @@ public:
 
 	TrayList* getInbox() { return &inbox; }
 	TrayList* getOutbox() { return &outbox; }
+	ContactList* getContactlist() { return contactList; }
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);

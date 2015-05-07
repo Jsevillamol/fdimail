@@ -14,15 +14,36 @@ std::string ContactList::SearchFastName(std::string &name)
 		}
 	}
 
-	for (i = 0; i < user->getNameCount() && !alias_found; i++)
+	for (i = 0; i < this->counter && !alias_found; i++)
 	{
-		if (user->getNumName(i).alias == name)
+		if (this->list[i]->getAlias() == name)
 		{
 			alias_found = true;
 		}
 	}
 
-	if (alias_found) return user->getNumName(i).user;
+	if (alias_found) return this->list[i]->getId();
 	else return name;
+}
 
+void ContactList::save(std::ofstream &file)const
+{
+	file << this->counter << std::endl;
+
+	for (int i = 0; i < this->counter; i++)
+	{
+		this->list[i]->save(file);
+	}
+}
+
+void ContactList::load(std::ifstream &file)
+{
+	file >> this->counter;
+
+	for (int i = 0; (i < this->counter) && (!file.fail()); i++)
+	{
+		tContact* cont = new tContact();
+		cont->load(file);
+		this->list[i] = cont;
+	}
 }

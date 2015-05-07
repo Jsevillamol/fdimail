@@ -19,6 +19,7 @@ private:
 	std::string domain;
 	MailList mailList;
 	UserList userList;
+	ContactList contactList;
 
 	void manualUsers(std::string &name);
 	void manualMails(std::string &name);
@@ -44,5 +45,6 @@ public:
 	void sendMail(User* user, Mail* mail);
 	bool answer(User* user, Mail* mail);
 	void deleteMail(TrayList* box, const std::string &idMail);
+	void deleteName(User* user, const std::string &idName);
 };
 #endif
