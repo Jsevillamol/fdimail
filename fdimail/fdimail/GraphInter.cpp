@@ -765,7 +765,14 @@ std::string GraphInter::HidePassword()
 
 		if (word[i] != 8)  // no es retroceso
 		{
-			std::cout << '*';  // muestra por pantalla
+			if (word[i] == 13)
+			{
+				std::cout << ' ';
+			}
+			else
+			{
+				std::cout << '*'; // muestra por pantalla
+			}
 			i++;
 		}
 		else if (i>0)    // es retroceso y hay caracteres
