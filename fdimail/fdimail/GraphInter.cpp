@@ -605,7 +605,7 @@ std::string GraphInter::valid_user()
 				{
 					if (id[i] == forbidden[j])
 					{
-						display("Error, your id cannot contain this character");
+						display("Error, your id cannot contain the character " + std::to_string(forbidden[j]));
 						pause();
 
 						id_right = false;
