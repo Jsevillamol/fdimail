@@ -415,7 +415,7 @@ void Session::AddFastName(User* user)
 					}
 				}
 
-				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
+				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](j)->getAlias() != newId; j++) {}
 
 				if (j != user->getContactlist()->length())
 				{
