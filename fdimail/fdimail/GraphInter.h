@@ -48,9 +48,9 @@ public:
 	std::string valid_user();
 	std::string inputBox(std::string &message);
 	void display(std::string error);
+	void display(char sign);
 	void enter(std::string &word);
 	void enter(int &digit);
-	void enter(char word[]);
 	std::string HidePassword();
 	void pause();
 	void clearConsole();

@@ -730,6 +730,11 @@ void GraphInter::display(std::string error)
 	std::cout << error << std::endl;
 }
 
+void GraphInter::display(char sign)
+{
+	std::cout << sign;
+}
+
 //Enters in console the word you choose
 void GraphInter::enter(std::string &word)
 {
@@ -743,13 +748,6 @@ void GraphInter::enter(int &digit)
 {
 	std::cin.sync();
 	std::cin >> digit;
-	std::cin.clear();
-}
-
-void GraphInter::enter(char word[])
-{
-	std::cin.sync();
-	std::cin >> word;
 	std::cin.clear();
 }
 
@@ -767,11 +765,11 @@ std::string GraphInter::HidePassword()
 		{
 			if (word[i] == 13)
 			{
-				std::cout << ' ';
+				display(' ');
 			}
 			else
 			{
-				std::cout << '*'; // muestra por pantalla
+				display('*'); // muestra por pantalla
 			}
 			i++;
 		}
