@@ -345,87 +345,93 @@ void Session::AddFastName(User* user)
 			GraphInter::get()->display("Enter the user id you want to asign:");
 			GraphInter::get()->enter(idUser);
 
-			if (manager->getUserlist()->get(idUser) == nullptr)
+			if (idUser != "")
 			{
-				GraphInter::get()->display("This user does not exist");
-				GraphInter::get()->pause();
-
-				name_right = false;
-			}
-			else if (idUser == user->getId())
-			{
-				GraphInter::get()->display("There is already an asigned alias for your own username");
-				GraphInter::get()->pause();
-
-				name_right = false;
-			}
-			else
-			{
-				for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
-
-				if (i != user->getContactlist()->length())
+				if (manager->getUserlist()->get(idUser) == nullptr)
 				{
-					GraphInter::get()->display("This username already has an alias asigned");
+					GraphInter::get()->display("This user does not exist");
 					GraphInter::get()->pause();
 
 					name_right = false;
 				}
-			}
-		} while (!name_right);
-
-		do
-		{
-			std::ostringstream character;
-			alias_right = true;
-
-			GraphInter::get()->clearConsole();
-			GraphInter::get()->display("User: " + idUser);
-			GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
-			GraphInter::get()->enter(newId);
-
-			if (newId.size() == 0)
-			{
-				GraphInter::get()->display("Error, the alias cannot be empty");
-				GraphInter::get()->pause();
-
-				alias_right = false;
-			}
-			else if (newId == "Me")
-			{
-				GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
-				GraphInter::get()->pause();
-
-				alias_right = false;
-			}
-			else
-			{
-				for (int k = 0; k < newId.size() && name_right; k++)
+				else if (idUser == user->getId())
 				{
-					for (int j = 0; j < CENSORED_CHARS; j++)
+					GraphInter::get()->display("There is already an asigned alias for your own username");
+					GraphInter::get()->pause();
+
+					name_right = false;
+				}
+				else
+				{
+					for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
+
+					if (i != user->getContactlist()->length())
 					{
-						if (newId[i] == forbidden[j])
-						{
-							character << "(" << char(forbidden[j]) << ")";
+						GraphInter::get()->display("This username already has an alias asigned");
+						GraphInter::get()->pause();
 
-							GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
-							GraphInter::get()->pause();
-
-							alias_right = false;
-						}
+						name_right = false;
 					}
 				}
+			}
+		} while (!name_right && idUser != "");
 
-				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](j)->getAlias() != newId; j++) {}
+		if (idUser != "")
+		{
+			do
+			{
+				std::ostringstream character;
+				alias_right = true;
 
-				if (j != user->getContactlist()->length())
+				GraphInter::get()->clearConsole();
+				GraphInter::get()->display("User: " + idUser);
+				GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
+				GraphInter::get()->enter(newId);
+
+				if (newId.size() == 0)
 				{
-					GraphInter::get()->display("This alias is already asigned to an user");
+					GraphInter::get()->display("Error, the alias cannot be empty");
 					GraphInter::get()->pause();
 
 					alias_right = false;
 				}
-			}
-		} while (!alias_right);
+				else if (newId == "Me")
+				{
+					GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
+					GraphInter::get()->pause();
+
+					alias_right = false;
+				}
+				else
+				{
+					for (int k = 0; k < newId.size() && name_right; k++)
+					{
+						for (int j = 0; j < CENSORED_CHARS; j++)
+						{
+							if (newId[i] == forbidden[j])
+							{
+								character << "(" << char(forbidden[j]) << ")";
+
+								GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
+								GraphInter::get()->pause();
+
+								alias_right = false;
+							}
+						}
+					}
+
+					for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](j)->getAlias() != newId; j++) {}
+
+					if (j != user->getContactlist()->length())
+					{
+						GraphInter::get()->display("This alias is already asigned to an user");
+						GraphInter::get()->pause();
+
+						alias_right = false;
+					}
+				}
+			} while (!alias_right);
+		}
 
 		tContact* newContact = new tContact(idUser, newId);
 
