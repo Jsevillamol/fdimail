@@ -19,7 +19,6 @@ private:
 	std::string domain;
 	MailList mailList;
 	UserList userList;
-	ContactList contactList;
 
 	void manualUsers(std::string &name);
 	void manualMails(std::string &name);

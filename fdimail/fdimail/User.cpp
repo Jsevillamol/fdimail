@@ -1,10 +1,10 @@
 #include "User.h"
 
 User::User(const std::string idUser, const std::string password):
-id(idUser), password(sha1(password))
+id(idUser), password(sha1(password)), contactList(idUser)
 {}
 
-User::User(){}
+User::User(): contactList(""){}
 
 //Saves the user datos on the file you choose
 void User::save(std::ofstream &file)const
