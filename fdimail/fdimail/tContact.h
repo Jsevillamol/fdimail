@@ -17,18 +17,12 @@ struct tContact
 
 	void save(std::ofstream &file)const
 	{
-		file << (this->user) << std::endl
-			<< (this->alias) << std::endl;
+		file << (this->user) << " " << (this->alias) << std::endl;
 	}
 
-	bool load(std::ifstream &file)
+	void load(std::ifstream &file)
 	{
-		if (!file.fail())
-		{
-			file >> (this->user) >> (this->alias);
-			return true;
-		}
-		else return false;
+		file >> (this->user) >> (this->alias);
 	}
 };
 

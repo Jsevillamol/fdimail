@@ -29,7 +29,6 @@ bool User::load(std::ifstream &file)
 		if (!file.fail())
 		{
 			this->contactList->load(file);
-			
 			this->outbox.load(file);
 			this->inbox.load(file);
 
