@@ -811,7 +811,8 @@ std::string GraphInter::HidePassword()
 		if (i < PASSWORD_MIN_LENGTH)
 		{
 			display("");
-			display("Error, your password must contain 8 characters or more");
+			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH) + std::string(" characters or more");
+			display(msg);
 			display("Enter your password");
 		}
 	} while (i < 9);
