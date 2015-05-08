@@ -266,7 +266,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = contactlist->SearchFastName(recipient);
+		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "Me")
 		{
@@ -418,7 +418,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = contactlist->SearchFastName(recipient);
+		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "Me")
 		{
@@ -590,8 +590,6 @@ std::string GraphInter::valid_user()
 
 	do
 	{
-		std::ostringstream character;
-
 		id_right = true;
 
 		clearConsole();
@@ -615,6 +613,8 @@ std::string GraphInter::valid_user()
 		}
 		else
 		{
+			std::ostringstream character;
+
 			for (int i = 0; i < int(id.size()) && id_right; i++)
 			{
 				for (int j = 0; j < CENSORED_CHARS; j++)
