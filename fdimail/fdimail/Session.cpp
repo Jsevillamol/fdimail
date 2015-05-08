@@ -122,7 +122,7 @@ void Session::AliasOptions()
 		}
 		else if (option != 0)
 		{
-			if (this->getUser()->getContactlist().length() == 0)
+			if (this->getUser()->getContactlist()->length() == 0)
 			{
 				GraphInter::get()->display("You have no alias to delete");
 				GraphInter::get()->pause();
@@ -137,11 +137,11 @@ void Session::AliasOptions()
 				}
 				else if (option == 3)
 				{
-					int namelenth = this->getUser()->getContactlist().length();
+					int namelenth = this->getUser()->getContactlist()->length();
 
 					for (int i = 0; i < namelenth; i++)
 					{
-						this->getUser()->getContactlist().destroy(this->getUser()->getContactlist().operator[](i)->getId());
+						this->getUser()->getContactlist()->destroy(this->getUser()->getContactlist()->operator[](i)->getId());
 					}
 				}
 			}

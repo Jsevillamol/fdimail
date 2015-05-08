@@ -91,12 +91,12 @@ void Manager::deleteAccount(const std::string &id)
 	User* user = userList.get(id);
 	int inlenth = user->getInbox()->length();
 	int outlenth = user->getOutbox()->length();
-	int namelenth = user->getContactlist().length();
+	int namelenth = user->getContactlist()->length();
 
 	//Delete inbox
 	for (int i = 0; i < namelenth; i++)
 	{
-		user->getContactlist().destroy(user->getContactlist().operator[](i)->getId());
+		user->getContactlist()->destroy(user->getContactlist()->operator[](i)->getId());
 	}
 	for (int i = 0; i < inlenth; i++)
 	{
@@ -130,7 +130,7 @@ void Manager::AddFastName(User* user)
 {
 	GraphInter::get()->clearConsole();
 
-	if (user->getContactlist().full())
+	if (user->getContactlist()->full())
 	{
 		GraphInter::get()->display("You cannot asign more alias");
 		GraphInter::get()->pause();
@@ -138,92 +138,102 @@ void Manager::AddFastName(User* user)
 	else
 	{
 		int i, j;
+		bool name_right, alias_right;
 		std::string idUser, newId;
-		bool name_right;
 
-		GraphInter::get()->display("Enter the user id you want to asign:");
-		GraphInter::get()->enter(idUser);
+		do
+		{
+			name_right = true;
 
-		if (userList.get(idUser) == nullptr || userList.get(idUser + "@fdimail.com") == nullptr)
-		{
-			GraphInter::get()->display("This user does not exist");
-			GraphInter::get()->pause();
-		}
-		else if (idUser == user->getId() || idUser + "@fdimail.com" == user->getId())
-		{
-			GraphInter::get()->display("There is already an asigned alias for your own username");
-			GraphInter::get()->pause();
-		}
-		else
-		{
-			for (i = 0; i < user->getContactlist().length() && (user->getContactlist().operator[](i)->getId() != idUser || user->getContactlist().operator[](i)->getId() != idUser + "@fdimail.com"); i++) {}
+			GraphInter::get()->clearConsole();
+			GraphInter::get()->display("Enter the user id you want to asign:");
+			GraphInter::get()->enter(idUser);
 
-			if (i != user->getContactlist().length())
+			if (userList.get(idUser) == nullptr)
 			{
-				GraphInter::get()->display("This username already has an alias");
+				GraphInter::get()->display("This user does not exist");
 				GraphInter::get()->pause();
+
+				name_right = false;
+			}
+			else if (idUser == user->getId())
+			{
+				GraphInter::get()->display("There is already an asigned alias for your own username");
+				GraphInter::get()->pause();
+
+				name_right = false;
 			}
 			else
 			{
-				do
+				for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
+
+				if (i != user->getContactlist()->length())
 				{
-					std::ostringstream character;
-					name_right = true;
+					GraphInter::get()->display("This username already has an alias asigned");
+					GraphInter::get()->pause();
 
-					GraphInter::get()->clearConsole();
-					GraphInter::get()->display("User: " + idUser);
-					GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
-					GraphInter::get()->enter(newId);
+					name_right = false;
+				}
+			}
+		} while (!name_right);
 
-					if (newId.size() == 0)
+		do
+		{
+			std::ostringstream character;
+			alias_right = true;
+
+			GraphInter::get()->clearConsole();
+			GraphInter::get()->display("User: " + idUser);
+			GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
+			GraphInter::get()->enter(newId);
+
+			if (newId.size() == 0)
+			{
+				GraphInter::get()->display("Error, the alias cannot be empty");
+				GraphInter::get()->pause();
+
+				alias_right = false;
+			}
+			else if (newId == "Me")
+			{
+				GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
+				GraphInter::get()->pause();
+
+				alias_right = false;
+			}
+			else
+			{
+				for (int k = 0; k < newId.size() && name_right; k++)
+				{
+					for (int j = 0; j < CENSORED_CHARS; j++)
 					{
-						GraphInter::get()->display("Error, the alias cannot be empty");
-						GraphInter::get()->pause();
-
-						name_right = false;
-					}
-					else if (newId == "Me")
-					{
-						GraphInter::get()->display("Error, this is a default alias, you cannot asign it");
-						GraphInter::get()->pause();
-
-						name_right = false;
-					}
-					else
-					{
-						for (int k = 0; k < newId.size() && name_right; k++)
+						if (newId[i] == forbidden[j])
 						{
-							for (int j = 0; j < CENSORED_CHARS; j++)
-							{
-								if (newId[i] == forbidden[j])
-								{
-									character << "(" << char(forbidden[j]) << ")";
+							character << "(" << char(forbidden[j]) << ")";
 
-									GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
-									GraphInter::get()->pause();
-
-									name_right = false;
-								}
-							}
-						}
-
-						for (j = 0; j < user->getContactlist().length() && user->getContactlist().operator[](i)->getAlias() != newId; j++) {}
-
-						if (j != user->getContactlist().length())
-						{
-							GraphInter::get()->display("This alias is already asigned to an user");
+							GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
 							GraphInter::get()->pause();
 
-							name_right = false;
+							alias_right = false;
 						}
 					}
-				} while (!name_right);
+				}
 
-				tContact* newContact = new tContact(idUser, newId);
+				for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
 
-				user->getContactlist().insert(newContact);
+				if (j != user->getContactlist()->length())
+				{
+					GraphInter::get()->display("This alias is already asigned to an user");
+					GraphInter::get()->pause();
+
+					alias_right = false;
+				}
 			}
-		}
+		} while (!alias_right);
+
+		tContact* newContact = new tContact(idUser, newId);
+
+		user->getContactlist()->insert(newContact);
 	}
 }
 
@@ -301,7 +311,7 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 
 void Manager::deleteName(User* user, const std::string &idName)
 {
-	user->getContactlist().destroy(idName);
+	user->getContactlist()->destroy(idName);
 }
 
 //Asks you for the userfile location, just if

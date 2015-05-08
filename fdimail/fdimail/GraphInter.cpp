@@ -157,11 +157,17 @@ int GraphInter::WhatToDelete()
 
 void GraphInter::showFastNames()
 {
-	for (int i = 0; i < user.getContactlist().length(); i++)
+	if (user.getContactlist()->length() != 0)
 	{
-		display(user.getContactlist().operator[](i)->user + ": " + user.getContactlist().operator[](i)->alias);
+		display("Alias :");
+
+		for (int i = 0; i < user.getContactlist()->length(); i++)
+		{
+			display(std::to_string(i + 1) + user.getContactlist()->operator[](i)->user + ": " + user.getContactlist()->operator[](i)->alias);
+		}
+
+		display(linea());
 	}
-	display(linea());
 }
 
 int GraphInter::FastName()
