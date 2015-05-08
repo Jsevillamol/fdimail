@@ -1,5 +1,10 @@
 #include "ContactList.h"
 
+ContactList::ContactList(std::string userID): List(){
+	tContact* me = new tContact(userID, "Me");
+	insert(me);
+}
+
 std::string ContactList::SearchFastName(std::string &name)
 {
 	bool alias_found = false;
@@ -13,22 +18,17 @@ std::string ContactList::SearchFastName(std::string &name)
 		}
 	}
 
-	for (i = 0; i < this->counter && !alias_found; i++)
+	//Search in contactList
+	for (i = 0; i < this->counter; i++)
 	{
 		if (this->list[i]->getAlias() == name)
 		{
-			alias_found = true;
+			return this->list[i]->getId();
 		}
 	}
 
-	if (alias_found) return this->list[i]->getId();
-
-	else if (name != "Me")
-	{
-		return name + "@fdimail.com";
-	}
-
-	else return name;
+	//if it is not a direction nor an alias, append @fdimail.com and return
+	return name + "@fdimail.com";
 }
 
 void ContactList::save(std::ofstream &file)const

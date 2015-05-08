@@ -8,7 +8,8 @@
 class ContactList : public List < tContact, MAX_FASTNAMES >
 {
 public:
-	
+	ContactList(std::string userID);
+
 	//If name is in contacts, returns address associated.
 	//Else, it returns name unchanged
 	std::string SearchFastName(std::string &name);

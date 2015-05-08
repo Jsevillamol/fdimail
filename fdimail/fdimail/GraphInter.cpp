@@ -268,10 +268,6 @@ Mail* GraphInter::newMail(const std::string &sender)
 
 		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
 
-		if (mail->recipients[i] == "Me")
-		{
-			mail->recipients[i] = sender;
-		}
 		if (mail->recipients[i] == "")
 		{
 			mail->recipient_count--;
@@ -420,10 +416,6 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 
 		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
 
-		if (mail->recipients[i] == "Me")
-		{
-			mail->recipients[i] = sender;
-		}
 		if (mail->recipients[i] == "")
 		{
 			mail->recipient_count--;
