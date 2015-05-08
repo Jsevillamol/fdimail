@@ -19,7 +19,6 @@ class GraphInter
 {
 private:
 	static GraphInter* inter;
-	ContactList* contactlist;
 	UserList userList;
 	Session* session;
 	User user;

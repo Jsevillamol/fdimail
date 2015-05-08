@@ -38,9 +38,8 @@ public:
 	void ChangeUsername(User* user);
 	void ChangePassword(User* user);
 
-	void AddFastName(User* user);
-
 	MailList* getMailList(){ return &mailList; }
+	UserList* getUserlist(){ return &userList; }
 
 	void sendMail(User* user, Mail* mail);
 	bool answer(User* user, Mail* mail);

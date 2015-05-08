@@ -28,6 +28,7 @@ public:
 
 
 	void AccountOptions(int &option);
+	void AddFastName(User* user);
 	void AliasOptions();
 
 	Manager* getManager(){ return manager; }
