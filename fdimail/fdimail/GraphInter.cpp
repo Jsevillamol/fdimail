@@ -578,6 +578,7 @@ std::string GraphInter::linea()
 //not be longer than 15 characters
 std::string GraphInter::valid_user()
 {
+	std::ostringstream character;
 	std::string id;
 	bool id_right;
 
@@ -612,7 +613,9 @@ std::string GraphInter::valid_user()
 				{
 					if (id[i] == forbidden[j])
 					{
-						display("Error, your id cannot contain the character '" + std::to_string(forbidden[j]) + "'");
+						character << "(" << char(forbidden[j]) << ")";
+						
+						display("Error, your id cannot contain the character " + character.str());
 						pause();
 
 						id_right = false;
