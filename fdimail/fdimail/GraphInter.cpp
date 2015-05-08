@@ -597,6 +597,13 @@ std::string GraphInter::valid_user()
 
 			id_right = false;
 		}
+		else if (id.size() == 0)
+		{
+			display("Error, your id cannot be empty ");
+			pause();
+
+			id_right = false;
+		}
 		else
 		{
 			for (int i = 0; i < int(id.size()) && id_right; i++)
@@ -759,30 +766,41 @@ std::string GraphInter::HidePassword()
 
 	do
 	{
-		word[i] = (unsigned char)_getch();
-
-		if (word[i] != 8)  // no es retroceso
+		do
 		{
-			if (word[i] == 13)
+			word[i] = (unsigned char)_getch();
+
+			if (word[i] != 8)  // no es retroceso
 			{
-				display(' ');
+				if (word[i] == 13)
+				{
+					display(' ');
+				}
+				else
+				{
+					display('*'); // muestra por pantalla
+				}
+				i++;
 			}
-			else
+			else if (i > 0)    // es retroceso y hay caracteres
 			{
-				display('*'); // muestra por pantalla
+				std::cout << (char)8 << (char)32 << (char)8;
+				i--;  //el caracter a borrar e el backspace
 			}
-			i++;
-		}
-		else if (i>0)    // es retroceso y hay caracteres
+			std::cout.flush();
+
+		} while (word[i - 1] != 13);// si presiona ENTER
+
+		word[i - 1] = NULL;
+
+		if (i < 9)
 		{
-			std::cout << (char)8 << (char)32 << (char)8;
-			i--;  //el caracter a borrar e el backspace
+			display("");
+			display("Error, your password must contain 8 characters or more");
+			display("Enter your password");
 		}
-		std::cout.flush();
+	} while (i < 9);
 
-	} while (word[i - 1] != 13);  // si presiona ENTER
-
-	word[i - 1] = NULL;
 	display("");
 
 	return word;
