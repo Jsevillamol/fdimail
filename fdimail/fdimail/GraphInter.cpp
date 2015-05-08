@@ -1,5 +1,6 @@
 #include "GraphInter.h"
 #include "Session.h"
+#include "GlobalConstants.h"
 #include <sstream>
 #include <iostream>
 #include <iomanip>
@@ -772,12 +773,14 @@ void GraphInter::enter(int &digit)
 
 std::string GraphInter::HidePassword()
 {
-	int i = 0;
 	std::cout.flush();
+	int i;
 	char word[50];
 
 	do
 	{
+		//Enter new password
+		i = 0;
 		do
 		{
 			word[i] = (unsigned char)_getch();
@@ -805,7 +808,7 @@ std::string GraphInter::HidePassword()
 
 		word[i - 1] = NULL;
 
-		if (i < 9)
+		if (i < PASSWORD_MIN_LENGTH)
 		{
 			display("");
 			display("Error, your password must contain 8 characters or more");
