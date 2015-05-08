@@ -39,7 +39,6 @@ public:
 	void ChangePassword(User* user);
 
 	void AddFastName(User* user);
-	void AliasOptions(Session* session);
 
 	MailList* getMailList(){ return &mailList; }
 

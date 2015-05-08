@@ -28,6 +28,7 @@ public:
 
 
 	void AccountOptions(int &option);
+	void AliasOptions();
 
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }

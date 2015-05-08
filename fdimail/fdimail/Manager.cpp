@@ -91,12 +91,12 @@ void Manager::deleteAccount(const std::string &id)
 	User* user = userList.get(id);
 	int inlenth = user->getInbox()->length();
 	int outlenth = user->getOutbox()->length();
-	int namelenth = user->getContactlist()->length();
+	int namelenth = user->getContactlist().length();
 
 	//Delete inbox
 	for (int i = 0; i < namelenth; i++)
 	{
-		user->getContactlist()->destroy(user->getContactlist()->operator[](i)->getId());
+		user->getContactlist().destroy(user->getContactlist().operator[](i)->getId());
 	}
 	for (int i = 0; i < inlenth; i++)
 	{
@@ -128,7 +128,9 @@ void Manager::ChangePassword(User* user)
 
 void Manager::AddFastName(User* user)
 {
-	if (user->getContactlist()->full())
+	GraphInter::get()->clearConsole();
+
+	if (user->getContactlist().full())
 	{
 		GraphInter::get()->display("You cannot asign more alias");
 		GraphInter::get()->pause();
@@ -147,16 +149,16 @@ void Manager::AddFastName(User* user)
 			GraphInter::get()->display("This user does not exist");
 			GraphInter::get()->pause();
 		}
-		else if (idUser == user->getId())
+		else if (idUser == user->getId() || idUser + "@fdimail.com" == user->getId())
 		{
 			GraphInter::get()->display("There is already an asigned alias for your own username");
 			GraphInter::get()->pause();
 		}
 		else
 		{
-			for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
+			for (i = 0; i < user->getContactlist().length() && (user->getContactlist().operator[](i)->getId() != idUser || user->getContactlist().operator[](i)->getId() != idUser + "@fdimail.com"); i++) {}
 
-			if (i != user->getContactlist()->length())
+			if (i != user->getContactlist().length())
 			{
 				GraphInter::get()->display("This username already has an alias");
 				GraphInter::get()->pause();
@@ -165,6 +167,7 @@ void Manager::AddFastName(User* user)
 			{
 				do
 				{
+					std::ostringstream character;
 					name_right = true;
 
 					GraphInter::get()->clearConsole();
@@ -190,25 +193,23 @@ void Manager::AddFastName(User* user)
 					{
 						for (int k = 0; k < newId.size() && name_right; k++)
 						{
-							if (newId[i] == '@')
+							for (int j = 0; j < CENSORED_CHARS; j++)
 							{
-								GraphInter::get()->display("Error, the alias cannot contain '@'");
-								GraphInter::get()->pause();
+								if (newId[i] == forbidden[j])
+								{
+									character << "(" << char(forbidden[j]) << ")";
 
-								name_right = false;
-							}
-							else if (newId[i] == ' ')
-							{
-								GraphInter::get()->display("Error, the alias cannot contain a space");
-								GraphInter::get()->pause();
+									GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
+									GraphInter::get()->pause();
 
-								name_right = false;
+									name_right = false;
+								}
 							}
 						}
 
-						for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getAlias() != newId; j++) {}
+						for (j = 0; j < user->getContactlist().length() && user->getContactlist().operator[](i)->getAlias() != newId; j++) {}
 
-						if (j != user->getContactlist()->length())
+						if (j != user->getContactlist().length())
 						{
 							GraphInter::get()->display("This alias is already asigned to an user");
 							GraphInter::get()->pause();
@@ -220,43 +221,7 @@ void Manager::AddFastName(User* user)
 
 				tContact* newContact = new tContact(idUser, newId);
 
-				user->getContactlist()->insert(newContact);
-			}
-		}
-	}
-}
-
-void Manager::AliasOptions(Session* session)
-{
-	int option = GraphInter::get()->FastName();
-
-	if (option == 1)
-	{
-		AddFastName(session->getUser());
-	}
-	else
-	{
-		if (session->getUser()->getContactlist()->length() == 0)
-		{
-			GraphInter::get()->display("You have no alias to delete");
-			GraphInter::get()->pause();
-		}
-		else
-		{
-			if (option == 2)
-			{
-				std::string name = GraphInter::get()->selectMail(session);
-
-				deleteName(session->getUser(), name);
-			}
-			else if (option == 3)
-			{
-				int namelenth = session->getUser()->getContactlist()->length();
-
-				for (int i = 0; i < namelenth; i++)
-				{
-					session->getUser()->getContactlist()->destroy(session->getUser()->getContactlist()->operator[](i)->getId());
-				}
+				user->getContactlist().insert(newContact);
 			}
 		}
 	}
@@ -336,7 +301,7 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 
 void Manager::deleteName(User* user, const std::string &idName)
 {
-	user->getContactlist()->destroy(idName);
+	user->getContactlist().destroy(idName);
 }
 
 //Asks you for the userfile location, just if

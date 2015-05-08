@@ -45,7 +45,10 @@ void Session::launch()
 	int opt;
 
 	do{
+		GraphInter::get()->clearConsole();
+
 		opt = GraphInter::get()->sessionMenu(this);
+
 		switch (opt)
 		{
 		case 1:
@@ -59,21 +62,15 @@ void Session::launch()
 			break;
 		case 4:
 			changeTray();
-			GraphInter::get()->clearConsole();
 			break;
 		case 5:
-			GraphInter::get()->clearConsole();
 			fastRead();
 			break;
 		case 6:
-			GraphInter::get()->clearConsole();
 			AccountOptions(opt);
-			GraphInter::get()->clearConsole();
 			break;
 		case 7:
-			GraphInter::get()->clearConsole();
-			manager->AliasOptions(this);
-			GraphInter::get()->clearConsole();
+			AliasOptions();
 			break;
 		}
 	} while (opt != 0);
@@ -84,21 +81,72 @@ void Session::launch()
 //account
 void Session::AccountOptions(int &option)
 {
-	int menu = GraphInter::get()->AccountOptions();
+	int menu;
+	
+	do
+	{
 
-	if (menu == 1)
+		GraphInter::get()->clearConsole();
+
+		menu = GraphInter::get()->AccountOptions();
+
+		if (menu == 1)
+		{
+			manager->ChangeUsername(user);
+		}
+		else if (menu == 2)
+		{
+			manager->ChangePassword(user);
+		}
+		else if (menu == 3)
+		{
+			manager->deleteAccount(user->getId());
+			option = 0;
+		}
+	} while (menu != 0 && option != 0);
+}
+
+void Session::AliasOptions()
+{
+	int option;
+
+	do
 	{
-		manager->ChangeUsername(user);
-	}
-	else if (menu == 2)
-	{
-		manager->ChangePassword(user);
-	}
-	else if (menu == 3)
-	{
-		manager->deleteAccount(user->getId());
-		option = 0;
-	}
+		GraphInter::get()->clearConsole();
+
+		option = GraphInter::get()->FastName();
+
+		if (option == 1)
+		{
+			manager->AddFastName(this->getUser());
+		}
+		else if (option != 0)
+		{
+			if (this->getUser()->getContactlist().length() == 0)
+			{
+				GraphInter::get()->display("You have no alias to delete");
+				GraphInter::get()->pause();
+			}
+			else
+			{
+				if (option == 2)
+				{
+					std::string name = GraphInter::get()->selectMail(this);
+
+					manager->deleteName(this->getUser(), name);
+				}
+				else if (option == 3)
+				{
+					int namelenth = this->getUser()->getContactlist().length();
+
+					for (int i = 0; i < namelenth; i++)
+					{
+						this->getUser()->getContactlist().destroy(this->getUser()->getContactlist().operator[](i)->getId());
+					}
+				}
+			}
+		}
+	} while (option != 0);
 }
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -146,11 +194,13 @@ void Session::readMail()
 //read from your imput box
 void Session::fastRead()
 {	
+
+	GraphInter::get()->clearConsole();
+
 	if (active_tray()->length() == 0)
 	{
 		GraphInter::get()->display("You do not have any mail on your active tray");
 		GraphInter::get()->pause();
-		GraphInter::get()->clearConsole();
 	}
 	else
 	{
@@ -175,7 +225,6 @@ void Session::fastRead()
 			GraphInter::get()->display("You do not have any unread mail");
 			GraphInter::get()->pause();
 		}
-		GraphInter::get()->clearConsole();
 	}
 }
 

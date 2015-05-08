@@ -20,9 +20,9 @@ class GraphInter
 private:
 	static GraphInter* inter;
 	ContactList* contactlist;
-	UserList* userlist;
+	UserList userList;
 	Session* session;
-	User* user;
+	User user;
 	GraphInter();//to prevent instantation
 public:
 	~GraphInter();

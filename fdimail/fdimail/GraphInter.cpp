@@ -157,9 +157,9 @@ int GraphInter::WhatToDelete()
 
 void GraphInter::showFastNames()
 {
-	for (int i = 0; i < user->getContactlist()->length(); i++)
+	for (int i = 0; i < user.getContactlist().length(); i++)
 	{
-		display(user->getContactlist()->operator[](i)->user + ": " + user->getContactlist()->operator[](i)->alias);
+		display(user.getContactlist().operator[](i)->user + ": " + user.getContactlist().operator[](i)->alias);
 	}
 	display(linea());
 }
@@ -177,7 +177,7 @@ int GraphInter::FastName()
 
 	display("Enter an option:");
 
-	return digitBetween(0, 2);
+	return digitBetween(0, 3);
 }
 
 //Little options menu
@@ -651,7 +651,9 @@ std::string GraphInter::changeUsername()
 
 		data = valid_user();
 
-		if (userlist->get(data) != nullptr)
+		if (userList.get(data) == nullptr);
+
+		else
 		{
 			display("This username alreay exists");
 			pause();
