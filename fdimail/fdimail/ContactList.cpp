@@ -1,6 +1,7 @@
 #include "ContactList.h"
 
-ContactList::ContactList(std::string userID): List(){
+ContactList::ContactList(std::string userID): List()
+{
 	tContact* me = new tContact(userID, "Me");
 	insert(me);
 }

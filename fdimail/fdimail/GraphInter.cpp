@@ -164,7 +164,7 @@ void GraphInter::showFastNames()
 
 		for (int i = 0; i < user.getContactlist()->length(); i++)
 		{
-			display(std::to_string(i + 1) + user.getContactlist()->operator[](i)->user + ": " + user.getContactlist()->operator[](i)->alias);
+			display(std::to_string(i + 1) + user.getContactlist()->operator[](i)->user + "->" + user.getContactlist()->operator[](i)->alias);
 		}
 
 		display(linea());
