@@ -69,10 +69,12 @@ void Session::launch()
 			GraphInter::get()->clearConsole();
 			AccountOptions(opt);
 			GraphInter::get()->clearConsole();
+			break;
 		case 7:
 			GraphInter::get()->clearConsole();
 			manager->AliasOptions(this);
 			GraphInter::get()->clearConsole();
+			break;
 		}
 	} while (opt != 0);
 }

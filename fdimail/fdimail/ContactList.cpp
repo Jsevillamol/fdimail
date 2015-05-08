@@ -49,6 +49,6 @@ void ContactList::load(std::ifstream &file)
 	{
 		tContact* cont = new tContact();
 		cont->load(file);
-		this->list[i] = cont;
+		this->insert(cont);
 	}
 }

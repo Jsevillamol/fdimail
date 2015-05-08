@@ -12,7 +12,7 @@ void User::save(std::ofstream &file)const
 	file << this->id << std::endl
 		<< this->password << std::endl;
 
-	this->contactList->save(file);
+	this->contactList.save(file);
 	this->outbox.save(file);
 	this->inbox.save(file);
 }
@@ -28,7 +28,7 @@ bool User::load(std::ifstream &file)
 
 		if (!file.fail())
 		{
-			this->contactList->load(file);
+			this->contactList.load(file);
 			this->outbox.load(file);
 			this->inbox.load(file);
 
