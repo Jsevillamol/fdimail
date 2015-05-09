@@ -8,7 +8,7 @@
 #include <iostream>
 
 /*
-Class responsible for interact with the user
+Class responsible for interacting with the user
 through the console
 */
 
