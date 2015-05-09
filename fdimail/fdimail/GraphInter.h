@@ -19,9 +19,6 @@ class GraphInter
 {
 private:
 	static GraphInter* inter;
-	UserList userList;
-	Session* session;
-	User user;
 	GraphInter();//to prevent instantation
 public:
 	~GraphInter();
@@ -35,13 +32,20 @@ public:
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
 	std::string selectMail(Session* sesion); 
+
+	//Mail functions
 	int mailMenu(); 
-	Mail* newMail(const std::string &sender); 
+	Mail* newMail(const std::string &sender, ContactList* contactList);
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
-	Mail* forward(Mail* &originalMail, const std::string &sender);
+	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
 	Mail* errorMail(const std::string &sender);
 
-	//Auxiliar funtions. Implement or not
+	//Fastnames
+	int FastName(ContactList* contactList);
+	void showFastNames(ContactList* contactList);
+	
+
+	//Auxiliar funtions
 	void drawMail(const Mail* mail);
 
 	std::string valid_user();
@@ -55,8 +59,7 @@ public:
 	void clearConsole();
 	int digitBetween(int a, int b);
 	int WhatToDelete();
-	void showFastNames();
-	int FastName();
+	
 	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);

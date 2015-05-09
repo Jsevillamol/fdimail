@@ -114,7 +114,7 @@ void Session::AliasOptions()
 	{
 		GraphInter::get()->clearConsole();
 
-		option = GraphInter::get()->FastName();
+		option = GraphInter::get()->FastName(user->getContactlist());
 
 		if (option == 1)
 		{
@@ -233,7 +233,7 @@ void Session::sendMail()
 {
 	GraphInter::get()->clearConsole();
 
-	Mail* mail = GraphInter::get()->newMail(user->getId());
+	Mail* mail = GraphInter::get()->newMail(user->getId(), user->getContactlist());
 
 	if (mail == nullptr)
 	{
@@ -271,7 +271,7 @@ void Session::forwardMail(Mail* &originalMail)
 {
 	GraphInter::get()->clearConsole();
 
-	Mail* forward = GraphInter::get()->forward(originalMail, user->getId());
+	Mail* forward = GraphInter::get()->forward(originalMail, user->getId(), user->getContactlist());
 
 	if (forward == nullptr)
 	{

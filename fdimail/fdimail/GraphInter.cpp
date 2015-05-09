@@ -156,24 +156,24 @@ int GraphInter::WhatToDelete()
 	return digitBetween(0, 2);
 }
 
-void GraphInter::showFastNames()
+void GraphInter::showFastNames(ContactList* contactList)
 {
-	if (user.getContactlist()->length() != 0)
+	if (contactList->length() != 0)
 	{
 		display("Alias :");
 
-		for (int i = 0; i < user.getContactlist()->length(); i++)
+		for (int i = 0; i < contactList->length(); i++)
 		{
-			display(std::to_string(i + 1) + user.getContactlist()->operator[](i)->user + "->" + user.getContactlist()->operator[](i)->alias);
+			display(std::to_string(i + 1) + contactList->operator[](i)->user + "->" + contactList->operator[](i)->alias);
 		}
 
 		display(linea());
 	}
 }
 
-int GraphInter::FastName()
+int GraphInter::FastName(ContactList* contactList)
 {
-	showFastNames();
+	showFastNames(contactList);
 
 	tab_word("1- Add an alias");
 	tab_word("2- Delete an alias");
@@ -232,7 +232,7 @@ int GraphInter::mailMenu()
 }
 
 //Returns a full mail
-Mail* GraphInter::newMail(const std::string &sender)
+Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 {
 	std::ostringstream ID;
 	Mail* mail = new Mail;
@@ -266,7 +266,7 @@ Mail* GraphInter::newMail(const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
+		mail->recipients[i] = contactList->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "")
 		{
@@ -373,7 +373,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 }
 
 //Returns a forward mail
-Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
+Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, ContactList* contactList)
 {
 	int i;
 	Mail* mail = new Mail;
@@ -414,7 +414,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender)
 		std::cin.ignore();
 		enter(recipient);
 
-		mail->recipients[i] = user.getContactlist()->SearchFastName(recipient);
+		mail->recipients[i] = contactList->SearchFastName(recipient);
 
 		if (mail->recipients[i] == "")
 		{
@@ -637,6 +637,7 @@ void GraphInter::drawMail(const Mail* mail)
 }
 
 //Allow you to change your username
+//To do: Move this to session
 std::string GraphInter::changeUsername()
 {
 	bool name_ok;
@@ -650,11 +651,9 @@ std::string GraphInter::changeUsername()
 
 		data = valid_user();
 
-		if (userList.get(data) == nullptr);
-
-		else
+		if (userList.get(data) != nullptr)
 		{
-			display("This username alreay exists");
+			display("This username already exists");
 			pause();
 
 			name_ok = false;
