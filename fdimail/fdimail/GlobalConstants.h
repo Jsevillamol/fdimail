@@ -9,7 +9,7 @@ const int MAX_MAILS = 20,//Mails per user
 		MAX_FASTNAMES = 10,
 		HORIZONTAL = 79,
 		CENSORED_CHARS = 26,
-		PASSWORD_MIN_LENGTH = 4;
+		PASSWORD_MIN_LENGTH = 5;
 
 const char forbidden[CENSORED_CHARS] =
 {

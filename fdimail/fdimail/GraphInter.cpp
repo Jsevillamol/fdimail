@@ -71,9 +71,9 @@ int GraphInter::sessionMenu(Session* session)
 
 	display(linea());
 
-	menu << title << "\n" << "R N" << std::setw(7)
+	menu << title << "\n" << "\n" << "R N" << std::setw(7)
 		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
-		<< "DATE" << std::endl;
+		<< "DATE"/* << std::setw(9)*/;
 
 	display(menu.str());
 
@@ -545,7 +545,7 @@ std::string GraphInter::center_word(std::string word, int length, std::string ar
 			}
 		}
 	}
-	word = word + "\n";
+	word = word;
 
 	return word;
 }
@@ -803,11 +803,11 @@ std::string GraphInter::HidePassword()
 		if (i < PASSWORD_MIN_LENGTH)
 		{
 			display("");
-			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH) + std::string(" characters or more");
+			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH - 1) + std::string(" characters or more");
 			display(msg);
 			display("Enter your password");
 		}
-	} while (i < 9);
+	} while (i < PASSWORD_MIN_LENGTH);
 
 	display("");
 

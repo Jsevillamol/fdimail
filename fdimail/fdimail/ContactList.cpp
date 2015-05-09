@@ -8,7 +8,6 @@ ContactList::ContactList(std::string userID): List()
 
 std::string ContactList::SearchFastName(std::string &name)
 {
-	bool alias_found = false;
 	int i;
 
 	for (int j = 0; j < name.size(); j++)
