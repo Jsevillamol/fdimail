@@ -31,6 +31,8 @@ public:
 	void AddFastName(User* user);
 	void AliasOptions();
 
+	void changeUsername();
+
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }
 

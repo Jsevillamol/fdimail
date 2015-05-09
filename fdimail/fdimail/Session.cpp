@@ -92,7 +92,7 @@ void Session::AccountOptions(int &option)
 
 		if (menu == 1)
 		{
-			manager->ChangeUsername(user);
+			changeUsername();
 		}
 		else if (menu == 2)
 		{
@@ -104,6 +104,36 @@ void Session::AccountOptions(int &option)
 			option = 0;
 		}
 	} while (menu != 0 && option != 0);
+}
+
+//Allow you to change your username
+//To do: Move this to session
+void Session::changeUsername()
+{
+	bool name_ok;
+	std::string data;
+
+	do
+	{
+		GraphInter::get()->clearConsole();
+
+		name_ok = true;
+
+		data = GraphInter::get()->valid_user();
+
+		if (manager->getUserList()->get(data) != nullptr)
+		{
+			GraphInter::get()->display("This username already exists");
+			GraphInter::get()->pause();
+
+			name_ok = false;
+		}
+	} while (!name_ok);
+
+
+	GraphInter::get()->checkUsername(data);
+
+	user->setId(data);
 }
 
 void Session::AliasOptions()
@@ -347,7 +377,7 @@ void Session::AddFastName(User* user)
 
 			if (idUser != "")
 			{
-				if (manager->getUserlist()->get(idUser) == nullptr)
+				if (manager->getUserList()->get(idUser) == nullptr)
 				{
 					GraphInter::get()->display("This user does not exist");
 					GraphInter::get()->pause();

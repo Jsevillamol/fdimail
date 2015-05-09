@@ -110,14 +110,6 @@ void Manager::deleteAccount(const std::string &id)
 	userList.destroy(id);
 }
 
-//Allows a user to change his username
-void Manager::ChangeUsername(User* user)
-{
-	std::string newUsername = GraphInter::get()->changeUsername();
-
-	user->setId(newUsername);
-}
-
 //Allows a user to change his password
 void Manager::ChangePassword(User* user)
 {
