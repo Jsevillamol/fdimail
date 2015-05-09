@@ -161,11 +161,11 @@ void GraphInter::showFastNames(ContactList* contactList)
 {
 	if (contactList->length() != 0)
 	{
-		display("Alias :");
+		display("Alias:");
 
-		for (int i = 0; i < contactList->length(); i++)
+		for (int i = contactList->length() - 1; i >= 0; i--)
 		{
-			display(std::to_string(i + 1) + contactList->operator[](i)->user + "->" + contactList->operator[](i)->alias);
+			tab_word(std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user + "->" + contactList->operator[](i)->alias);
 		}
 
 		display(linea());
@@ -216,7 +216,18 @@ std::string GraphInter::selectMail(Session* session)
 
 	number = digitBetween(1, session->active_tray()->length());
 
-	return (*(session->active_tray()))[number-1]->idMail;
+	return (*(session->active_tray()))[number - 1]->idMail;
+}
+
+std::string GraphInter::selectAlias(Session* session)
+{
+	int number;
+
+	display("Enter the number of the mail you choose:");
+
+	number = digitBetween(1, session->getUser()->getContactlist()->length());
+
+	return session->getUser()->getContactlist()->operator[](session->getUser()->getContactlist()->length() - number)->user;
 }
 
 //Shows mail, returns options answer, forward, or return to sessionMenu
@@ -638,10 +649,6 @@ void GraphInter::drawMail(const Mail* mail)
 {
 	std::cout << mail->to_string() << std::endl;
 }
-
-
-
-
 
 //Asks you to enter your username again, and
 //checks both are the same.

@@ -32,6 +32,7 @@ public:
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
 	std::string selectMail(Session* sesion); 
+	std::string selectAlias(Session* session);
 
 	//Mail functions
 	int mailMenu(); 
@@ -44,7 +45,6 @@ public:
 	int FastName(ContactList* contactList);
 	void showFastNames(ContactList* contactList);
 	
-
 	//Auxiliar funtions
 	void drawMail(const Mail* mail);
 

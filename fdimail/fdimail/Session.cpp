@@ -174,17 +174,44 @@ void Session::AliasOptions()
 			{
 				if (option == 2)
 				{
-					std::string name = GraphInter::get()->selectMail(this);
+					if (this->getUser()->getContactlist()->length() > 1)
+					{
+						std::string name = GraphInter::get()->selectAlias(this);
 
-					manager->deleteName(this->getUser(), name);
+						if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+						{
+							GraphInter::get()->display("You cannot delete your self alias");
+							GraphInter::get()->pause();
+						}
+						else
+						{
+							manager->deleteName(this->getUser(), name);
+						}
+					}
+					else
+					{
+						GraphInter::get()->display("You cannot delete your self alias");
+						GraphInter::get()->pause();
+					}
 				}
 				else if (option == 3)
 				{
-					int namelenth = this->getUser()->getContactlist()->length();
-
-					for (int i = 0; i < namelenth; i++)
+					if (this->getUser()->getContactlist()->length() > 1)
 					{
-						this->getUser()->getContactlist()->destroy(this->getUser()->getContactlist()->operator[](i)->getId());
+						int namelenth = this->getUser()->getContactlist()->length();
+
+						for (int i = namelenth - 1; i >= 0; i--)
+						{
+							if (this->getUser()->getContactlist()->get(this->getUser()->getContactlist()->operator[](i)->user)->alias != "Me")
+							{
+								this->getUser()->getContactlist()->destroy(this->getUser()->getContactlist()->operator[](i)->getId());
+							}
+						}
+					}
+					else
+					{
+						GraphInter::get()->display("You cannot delete your self alias");
+						GraphInter::get()->pause();
 					}
 				}
 			}
