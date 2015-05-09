@@ -639,35 +639,7 @@ void GraphInter::drawMail(const Mail* mail)
 	std::cout << mail->to_string() << std::endl;
 }
 
-//Allow you to change your username
-//To do: Move this to session
-std::string GraphInter::changeUsername()
-{
-	bool name_ok;
-	std::string data;
 
-	do
-	{
-		clearConsole();
-
-		name_ok = true;
-
-		data = valid_user();
-
-		if (userList.get(data) != nullptr)
-		{
-			display("This username already exists");
-			pause();
-
-			name_ok = false;
-		}
-	} while (!name_ok);
-	
-
-	checkUsername(data);
-
-	return data;
-}
 
 //Allow you to change your password
 std::string GraphInter::changePassword()
