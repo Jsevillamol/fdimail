@@ -161,11 +161,22 @@ void GraphInter::showFastNames(ContactList* contactList)
 {
 	if (contactList->length() != 0)
 	{
-		display("Alias:");
+		std::ostringstream alias;
+		
+		alias << "N" << std::setw(10) << "Username" << std::setw(30) << "Alias";
+
+		display(alias.str());
+
+		display(linea());
 
 		for (int i = contactList->length() - 1; i >= 0; i--)
 		{
-			tab_word(std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user + "->" + contactList->operator[](i)->alias);
+			std::ostringstream newAlias;
+			std::string user = std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user;
+
+			newAlias << std::setw(36) << std::left << user << std::left << contactList->operator[](i)->alias;
+
+			display(newAlias.str());
 		}
 
 		display(linea());
