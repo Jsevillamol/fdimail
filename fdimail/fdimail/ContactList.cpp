@@ -8,8 +8,6 @@ ContactList::ContactList(std::string userID): List()
 
 std::string ContactList::SearchFastName(std::string &name)
 {
-	int i;
-
 	for (int j = 0; j < name.size(); j++)
 	{
 		if (name[j] == '@')
@@ -19,7 +17,7 @@ std::string ContactList::SearchFastName(std::string &name)
 	}
 
 	//Search in contactList
-	for (i = 0; i < this->counter; i++)
+	for (int i = 0; i < this->counter; i++)
 	{
 		if (this->list[i]->getAlias() == name)
 		{
