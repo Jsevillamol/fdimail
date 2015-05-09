@@ -85,7 +85,6 @@ void Session::AccountOptions(int &option)
 	
 	do
 	{
-
 		GraphInter::get()->clearConsole();
 
 		menu = GraphInter::get()->AccountOptions();
