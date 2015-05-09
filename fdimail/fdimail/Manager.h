@@ -35,7 +35,6 @@ public:
 	User* createAccount();
 
 	void deleteAccount(const std::string &id);
-	void ChangePassword(User* user);
 
 	MailList* getMailList(){ return &mailList; }
 	UserList* getUserList(){ return &userList; }

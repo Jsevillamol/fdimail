@@ -32,6 +32,7 @@ public:
 	void AliasOptions();
 
 	void changeUsername();
+	void changePassword();
 
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }

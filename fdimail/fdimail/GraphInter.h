@@ -63,7 +63,6 @@ public:
 	int AccountOptions();
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word);
-	std::string changePassword();
 	void checkUsername(std::string &password);
 	void checkPassword(std::string &password);
 	std::string linea();

@@ -96,7 +96,7 @@ void Session::AccountOptions(int &option)
 		}
 		else if (menu == 2)
 		{
-			manager->ChangePassword(user);
+			changePassword();
 		}
 		else if (menu == 3)
 		{
@@ -134,6 +134,20 @@ void Session::changeUsername()
 	GraphInter::get()->checkUsername(data);
 
 	user->setId(data);
+}
+
+//Allow you to change your password
+void Session::changePassword()
+{
+	std::string data;
+
+	GraphInter::get()->display("Enter your new password");
+
+	data = GraphInter::get()->HidePassword();
+
+	GraphInter::get()->checkPassword(data);
+
+	user->setPassword(data);
 }
 
 void Session::AliasOptions()
