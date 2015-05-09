@@ -71,9 +71,9 @@ int GraphInter::sessionMenu(Session* session)
 
 	display(linea());
 
-	menu << title << "\n" << "\n" << "R N" << std::setw(7)
-		<< "FROM" << std::setw(33) << "SUBJECT" << std::setw(31)
-		<< "DATE"/* << std::setw(9)*/;
+	menu << title << "\n" << "\n" << "R N" 
+		<< std::setw(7) << "FROM" << std::setw(33) 
+		<< "SUBJECT" << std::setw(31) << "DATE";
 
 	display(menu.str());
 
@@ -145,6 +145,7 @@ int GraphInter::WhatToDelete()
 {
 	display(linea());
 
+	display("Choose your desired option: ");
 	tab_word("1- Choose mail");
 	tab_word("2- Delete all mails");
 	tab_word("0- Exit to session menu");
@@ -175,6 +176,7 @@ int GraphInter::FastName()
 {
 	showFastNames();
 
+	display("Choose your desired option: ");
 	tab_word("1- Add an alias");
 	tab_word("2- Delete an alias");
 	tab_word("3- Delete all names");
@@ -192,6 +194,7 @@ int GraphInter::AccountOptions()
 {
 	display(linea());
 
+	display("Choose your desired option: ");
 	tab_word("1- Change username");
 	tab_word("2- Change password");
 	tab_word("3- Delete account");
