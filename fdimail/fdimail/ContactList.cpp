@@ -43,9 +43,10 @@ void ContactList::save(std::ofstream &file)const
 
 void ContactList::load(std::ifstream &file)
 {
-	file >> this->counter;
+	int n;
+	file >> n;
 
-	for (int i = 0; (i < this->counter) && (!file.fail()); i++)
+	for (int i = 0; (i < n) && (!file.fail()); i++)
 	{
 		tContact* cont = new tContact();
 		cont->load(file);

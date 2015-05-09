@@ -641,7 +641,7 @@ void GraphInter::drawMail(const Mail* mail)
 
 
 
-//Allow you to change your password
+//Allows you to change your password
 std::string GraphInter::changePassword()
 {
 	std::string data;
