@@ -641,19 +641,7 @@ void GraphInter::drawMail(const Mail* mail)
 
 
 
-//Allow you to change your password
-std::string GraphInter::changePassword()
-{
-	std::string data;
 
-	display("Enter your new password");
-
-	data = HidePassword();
-
-	checkPassword(data);
-
-	return data;
-}
 
 //Asks you to enter your username again, and
 //checks both are the same.

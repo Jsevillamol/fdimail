@@ -110,14 +110,6 @@ void Manager::deleteAccount(const std::string &id)
 	userList.destroy(id);
 }
 
-//Allows a user to change his password
-void Manager::ChangePassword(User* user)
-{
-	std::string newPassword = GraphInter::get()->changePassword();
-
-	user->setPassword(newPassword);
-}
-
 //it search the mail recipients, and if it find them
 //send the mail you choose to the recpiets it finds
 void Manager::sendMail(User* user, Mail* mail)
