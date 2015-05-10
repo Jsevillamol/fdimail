@@ -42,7 +42,7 @@ bool Mail::load(std::ifstream &file)
 
 					if (!file.fail())
 					{
-						for (int i = 0; i < this->user_count - 1; i++)
+						for (int i = this->recipient_count - 1; i >= 0; i--)
 						{
 							file >> this->recipients[i];
 						}
