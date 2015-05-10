@@ -358,38 +358,45 @@ void Session::forwardMail(Mail* &originalMail)
 //Deletes the mail you choose from the tray where you are
 void Session::deleteMail()
 {
-	if (this->active_tray()->length() == 0)
+	int option;
+	int longitud = this->active_tray()->length();
+
+	if (longitud == 0)
 	{
 		GraphInter::get()->display("Error, you have no mails to delete");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
+
+		option = 0;
 	}
 	else
 	{
-		int option = GraphInter::get()->WhatToDelete();
-		int longitud = this->active_tray()->length();
-
-		if (option == 1)
+		do
 		{
-			//Select mail
-			std::string id = GraphInter::get()->selectMail(this);			
-			//Delete
-			manager->deleteMail(active_tray(), id);
-			GraphInter::get()->clearConsole();
-		}
-		else if (option == 0)
-		{
+			option = GraphInter::get()->WhatToDelete();
 
-			GraphInter::get()->clearConsole();
-
-			for (int i = 0; i < longitud; i++)
+			if (option == 1)
 			{
-				std::string newId = (*(this->active_tray()))[0]->idMail;
-
-				manager->deleteMail(active_tray(), newId);
+				//Select mail
+				std::string id = GraphInter::get()->selectMail(this);
+				//Delete
+				manager->deleteMail(active_tray(), id);
+				GraphInter::get()->clearConsole();
 			}
-		}
-	}
+			else if (option == 2)
+			{
+
+				GraphInter::get()->clearConsole();
+
+				for (int i = 0; i < longitud; i++)
+				{
+					std::string newId = (*(this->active_tray()))[0]->idMail;
+
+					manager->deleteMail(active_tray(), newId);
+				}
+			}
+		} while (longitud != 0 && option != 0);
+	} 
 }
 
 void Session::AddFastName(User* user)
@@ -478,7 +485,7 @@ void Session::AddFastName(User* user)
 					{
 						for (int j = 0; j < CENSORED_CHARS; j++)
 						{
-							if (newId[i] == forbidden[j])
+							if (newId[k] == forbidden[j])
 							{
 								character << "(" << char(forbidden[j]) << ")";
 
