@@ -39,6 +39,8 @@ public:
 	Mail* newMail(const std::string &sender, ContactList* contactList);
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
 	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
+
+	void send_to_multiple(Mail* mail, ContactList* contactList);
 	Mail* errorMail(const std::string &sender);
 
 	//Fastnames

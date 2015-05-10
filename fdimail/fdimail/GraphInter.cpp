@@ -261,7 +261,6 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 {
 	std::ostringstream ID;
 	Mail* mail = new Mail;
-	int i;
 
 	mail->from = sender;
 	mail->date = time(0);
@@ -275,43 +274,6 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 	display("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
 
-	for (i = 0; i < mail->recipient_count; i++)
-	{
-		if (i == 0)
-		{
-			display("To ('Me' to send it to yourself): ");
-		}
-		else
-		{
-			display("BCC ('Me' to send it to yourself): ");
-		}
-
-		std::string recipient;
-
-		std::cin.ignore();
-		enter(recipient);
-
-		mail->recipients[i] = contactList->SearchFastName(recipient);
-
-		if (mail->recipients[i] == "@fdimail.com")
-		{
-			mail->recipient_count--;
-			i--;
-		}
-		else
-		{
-			for (int j = 0; j <= i; j++)
-			{
-				if (i != j && mail->recipients[j] == mail->recipients[i])
-				{
-					display("You have already choose this destinatary, you cannot choose it again");
-
-					i--;
-				}
-			}
-		}
-	}
-
 	if (mail->recipient_count == 0)
 	{
 		delete mail;
@@ -319,7 +281,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 	}
 	else
 	{
-		mail->user_count = mail->recipient_count + 1;
+		send_to_multiple(mail, contactList);
 
 		display("Subject: ");
 		enter(mail->subject);
@@ -400,7 +362,6 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 //Returns a forward mail
 Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, ContactList* contactList)
 {
-	int i;
 	Mail* mail = new Mail;
 	std::ostringstream ID, BODY, SUBJECT;
 	std::string WhatToSay;
@@ -422,7 +383,44 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 	display("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
+	
+	if (mail->recipient_count == 0)
+	{
+		delete mail;
+		return nullptr;
+	}
+	else
+	{
+		send_to_multiple(mail, contactList);
 
+		display("Subject: " + mail->subject);
+
+		display("Body (enter twice (ENTER) to end the body): ");
+
+		std::string line;
+		WhatToSay = "";
+		do{
+			enter(line);
+			WhatToSay += line;
+		} while (line != "");
+
+		if (WhatToSay == "")
+		{
+			WhatToSay = "No body";
+		}
+
+		BODY << WhatToSay << std::endl << linea()
+			<< std::endl << originalMail->to_string();//ultimo mail;
+
+		mail->body = BODY.str();
+
+		return mail;
+	}
+}
+
+void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
+{
+	int i;
 	for (i = 0; i < mail->recipient_count && mail->recipients[i] != ""; i++)
 	{
 		if (i == 0)
@@ -459,39 +457,8 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 			}
 		}
 	}
-	
-	if (mail->recipient_count == 0)
-	{
-		delete mail;
-		return nullptr;
-	}
-	else
-	{
-		mail->user_count = mail->recipient_count + 1;
 
-		display("Subject: " + mail->subject);
-
-		display("Body (enter twice (ENTER) to end the body): ");
-
-		std::string line;
-		WhatToSay = "";
-		do{
-			enter(line);
-			WhatToSay += line;
-		} while (line != "");
-
-		if (WhatToSay == "")
-		{
-			WhatToSay = "No body";
-		}
-
-		BODY << WhatToSay << std::endl << linea()
-			<< std::endl << originalMail->to_string();//ultimo mail;
-
-		mail->body = BODY.str();
-
-		return mail;
-	}
+	mail->user_count = mail->recipient_count + 1;
 }
 
 //Returns a default mail, which is sent when one of the 
