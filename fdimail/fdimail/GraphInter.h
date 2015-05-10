@@ -54,6 +54,7 @@ public:
 	void display(char sign);
 	void enter(std::string &word);
 	void enter(int &digit);
+	std::string HideLimitPassword();
 	std::string HidePassword();
 	void pause();
 	void clearConsole();

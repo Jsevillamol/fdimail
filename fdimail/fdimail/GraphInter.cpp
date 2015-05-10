@@ -49,7 +49,7 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 
 	display("Enter your password");
 
-	password = HidePassword();
+	password = HideLimitPassword();
 }
 
 //Shows active tray, returns user options (read mail, delete mail, etc)
@@ -705,7 +705,7 @@ void GraphInter::checkPassword(std::string &password)
 		display("Error, passwords are not the same");
 		display("Enter your new passwords:");
 
-		password = HidePassword();
+		password = HideLimitPassword();
 
 		display("Confirm your passwords:");
 
@@ -743,51 +743,61 @@ void GraphInter::enter(int &digit)
 	std::cin.clear();
 }
 
+std::string GraphInter::HideLimitPassword()
+{
+	std::string word;
+	do
+	{
+		word = HidePassword();
+
+		if (word.size() < PASSWORD_MIN_LENGTH)
+		{
+			display("");
+			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH) + std::string(" characters or more");
+			display(msg);
+			display("Enter your password");
+		}
+	} while (word.size() < PASSWORD_MIN_LENGTH);
+
+	display("");
+
+	return word;
+}
+
 std::string GraphInter::HidePassword()
 {
 	std::cout.flush();
 	int i;
 	char word[50];
 
+	//Enter new password
+	i = 0;
 	do
 	{
-		//Enter new password
-		i = 0;
-		do
+		word[i] = (unsigned char)_getch();
+
+		if (word[i] != 8)  // no es retroceso
 		{
-			word[i] = (unsigned char)_getch();
-
-			if (word[i] != 8)  // no es retroceso
+			if (word[i] == 13)
 			{
-				if (word[i] == 13)
-				{
-					display(' ');
-				}
-				else
-				{
-					display('*'); // muestra por pantalla
-				}
-				i++;
+				display(' ');
 			}
-			else if (i > 0)    // es retroceso y hay caracteres
+			else
 			{
-				std::cout << (char)8 << (char)32 << (char)8;
-				i--;  //el caracter a borrar e el backspace
+				display('*'); // muestra por pantalla
 			}
-			std::cout.flush();
-
-		} while (word[i - 1] != 13);// si presiona ENTER
-
-		word[i - 1] = NULL;
-
-		if (i < PASSWORD_MIN_LENGTH)
-		{
-			display("");
-			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH - 1) + std::string(" characters or more");
-			display(msg);
-			display("Enter your password");
+			i++;
 		}
-	} while (i < PASSWORD_MIN_LENGTH);
+		else if (i > 0)    // es retroceso y hay caracteres
+		{
+			std::cout << (char)8 << (char)32 << (char)8;
+			i--;  //el caracter a borrar e el backspace
+		}
+		std::cout.flush();
+
+	} while (word[i - 1] != 13);// si presiona ENTER
+
+	word[i - 1] = NULL;
 
 	display("");
 
