@@ -283,7 +283,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 		}
 		else
 		{
-			display("BCC ('Me' to send it to yourself): ");
+			display("CC ('Me' to send it to yourself): ");
 		}
 
 		std::string recipient;
@@ -431,7 +431,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 		}
 		else
 		{
-			display("BCC ('Me' to send it to yourself): ");
+			display("CC ('Me' to send it to yourself): ");
 		}
 
 		std::string recipient;
