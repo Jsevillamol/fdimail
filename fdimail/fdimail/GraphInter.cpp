@@ -288,7 +288,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 
 		std::string recipient;
 
-		std::cin.ignore();
+		//std::cin.ignore();
 		enter(recipient);
 
 		mail->recipients[i] = contactList->SearchFastName(recipient);
@@ -710,6 +710,8 @@ void GraphInter::checkPassword(std::string &password)
 		display("Confirm your passwords:");
 
 		newPassword = HidePassword();
+
+		display("");
 	}
 }
 
@@ -799,7 +801,7 @@ std::string GraphInter::HidePassword()
 
 	word[i - 1] = NULL;
 
-	display("");
+	//display("");
 
 	return word;
 }
