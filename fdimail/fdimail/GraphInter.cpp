@@ -383,7 +383,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 	display("How many recipients do you want this mail to be sent?");
 	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
-	
+
 	if (mail->recipient_count == 0)
 	{
 		delete mail;
@@ -429,7 +429,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		}
 		else
 		{
-			display("BCC ('Me' to send it to yourself): ");
+			display("CC ('Me' to send it to yourself): ");
 		}
 
 		std::string recipient;
@@ -457,8 +457,8 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 			}
 		}
 	}
-
-	mail->user_count = mail->recipient_count + 1;
+	
+		mail->user_count = mail->recipient_count + 1;
 }
 
 //Returns a default mail, which is sent when one of the 
@@ -677,6 +677,8 @@ void GraphInter::checkPassword(std::string &password)
 		display("Confirm your passwords:");
 
 		newPassword = HidePassword();
+
+		display("");
 	}
 }
 
@@ -766,7 +768,7 @@ std::string GraphInter::HidePassword()
 
 	word[i - 1] = NULL;
 
-	display("");
+	//display("");
 
 	return word;
 }

@@ -85,7 +85,7 @@ const std::string Mail::to_string() const
 
 	for (int i = 0; i < this->recipient_count; i++)
 	{
-		flow << "To: " << this->recipients[i];
+		flow << "To: " << this->recipients[i] << std::endl;
 	}
 	flow << std::endl << "Subject: " << this->subject << std::endl
 		<< std::endl << this->body;
