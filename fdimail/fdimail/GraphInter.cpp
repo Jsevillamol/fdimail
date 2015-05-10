@@ -279,11 +279,11 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 	{
 		if (i == 0)
 		{
-			display("To ('Me' for send it to yourself): ");
+			display("To ('Me' to send it to yourself): ");
 		}
 		else
 		{
-			display("BCC ('Me' for send it to yourself): ");
+			display("BCC ('Me' to send it to yourself): ");
 		}
 
 		std::string recipient;
@@ -293,7 +293,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 
 		mail->recipients[i] = contactList->SearchFastName(recipient);
 
-		if (mail->recipients[i] == "")
+		if (mail->recipients[i] == "@fdimail.com")
 		{
 			mail->recipient_count--;
 			i--;
@@ -427,11 +427,11 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 	{
 		if (i == 0)
 		{
-			display("To ('Me' for send it to yourself): ");
+			display("To ('Me' to send it to yourself): ");
 		}
 		else
 		{
-			display("BCC ('Me' for send it to yourself): ");
+			display("BCC ('Me' to send it to yourself): ");
 		}
 
 		std::string recipient;
@@ -441,7 +441,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 		mail->recipients[i] = contactList->SearchFastName(recipient);
 
-		if (mail->recipients[i] == "")
+		if (mail->recipients[i] == "@fdimail.com")
 		{
 			mail->recipient_count--;
 			i--;
