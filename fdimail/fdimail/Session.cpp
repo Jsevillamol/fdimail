@@ -433,7 +433,7 @@ void Session::AddFastName(User* user)
 				}
 				else
 				{
-					for (i = 0; i < user->getContactlist()->length() && user->getContactlist()->operator[](i)->getId() != idUser; i++) {}
+					for (i = 0; i < user->getContactlist()->length() && name_right; i++) {}
 
 					if (i != user->getContactlist()->length())
 					{
@@ -474,7 +474,7 @@ void Session::AddFastName(User* user)
 				}
 				else
 				{
-					for (int k = 0; k < newId.size() && name_right; k++)
+					for (int k = 0; k < newId.size() && alias_right; k++)
 					{
 						for (int j = 0; j < CENSORED_CHARS; j++)
 						{
@@ -490,14 +490,15 @@ void Session::AddFastName(User* user)
 						}
 					}
 
-					for (j = 0; j < user->getContactlist()->length() && user->getContactlist()->operator[](j)->getAlias() != newId; j++) {}
-
-					if (j != user->getContactlist()->length())
+					for (j = 0; j < user->getContactlist()->length() && alias_right; j++)
 					{
-						GraphInter::get()->display("This alias is already asigned to an user");
-						GraphInter::get()->pause();
+						if (newId == user->getContactlist()->operator[](j)->getAlias())
+						{
+							GraphInter::get()->display("This alias is already asigned to an user");
+							GraphInter::get()->pause();
 
-						alias_right = false;
+							alias_right = false;
+						}
 					}
 				}
 			} while (!alias_right);
