@@ -501,11 +501,11 @@ void Session::AddFastName(User* user)
 					}
 				}
 			} while (!alias_right);
+
+			tContact* newContact = new tContact(idUser, newId);
+
+			user->getContactlist()->insert(newContact);
 		}
-
-		tContact* newContact = new tContact(idUser, newId);
-
-		user->getContactlist()->insert(newContact);
 	}
 }
 
