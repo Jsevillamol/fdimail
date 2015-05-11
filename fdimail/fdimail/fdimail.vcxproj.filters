@@ -22,6 +22,9 @@
     <Filter Include="List Elements">
       <UniqueIdentifier>{4a068f0a-627f-4836-81b9-d72f8bb1cbb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{c5488427-5273-43b0-9c95-435b376fffbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fdimail.cpp">
@@ -62,9 +65,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Session.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TrayList.h">
       <Filter>Lists</Filter>
     </ClInclude>
@@ -82,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="GlobalConstants.h">
       <Filter>Auxiliar</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphInter.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>Header Files</Filter>
@@ -107,11 +104,17 @@
     <ClInclude Include="Encript.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
-    <ClInclude Include="VisibleTrayList.h">
-      <Filter>Lists</Filter>
-    </ClInclude>
     <ClInclude Include="Filters.h">
       <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphInter.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="VisibleTrayList.h">
+      <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -44,10 +44,6 @@ public:
 template <class T, int MAX>
 List<T,MAX>::List() : counter(0)
 {
-	for (int i=0; i < MAX; i++)
-	{
-		list[i] = nullptr;
-	}
 }
 
 template<class T, int MAX>

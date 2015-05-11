@@ -1,16 +1,16 @@
 #ifndef VISIBLETRAYLIST
 #define VISIBLETRAYLIST
-#include "List.h"
 #include "GlobalConstants.h"
 #include "Filters.h"
 
 struct tElemTray;
 class TrayList;
 
-class VisibleTrayList :
-	public List <tElemTray, MAX_ELEMS>
+class VisibleTrayList
 {
 public:
+	//VisibleTrayList();
+
 	void link(TrayList* trayList);
 	void refresh();
 
@@ -24,13 +24,23 @@ public:
 
 	void orderByIssue();
 
+	inline bool full() const  { return this->counter == MAX_ELEMS; }
+	inline int length() const { return this->counter; }
+
+	tElemTray* operator [](int i) { return list[i]; }
+
 private:
+
 	bool insert(tElemTray* elem);
 	void change(int pos1, int pos2);
 	void erase();
 
 	TrayList* trayList;
 	Filter active_filter;
+
+	int counter;
+
+	tElemTray* list[MAX_ELEMS];
 };
 
 
