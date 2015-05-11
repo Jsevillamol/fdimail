@@ -103,3 +103,13 @@ const std::string Mail::header()const
 
 	return lowFlow.str();
 }
+
+std::string Mail::getsubject()
+{
+	std::string re, newSubject;
+
+	if (this->subject.substr(0, 4) == "Re: ")
+	{
+		return this->subject.substr(4);
+	}
+}
