@@ -13,6 +13,11 @@ void VisibleTrayList::refresh(){
 	default:
 		unfilter();
 	}
+
+	switch (active_order){
+	default:
+		orderByDate();
+	}
 }
 
 template<typename Funct, typename K>
@@ -43,6 +48,14 @@ void VisibleTrayList::orderBy(Funct order){
 			}
 		}
 	} while (change_made);
+}
+
+void VisibleTrayList::orderByDate(){
+	orderBy(
+		[](tElemTray* a, tElemTray* b){
+			return a->mail->date < b->mail->date;
+		}
+	);
 }
 
 void VisibleTrayList::orderByIssue(){

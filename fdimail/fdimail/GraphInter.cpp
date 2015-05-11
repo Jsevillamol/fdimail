@@ -225,7 +225,7 @@ Mail* GraphInter::selectMail(Session* session)
 
 	number = digitBetween(1, session->get_visible()->length());
 
-	return session->get_visible()->operator[](number - 1)->mail;
+	return session->get_visible()->operator[](session->get_visible()->length() - number)->mail;
 }
 
 std::string GraphInter::selectAlias(Session* session)

@@ -15,13 +15,14 @@ public:
 	void refresh();
 
 	void changeFilter(Filter filter){ active_filter = filter; }
+	void changeOrder(Filter order){ active_order = order; }
 	template<typename Funct, typename K>
 	void filterBy(Funct filter, K key);
 	void unfilter();
 
 	template<typename Funct>
 	void orderBy(Funct order);
-
+	void orderByDate();
 	void orderByIssue();
 
 	inline bool full() const  { return this->counter == MAX_ELEMS; }
@@ -37,6 +38,7 @@ private:
 
 	TrayList* trayList;
 	Filter active_filter;
+	Filter active_order;
 
 	int counter;
 

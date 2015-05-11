@@ -243,7 +243,7 @@ void Session::readMail()
 		Mail* mail = GraphInter::get()->selectMail(this);
 		GraphInter::get()->drawMail(mail);
 		//Change mail status to read
-		active_tray()->get(mail->id)->read = true;
+		active_tray()->readMail(mail->getId());
 
 		GraphInter::get()->pause();
 		int option = GraphInter::get()->mailMenu();
