@@ -56,6 +56,10 @@ void VisibleTrayList::orderByIssue(){
 	);
 }
 
+void VisibleTrayList::erase(){
+	counter = 0;
+}
+
 bool VisibleTrayList::insert(tElemTray* elem){
 	if (!full()){
 		list[length()] = elem;

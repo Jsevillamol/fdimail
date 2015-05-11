@@ -58,11 +58,12 @@ List<T, MAX>::~List()
 
 template<class T, int MAX>
 void List<T, MAX>::erase(){
-	for (int i = 0; i < counter; i++)
+	for (int i = 0; i < this->counter; i++)
 	{
 		delete list[i];
 		list[i] = nullptr;
 	}
+	this->counter = 0;
 }
 
 //It search the position where an element should be,

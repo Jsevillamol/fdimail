@@ -27,6 +27,7 @@ public:
 private:
 	bool insert(tElemTray* elem);
 	void change(int pos1, int pos2);
+	void erase();
 
 	TrayList* trayList;
 	Filter active_filter;

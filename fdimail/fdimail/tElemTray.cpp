@@ -3,7 +3,7 @@
 
 void tElemTray::save(std::ofstream &file)
 {
-	file << this->mail->getId() << " " << this->read << std::endl;
+	file << (this->mail->getId()) << " " << (this->read) << std::endl;
 }
 
 void tElemTray::load(std::ifstream &file)
