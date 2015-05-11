@@ -2,6 +2,7 @@
 #define TELEMENTRAY
 
 #include <string>
+#include "Mail.h"
 
 /*
 This struct is responsible for load and save the id of a mail
@@ -10,21 +11,15 @@ and its read status
 
 struct tElemTray
 {
-	std::string idMail;
+	Mail* mail;
 	bool read;
 
 	tElemTray() {}
-	tElemTray(std::string idMail) : idMail(idMail), read(false) {}
-	std::string getId() const { return idMail; }
+	tElemTray(Mail* mail) : mail(mail), read(false) {}
+	std::string getId() const { return mail->getId(); }
 
-	void save(std::ofstream &file)
-	{
-		file << this->idMail << " " << this->read << std::endl;
-	}
-	void load(std::ifstream &file)
-	{
-		file >> this->idMail >> this->read;
-	}
+	void save(std::ofstream &file);
+	void load(std::ifstream &file);
 };
 
 #endif

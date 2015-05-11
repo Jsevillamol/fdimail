@@ -4,7 +4,9 @@
 #include "GraphInter.h"
 #include "Manager.h"
 #include "User.h"
-#include "Mail.h"
+#include "VisibleTrayList.h"
+
+class Mail;
 
 /*
 This class is responsible for the user session, 
@@ -16,11 +18,13 @@ class Session
 private:
 	Manager* manager;
 	User* user;
+
+	VisibleTrayList visible;
 public:
 	bool active_list; //0 for inbox, 1 for outbox
 	void changeTray() { active_list = !active_list; }
 	TrayList* active_tray() { return (active_list) ?user->getOutbox() :user->getInbox(); }
-
+	VisibleTrayList* get_visible(){ return &visible; }
 	Session(Manager* manager); //logIn
 	~Session();
 

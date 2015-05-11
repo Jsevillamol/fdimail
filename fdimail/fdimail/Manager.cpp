@@ -1,11 +1,17 @@
 #include "Manager.h"
-#include "Session.h"
+#include "GraphInter.h"
 #include <sstream>
 
+Manager* Manager::manager = nullptr;
+
 Manager::Manager(const std::string &new_domain) :
-	domain(new_domain)
+domain(new_domain)
 {
-	bootUp();
+	if (manager == nullptr){
+		manager = this;
+		bootUp();
+	}
+	else GraphInter::get()->display("Manager cannot be instantiated twice!");
 }
 
 Manager::~Manager()
@@ -33,8 +39,8 @@ void Manager::shutDown()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	mailList.save(mail_file.str());
 	userList.save(user_file.str());
+	mailList.save(mail_file.str());
 }
 
 //Allows a user to enter in his account, if is already exist
@@ -118,7 +124,7 @@ void Manager::sendMail(User* user, Mail* mail)
 	if (mailList.insert(mail))
 	{
 		//Add to sender's outbox
-		user->getOutbox()->insert(new tElemTray(mail->getId()));
+		user->getOutbox()->insert(new tElemTray(mail));
 
 		user->getOutbox()->get(mail->getId())->read = true;
 
@@ -127,7 +133,7 @@ void Manager::sendMail(User* user, Mail* mail)
 			if (userList.get(mail->recipients[j]) != nullptr)
 			{
 				//Add to receiver's inbox
-				userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail->getId()));
+				userList.get(mail->recipients[j])->getInbox()->insert(new tElemTray(mail));
 			}
 			else
 			{
@@ -153,12 +159,12 @@ bool Manager::answer(User* user, Mail* mail)
 		mailList.insert(mail);
 
 		//Add to sender's outbox
-		user->getOutbox()->insert(new tElemTray(mail->getId()));
+		user->getOutbox()->insert(new tElemTray(mail));
 		user->getOutbox()->get(mail->getId())->read = true;
 
 		//Add to receiver's inbox
 		//std::cout << "Destinatary dir: " << userList.get(mail->to) << std::endl;
-		userList.get(mail->recipients[0])->getInbox()->insert(new tElemTray(mail->getId()));
+		userList.get(mail->recipients[0])->getInbox()->insert(new tElemTray(mail));
 
 		return true;
 	}

@@ -85,11 +85,11 @@ int GraphInter::sessionMenu(Session* session)
 	}
 	else
 	{
-		for (int i = session->active_tray()->length()-1; i >= 0; i--)
+		for (int i = session->get_visible()->length()-1; i >= 0; i--)
 		{
 			std::ostringstream show;
 
-			if (!session->active_tray()->operator[](i)->read)
+			if (!session->get_visible()->operator[](i)->read)
 			{
 				show << "*";
 			}
@@ -98,9 +98,7 @@ int GraphInter::sessionMenu(Session* session)
 				show << " ";
 			}
 
-			std::string id = session->active_tray()->operator[](i)->idMail;
-
-			Mail* mail = session->getManager()->getMailList()->get(id);
+			Mail* mail = session->get_visible()->operator[](i)->mail;
 
 			if (mail == nullptr)
 			{
@@ -109,7 +107,7 @@ int GraphInter::sessionMenu(Session* session)
 	
 			thisMail = mail->header();
 
-			show << std::setw(2) << (session->active_tray()->length() - i) << " - " << thisMail;
+			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
 			display(show.str());
 		}
 	}
@@ -219,15 +217,15 @@ int GraphInter::AccountOptions()
 }
 
 //Shows active tray, returns idMail of mail selected
-std::string GraphInter::selectMail(Session* session)
+Mail* GraphInter::selectMail(Session* session)
 {
 	int number;
 
 	display("Enter the number of the mail you choose:");
 
-	number = digitBetween(1, session->active_tray()->length());
+	number = digitBetween(1, session->get_visible()->length());
 
-	return (*(session->active_tray()))[number - 1]->idMail;
+	return session->get_visible()->operator[](number - 1)->mail;
 }
 
 std::string GraphInter::selectAlias(Session* session)

@@ -54,6 +54,12 @@
     <ClCompile Include="ContactList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VisibleTrayList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tElemTray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Session.h">
@@ -99,6 +105,12 @@
       <Filter>List Elements</Filter>
     </ClInclude>
     <ClInclude Include="Encript.h">
+      <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="VisibleTrayList.h">
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="Filters.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
   </ItemGroup>

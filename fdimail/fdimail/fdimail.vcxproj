@@ -72,13 +72,16 @@
     <ClCompile Include="Mail.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Session.cpp" />
+    <ClCompile Include="tElemTray.cpp" />
     <ClCompile Include="TrayList.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="VisibleTrayList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContactList.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Encript.h" />
+    <ClInclude Include="Filters.h" />
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
@@ -91,6 +94,7 @@
     <ClInclude Include="TrayList.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserList.h" />
+    <ClInclude Include="VisibleTrayList.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fdimail.com_mails.txt" />

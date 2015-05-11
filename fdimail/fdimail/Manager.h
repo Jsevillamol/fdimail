@@ -4,8 +4,6 @@
 #include <string>
 #include "MailList.h"
 #include "UserList.h"
-#include "GraphInter.h"
-#include "User.h"
 
 /*
 This class is responsible for dealing with every sessions,
@@ -17,6 +15,8 @@ It acts as the backend server
 class Manager
 {
 private:
+	static Manager* manager;
+
 	std::string domain;
 	MailList mailList;
 	UserList userList;
@@ -30,6 +30,8 @@ public:
 
 	void bootUp();
 	void shutDown();
+
+	static Manager* getManager(){ return manager; }
 
 	User* registerUser();
 	User* createAccount();

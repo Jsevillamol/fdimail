@@ -21,7 +21,6 @@ private:
 	TrayList inbox;
 	TrayList outbox;
 
-
 public:
 	User(const std::string idUser, const std::string password);
 	User();

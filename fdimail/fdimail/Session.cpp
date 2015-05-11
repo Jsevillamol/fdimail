@@ -1,5 +1,6 @@
 #include "Session.h"
 #include "GraphInter.h"
+#include "Mail.h"
 
 Session::Session(Manager* manager) :
 manager(manager)
@@ -42,11 +43,12 @@ Session::~Session()
 void Session::launch()
 {
 	active_list = false;
+	visible.link(active_tray());
 	int opt;
 
 	do{
 		GraphInter::get()->clearConsole();
-
+		visible.refresh();
 		opt = GraphInter::get()->sessionMenu(this);
 
 		switch (opt)
@@ -236,13 +238,12 @@ void Session::readMail()
 	else
 	{
 		//Select mail to read
-		std::string id = GraphInter::get()->selectMail(this);
 		GraphInter::get()->clearConsole();
 		//Display mail
-		Mail* mail = manager->getMailList()->get(id);
+		Mail* mail = GraphInter::get()->selectMail(this);
 		GraphInter::get()->drawMail(mail);
 		//Change mail status to read
-		active_tray()->get(id)->read = true;
+		active_tray()->get(mail->id)->read = true;
 
 		GraphInter::get()->pause();
 		int option = GraphInter::get()->mailMenu();
@@ -378,7 +379,7 @@ void Session::deleteMail()
 			if (option == 1)
 			{
 				//Select mail
-				std::string id = GraphInter::get()->selectMail(this);
+				std::string id = GraphInter::get()->selectMail(this)->getId();
 				//Delete
 				manager->deleteMail(active_tray(), id);
 				GraphInter::get()->clearConsole();
@@ -390,7 +391,7 @@ void Session::deleteMail()
 
 				for (int i = 0; i < longitud; i++)
 				{
-					std::string newId = (*(this->active_tray()))[0]->idMail;
+					std::string newId = (*(this->active_tray()))[0]->getId();
 
 					manager->deleteMail(active_tray(), newId);
 				}

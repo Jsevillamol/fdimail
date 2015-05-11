@@ -31,7 +31,7 @@ public:
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
-	std::string selectMail(Session* sesion); 
+	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
 
 	//Mail functions

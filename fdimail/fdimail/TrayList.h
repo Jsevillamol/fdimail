@@ -14,6 +14,8 @@ and its read status
 class TrayList: public List<tElemTray, MAX_ELEMS>
 {
 public:
+	//Overrides
+
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
 
@@ -21,6 +23,10 @@ public:
 
 	void insert(tElemTray * const elem);
 
+	//Class Exclusive
 	bool readMail(const std::string &idMail);
+
 };
+
+
 #endif

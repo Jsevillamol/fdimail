@@ -1,5 +1,6 @@
 #include "TrayList.h"
 #include "tElemTray.h"
+#include "Manager.h"
 
 //Saves all the elements on the you choose
 void TrayList::save(std::ofstream &file)const

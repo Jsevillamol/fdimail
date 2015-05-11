@@ -33,6 +33,7 @@ public:
 	T* get(const std::string &id);
 
 	bool destroy(const std::string &id); //Deletes the pointers
+	void erase();
 
 	void save(const std::string &name);
 	bool load(const std::string &name/*, const std::string &url*/);
@@ -52,12 +53,16 @@ List<T,MAX>::List() : counter(0)
 template<class T, int MAX>
 List<T, MAX>::~List()
 {
-	for (int i=0; i < counter; i++)
+	erase();
+}
+
+template<class T, int MAX>
+void List<T, MAX>::erase(){
+	for (int i = 0; i < counter; i++)
 	{
 		delete list[i];
 		list[i] = nullptr;
 	}
-
 }
 
 //It search the position where an element should be,
