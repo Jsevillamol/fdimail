@@ -376,6 +376,7 @@ void Session::deleteMail()
 	{
 		do
 		{
+			visible.refresh();
 			option = GraphInter::get()->WhatToDelete();
 
 			if (option == 1)
