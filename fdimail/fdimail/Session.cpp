@@ -64,6 +64,7 @@ void Session::launch()
 			break;
 		case 4:
 			changeTray();
+			visible.link(active_tray());
 			break;
 		case 5:
 			fastRead();
@@ -76,6 +77,7 @@ void Session::launch()
 			break;
 		}
 	} while (opt != 0);
+	visible.link(nullptr);
 }
 
 //Internal part of AccountOptions(), it
