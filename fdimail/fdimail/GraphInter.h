@@ -58,6 +58,8 @@ public:
 	void enter(int &digit);
 	std::string HideLimitPassword();
 	std::string HidePassword();
+	void search(Session* session);
+	std::string chooseField();
 	void pause();
 	void clearConsole();
 	int digitBetween(int a, int b);
