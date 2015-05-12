@@ -64,6 +64,7 @@ void Session::launch()
 			break;
 		case 4:
 			changeTray();
+			visible.link(active_tray());
 			break;
 		case 5:
 			fastRead();
@@ -76,6 +77,7 @@ void Session::launch()
 			break;
 		}
 	} while (opt != 0);
+	visible.link(nullptr);
 }
 
 //Internal part of AccountOptions(), it
@@ -375,12 +377,17 @@ void Session::deleteMail()
 		{
 			if (longitud == 0)
 			{
+			visible.refresh();
+			option = GraphInter::get()->WhatToDelete();
+
+			/*if (option == 1)
+			{
 				GraphInter::get()->display("Error, you have no mails to delete");
 				GraphInter::get()->pause();
 				GraphInter::get()->clearConsole();
 
 				option = 0;
-			}
+			}*/
 			else
 			{
 				option = GraphInter::get()->WhatToDelete();

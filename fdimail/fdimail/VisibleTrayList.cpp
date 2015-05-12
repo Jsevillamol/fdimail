@@ -5,7 +5,6 @@
 void VisibleTrayList::link(TrayList* trayList)
 {
 	this->trayList = trayList;
-	unfilter();
 }
 
 void VisibleTrayList::refresh(){
