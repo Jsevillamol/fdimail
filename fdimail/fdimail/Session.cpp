@@ -240,6 +240,7 @@ void Session::readMail()
 	else
 	{
 		//Select mail to read
+		GraphInter::get()->clearConsole();
 		//Display mail
 		Mail* mail = GraphInter::get()->selectMail(this);
 		GraphInter::get()->drawMail(mail);
@@ -361,9 +362,8 @@ void Session::forwardMail(Mail* &originalMail)
 void Session::deleteMail()
 {
 	int option;
-	int longitud = this->active_tray()->length();
 
-	if (longitud == 0)
+	if (visible.length() == 0)
 	{
 		GraphInter::get()->display("Error, you have no mails to delete");
 		GraphInter::get()->pause();
@@ -381,26 +381,24 @@ void Session::deleteMail()
 			if (option == 1)
 			{
 				//Select mail
-				Mail* id = GraphInter::get()->selectMail(this);
+				std::string id = GraphInter::get()->selectMail(this)->getId();
 				//Delete
-				if (id != nullptr)
-				{
-					manager->deleteMail(active_tray(), id->getId());
-				}
+				manager->deleteMail(active_tray(), id);
 				GraphInter::get()->clearConsole();
 			}
 			else if (option == 2)
 			{
+
 				GraphInter::get()->clearConsole();
 
-				for (int i = 0; i < longitud; i++)
+				for (int i = 0; i < visible.length(); i++)
 				{
-					std::string newId = this->active_tray()->operator[](0)->getId();
+					std::string newId = (*(this->active_tray()))[0]->getId();
 
 					manager->deleteMail(active_tray(), newId);
 				}
 			}
-		} while (option != 0 && longitud != 0);
+		} while (visible.length() != 0 && option != 0);
 	} 
 }
 
