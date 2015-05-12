@@ -223,9 +223,20 @@ Mail* GraphInter::selectMail(Session* session)
 
 	display("Enter the number of the mail you choose:");
 
-	number = digitBetween(1, session->get_visible()->length());
+	if (session->get_visible()->length() != 0)
+	{
+		number = digitBetween(1, session->get_visible()->length());
 
-	return session->get_visible()->operator[](session->get_visible()->length() - number)->mail;
+		return session->get_visible()->operator[](session->get_visible()->length() - number)->mail;
+	}
+	else
+	{
+		display("The active tray is empty");
+
+		return nullptr;
+	}
+
+	
 }
 
 std::string GraphInter::selectAlias(Session* session)
@@ -770,3 +781,54 @@ std::string GraphInter::HidePassword()
 
 	return word;
 }
+
+/*void GraphInter::search(Session* session)
+{
+	std::cout.flush();
+	int i;
+	char word[50];
+
+	std::string campo = chooseField();
+
+	//Enter new password
+	i = 0;
+	do
+	{
+		word[i] = (unsigned char)_getch();
+
+		if (word[i] != 8)  // no es retroceso
+		{
+			for (int j = 0; j < session->get_visible()->length() - 1; j++)
+			{
+				for (int k = 0; k < campo.size(); k++)
+				{
+					std::string thisMail;
+					std::ostringstream show;
+
+					if (word == campo.substr(0, k))
+					{
+						thisMail = session->get_visible()->operator[](j)->mail->header();
+
+						show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
+						display(show.str());
+					}
+				}
+			}
+			i++;
+		}
+		else if (i > 0)    // es retroceso y hay caracteres
+		{
+			std::cout << (char)8 << (char)32 << (char)8;
+			i--;  //el caracter a borrar e el backspace
+		}
+		std::cout.flush();
+
+	} while (word[i - 1] != 13);// si presiona ENTER
+
+	word[i - 1] = NULL;
+}
+
+std::string GraphInter::chooseField()
+{
+
+}*/
