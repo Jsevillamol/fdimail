@@ -362,9 +362,8 @@ void Session::forwardMail(Mail* &originalMail)
 void Session::deleteMail()
 {
 	int option;
-	int longitud = this->active_tray()->length();
 
-	if (longitud == 0)
+	if (visible.length() == 0)
 	{
 		GraphInter::get()->display("Error, you have no mails to delete");
 		GraphInter::get()->pause();
@@ -392,14 +391,14 @@ void Session::deleteMail()
 
 				GraphInter::get()->clearConsole();
 
-				for (int i = 0; i < longitud; i++)
+				for (int i = 0; i < visible.length(); i++)
 				{
 					std::string newId = (*(this->active_tray()))[0]->getId();
 
 					manager->deleteMail(active_tray(), newId);
 				}
 			}
-		} while (longitud != 0 && option != 0);
+		} while (visible.length() != 0 && option != 0);
 	} 
 }
 
