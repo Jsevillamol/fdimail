@@ -95,21 +95,16 @@ User* Manager::createAccount()
 void Manager::deleteAccount(const std::string &id)
 {
 	User* user = userList.get(id);
-	int inlenth = user->getInbox()->length();
-	int outlenth = user->getOutbox()->length();
-	int namelenth = user->getContactlist()->length();
+	int inlength = user->getInbox()->length();
+	int outlength = user->getOutbox()->length();
 
 	//Delete inbox
-	for (int i = 0; i < namelenth; i++)
-	{
-		user->getContactlist()->destroy(user->getContactlist()->operator[](i)->getId());
-	}
-	for (int i = 0; i < inlenth; i++)
+	for (int i = 0; i < inlength; i++)
 	{
 		mailList.delete_mail(user->getInbox()->operator[](i)->getId());
 	}
 	//Delete outbox
-	for (int i = 0; i < outlenth; i++)
+	for (int i = 0; i < outlength; i++)
 	{
 		mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
 	}
