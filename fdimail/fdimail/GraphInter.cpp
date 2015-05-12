@@ -782,53 +782,39 @@ std::string GraphInter::HidePassword()
 	return word;
 }
 
-/*void GraphInter::search(Session* session)
+Filter GraphInter::chooseFilter()
 {
-	std::cout.flush();
-	int i;
-	char word[50];
+	display(linea());
 
-	std::string campo = chooseField();
+	display("Choose your filter: ");
+	tab_word("1- Emissor");
+	tab_word("2- Subject");
+	tab_word("3- Date");
+	tab_word("0- None");
 
-	//Enter new password
-	i = 0;
-	do
+	display(linea());
+
+	display("Enter an option:");
+
+	int option = digitBetween(0, 3);
+
+	Filter filter;
+
+	switch (option)
 	{
-		word[i] = (unsigned char)_getch();
-
-		if (word[i] != 8)  // no es retroceso
-		{
-			for (int j = 0; j < session->get_visible()->length() - 1; j++)
-			{
-				for (int k = 0; k < campo.size(); k++)
-				{
-					std::string thisMail;
-					std::ostringstream show;
-
-					if (word == campo.substr(0, k))
-					{
-						thisMail = session->get_visible()->operator[](j)->mail->header();
-
-						show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
-						display(show.str());
-					}
-				}
-			}
-			i++;
-		}
-		else if (i > 0)    // es retroceso y hay caracteres
-		{
-			std::cout << (char)8 << (char)32 << (char)8;
-			i--;  //el caracter a borrar e el backspace
-		}
-		std::cout.flush();
-
-	} while (word[i - 1] != 13);// si presiona ENTER
-
-	word[i - 1] = NULL;
+	case 1:
+		filter = emissor;
+		break;
+	case 2:
+		filter = subject;
+		break;
+	case 3:
+		filter = date;
+		break;
+	case 0:
+		filter = none;
+		break;
+	}
+	return filter;
 }
 
-std::string GraphInter::chooseField()
-{
-
-}*/
