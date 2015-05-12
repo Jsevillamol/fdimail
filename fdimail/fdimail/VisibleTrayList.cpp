@@ -7,41 +7,46 @@ void VisibleTrayList::link(TrayList* trayList)
 	this->trayList = trayList;
 }
 
-void VisibleTrayList::refresh(){
-	switch (active_filter){
+void VisibleTrayList::refresh()
+{
+	switch (active_filter)
+	{
 	default:
 		unfilter();
 	}
 
-	switch (active_order){
+	switch (active_order)
+	{
 	default:
 		orderByDate();
 	}
 }
 
 template<typename Funct, typename K>
-void VisibleTrayList::filterBy(Funct filter, K key){
+void VisibleTrayList::filterBy(Funct filter, K key)
+{
 	erase();
 	for (int i = 0; i < this->trayList->length(); i++){
 		if (filter(trayList->operator[](i), key)) insert(trayList->operator[](i));
 	}
 }
 
-void VisibleTrayList::unfilter(){
-	filterBy(
-		[](tElemTray* a, int key){ return true; },
-		0
-	);
+void VisibleTrayList::unfilter()
+{
+	filterBy([](tElemTray* a, int key){ return true; }, 0);
 }
 
 template<typename Funct>
-void VisibleTrayList::orderBy(Funct order){
+void VisibleTrayList::orderBy(Funct order)
+{
 	//Bubblesort
 	bool change_made;
 	do{
 		change_made = false;
-		for (int i = 0; i < this->length() - 1; i++){
-			if (!order(list[i], list[i + 1])){
+		for (int i = 0; i < this->length() - 1; i++)
+		{
+			if (!order(list[i], list[i + 1]))
+			{
 				this->change(i, i + 1);
 				change_made = true;
 			}
@@ -49,31 +54,34 @@ void VisibleTrayList::orderBy(Funct order){
 	} while (change_made);
 }
 
-void VisibleTrayList::orderByDate(){
-	orderBy(
-		[](tElemTray* a, tElemTray* b){
-			return a->mail->date < b->mail->date;
-		}
-	);
+void VisibleTrayList::orderByDate()
+{
+	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date < b->mail->date; });
 }
 
 void VisibleTrayList::orderByIssue(){
-	orderBy(
-		[](tElemTray* a, tElemTray* b){
-		if (a->mail->subject != b->mail->subject){
-			return (a->mail->subject < b->mail->subject);
+	orderBy
+		(
+		[](tElemTray* a, tElemTray* b)
+		{
+			if (a->mail->subject != b->mail->subject)
+			{
+				return (a->mail->subject < b->mail->subject);
+			}
+			else return (a->mail->date) < (b->mail->date);
 		}
-		else return (a->mail->date) < (b->mail->date);
-	}
-	);
+		);
 }
 
-void VisibleTrayList::erase(){
+void VisibleTrayList::erase()
+{
 	counter = 0;
 }
 
-bool VisibleTrayList::insert(tElemTray* elem){
-	if (!full()){
+bool VisibleTrayList::insert(tElemTray* elem)
+{
+	if (!full())
+	{
 		list[length()] = elem;
 		this->counter++;
 		return true;
@@ -81,7 +89,8 @@ bool VisibleTrayList::insert(tElemTray* elem){
 	else return false;
 }
 
-void VisibleTrayList::change(int pos1, int pos2){
+void VisibleTrayList::change(int pos1, int pos2)
+{
 	tElemTray* aux = list[pos1];
 	list[pos1] = list[pos2];
 	list[pos2] = aux;

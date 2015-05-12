@@ -400,7 +400,7 @@ void Session::deleteMail()
 					manager->deleteMail(active_tray(), newId);
 				}
 			}
-		} while (option != 0);
+		} while (option != 0 && longitud != 0);
 	} 
 }
 
