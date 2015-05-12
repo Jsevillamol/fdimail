@@ -376,26 +376,30 @@ void Session::deleteMail()
 		do
 		{
 			visible.refresh();
-			option = GraphInter::get()->WhatToDelete();
 
-			if (option == 1)
+			if (visible.length() != 0)
 			{
-				//Select mail
-				std::string id = GraphInter::get()->selectMail(this)->getId();
-				//Delete
-				manager->deleteMail(active_tray(), id);
-				GraphInter::get()->clearConsole();
-			}
-			else if (option == 2)
-			{
+				option = GraphInter::get()->WhatToDelete();
 
-				GraphInter::get()->clearConsole();
-
-				for (int i = 0; i < visible.length(); i++)
+				if (option == 1)
 				{
-					std::string newId = (*(this->active_tray()))[0]->getId();
+					//Select mail
+					std::string id = GraphInter::get()->selectMail(this)->getId();
+					//Delete
+					manager->deleteMail(active_tray(), id);
+					GraphInter::get()->clearConsole();
+				}
+				else if (option == 2)
+				{
 
-					manager->deleteMail(active_tray(), newId);
+					GraphInter::get()->clearConsole();
+
+					for (int i = 0; i < visible.length(); i++)
+					{
+						std::string newId = (*(this->active_tray()))[0]->getId();
+
+						manager->deleteMail(active_tray(), newId);
+					}
 				}
 			}
 		} while (visible.length() != 0 && option != 0);
