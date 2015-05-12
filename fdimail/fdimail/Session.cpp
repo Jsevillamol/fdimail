@@ -262,7 +262,7 @@ void Session::readMail()
 }
 
 //It shows you all the mails that you did not
-//read from your imput box
+//read from your input box
 void Session::fastRead()
 {	
 
@@ -281,9 +281,9 @@ void Session::fastRead()
 			if (!active_tray()->operator[](i)->read)
 			{
 				something_to_read = true;
-				std::string id = active_tray()->operator[](i)->getId();
+				Mail* mail = active_tray()->operator[](i)->mail;
 				//Display mail
-				GraphInter::get()->drawMail(manager->getMailList()->get(id));
+				GraphInter::get()->drawMail(mail);
 				//Change mail status to read
 				active_tray()->operator[](i)->read = true;
 
