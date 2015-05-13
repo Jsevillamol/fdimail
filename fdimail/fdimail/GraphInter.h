@@ -58,6 +58,7 @@ public:
 	void display(char sign);
 	void enter(std::string &word);
 	void enter(int &digit);
+	void enter(Date &date);
 	std::string HideLimitPassword();
 	std::string HidePassword();
 	void choose(std::string parameter, Filter &filter);

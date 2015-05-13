@@ -537,6 +537,34 @@ void Session::chooseOrder()
 	this->get_visible()->changeOrder(filter);
 }
 
+void Session::chooseFilter()
+{
+	Filter filter;
+	
+	GraphInter::get()->choose("filter", filter);
+
+	if (filter == date)
+	{
+		Date lowdate, update;
+
+		GraphInter::get()->display("Enter the lower date");
+		GraphInter::get()->enter(lowdate);
+		GraphInter::get()->display("Enter the upper date");
+		GraphInter::get()->enter(update);
+
+		this->get_visible()->setFilterDate(update, lowdate);
+	}
+	else
+	{
+		std::string reference;
+
+		GraphInter::get()->display("Enter your reference word");
+		GraphInter::get()->enter(reference);
+
+		this->get_visible()->setFilter(reference, filter);
+	}
+}
+
 void Session::filterOptions()
 {
 	int option;
@@ -553,7 +581,11 @@ void Session::filterOptions()
 		}
 		else if (option == 2)
 		{
-			GraphInter::get()->display("Not implementer yet");
+			chooseFilter();
+		}
+		else if (option == 3)
+		{
+			GraphInter::get()->display("Not implemeted yet");
 			GraphInter::get()->pause();
 		}
 	} while (option != 0);

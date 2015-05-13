@@ -720,6 +720,13 @@ void GraphInter::enter(int &digit)
 	std::cin.clear();
 }
 
+void GraphInter::enter(Date &date)
+{
+	std::cin.sync();
+	std::cin >> date;
+	std::cin.clear();
+}
+
 std::string GraphInter::HideLimitPassword()
 {
 	std::string word;
@@ -787,15 +794,17 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 
 	display("Choose your " + parameter + ": ");
 	tab_word("1- Emissor");
-	tab_word("2- Subject");
-	tab_word("3- Date");
+	tab_word("2- Recipients");
+	tab_word("3- Subject");
+	tab_word("4- Date");
+	tab_word("5- Body");
 	tab_word("0- None");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	int option = digitBetween(0, 3);
+	int option = digitBetween(0, 5);
 
 	switch (option)
 	{
@@ -803,10 +812,16 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 		filter = emissor;
 		break;
 	case 2:
-		filter = subject;
+		filter = recipients;
 		break;
 	case 3:
+		filter = subject;
+		break;
+	case 4:
 		filter = date;
+		break;
+	case 5:
+		filter = body;
 		break;
 	case 0:
 		filter = none;
@@ -821,11 +836,12 @@ int GraphInter::filter()
 	display("Choose your desired option: ");
 	tab_word("1- Change order");
 	tab_word("2- Change filter");
+	tab_word("3- Quit filter");
 	tab_word("0- Exit to session menu");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 2);
+	return digitBetween(0, 3);
 }
