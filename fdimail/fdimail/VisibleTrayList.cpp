@@ -126,7 +126,7 @@ void VisibleTrayList::orderByDate()
 void VisibleTrayList::orderByIssue(){
 	orderBy(
 		[](tElemTray* a, tElemTray* b)
-		{ return (a->mail->subject < b->mail->subject);	}
+		{ return (a->mail->getsubject() < b->mail->getsubject());	}
 	);
 }
 
