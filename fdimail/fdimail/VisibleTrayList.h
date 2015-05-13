@@ -4,6 +4,7 @@
 #include "Filters.h"
 #include "Date.h"
 #include <string>
+#include <map>
 
 struct tElemTray;
 class TrayList;
@@ -11,7 +12,7 @@ class TrayList;
 class VisibleTrayList
 {
 public:
-	//VisibleTrayList();
+	VisibleTrayList();
 
 	void link(TrayList* trayList);
 	void refresh();
@@ -46,6 +47,12 @@ private:
 
 	TrayList* trayList;
 	Filter active_order;
+
+	//Filters
+	std::map<Filter, bool> filters;
+	Date lower;
+	Date upper;
+	std::map<Filter, std::string> keys;
 
 	int counter;
 

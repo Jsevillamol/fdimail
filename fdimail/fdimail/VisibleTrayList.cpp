@@ -3,6 +3,14 @@
 #include "TrayList.h"
 #include "Date.h"
 
+VisibleTrayList::VisibleTrayList(){
+	filters[date] = false;
+	filters[Filter::subject] = false;
+	filters[Filter::body] = false;
+	filters[Filter::emissor] = false;
+	filters[Filter::recipients] = false;
+}
+
 void VisibleTrayList::link(TrayList* trayList)
 {
 	this->trayList = trayList;
@@ -11,7 +19,15 @@ void VisibleTrayList::link(TrayList* trayList)
 void VisibleTrayList::refresh()
 {
 	sync();
+	
+	//Apply activated filters
+	if (filters[date])				filterByDate(lower, upper);
+	if (filters[Filter::subject])	filterBySubject(keys[subject]);
+	if (filters[Filter::body])		filterByBody(keys[body]);
+	if (filters[Filter::emissor])	filterByEmissor(keys[emissor]);
+	if (filters[Filter::recipients])filterByRecipient(keys[recipients]);
 
+	//Apply order
 	switch (active_order)
 	{
 	default:

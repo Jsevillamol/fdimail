@@ -1,4 +1,4 @@
 #ifndef FILTERS
 #define FILTERS
-enum Filter{ none, subject, emissor, date };
+enum Filter{ none, subject, emissor, body, date, recipients };
 #endif
