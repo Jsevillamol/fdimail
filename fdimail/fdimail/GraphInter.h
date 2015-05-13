@@ -1,6 +1,7 @@
 #ifndef GRAPHINTER
 #define GRAPHINTER
 #include "Mail.h"
+#include "Filters.h"
 #include "TrayList.h"
 #include "UserList.h"
 #include "ContactList.h"
@@ -60,6 +61,7 @@ public:
 	std::string HideLimitPassword();
 	std::string HidePassword();
 	void choose(std::string parameter, Filter &filter);
+	int filter();
 	void pause();
 	void clearConsole();
 	int digitBetween(int a, int b);

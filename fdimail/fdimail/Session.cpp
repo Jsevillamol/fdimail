@@ -75,6 +75,9 @@ void Session::launch()
 		case 7:
 			AliasOptions();
 			break;
+		case 8:
+			filterOptions();
+			break;
 		}
 	} while (opt != 0);
 	visible.link(nullptr);
@@ -532,4 +535,26 @@ void Session::chooseOrder()
 	GraphInter::get()->choose("order", filter);
 
 	this->get_visible()->changeOrder(filter);
+}
+
+void Session::filterOptions()
+{
+	int option;
+
+	do
+	{
+		GraphInter::get()->clearConsole();
+
+		option = GraphInter::get()->filter();
+
+		if (option == 1)
+		{
+			chooseOrder();
+		}
+		else if (option == 2)
+		{
+			GraphInter::get()->display("Not implementer yet");
+			GraphInter::get()->pause();
+		}
+	} while (option != 0);
 }

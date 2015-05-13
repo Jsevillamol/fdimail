@@ -129,13 +129,14 @@ int GraphInter::sessionMenu(Session* session)
 	tab_word("5- Fast read of unread mails");
 	tab_word("6- Account options");
 	tab_word("7- Alias options");
+	tab_word("8- Filter options");
 	tab_word("0- Sign out");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	return digitBetween(0, 7);
+	return digitBetween(0, 8);
 }
 
 //Little options menu
@@ -235,8 +236,6 @@ Mail* GraphInter::selectMail(Session* session)
 
 		return nullptr;
 	}
-
-	
 }
 
 std::string GraphInter::selectAlias(Session* session)
@@ -813,4 +812,20 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 		filter = none;
 		break;
 	}
+}
+
+int GraphInter::filter()
+{
+	display(linea());
+
+	display("Choose your desired option: ");
+	tab_word("1- Change order");
+	tab_word("2- Change filter");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 2);
 }

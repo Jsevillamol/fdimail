@@ -35,6 +35,7 @@ public:
 	void AddFastName(User* user);
 	void AliasOptions();
 
+	void filterOptions();
 	void chooseFilter();
 	void chooseOrder();
 
