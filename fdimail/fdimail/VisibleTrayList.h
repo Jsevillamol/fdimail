@@ -55,6 +55,11 @@ public:
 		keys[field] = search;
 	}
 
+	void closeFilter(Filter field)
+	{
+		filters[field] = false;
+	}
+
 private:
 
 	bool insert(tElemTray* elem);
