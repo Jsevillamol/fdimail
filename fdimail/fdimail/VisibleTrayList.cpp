@@ -30,6 +30,10 @@ void VisibleTrayList::refresh()
 	//Apply order
 	switch (active_order)
 	{
+	case subject:
+		orderBySubject();
+	case emissor:
+		orderByEmissor();
 	default:
 		orderByDate();
 	}
@@ -123,10 +127,17 @@ void VisibleTrayList::orderByDate()
 	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date < b->mail->date; });
 }
 
-void VisibleTrayList::orderByIssue(){
+void VisibleTrayList::orderBySubject(){
 	orderBy(
 		[](tElemTray* a, tElemTray* b)
 		{ return (a->mail->getsubject() < b->mail->getsubject());	}
+	);
+}
+
+void VisibleTrayList::orderByEmissor(){
+	orderBy(
+		[](tElemTray* a, tElemTray* b)
+		{ return (a->mail->from < b->mail->from);}
 	);
 }
 

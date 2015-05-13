@@ -31,7 +31,8 @@ public:
 	template<typename Funct>
 	void orderBy(Funct order);
 	void orderByDate();
-	void orderByIssue();
+	void orderBySubject();
+	void orderByEmissor();
 
 	inline bool full() const  { return this->counter == MAX_ELEMS; }
 	inline int length() const { return this->counter; }
