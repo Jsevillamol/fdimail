@@ -43,9 +43,9 @@ public:
 	{
 		filters[date] = true;
 
-		keys[lower] = low;
+		lower = low;
 
-		keys[upper] = up;
+		upper = up;
 	}
 
 	void setFilter(std::string search, Filter field)
