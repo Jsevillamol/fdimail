@@ -39,6 +39,22 @@ public:
 
 	tElemTray* operator [](int i) { return list[i]; }
 
+	void setFilterDate(Date up, Date low)
+	{
+		filters[date] = true;
+
+		keys[lower] = low;
+
+		keys[upper] = up;
+	}
+
+	void setFilter(std::string search, Filter field)
+	{
+		filters[field] = true;
+
+		keys[field] = search;
+	}
+
 private:
 
 	bool insert(tElemTray* elem);
