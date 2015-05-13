@@ -540,6 +540,8 @@ void Session::chooseOrder()
 void Session::chooseFilter()
 {
 	Filter filter;
+
+	this->get_visible()->closeFilter();
 	
 	GraphInter::get()->choose("filter", filter);
 
@@ -585,8 +587,7 @@ void Session::filterOptions()
 		}
 		else if (option == 3)
 		{
-			GraphInter::get()->display("Not implemeted yet");
-			GraphInter::get()->pause();
+			this->get_visible()->closeFilter();
 		}
 	} while (option != 0);
 }

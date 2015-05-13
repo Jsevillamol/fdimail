@@ -55,9 +55,16 @@ public:
 		keys[field] = search;
 	}
 
-	void closeFilter(Filter field)
+	void closeFilter()
 	{
-		filters[field] = false;
+		for (int i = Filter::subject; i <= Filter::recipients; i++)
+		{
+			if (filters[Filter(i)] == true)
+			{
+				filters[Filter(i)] = false;
+			}
+		}
+		
 	}
 
 private:
