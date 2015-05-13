@@ -35,6 +35,9 @@ public:
 	void AddFastName(User* user);
 	void AliasOptions();
 
+	void chooseFilter();
+	void chooseOrder();
+
 	void changeUsername();
 	void changePassword();
 

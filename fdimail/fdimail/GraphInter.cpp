@@ -782,11 +782,11 @@ std::string GraphInter::HidePassword()
 	return word;
 }
 
-Filter GraphInter::chooseFilter()
+void GraphInter::choose(std::string parameter, Filter &filter)
 {
 	display(linea());
 
-	display("Choose your filter: ");
+	display("Choose your " + parameter + ": ");
 	tab_word("1- Emissor");
 	tab_word("2- Subject");
 	tab_word("3- Date");
@@ -797,8 +797,6 @@ Filter GraphInter::chooseFilter()
 	display("Enter an option:");
 
 	int option = digitBetween(0, 3);
-
-	Filter filter;
 
 	switch (option)
 	{
@@ -815,6 +813,4 @@ Filter GraphInter::chooseFilter()
 		filter = none;
 		break;
 	}
-	return filter;
 }
-

@@ -58,7 +58,7 @@ public:
 	void enter(int &digit);
 	std::string HideLimitPassword();
 	std::string HidePassword();
-	Filter chooseFilter();
+	void choose(std::string parameter, Filter &filter);
 	void pause();
 	void clearConsole();
 	int digitBetween(int a, int b);
