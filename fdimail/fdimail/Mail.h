@@ -39,5 +39,7 @@ public:
 	int lowerCounter(){ return --user_count; }
 	const std::string to_string()const;
 	const std::string header()const;
+
+	std::string getsubject();
 };
 #endif
