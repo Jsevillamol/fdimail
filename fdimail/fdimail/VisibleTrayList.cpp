@@ -1,6 +1,7 @@
 #include "VisibleTrayList.h"
 #include "tElemTray.h"
 #include "TrayList.h"
+#include "Date.h"
 
 void VisibleTrayList::link(TrayList* trayList)
 {
@@ -9,11 +10,7 @@ void VisibleTrayList::link(TrayList* trayList)
 
 void VisibleTrayList::refresh()
 {
-	switch (active_filter)
-	{
-	default:
-		unfilter();
-	}
+	sync();
 
 	switch (active_order)
 	{
@@ -22,18 +19,69 @@ void VisibleTrayList::refresh()
 	}
 }
 
+void VisibleTrayList::sync(){
+	erase();
+	for (int i = 0; i < this->trayList->length(); i++){
+		insert(trayList->operator[](i));
+	}
+}
+
 template<typename Funct, typename K>
 void VisibleTrayList::filterBy(Funct filter, K key)
 {
 	erase();
-	for (int i = 0; i < this->trayList->length(); i++){
-		if (filter(trayList->operator[](i), key)) insert(trayList->operator[](i));
+	for (int i = 0; i < this->length(); i++){
+		if (!filter(list[i], key)) shiftLeft(i);
 	}
 }
 
-void VisibleTrayList::unfilter()
-{
-	filterBy([](tElemTray* a, int key){ return true; }, 0);
+void VisibleTrayList::filterByDate(Date lower, Date upper){
+	filterBy([](tElemTray* a, Date key){
+		return key <= a->mail->date;
+		},
+		lower
+	);
+	filterBy([](tElemTray* a, Date key){
+		return a->mail->date <= key;
+		},
+		upper
+	);
+}
+
+void VisibleTrayList::filterBySubject(std::string key){
+	filterBy([](tElemTray* a, std::string key){
+		return a->mail->subject.find(key) != -1;
+		},
+		key
+	);
+}
+
+void VisibleTrayList::filterByBody(std::string key){
+	filterBy([](tElemTray* a, std::string key){
+		return a->mail->body.find(key) != -1;
+		},
+		key
+	);
+}
+
+void VisibleTrayList::filterByEmissor(std::string key){
+	filterBy([](tElemTray* a, std::string key){
+		return a->mail->from.find(key) != -1;
+		},
+		key
+	);
+}
+
+void VisibleTrayList::filterByRecipient(std::string key){
+	filterBy([](tElemTray* a, std::string key){
+		for (int i = 0; i < a->mail->recipient_count; i++){
+			if (a->mail->recipients[i].find(key) != -1)
+				return true;
+			}
+		return false;
+		},
+		key
+	);
 }
 
 template<typename Funct>
@@ -60,17 +108,10 @@ void VisibleTrayList::orderByDate()
 }
 
 void VisibleTrayList::orderByIssue(){
-	orderBy
-		(
+	orderBy(
 		[](tElemTray* a, tElemTray* b)
-		{
-			if (a->mail->subject != b->mail->subject)
-			{
-				return (a->mail->subject < b->mail->subject);
-			}
-			else return (a->mail->date) < (b->mail->date);
-		}
-		);
+		{ return (a->mail->subject < b->mail->subject);	}
+	);
 }
 
 void VisibleTrayList::erase()
@@ -94,4 +135,12 @@ void VisibleTrayList::change(int pos1, int pos2)
 	tElemTray* aux = list[pos1];
 	list[pos1] = list[pos2];
 	list[pos2] = aux;
+}
+
+void VisibleTrayList::shiftLeft(int pos){
+	assert(0 <= pos && pos < counter);
+	for (int i = pos; i < counter - 1; i++)
+	{
+		list[i] = list[i + 1];
+	}
 }

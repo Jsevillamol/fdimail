@@ -524,15 +524,6 @@ void Session::AddFastName(User* user)
 	}
 }
 
-void Session::chooseFilter()
-{
-	Filter filter;
-
-	GraphInter::get()->choose("filter", filter);
-
-	this->get_visible()->changeFilter(filter);
-}
-
 void Session::chooseOrder()
 {
 	Filter filter;

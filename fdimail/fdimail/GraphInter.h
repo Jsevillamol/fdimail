@@ -4,6 +4,7 @@
 #include "TrayList.h"
 #include "UserList.h"
 #include "ContactList.h"
+#include "Filters.h"
 #include <iomanip>
 #include <iostream>
 

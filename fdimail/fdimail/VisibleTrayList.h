@@ -2,6 +2,8 @@
 #define VISIBLETRAYLIST
 #include "GlobalConstants.h"
 #include "Filters.h"
+#include "Date.h"
+#include <string>
 
 struct tElemTray;
 class TrayList;
@@ -13,12 +15,17 @@ public:
 
 	void link(TrayList* trayList);
 	void refresh();
+	void sync();
 
-	void changeFilter(Filter filter){ active_filter = filter; }
 	void changeOrder(Filter order){ active_order = order; }
+
 	template<typename Funct, typename K>
 	void filterBy(Funct filter, K key);
-	void unfilter();
+	void filterByDate(Date lower, Date upper);
+	void filterBySubject(std::string key);
+	void filterByBody(std::string key);
+	void filterByEmissor(std::string key);
+	void filterByRecipient(std::string key);
 
 	template<typename Funct>
 	void orderBy(Funct order);
@@ -34,10 +41,10 @@ private:
 
 	bool insert(tElemTray* elem);
 	void change(int pos1, int pos2);
+	void shiftLeft(int pos);
 	void erase();
 
 	TrayList* trayList;
-	Filter active_filter;
 	Filter active_order;
 
 	int counter;
