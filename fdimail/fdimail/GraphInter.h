@@ -32,7 +32,7 @@ public:
 	//Core functions
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
-	int sessionMenu(Session* sesion, bool invert); 
+	int sessionMenu(Session* sesion); 
 	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
 
@@ -51,7 +51,7 @@ public:
 	
 	//Auxiliar funtions
 	void drawMail(const Mail* mail);
-	void showTray(Session* session, bool invert);
+	void showTray(Session* session);
 
 	std::string valid_user();
 	std::string inputBox(std::string &message);
@@ -62,7 +62,7 @@ public:
 	void enter(Date &date);
 	std::string HideLimitPassword();
 	std::string HidePassword();
-	void choose(std::string parameter, Filter &filter, bool &invert);
+	void choose(std::string parameter, Filter &filter);
 	int filter();
 	void pause();
 	void clearConsole();
