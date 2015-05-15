@@ -50,7 +50,7 @@ void Session::launch()
 	do{
 		GraphInter::get()->clearConsole();
 		visible.refresh();
-		opt = GraphInter::get()->sessionMenu(this, invert);
+		opt = GraphInter::get()->sessionMenu(this);
 
 		switch (opt)
 		{
@@ -61,7 +61,7 @@ void Session::launch()
 			sendMail();
 			break;
 		case 3:
-			deleteMail(invert);
+			deleteMail();
 			break;
 		case 4:
 			changeTray();
@@ -77,7 +77,7 @@ void Session::launch()
 			AliasOptions();
 			break;
 		case 8:
-			filterOptions(invert);
+			filterOptions();
 			break;
 		}
 	} while (opt != 0);
@@ -361,7 +361,7 @@ void Session::forwardMail(Mail* &originalMail)
 }
 
 //Deletes the mail you choose from the tray where you are
-void Session::deleteMail(bool invert)
+void Session::deleteMail()
 {
 	int option;
 
@@ -379,7 +379,7 @@ void Session::deleteMail(bool invert)
 		{
 			visible.refresh();
 			GraphInter::get()->clearConsole();
-			GraphInter::get()->showTray(this, invert);
+			GraphInter::get()->showTray(this);
 
 			if (visible.length() != 0)
 			{
@@ -526,22 +526,22 @@ void Session::AddFastName(User* user)
 	}
 }
 
-void Session::chooseOrder(bool invert)
+void Session::chooseOrder()
 {
 	Filter filter;
 
-	GraphInter::get()->choose("order", filter, invert);
+	GraphInter::get()->choose("order", filter);
 
 	this->get_visible()->changeOrder(filter);
 }
 
-void Session::chooseFilter(bool invert)
+void Session::chooseFilter()
 {
 	Filter filter;
 
 	this->get_visible()->closeFilter();
 	
-	GraphInter::get()->choose("filter", filter, invert);
+	GraphInter::get()->choose("filter", filter);
 
 	if (filter == date)
 	{
@@ -565,7 +565,7 @@ void Session::chooseFilter(bool invert)
 	}
 }
 
-void Session::filterOptions(bool invert)
+void Session::filterOptions()
 {
 	int option;
 
@@ -575,11 +575,11 @@ void Session::filterOptions(bool invert)
 
 	if (option == 1)
 	{
-		chooseOrder(invert);
+		chooseOrder();
 	}
 	else if (option == 2)
 	{
-		chooseFilter(invert);
+		chooseFilter();
 	}
 	else if (option == 3)
 	{

@@ -41,12 +41,6 @@ void VisibleTrayList::refresh()
 	case emissor:
 		orderByEmissor();
 		break;
-	case recipients:
-		orderByRecipient();
-		break;
-	case body:
-		orderByBody();
-		break;
 	default:
 		orderByDate();
 		break;

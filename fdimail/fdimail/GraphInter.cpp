@@ -52,7 +52,7 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	password = HideLimitPassword();
 }
 
-void GraphInter::showTray(Session* session, bool invert)
+void GraphInter::showTray(Session* session)
 {
 	std::string title, thisMail;
 	std::ostringstream menu;
@@ -82,71 +82,40 @@ void GraphInter::showTray(Session* session, bool invert)
 	}
 	else
 	{
-		if (!invert)
+		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
 		{
-			for (int i = session->get_visible()->length() - 1; i >= 0; i--)
+			std::ostringstream show;
+
+			if (!session->get_visible()->operator[](i)->read)
 			{
-				std::ostringstream show;
-
-				if (!session->get_visible()->operator[](i)->read)
-				{
-					show << "*";
-				}
-				else
-				{
-					show << " ";
-				}
-
-				Mail* mail = session->get_visible()->operator[](i)->mail;
-
-				if (mail == nullptr)
-				{
-					mail = errorMail(session->getUser()->getId());
-				}
-
-				thisMail = mail->header();
-
-				show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
-				display(show.str());
+				show << "*";
 			}
-		}
-		else if (invert)
-		{
-			for (int i = 0; i < session->get_visible()->length(); i--)
+			else
 			{
-				std::ostringstream show;
-
-				if (!session->get_visible()->operator[](i)->read)
-				{
-					show << "*";
-				}
-				else
-				{
-					show << " ";
-				}
-
-				Mail* mail = session->get_visible()->operator[](i)->mail;
-
-				if (mail == nullptr)
-				{
-					mail = errorMail(session->getUser()->getId());
-				}
-
-				thisMail = mail->header();
-
-				show << std::setw(2) << (i + 1) << " - " << thisMail;
-				display(show.str());
+				show << " ";
 			}
+
+			Mail* mail = session->get_visible()->operator[](i)->mail;
+
+			if (mail == nullptr)
+			{
+				mail = errorMail(session->getUser()->getId());
+			}
+
+			thisMail = mail->header();
+
+			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
+			display(show.str());
 		}
 	}
 }
 
 //Shows active tray, returns user options (read mail, delete mail, etc)
-int GraphInter::sessionMenu(Session* session, bool invert)
+int GraphInter::sessionMenu(Session* session)
 {
 	display("Mail of " + session->getUser()->getId());
 
-	showTray(session, invert);
+	showTray(session);
 	
 	display(linea());
 
@@ -825,25 +794,21 @@ std::string GraphInter::HidePassword()
 	return word;
 }
 
-void GraphInter::choose(std::string parameter, Filter &filter, bool &invert)
+void GraphInter::choose(std::string parameter, Filter &filter)
 {
 	display(linea());
 
 	display("Choose your " + parameter + ": ");
 	tab_word("1- Emissor");
-	tab_word("2- Recipients");
-	tab_word("3- Subject");
-	tab_word("4- Date");
-	tab_word("5- Body");
+	tab_word("2- Subject");
+	tab_word("3- Date");
 
 	if (parameter == "filter")
 	{
+		tab_word("4- Recipients");
+		tab_word("5- Body");
 		tab_word("6- Read");
 		tab_word("7- Unread");
-	}
-	else
-	{
-		tab_word("6- Invert list");
 	}
 
 	display(linea());
@@ -858,7 +823,7 @@ void GraphInter::choose(std::string parameter, Filter &filter, bool &invert)
 	}
 	else
 	{
-		option = digitBetween(1, 6);
+		option = digitBetween(1, 3);
 	}
 
 	switch (option)
@@ -867,28 +832,20 @@ void GraphInter::choose(std::string parameter, Filter &filter, bool &invert)
 		filter = emissor;
 		break;
 	case 2:
-		filter = recipients;
-		break;
-	case 3:
 		filter = subject;
 		break;
-	case 4:
+	case 3:
 		filter = date;
+		break;
+	case 4:
+		filter = recipients;
 		break;
 	case 5:
 		filter = body;
 		break;
 	case 6:
-		if (parameter == "filter")
-		{
-			filter = read;
-			break;
-		}
-		else
-		{
-			invert = !invert;
-			break;
-		}
+		filter = read;
+		break;
 	case 7:
 		filter = unread;
 		break;
