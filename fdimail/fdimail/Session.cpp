@@ -571,23 +571,20 @@ void Session::filterOptions()
 {
 	int option;
 
-	do
+	GraphInter::get()->clearConsole();
+
+	option = GraphInter::get()->filter();
+
+	if (option == 1)
 	{
-		GraphInter::get()->clearConsole();
-
-		option = GraphInter::get()->filter();
-
-		if (option == 1)
-		{
-			chooseOrder();
-		}
-		else if (option == 2)
-		{
-			chooseFilter();
-		}
-		else if (option == 3)
-		{
-			this->get_visible()->closeFilter();
-		}
-	} while (option != 0);
+		chooseOrder();
+	}
+	else if (option == 2)
+	{
+		chooseFilter();
+	}
+	else if (option == 3)
+	{
+		this->get_visible()->closeFilter();
+	}
 }

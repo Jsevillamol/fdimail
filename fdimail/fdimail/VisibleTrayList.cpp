@@ -3,7 +3,8 @@
 #include "TrayList.h"
 #include "Date.h"
 
-VisibleTrayList::VisibleTrayList(){
+VisibleTrayList::VisibleTrayList()
+{
 	filters[date] = false;
 	filters[Filter::subject] = false;
 	filters[Filter::body] = false;
@@ -49,59 +50,36 @@ void VisibleTrayList::sync(){
 template<typename Funct, typename K>
 void VisibleTrayList::filterBy(Funct filter, K key)
 {
-	erase();
+	//erase();
 	for (int i = 0; i < this->length(); i++){
 		if (!filter(list[i], key)) shiftLeft(i);
 	}
 }
 
-void VisibleTrayList::filterByDate(Date lower, Date upper){
-	filterBy([](tElemTray* a, Date key){
-		return key <= a->mail->date;
-		},
-		lower
-	);
-	filterBy([](tElemTray* a, Date key){
-		return a->mail->date <= key;
-		},
-		upper
-	);
+void VisibleTrayList::filterByDate(Date lower, Date upper)
+{
+	filterBy([](tElemTray* a, Date key){ return key <= a->mail->date; }, lower);
+	filterBy([](tElemTray* a, Date key){ return a->mail->date <= key; }, upper);
 }
 
-void VisibleTrayList::filterBySubject(std::string key){
-	filterBy([](tElemTray* a, std::string key){
-		return a->mail->subject.find(key) != -1;
-		},
-		key
-	);
+void VisibleTrayList::filterBySubject(std::string key)
+{
+	filterBy([](tElemTray* a, std::string key){ return a->mail->subject.find(key) != -1; }, key);
 }
 
-void VisibleTrayList::filterByBody(std::string key){
-	filterBy([](tElemTray* a, std::string key){
-		return a->mail->body.find(key) != -1;
-		},
-		key
-	);
+void VisibleTrayList::filterByBody(std::string key)
+{
+	filterBy([](tElemTray* a, std::string key){ return a->mail->body.find(key) != -1; }, key);
 }
 
-void VisibleTrayList::filterByEmissor(std::string key){
-	filterBy([](tElemTray* a, std::string key){
-		return a->mail->from.find(key) != -1;
-		},
-		key
-	);
+void VisibleTrayList::filterByEmissor(std::string key)
+{
+	filterBy([](tElemTray* a, std::string key){ return a->mail->from.find(key) != -1; }, key);
 }
 
-void VisibleTrayList::filterByRecipient(std::string key){
-	filterBy([](tElemTray* a, std::string key){
-		for (int i = 0; i < a->mail->recipient_count; i++){
-			if (a->mail->recipients[i].find(key) != -1)
-				return true;
-			}
-		return false;
-		},
-		key
-	);
+void VisibleTrayList::filterByRecipient(std::string key)
+{
+	filterBy([](tElemTray* a, std::string key){ for (int i = 0; i < a->mail->recipient_count; i++){ if (a->mail->recipients[i].find(key) != -1) return true; } return false; }, key);
 }
 
 template<typename Funct>
@@ -109,17 +87,21 @@ void VisibleTrayList::orderBy(Funct order)
 {
 	//Bubblesort
 	bool change_made;
-	do{
-		change_made = false;
-		for (int i = 0; i < this->length() - 1; i++)
-		{
-			if (!order(list[i], list[i + 1]))
+
+	if (this->length() < 1)
+	{
+		do{
+			change_made = false;
+			for (int i = 0; i < this->length() - 1; i++)
 			{
-				this->change(i, i + 1);
-				change_made = true;
+				if (!order(list[i], list[i + 1]))
+				{
+					this->change(i, i + 1);
+					change_made = true;
+				}
 			}
-		}
-	} while (change_made);
+		} while (change_made);
+	}
 }
 
 void VisibleTrayList::orderByDate()
@@ -127,18 +109,14 @@ void VisibleTrayList::orderByDate()
 	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date < b->mail->date; });
 }
 
-void VisibleTrayList::orderBySubject(){
-	orderBy(
-		[](tElemTray* a, tElemTray* b)
-		{ return (a->mail->getsubject() < b->mail->getsubject());	}
-	);
+void VisibleTrayList::orderBySubject()
+{
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->getsubject() < b->mail->getsubject()); });
 }
 
-void VisibleTrayList::orderByEmissor(){
-	orderBy(
-		[](tElemTray* a, tElemTray* b)
-		{ return (a->mail->from < b->mail->from);}
-	);
+void VisibleTrayList::orderByEmissor()
+{
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->from < b->mail->from);} );
 }
 
 void VisibleTrayList::erase()

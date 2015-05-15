@@ -79,7 +79,7 @@ int GraphInter::sessionMenu(Session* session)
 
 	display(linea());
 
-	if (session->active_tray()->length() == 0)
+	if (session->get_visible()->length() == 0)
 	{
 		display(center_word("You have no mails", HORIZONTAL, " "));
 	}
@@ -798,13 +798,12 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 	tab_word("3- Subject");
 	tab_word("4- Date");
 	tab_word("5- Body");
-	tab_word("0- None");
 
 	display(linea());
 
 	display("Enter an option:");
 
-	int option = digitBetween(0, 5);
+	int option = digitBetween(1, 5);
 
 	switch (option)
 	{
@@ -822,9 +821,6 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 		break;
 	case 5:
 		filter = body;
-		break;
-	case 0:
-		filter = none;
 		break;
 	}
 }
