@@ -274,30 +274,28 @@ void Session::fastRead()
 
 	GraphInter::get()->clearConsole();
 
-	if (active_tray()->length() == 0)
+	if (get_visible()->length() == 0)
 	{
 		GraphInter::get()->display("You do not have any mail on your active tray");
 		GraphInter::get()->pause();
 	}
 	else
 	{
-		bool something_to_read = false;
-		for (int i = active_tray()->length() - 1; i >= 0; i--)
-		{
-			if (!active_tray()->operator[](i)->read)
-			{
-				something_to_read = true;
-				Mail* mail = active_tray()->operator[](i)->mail;
+		visible.filterByRead(false);
+		visible.orderByDate();
+		visible.orderBySubject();
+		if (visible.length() > 0){
+			for (int i = 0; i < visible.length(); i++){
 				//Display mail
-				GraphInter::get()->drawMail(mail);
-				//Change mail status to read
-				active_tray()->operator[](i)->read = true;
-
+				GraphInter::get()->drawMail(visible[i]->mail);
 				GraphInter::get()->linea();
 				GraphInter::get()->pause();
+
+				//Change mail status to read
+				visible[i]->read = true;
 			}
 		}
-		if (!something_to_read)
+		else
 		{
 			GraphInter::get()->display("You do not have any unread mail");
 			GraphInter::get()->pause();
