@@ -38,9 +38,6 @@ void VisibleTrayList::refresh()
 	case subject:
 		orderBySubject();
 		break;
-	case emissor:
-		orderByEmissor();
-		break;
 	default:
 		orderByDate();
 		break;
@@ -132,21 +129,6 @@ void VisibleTrayList::orderByDate()
 void VisibleTrayList::orderBySubject()
 {
 	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->getsubject() <= b->mail->getsubject()); });
-}
-
-void VisibleTrayList::orderByEmissor()
-{
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->from <= b->mail->from);} );
-}
-
-void VisibleTrayList::orderByRecipient()
-{
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->recipients[0] <= b->mail->recipients[0]); });
-}
-
-void VisibleTrayList::orderByBody()
-{
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body <= b->mail->body); });
 }
 
 void VisibleTrayList::reverse()

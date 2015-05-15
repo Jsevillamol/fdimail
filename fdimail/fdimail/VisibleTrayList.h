@@ -33,9 +33,6 @@ public:
 	void orderBy(Funct order);
 	void orderByDate();
 	void orderBySubject();
-	void orderByEmissor();
-	void orderByRecipient();
-	void orderByBody();
 
 	void reverse();
 
