@@ -45,11 +45,12 @@ void Session::launch()
 	active_list = false;
 	visible.link(active_tray());
 	int opt;
+	bool invert = false;
 
 	do{
 		GraphInter::get()->clearConsole();
 		visible.refresh();
-		opt = GraphInter::get()->sessionMenu(this);
+		opt = GraphInter::get()->sessionMenu(this, invert);
 
 		switch (opt)
 		{
@@ -60,7 +61,7 @@ void Session::launch()
 			sendMail();
 			break;
 		case 3:
-			deleteMail();
+			deleteMail(invert);
 			break;
 		case 4:
 			changeTray();
@@ -76,7 +77,7 @@ void Session::launch()
 			AliasOptions();
 			break;
 		case 8:
-			filterOptions();
+			filterOptions(invert);
 			break;
 		}
 	} while (opt != 0);
@@ -362,7 +363,7 @@ void Session::forwardMail(Mail* &originalMail)
 }
 
 //Deletes the mail you choose from the tray where you are
-void Session::deleteMail()
+void Session::deleteMail(bool invert)
 {
 	int option;
 
@@ -380,7 +381,7 @@ void Session::deleteMail()
 		{
 			visible.refresh();
 			GraphInter::get()->clearConsole();
-			GraphInter::get()->showTray(this);
+			GraphInter::get()->showTray(this, invert);
 
 			if (visible.length() != 0)
 			{
@@ -527,22 +528,22 @@ void Session::AddFastName(User* user)
 	}
 }
 
-void Session::chooseOrder()
+void Session::chooseOrder(bool invert)
 {
 	Filter filter;
 
-	GraphInter::get()->choose("order", filter);
+	GraphInter::get()->choose("order", filter, invert);
 
 	this->get_visible()->changeOrder(filter);
 }
 
-void Session::chooseFilter()
+void Session::chooseFilter(bool invert)
 {
 	Filter filter;
 
 	this->get_visible()->closeFilter();
 	
-	GraphInter::get()->choose("filter", filter);
+	GraphInter::get()->choose("filter", filter, invert);
 
 	if (filter == date)
 	{
@@ -566,7 +567,7 @@ void Session::chooseFilter()
 	}
 }
 
-void Session::filterOptions()
+void Session::filterOptions(bool invert)
 {
 	int option;
 
@@ -576,11 +577,11 @@ void Session::filterOptions()
 
 	if (option == 1)
 	{
-		chooseOrder();
+		chooseOrder(invert);
 	}
 	else if (option == 2)
 	{
-		chooseFilter();
+		chooseFilter(invert);
 	}
 	else if (option == 3)
 	{

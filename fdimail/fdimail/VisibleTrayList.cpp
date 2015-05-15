@@ -27,16 +27,25 @@ void VisibleTrayList::refresh()
 	if (filters[Filter::body])		filterByBody(keys[body]);
 	if (filters[Filter::emissor])	filterByEmissor(keys[emissor]);
 	if (filters[Filter::recipients])filterByRecipient(keys[recipients]);
+	if (filters[Filter::read])      filterByRead(true);
+	if (filters[Filter::unread])    filterByRead(false);
 
 	//Apply order
 	switch (active_order)
 	{
 	case subject:
 		orderBySubject();
+		break;
 	case emissor:
 		orderByEmissor();
+		break;
+	case recipients:
+		orderByRecipient();
+	case body:
+		orderByBody();
 	default:
 		orderByDate();
+		break;
 	}
 }
 
@@ -89,6 +98,11 @@ void VisibleTrayList::filterByRecipient(std::string key)
 	filterBy([](tElemTray* a, std::string key){ for (int i = 0; i < a->mail->recipient_count; i++){ if (a->mail->recipients[i].find(key) != -1) return true; } return false; }, key);
 }
 
+void VisibleTrayList::filterByRead(bool is_read)
+{
+	filterBy([](tElemTray* a, bool is_read) { return a->read == is_read; }, is_read);
+}
+
 template<typename Funct>
 void VisibleTrayList::orderBy(Funct order)
 {
@@ -124,6 +138,16 @@ void VisibleTrayList::orderBySubject()
 void VisibleTrayList::orderByEmissor()
 {
 	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->from < b->mail->from);} );
+}
+
+void VisibleTrayList::orderByRecipient()
+{
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->recipients[0] < b->mail->recipients[0]); });
+}
+
+void VisibleTrayList::orderByBody()
+{
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body < b->mail->body); });
 }
 
 void VisibleTrayList::erase()

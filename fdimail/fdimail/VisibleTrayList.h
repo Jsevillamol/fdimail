@@ -27,12 +27,15 @@ public:
 	void filterByBody(std::string key);
 	void filterByEmissor(std::string key);
 	void filterByRecipient(std::string key);
+	void filterByRead(bool is_read);
 
 	template<typename Funct>
 	void orderBy(Funct order);
 	void orderByDate();
 	void orderBySubject();
 	void orderByEmissor();
+	void orderByRecipient();
+	void orderByBody();
 
 	inline bool full() const  { return this->counter == MAX_ELEMS; }
 	inline int length() const { return this->counter; }
@@ -55,9 +58,19 @@ public:
 		keys[field] = search;
 	}
 
+	void setFilterRead()
+	{
+		filters[read] = true;
+	}
+
+	void setFilterUnread()
+	{
+		filters[unread] = true;
+	}
+
 	void closeFilter()
 	{
-		for (int i = Filter::subject; i <= Filter::recipients; i++)
+		for (int i = Filter::subject; i <= Filter::unread; i++)
 		{
 			if (filters[Filter(i)] == true)
 			{

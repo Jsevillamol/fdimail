@@ -35,9 +35,9 @@ public:
 	void AddFastName(User* user);
 	void AliasOptions();
 
-	void filterOptions();
-	void chooseFilter();
-	void chooseOrder();
+	void filterOptions(bool invert);
+	void chooseFilter(bool invert);
+	void chooseOrder(bool invert);
 
 	void changeUsername();
 	void changePassword();
@@ -49,7 +49,7 @@ public:
 	void sendMail();
 	void answerMail(Mail* &originalMail);
 	void forwardMail(Mail* &originalMail);
-	void deleteMail();
+	void deleteMail(bool invert);
 	void fastRead();
 };
 #endif
