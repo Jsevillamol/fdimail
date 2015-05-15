@@ -799,12 +799,12 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 	display(linea());
 
 	display("Choose your " + parameter + ": ");
-	tab_word("1- Emissor");
-	tab_word("2- Subject");
-	tab_word("3- Date");
+	tab_word("1- Subject");
+	tab_word("2- Date");
 
 	if (parameter == "filter")
 	{
+		tab_word("3- Emissor");
 		tab_word("4- Recipients");
 		tab_word("5- Body");
 		tab_word("6- Read");
@@ -812,7 +812,7 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 	}
 	else
 	{
-		tab_word("4- Invert order");
+		tab_word("3- Invert order");
 	}
 
 	display(linea());
@@ -827,29 +827,29 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 	}
 	else
 	{
-		option = digitBetween(1, 4);
+		option = digitBetween(1, 3);
 	}
 
 	switch (option)
 	{
 	case 1:
-		filter = emissor;
-		break;
-	case 2:
 		filter = subject;
 		break;
-	case 3:
+	case 2:
 		filter = date;
 		break;
-	case 4:
+	case 3:
 		if (parameter == "filter")
 		{
-			filter = recipients;
+			filter = emissor;
 		}
 		else
 		{
 			session->get_visible()->setInvert();
 		}
+		break;
+	case 4:
+		filter = recipients;		
 		break;
 	case 5:
 		filter = body;

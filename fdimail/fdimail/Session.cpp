@@ -44,6 +44,7 @@ void Session::launch()
 {
 	active_list = false;
 	visible.link(active_tray());
+	visible.setInvert();
 	int opt;
 
 	do{
@@ -554,6 +555,14 @@ void Session::chooseFilter()
 		GraphInter::get()->enter(update);
 
 		this->get_visible()->setFilterDate(update, lowdate);
+	}
+	else if (filter == read)
+	{
+		this->get_visible()->setFilterRead();
+	}
+	else if (filter == unread)
+	{
+		this->get_visible()->setFilterUnread();
 	}
 	else
 	{
