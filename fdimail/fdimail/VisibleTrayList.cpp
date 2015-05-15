@@ -157,7 +157,7 @@ void VisibleTrayList::orderByBody()
 
 void VisibleTrayList::reverse(){
 	for (int i = 0; i < length() / 2; i++){
-		change(i, length() - i);
+		change(i, length() - i - 1);
 	}
 }
 
