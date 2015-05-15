@@ -30,7 +30,6 @@ public:
 
 	void launch();
 
-
 	void AccountOptions(int &option);
 	void AddFastName(User* user);
 	void AliasOptions();

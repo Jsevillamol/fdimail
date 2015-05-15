@@ -43,8 +43,7 @@ Session::~Session()
 void Session::launch()
 {
 	active_list = false;
-	visible.link(active_tray());
-	visible.setInvert();
+	visible.init(active_tray());
 	int opt;
 
 	do{
