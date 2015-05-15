@@ -118,7 +118,6 @@ void VisibleTrayList::orderBy(Funct order)
 			}
 		}
 	} while (change_made);
-	setInvert();
 }
 
 void VisibleTrayList::orderByDate()
