@@ -41,12 +41,16 @@ void VisibleTrayList::refresh()
 		break;
 	case recipients:
 		orderByRecipient();
+		break;
 	case body:
 		orderByBody();
+		break;
 	default:
 		orderByDate();
 		break;
 	}
+
+	if (inverse_order) reverse();
 }
 
 void VisibleTrayList::sync()
@@ -148,6 +152,12 @@ void VisibleTrayList::orderByRecipient()
 void VisibleTrayList::orderByBody()
 {
 	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body < b->mail->body); });
+}
+
+void VisibleTrayList::reverse(){
+	for (int i = 0; i < length() / 2; i++){
+		change(i, length() - i);
+	}
 }
 
 void VisibleTrayList::erase()

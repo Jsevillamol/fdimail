@@ -37,6 +37,8 @@ public:
 	void orderByRecipient();
 	void orderByBody();
 
+	void reverse();
+
 	inline bool full() const  { return this->counter == MAX_ELEMS; }
 	inline int length() const { return this->counter; }
 
@@ -88,6 +90,7 @@ private:
 
 	TrayList* trayList;
 	Filter active_order;
+	bool inverse_order;
 
 	//Filters
 	std::map<Filter, bool> filters;
