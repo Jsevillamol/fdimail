@@ -14,13 +14,6 @@ functions necessary for working with it
 
 class User
 {
-private:
-	std::string id, password;
-
-	ContactList contactList;
-	TrayList inbox;
-	TrayList outbox;
-
 public:
 	User(const std::string idUser, const std::string password);
 	User();
@@ -39,6 +32,13 @@ public:
 
 	bool checkPassword(const std::string &possible_password)const 
 		{ return password == sha1(possible_password); }
+
+private:
+	std::string id, password;
+
+	ContactList contactList;
+	TrayList inbox;
+	TrayList outbox;
 	
 };
 #endif

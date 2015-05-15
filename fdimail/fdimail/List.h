@@ -13,38 +13,35 @@ types of arguments
 template <class T, int MAX>
 class List
 {
+public:
+	List() : counter(0) {}
+	~List();
+
+	inline bool full() const  { return this->counter == MAX; }
+	inline int length() const { return this->counter; }
+
+	T* operator [](int i) { return list[i]; }
+
+	bool insert(T* elem);
+	bool destroy(const std::string &id);
+
+	void erase();
+
+	bool search(const std::string &id, int &pos) const;
+	T* get(const std::string &id);
+
+	void save(const std::string &name);
+	bool load(const std::string &name/*, const std::string &url*/);
+
 protected:
-	T* list [MAX];
+	T* list[MAX];
 	int counter;
 
 	//Moves the list one space right from pos to end
 	void shiftRight(const int pos);
 	//Eliminates pointer in pos
 	void shiftLeft(const int pos);
-public:
-	List();
-	~List();
-
-	inline bool full() const  { return this->counter == MAX; }
-	inline int length() const { return this->counter; }
-
-	bool insert(T* elem);
-	bool search(const std::string &id, int &pos) const;
-	T* get(const std::string &id);
-
-	bool destroy(const std::string &id); //Deletes the pointers
-	void erase();
-
-	void save(const std::string &name);
-	bool load(const std::string &name/*, const std::string &url*/);
-
-	T* operator [](int i) { return list[i]; }
 };
-
-template <class T, int MAX>
-List<T,MAX>::List() : counter(0)
-{
-}
 
 template<class T, int MAX>
 List<T, MAX>::~List()

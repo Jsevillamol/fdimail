@@ -20,15 +20,22 @@ private:
 	User* user;
 
 	VisibleTrayList visible;
-public:
+
 	bool active_list; //0 for inbox, 1 for outbox
 	void changeTray() { active_list = !active_list; }
-	TrayList* active_tray() { return (active_list) ?user->getOutbox() :user->getInbox(); }
-	VisibleTrayList* get_visible(){ return &visible; }
+public:
+	
 	Session(Manager* manager); //logIn
 	~Session();
 
 	void launch();
+
+	void readMail();
+	void sendMail();
+	void answerMail(Mail* &originalMail);
+	void forwardMail(Mail* &originalMail);
+	void deleteMail();
+	void fastRead();
 
 	void AccountOptions(int &option);
 	void AddFastName(User* user);
@@ -43,12 +50,8 @@ public:
 
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }
-
-	void readMail();
-	void sendMail();
-	void answerMail(Mail* &originalMail);
-	void forwardMail(Mail* &originalMail);
-	void deleteMail();
-	void fastRead();
+	TrayList* active_tray() { return (active_list) ? user->getOutbox() : user->getInbox(); }
+	VisibleTrayList* get_visible(){ return &visible; }
+	bool get_active_list(){ return active_list; }
 };
 #endif

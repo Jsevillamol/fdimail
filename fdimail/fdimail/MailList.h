@@ -13,8 +13,6 @@ for work whith all mails
 
 class MailList: public List<Mail, MAX_MAILS>
 {
-private:
-	Mail error;
 public:
 	//Deletes the mail you want from the maillist
 	bool MailList::delete_mail(const std::string &id)
@@ -31,5 +29,8 @@ public:
 	}
 
 	Mail* getError(){ return &error; }
+
+private:
+	Mail error;
 };
 #endif

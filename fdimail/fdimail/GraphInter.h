@@ -19,9 +19,6 @@ class User;
 //Graphical Interface. May be used to implement SFML, as of now prints through the console
 class GraphInter
 {
-private:
-	static GraphInter* inter;
-	GraphInter();//to prevent instantation
 public:
 	~GraphInter();
 
@@ -29,7 +26,7 @@ public:
 	static void load();
 	static void close();
 
-	//Core functions
+	//Menus
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
@@ -42,7 +39,6 @@ public:
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
 	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
 
-	void send_to_multiple(Mail* mail, ContactList* contactList);
 	Mail* errorMail(const std::string &sender);
 
 	//Fastnames
@@ -57,23 +53,39 @@ public:
 	std::string inputBox(std::string &message);
 	void display(std::string error);
 	void display(char sign);
-	void enter(std::string &word);
-	void enter(int &digit);
-	void enter(Date &date);
-	std::string HideLimitPassword();
-	std::string HidePassword();
+	
 	void choose(std::string parameter, Filter &filter, Session* session);
 	int filter();
 	void pause();
 	void clearConsole();
-	int digitBetween(int a, int b);
+	
 	int WhatToDelete();
 	
 	int AccountOptions();
-	std::string center_word(std::string number, int length, std::string arround);
-	void tab_word(std::string word);
+
+	//Input
 	void checkUsername(std::string &password);
 	void checkPassword(std::string &password);
+
+	void enter(std::string &word);
+	void enter(int &digit);
+	void enter(Date &date);
+
+	std::string HideLimitPassword();
+	std::string HidePassword();
+	
+private:
+	static GraphInter* inter;
+	GraphInter();//to prevent instantation
+
+	//Auxiliar input functions
+	void send_to_multiple(Mail* mail, ContactList* contactList);
+
+	int digitBetween(int a, int b);
+
+	//Formatting strings
+	std::string center_word(std::string number, int length, std::string arround);
+	void tab_word(std::string word);
 	std::string linea();
 };
 #endif //GRAPHINTER

@@ -16,6 +16,7 @@ struct tElemTray
 
 	tElemTray() {}
 	tElemTray(Mail* mail) : mail(mail), read(false) {}
+
 	std::string getId() const { return mail->getId(); }
 
 	void save(std::ofstream &file);

@@ -183,11 +183,6 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	}
 }
 
-void Manager::deleteName(User* user, const std::string &idName)
-{
-	user->getContactlist()->destroy(idName);
-}
-
 //Asks you for the userfile location, just if
 //is not found in the default url
 void Manager::manualUsers(std::string &name)

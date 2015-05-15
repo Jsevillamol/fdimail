@@ -57,7 +57,7 @@ void GraphInter::showTray(Session* session)
 	std::string title, thisMail;
 	std::ostringstream menu;
 
-	if (session->active_list)
+	if (session->get_active_list())
 	{
 		title = center_word("Outbox", HORIZONTAL, "-");
 	}
@@ -124,7 +124,7 @@ int GraphInter::sessionMenu(Session* session)
 	tab_word("2- Send mail");
 	tab_word("3- Delete mail");
 
-	if (session->active_list)
+	if (session->get_active_list())
 	{
 		tab_word("4- See inbox");
 	}
@@ -640,6 +640,7 @@ std::string GraphInter::valid_user()
 void GraphInter::drawMail(const Mail* mail)
 {
 	std::cout << mail->to_string() << std::endl;
+	linea();
 }
 
 //Asks you to enter your username again, and

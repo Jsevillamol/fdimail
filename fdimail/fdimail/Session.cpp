@@ -192,7 +192,7 @@ void Session::AliasOptions()
 						}
 						else
 						{
-							manager->deleteName(this->getUser(), name);
+							this->getUser()->getContactlist()->destroy(name);
 						}
 					}
 					else
@@ -289,7 +289,6 @@ void Session::fastRead()
 			{
 				//Display mail
 				GraphInter::get()->drawMail(visible[i]->mail);
-				GraphInter::get()->linea();
 				GraphInter::get()->pause();
 
 				//Change mail status to read

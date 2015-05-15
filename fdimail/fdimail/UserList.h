@@ -8,7 +8,7 @@
 
 /*
 Derived class from list, responsible
-for work whith users
+for holding the user database
 */
 
 class UserList: public List<User, MAX_USERS> {};

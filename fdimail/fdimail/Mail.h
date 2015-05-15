@@ -32,11 +32,11 @@ public:
 
 	const std::string& getId() const { return id; }
 	int getCounter() const { return user_count; }
+	int lowerCounter(){ return --user_count; }
 
 	void save(std::ofstream &file)const;
 	bool load(std::ifstream &file);
 
-	int lowerCounter(){ return --user_count; }
 	const std::string to_string()const;
 	const std::string header()const;
 
