@@ -10,6 +10,8 @@ VisibleTrayList::VisibleTrayList()
 	filters[Filter::body] = false;
 	filters[Filter::emissor] = false;
 	filters[Filter::recipients] = false;
+
+	active_order = none;
 }
 
 void VisibleTrayList::link(TrayList* trayList)
@@ -114,20 +116,18 @@ void VisibleTrayList::orderBy(Funct order)
 	//Bubblesort
 	bool change_made;
 
-	if (this->length() < 1)
-	{
-		do{
-			change_made = false;
-			for (int i = 0; i < this->length() - 1; i++)
+	do{
+		change_made = false;
+		for (int i = 0; i < this->length() - 1; i++)
+		{
+			if (!order(list[i], list[i + 1]))
 			{
-				if (!order(list[i], list[i + 1]))
-				{
-					this->change(i, i + 1);
-					change_made = true;
-				}
+				this->change(i, i + 1);
+				change_made = true;
 			}
-		} while (change_made);
-	}
+		}
+	} while (change_made);
+	
 }
 
 void VisibleTrayList::orderByDate()
