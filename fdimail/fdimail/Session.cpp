@@ -192,12 +192,13 @@ void Session::deleteMail()
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
 
-		option = 0;
 	}
 	else
 	{
 		do
 		{
+			option = 0;
+
 			visible.refresh();
 			GraphInter::get()->clearConsole();
 			GraphInter::get()->showTray(this);

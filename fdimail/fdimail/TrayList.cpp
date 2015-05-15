@@ -19,8 +19,8 @@ void TrayList::insert(tElemTray * const elem)
 	//std::cout << "Inserting in TrayList the object " << elem << std::endl;
 	if (counter == MAX_ELEMS)
 	{
-		shiftLeft(counter);
-		list[counter] = elem;
+		shiftLeft(0);
+		list[counter-1] = elem;
 	}
 	else
 	{
