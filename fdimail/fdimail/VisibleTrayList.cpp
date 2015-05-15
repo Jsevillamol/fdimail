@@ -126,27 +126,27 @@ void VisibleTrayList::orderBy(Funct order)
 
 void VisibleTrayList::orderByDate()
 {
-	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date < b->mail->date; });
+	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date <= b->mail->date; });
 }
 
 void VisibleTrayList::orderBySubject()
 {
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->getsubject() < b->mail->getsubject()); });
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->getsubject() <= b->mail->getsubject()); });
 }
 
 void VisibleTrayList::orderByEmissor()
 {
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->from < b->mail->from);} );
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->from <= b->mail->from);} );
 }
 
 void VisibleTrayList::orderByRecipient()
 {
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->recipients[0] < b->mail->recipients[0]); });
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->recipients[0] <= b->mail->recipients[0]); });
 }
 
 void VisibleTrayList::orderByBody()
 {
-	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body < b->mail->body); });
+	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body <= b->mail->body); });
 }
 
 void VisibleTrayList::reverse(){
