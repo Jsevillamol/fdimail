@@ -5,6 +5,10 @@
 
 VisibleTrayList::VisibleTrayList()
 {
+	init(nullptr);
+}
+
+void VisibleTrayList::init(TrayList* trayList){
 	filters[date] = false;
 	filters[Filter::subject] = false;
 	filters[Filter::body] = false;
@@ -12,6 +16,9 @@ VisibleTrayList::VisibleTrayList()
 	filters[Filter::recipients] = false;
 
 	active_order = none;
+	inverse_order = false;
+
+	link(trayList);
 }
 
 void VisibleTrayList::link(TrayList* trayList)

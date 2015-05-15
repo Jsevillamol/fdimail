@@ -14,6 +14,7 @@ class VisibleTrayList
 public:
 	VisibleTrayList();
 
+	void init(TrayList* trayList);
 	void link(TrayList* trayList);
 	void refresh();
 	void sync();
