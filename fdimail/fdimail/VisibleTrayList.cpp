@@ -16,7 +16,7 @@ void VisibleTrayList::init(TrayList* trayList){
 	filters[Filter::recipients] = false;
 
 	active_order = none;
-	inverse_order = false;
+	inverse_order = true;
 
 	link(trayList);
 }

@@ -816,6 +816,8 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 		tab_word("3- Invert order");
 	}
 
+	tab_word("0- Exit to session menu");
+
 	display(linea());
 
 	display("Enter an option:");
@@ -824,11 +826,11 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 
 	if (parameter == "filter")
 	{
-		option = digitBetween(1, 7);
+		option = digitBetween(0, 7);
 	}
 	else
 	{
-		option = digitBetween(1, 3);
+		option = digitBetween(0, 3);
 	}
 
 	switch (option)
