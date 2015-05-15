@@ -555,6 +555,14 @@ void Session::chooseFilter()
 
 		this->get_visible()->setFilterDate(update, lowdate);
 	}
+	else if (filter == read)
+	{
+		this->get_visible()->setFilterRead();
+	}
+	else if (filter == unread)
+	{
+		this->get_visible()->setFilterUnread();
+	}
 	else
 	{
 		std::string reference;
