@@ -16,11 +16,11 @@ through the console
 
 class Session;
 class User;
-//Graphical Interface. May be used to implement SFML, as of now prints through the console
+
 class GraphInter
 {
 public:
-	~GraphInter();
+	~GraphInter() {}
 
 	static GraphInter* get();
 	static void load();
@@ -50,9 +50,6 @@ public:
 	void showTray(Session* session);
 
 	std::string valid_user();
-	std::string inputBox(std::string &message);
-	void display(std::string error);
-	void display(char sign);
 	
 	void choose(std::string parameter, Filter &filter, Session* session);
 	int filter();
@@ -73,10 +70,14 @@ public:
 
 	std::string HideLimitPassword();
 	std::string HidePassword();
-	
+
+	//Outout
+	void display(std::string error);
+	void display(char sign);
+
 private:
 	static GraphInter* inter;
-	GraphInter();//to prevent instantation
+	GraphInter() {}//to prevent instantation
 
 	//Auxiliar input functions
 	void send_to_multiple(Mail* mail, ContactList* contactList);

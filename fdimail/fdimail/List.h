@@ -49,16 +49,6 @@ List<T, MAX>::~List()
 	erase();
 }
 
-template<class T, int MAX>
-void List<T, MAX>::erase(){
-	for (int i = 0; i < this->counter; i++)
-	{
-		delete list[i];
-		list[i] = nullptr;
-	}
-	this->counter = 0;
-}
-
 //It search the position where an element should be,
 //makes space for him, and inserts it in this position
 template<class T, int MAX>
@@ -79,16 +69,31 @@ bool List<T, MAX>::insert(T* elem)
 	else return false;
 }
 
-//It moves every elemnts on the list
-//to the right from the position you choose
+//Searchs for the element you choose
+//on the list, and deletes it
 template<class T, int MAX>
-void List<T, MAX>::shiftRight(const int pos)
+bool List<T, MAX>::destroy(const std::string &id)
 {
-	assert(counter < MAX);
-	for (int i = counter; i > pos; i--)
+	int pos;
+	if (search(id, pos))
 	{
-		list[i] = list[i - 1];
+		delete list[pos];
+		shiftLeft(pos);
+		counter--;
+		return true;
 	}
+	else return false;
+}
+
+template<class T, int MAX>
+void List<T, MAX>::erase()
+{
+	for (int i = 0; i < this->counter; i++)
+	{
+		delete list[i];
+		list[i] = nullptr;
+	}
+	this->counter = 0;
 }
 
 //Searchs the position where 
@@ -96,7 +101,7 @@ void List<T, MAX>::shiftRight(const int pos)
 template<class T, int MAX>
 bool List<T, MAX>::search(const std::string &id, int &pos) const
 {
-	int left_key = 0, right_key = counter-1;
+	int left_key = 0, right_key = counter - 1;
 	pos = (left_key + right_key) / 2;
 	while (left_key <= right_key)
 	{
@@ -129,37 +134,9 @@ T* List<T, MAX>::get(const std::string &id)
 	{
 		return list[pos];
 	}
-	else 
+	else
 	{
 		return nullptr;
-	}
-}
-
-//Searchs for the element you choose
-//on the list, and deletes it
-template<class T, int MAX>
-bool List<T, MAX>::destroy(const std::string &id)
-{
-	int pos;
-	if (search(id, pos))
-	{
-		delete list[pos];
-		shiftLeft(pos);
-		counter--;
-		return true;
-	}
-	else return false;
-}
-
-//It moves every elemnts on the list
-//to the right from the position you choose
-template<class T, int MAX>
-void List<T, MAX>::shiftLeft(const int pos)
-{
-	assert(0 <= pos && pos < counter);
-	for (int i = pos; i < counter - 1; i++)
-	{
-		list[i] = list[i+1];
 	}
 }
 
@@ -203,7 +180,7 @@ bool List<T, MAX>::load(const std::string &name)
 			elem = new T;
 
 			if (!elem->load(file)) right = false;
-			
+
 			else this->insert(elem);
 		}
 
@@ -212,5 +189,29 @@ bool List<T, MAX>::load(const std::string &name)
 		return true;
 	}
 	else return false;
+}
+
+//It moves every elemnts on the list
+//to the right from the position you choose
+template<class T, int MAX>
+void List<T, MAX>::shiftRight(const int pos)
+{
+	assert(counter < MAX);
+	for (int i = counter; i > pos; i--)
+	{
+		list[i] = list[i - 1];
+	}
+}
+
+//It moves every elemnts on the list
+//to the right from the position you choose
+template<class T, int MAX>
+void List<T, MAX>::shiftLeft(const int pos)
+{
+	assert(0 <= pos && pos < counter);
+	for (int i = pos; i < counter - 1; i++)
+	{
+		list[i] = list[i+1];
+	}
 }
 #endif // !LIST

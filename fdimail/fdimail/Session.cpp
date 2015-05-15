@@ -44,6 +44,7 @@ void Session::launch()
 {
 	active_list = false;
 	visible.init(active_tray());
+	Filter filter = none;
 	int opt;
 
 	do{
@@ -76,11 +77,51 @@ void Session::launch()
 			AliasOptions();
 			break;
 		case 8:
-			filterOptions();
+			filterOptions(filter);
 			break;
 		}
 	} while (opt != 0);
 	visible.link(nullptr);
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*                                 MAIN MENU OPTIONS                                 */
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+//It shows you the mail you choose, 
+//so you can read it
+void Session::readMail()
+{
+	if (this->active_tray()->length() == 0)
+	{
+		GraphInter::get()->display("Error, you have no mails to read");
+		GraphInter::get()->pause();
+		GraphInter::get()->clearConsole();
+	}
+	else
+	{
+		//Select mail to read
+		GraphInter::get()->clearConsole();
+		//Display mail
+		Mail* mail = GraphInter::get()->selectMail(this);
+		GraphInter::get()->drawMail(mail);
+		//Change mail status to read
+		active_tray()->readMail(mail->getId());
+
+		GraphInter::get()->pause();
+		int option = GraphInter::get()->mailMenu();
+
+		GraphInter::get()->clearConsole();
+
+		if (option == 1)
+		{
+			answerMail(mail);
+		}
+		else if (option == 2)
+		{
+			forwardMail(mail);
+		}
+	}
 }
 
 //Internal part of AccountOptions(), it
@@ -226,45 +267,7 @@ void Session::AliasOptions()
 	} while (option != 0);
 }
 
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/*                                 MAIN MENU OPTIONS                                 */
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-//It shows you the mail you choose, 
-//so you can read it
-void Session::readMail()
-{
-	if (this->active_tray()->length() == 0)
-	{
-		GraphInter::get()->display("Error, you have no mails to read");
-		GraphInter::get()->pause();
-		GraphInter::get()->clearConsole();
-	}
-	else
-	{
-		//Select mail to read
-		GraphInter::get()->clearConsole();
-		//Display mail
-		Mail* mail = GraphInter::get()->selectMail(this);
-		GraphInter::get()->drawMail(mail);
-		//Change mail status to read
-		active_tray()->readMail(mail->getId());
-
-		GraphInter::get()->pause();
-		int option = GraphInter::get()->mailMenu();
-
-		GraphInter::get()->clearConsole();
-
-		if (option == 1)
-		{
-			answerMail(mail);
-		}
-		else if (option == 2)
-		{
-			forwardMail(mail);	
-		}
-	}
-}
 
 //It shows you all the mails that you did not
 //read from your input box
@@ -526,19 +529,15 @@ void Session::AddFastName(User* user)
 	}
 }
 
-void Session::chooseOrder()
+void Session::chooseOrder(Filter filter)
 {
-	Filter filter;
-
 	GraphInter::get()->choose("order", filter, this);
 
 	this->get_visible()->changeOrder(filter);
 }
 
-void Session::chooseFilter()
+void Session::chooseFilter(Filter filter)
 {
-	Filter filter;
-
 	this->get_visible()->closeFilter();
 	
 	GraphInter::get()->choose("filter", filter, this);
@@ -573,7 +572,7 @@ void Session::chooseFilter()
 	}
 }
 
-void Session::filterOptions()
+void Session::filterOptions(Filter filter)
 {
 	int option;
 
@@ -583,11 +582,11 @@ void Session::filterOptions()
 
 	if (option == 1)
 	{
-		chooseOrder();
+		chooseOrder(filter);
 	}
 	else if (option == 2)
 	{
-		chooseFilter();
+		chooseFilter(filter);
 	}
 	else if (option == 3)
 	{

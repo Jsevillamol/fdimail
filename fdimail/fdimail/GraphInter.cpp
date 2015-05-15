@@ -8,10 +8,6 @@
 
 GraphInter* GraphInter::inter = nullptr;
 
-GraphInter::GraphInter() {}
-
-GraphInter::~GraphInter() {}
-
 GraphInter* GraphInter::get()
 {
 	return inter;
@@ -52,71 +48,13 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	password = HideLimitPassword();
 }
 
-void GraphInter::showTray(Session* session)
-{
-	std::string title, thisMail;
-	std::ostringstream menu;
-
-	if (session->get_active_list())
-	{
-		title = center_word("Outbox", HORIZONTAL, "-");
-	}
-	else
-	{
-		title = center_word("Inbox", HORIZONTAL, "-");
-	}
-
-	display(linea());
-
-	menu << title << "\n" << "\n" << "R N"
-		<< std::setw(7) << "FROM" << std::setw(33)
-		<< "SUBJECT" << std::setw(31) << "DATE";
-
-	display(menu.str());
-
-	display(linea());
-
-	if (session->get_visible()->length() == 0)
-	{
-		display(center_word("You have no mails", HORIZONTAL, " "));
-	}
-	else
-	{
-		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
-		{
-			std::ostringstream show;
-
-			if (!session->get_visible()->operator[](i)->read)
-			{
-				show << "*";
-			}
-			else
-			{
-				show << " ";
-			}
-
-			Mail* mail = session->get_visible()->operator[](i)->mail;
-
-			if (mail == nullptr)
-			{
-				mail = errorMail(session->getUser()->getId());
-			}
-
-			thisMail = mail->header();
-
-			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
-			display(show.str());
-		}
-	}
-}
-
 //Shows active tray, returns user options (read mail, delete mail, etc)
 int GraphInter::sessionMenu(Session* session)
 {
 	display("Mail of " + session->getUser()->getId());
 
 	showTray(session);
-	
+
 	display(linea());
 
 	display("Choose your desired option: ");
@@ -143,84 +81,6 @@ int GraphInter::sessionMenu(Session* session)
 	display("Enter an option:");
 
 	return digitBetween(0, 8);
-}
-
-//Little options menu
-int GraphInter::WhatToDelete()
-{
-	display(linea());
-
-	display("Choose your desired option: ");
-	tab_word("1- Choose mail");
-	tab_word("2- Delete all mails");
-	tab_word("0- Exit to session menu");
-
-	display(linea());
-
-	display("Enter an option:");
-
-	return digitBetween(0, 2);
-}
-
-void GraphInter::showFastNames(ContactList* contactList)
-{
-	if (contactList->length() != 0)
-	{
-		std::ostringstream alias;
-		
-		alias << "N" << std::setw(10) << "Username" << std::setw(30) << "Alias";
-
-		display(alias.str());
-
-		display(linea());
-
-		for (int i = contactList->length() - 1; i >= 0; i--)
-		{
-			std::ostringstream newAlias;
-
-			std::string user = std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user;
-
-			newAlias << std::setw(36) << std::left << user << std::left << contactList->operator[](i)->alias;
-
-			display(newAlias.str());
-		}
-		display(linea());
-	}
-}
-
-int GraphInter::FastName(ContactList* contactList)
-{
-	showFastNames(contactList);
-
-	display("Choose your desired option: ");
-	tab_word("1- Add an alias");
-	tab_word("2- Delete an alias");
-	tab_word("3- Delete all names");
-	tab_word("0- Exit to session menu");
-
-	display(linea());
-
-	display("Enter an option:");
-
-	return digitBetween(0, 3);
-}
-
-//Little options menu
-int GraphInter::AccountOptions()
-{
-	display(linea());
-
-	display("Choose your desired option: ");
-	tab_word("1- Change username");
-	tab_word("2- Change password");
-	tab_word("3- Delete account");
-	tab_word("0- Exit to session menu");
-
-	display(linea());
-
-	display("Enter an option:");
-
-	return digitBetween(0, 3);
 }
 
 //Shows active tray, returns idMail of mail selected
@@ -352,7 +212,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 	display("Subject: " + mail->subject);
 
 	display("Body (enter twice (ENTER) to end the body): ");
-	
+
 	std::string line;
 	WhatToSay = "";
 	do{
@@ -432,49 +292,6 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 	}
 }
 
-void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
-{
-	int i;
-	for (i = 0; i < mail->recipient_count; i++)
-	{
-		if (i == 0)
-		{
-			display("To ('Me' to send it to yourself): ");
-		}
-		else
-		{
-			display("CC ('Me' to send it to yourself): ");
-		}
-
-		std::string recipient;
-
-		//std::cin.ignore();
-		enter(recipient);
-
-		mail->recipients[i] = contactList->SearchFastName(recipient);
-
-		if (mail->recipients[i] == "@fdimail.com")
-		{
-			mail->recipient_count--;
-			i--;
-		}
-		else
-		{
-			for (int j = 0; j <= i; j++)
-			{
-				if (i != j && mail->recipients[j] == mail->recipients[i])
-				{
-					display("You have already choose this destinatary, you cannot choose it again");
-
-					i--;
-				}
-			}
-		}
-	}
-	
-		mail->user_count = mail->recipient_count + 1;
-}
-
 //Returns a default mail, which is sent when one of the 
 //user active tray mails does not exist
 Mail* GraphInter::errorMail(const std::string &sender)
@@ -499,84 +316,112 @@ Mail* GraphInter::errorMail(const std::string &sender)
 	return mail;
 }
 
-//It pauses the program, you must
-//press 'ENTER' for continue
-void GraphInter::pause()
+int GraphInter::FastName(ContactList* contactList)
 {
-	std::cin.sync();
-	std::cin.get();
+	showFastNames(contactList);
+
+	display("Choose your desired option: ");
+	tab_word("1- Add an alias");
+	tab_word("2- Delete an alias");
+	tab_word("3- Delete all names");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 3);
 }
 
-//It asks you for a digit, and makes sure that digit
-//is between the other two that it has as arguments
-int GraphInter::digitBetween(int a, int b)
+void GraphInter::showFastNames(ContactList* contactList)
 {
-	int digit = -1;
-
-	do
+	if (contactList->length() != 0)
 	{
-		enter(digit);
+		std::ostringstream alias;
 
-		if (std::cin.fail())
+		alias << "N" << std::setw(10) << "Username" << std::setw(30) << "Alias";
+
+		display(alias.str());
+
+		display(linea());
+
+		for (int i = contactList->length() - 1; i >= 0; i--)
 		{
-			display("Error, enter a digit");
+			std::ostringstream newAlias;
+
+			std::string user = std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user;
+
+			newAlias << std::setw(36) << std::left << user << std::left << contactList->operator[](i)->alias;
+
+			display(newAlias.str());
 		}
-
-		else if (digit < a || digit > b)
-		{
-			display("Error, enter a digit between " + std::to_string(a) + " and " + std::to_string(b));
-			digit = -1;
-		}
-
-	} while (digit == -1);
-
-	return digit;
+		display(linea());
+	}
 }
 
-//It centers a string on the middle of the pantalla,
-//and surround it with what you want (space, guion...)
-std::string GraphInter::center_word(std::string word, int length, std::string arround)
+//Draws a complete mail
+void GraphInter::drawMail(const Mail* mail)
 {
-	if (word.size() != length)
+	std::cout << mail->to_string() << std::endl;
+	linea();
+}
+
+void GraphInter::showTray(Session* session)
+{
+	std::string title, thisMail;
+	std::ostringstream menu;
+
+	if (session->get_active_list())
 	{
-		for (int i = word.size(); i < length; i++)
+		title = center_word("Outbox", HORIZONTAL, "-");
+	}
+	else
+	{
+		title = center_word("Inbox", HORIZONTAL, "-");
+	}
+
+	display(linea());
+
+	menu << title << "\n" << "\n" << "R N"
+		<< std::setw(7) << "FROM" << std::setw(33)
+		<< "SUBJECT" << std::setw(31) << "DATE";
+
+	display(menu.str());
+
+	display(linea());
+
+	if (session->get_visible()->length() == 0)
+	{
+		display(center_word("You have no mails", HORIZONTAL, " "));
+	}
+	else
+	{
+		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
 		{
-			if (word.size() % 2 == 0)
+			std::ostringstream show;
+
+			if (!session->get_visible()->operator[](i)->read)
 			{
-				word = word + arround;
+				show << "*";
 			}
-			else if (word.size() % 2 == 1)
+			else
 			{
-				word = arround + word;
+				show << " ";
 			}
+
+			Mail* mail = session->get_visible()->operator[](i)->mail;
+
+			if (mail == nullptr)
+			{
+				mail = errorMail(session->getUser()->getId());
+			}
+
+			thisMail = mail->header();
+
+			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
+			display(show.str());
 		}
 	}
-	word = word;
-
-	return word;
-}
-
-//It prints the word you choose on console,
-//after two empty spaces
-void GraphInter::tab_word(std::string word)
-{
-	std::ostringstream tab;
-
-	tab << std::setw(2 + word.size()) << word;
-
-	display(tab.str());
-}
-
-//Returns a guion line
-std::string GraphInter::linea()
-{
-	std::ostringstream line;
-
-	line << std::setfill('-')
-		<< std::setw(HORIZONTAL) << '-'
-		<< std::setfill(' ');
-
-	return line.str();
 }
 
 //Check the username to not have spaces, and
@@ -618,9 +463,9 @@ std::string GraphInter::valid_user()
 				for (int j = 0; j < CENSORED_CHARS; j++)
 				{
 					if (id[i] == forbidden[j])
-					{						
+					{
 						character << "(" << char(forbidden[j]) << ")";
-						
+
 						display("Error, your id cannot contain the character " + character.str());
 						pause();
 
@@ -628,7 +473,7 @@ std::string GraphInter::valid_user()
 					}
 				}
 			}
-		}		
+		}
 	} while (!id_right);
 
 	id = id + "@fdimail.com";
@@ -636,11 +481,138 @@ std::string GraphInter::valid_user()
 	return id;
 }
 
-//Draws a complete mail
-void GraphInter::drawMail(const Mail* mail)
+void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 {
-	std::cout << mail->to_string() << std::endl;
-	linea();
+	display(linea());
+
+	display("Choose your " + parameter + ": ");
+	tab_word("1- Subject");
+	tab_word("2- Date");
+
+	if (parameter == "filter")
+	{
+		tab_word("3- Emissor");
+		tab_word("4- Recipients");
+		tab_word("5- Body");
+		tab_word("6- Read");
+		tab_word("7- Unread");
+	}
+	else
+	{
+		tab_word("3- Invert order");
+	}
+
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	int option;
+
+	if (parameter == "filter")
+	{
+		option = digitBetween(0, 7);
+	}
+	else
+	{
+		option = digitBetween(0, 3);
+	}
+
+	switch (option)
+	{
+	case 1:
+		filter = subject;
+		break;
+	case 2:
+		filter = date;
+		break;
+	case 3:
+		if (parameter == "filter")
+		{
+			filter = emissor;
+		}
+		else
+		{
+			session->get_visible()->setInvert();
+		}
+		break;
+	case 4:
+		filter = recipients;
+		break;
+	case 5:
+		filter = body;
+		break;
+	case 6:
+		filter = read;
+		break;
+	case 7:
+		filter = unread;
+		break;
+	}
+}
+
+int GraphInter::filter()
+{
+	display(linea());
+
+	display("Choose your desired option: ");
+	tab_word("1- Change order");
+	tab_word("2- Change filter");
+	tab_word("3- Quit filter");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 3);
+}
+
+//It pauses the program, you must
+//press 'ENTER' for continue
+void GraphInter::pause()
+{
+	std::cin.sync();
+	std::cin.get();
+}
+
+//Clears the console
+void GraphInter::clearConsole(){ system("cls"); }
+
+//Little options menu
+int GraphInter::WhatToDelete()
+{
+	display(linea());
+
+	display("Choose your desired option: ");
+	tab_word("1- Choose mail");
+	tab_word("2- Delete all mails");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 2);
+}
+
+//Little options menu
+int GraphInter::AccountOptions()
+{
+	display(linea());
+
+	display("Choose your desired option: ");
+	tab_word("1- Change username");
+	tab_word("2- Change password");
+	tab_word("3- Delete account");
+	tab_word("0- Exit to session menu");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(0, 3);
 }
 
 //Asks you to enter your username again, and
@@ -695,20 +667,6 @@ void GraphInter::checkPassword(std::string &password)
 
 		display("");
 	}
-}
-
-//Clears the console
-void GraphInter::clearConsole(){ system("cls"); }
-
-//Prints on the console the word you choose
-void GraphInter::display(std::string error)
-{
-	std::cout << error << std::endl;
-}
-
-void GraphInter::display(char sign)
-{
-	std::cout << sign;
 }
 
 //Enters in console the word you choose
@@ -795,90 +753,128 @@ std::string GraphInter::HidePassword()
 	return word;
 }
 
-void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
+//Prints on the console the word you choose
+void GraphInter::display(std::string error)
 {
-	display(linea());
+	std::cout << error << std::endl;
+}
 
-	display("Choose your " + parameter + ": ");
-	tab_word("1- Subject");
-	tab_word("2- Date");
+void GraphInter::display(char sign)
+{
+	std::cout << sign;
+}
 
-	if (parameter == "filter")
+void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
+{
+	int i;
+	for (i = 0; i < mail->recipient_count; i++)
 	{
-		tab_word("3- Emissor");
-		tab_word("4- Recipients");
-		tab_word("5- Body");
-		tab_word("6- Read");
-		tab_word("7- Unread");
-	}
-	else
-	{
-		tab_word("3- Invert order");
-	}
-
-	tab_word("0- Exit to session menu");
-
-	display(linea());
-
-	display("Enter an option:");
-
-	int option;
-
-	if (parameter == "filter")
-	{
-		option = digitBetween(0, 7);
-	}
-	else
-	{
-		option = digitBetween(0, 3);
-	}
-
-	switch (option)
-	{
-	case 1:
-		filter = subject;
-		break;
-	case 2:
-		filter = date;
-		break;
-	case 3:
-		if (parameter == "filter")
+		if (i == 0)
 		{
-			filter = emissor;
+			display("To ('Me' to send it to yourself): ");
 		}
 		else
 		{
-			session->get_visible()->setInvert();
+			display("CC ('Me' to send it to yourself): ");
 		}
-		break;
-	case 4:
-		filter = recipients;		
-		break;
-	case 5:
-		filter = body;
-		break;
-	case 6:
-		filter = read;
-		break;
-	case 7:
-		filter = unread;
-		break;
+
+		std::string recipient;
+
+		//std::cin.ignore();
+		enter(recipient);
+
+		mail->recipients[i] = contactList->SearchFastName(recipient);
+
+		if (mail->recipients[i] == "@fdimail.com")
+		{
+			mail->recipient_count--;
+			i--;
+		}
+		else
+		{
+			for (int j = 0; j <= i; j++)
+			{
+				if (i != j && mail->recipients[j] == mail->recipients[i])
+				{
+					display("You have already choose this destinatary, you cannot choose it again");
+
+					i--;
+				}
+			}
+		}
 	}
+	
+		mail->user_count = mail->recipient_count + 1;
 }
 
-int GraphInter::filter()
+//It asks you for a digit, and makes sure that digit
+//is between the other two that it has as arguments
+int GraphInter::digitBetween(int a, int b)
 {
-	display(linea());
+	int digit = -1;
 
-	display("Choose your desired option: ");
-	tab_word("1- Change order");
-	tab_word("2- Change filter");
-	tab_word("3- Quit filter");
-	tab_word("0- Exit to session menu");
+	do
+	{
+		enter(digit);
 
-	display(linea());
+		if (std::cin.fail())
+		{
+			display("Error, enter a digit");
+		}
 
-	display("Enter an option:");
+		else if (digit < a || digit > b)
+		{
+			display("Error, enter a digit between " + std::to_string(a) + " and " + std::to_string(b));
+			digit = -1;
+		}
 
-	return digitBetween(0, 3);
+	} while (digit == -1);
+
+	return digit;
+}
+
+//It centers a string on the middle of the pantalla,
+//and surround it with what you want (space, guion...)
+std::string GraphInter::center_word(std::string word, int length, std::string arround)
+{
+	if (word.size() != length)
+	{
+		for (int i = word.size(); i < length; i++)
+		{
+			if (word.size() % 2 == 0)
+			{
+				word = word + arround;
+			}
+			else if (word.size() % 2 == 1)
+			{
+				word = arround + word;
+			}
+		}
+	}
+	word = word;
+
+	return word;
+}
+
+//It prints the word you choose on console,
+//after two empty spaces
+void GraphInter::tab_word(std::string word)
+{
+	std::ostringstream tab;
+
+	tab << std::setw(2 + word.size()) << word;
+
+	display(tab.str());
+}
+
+//Returns a guion line
+std::string GraphInter::linea()
+{
+	std::ostringstream line;
+
+	line << std::setfill('-')
+		<< std::setw(HORIZONTAL) << '-'
+		<< std::setfill(' ');
+
+	return line.str();
 }
