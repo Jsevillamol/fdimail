@@ -721,32 +721,27 @@ std::string GraphInter::HidePassword()
 
 	//Enter new password
 	i = 0;
-	do
-	{
-		word[i] = (unsigned char)_getch();
+	word[i] = (unsigned char)_getch();
+	std::cout.flush();
 
+	while (word[i] != 13) // si no presiona ENTER
+	{
 		if (word[i] != 8)  // no es retroceso
 		{
-			if (word[i] == 13)
-			{
-				display(' ');
-			}
-			else
-			{
-				display('*'); // muestra por pantalla
-			}
+			display('*'); // muestra por pantalla
 			i++;
 		}
 		else if (i > 0)    // es retroceso y hay caracteres
 		{
 			std::cout << (char)8 << (char)32 << (char)8;
-			i--;  //el caracter a borrar e el backspace
+			i --;  //el caracter a borrar e el backspace
 		}
+
+		word[i] = (unsigned char)_getch();
 		std::cout.flush();
+	}
 
-	} while (word[i - 1] != 13);// si presiona ENTER
-
-	word[i - 1] = NULL;
+	word[i] = NULL;
 
 	//display("");
 
