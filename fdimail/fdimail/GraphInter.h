@@ -51,6 +51,7 @@ public:
 	
 	//Auxiliar funtions
 	void drawMail(const Mail* mail);
+	void showTray(Session* session);
 
 	std::string valid_user();
 	std::string inputBox(std::string &message);

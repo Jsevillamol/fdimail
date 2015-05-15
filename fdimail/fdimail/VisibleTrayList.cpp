@@ -40,7 +40,8 @@ void VisibleTrayList::refresh()
 	}
 }
 
-void VisibleTrayList::sync(){
+void VisibleTrayList::sync()
+{
 	erase();
 	for (int i = 0; i < this->trayList->length(); i++){
 		insert(trayList->operator[](i));
@@ -51,8 +52,14 @@ template<typename Funct, typename K>
 void VisibleTrayList::filterBy(Funct filter, K key)
 {
 	//erase();
-	for (int i = 0; i < this->length(); i++){
-		if (!filter(list[i], key)) shiftLeft(i);
+	for (int i = 0; i < this->length(); i++)
+	{
+		if (!filter(list[i], key))
+		{
+			shiftLeft(i);
+			counter--;
+			i--;
+		}
 	}
 }
 
@@ -129,7 +136,7 @@ bool VisibleTrayList::insert(tElemTray* elem)
 	if (!full())
 	{
 		list[length()] = elem;
-		this->counter++;
+		counter++;
 		return true;
 	}
 	else return false;

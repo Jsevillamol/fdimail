@@ -379,6 +379,8 @@ void Session::deleteMail()
 		do
 		{
 			visible.refresh();
+			GraphInter::get()->clearConsole();
+			GraphInter::get()->showTray(this);
 
 			if (visible.length() != 0)
 			{
@@ -394,9 +396,6 @@ void Session::deleteMail()
 				}
 				else if (option == 2)
 				{
-
-					GraphInter::get()->clearConsole();
-
 					for (int i = 0; i < visible.length(); i++)
 					{
 						std::string newId = (*(this->active_tray()))[0]->getId();

@@ -52,13 +52,10 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 	password = HideLimitPassword();
 }
 
-//Shows active tray, returns user options (read mail, delete mail, etc)
-int GraphInter::sessionMenu(Session* session)
+void GraphInter::showTray(Session* session)
 {
 	std::string title, thisMail;
 	std::ostringstream menu;
-
-	display("Mail of " + session->getUser()->getId());
 
 	if (session->active_list)
 	{
@@ -71,8 +68,8 @@ int GraphInter::sessionMenu(Session* session)
 
 	display(linea());
 
-	menu << title << "\n" << "\n" << "R N" 
-		<< std::setw(7) << "FROM" << std::setw(33) 
+	menu << title << "\n" << "\n" << "R N"
+		<< std::setw(7) << "FROM" << std::setw(33)
 		<< "SUBJECT" << std::setw(31) << "DATE";
 
 	display(menu.str());
@@ -85,7 +82,7 @@ int GraphInter::sessionMenu(Session* session)
 	}
 	else
 	{
-		for (int i = session->get_visible()->length()-1; i >= 0; i--)
+		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
 		{
 			std::ostringstream show;
 
@@ -104,13 +101,22 @@ int GraphInter::sessionMenu(Session* session)
 			{
 				mail = errorMail(session->getUser()->getId());
 			}
-	
+
 			thisMail = mail->header();
 
 			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
 			display(show.str());
 		}
 	}
+}
+
+//Shows active tray, returns user options (read mail, delete mail, etc)
+int GraphInter::sessionMenu(Session* session)
+{
+	display("Mail of " + session->getUser()->getId());
+
+	showTray(session);
+	
 	display(linea());
 
 	display("Choose your desired option: ");

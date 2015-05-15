@@ -64,7 +64,6 @@ public:
 				filters[Filter(i)] = false;
 			}
 		}
-		
 	}
 
 private:
