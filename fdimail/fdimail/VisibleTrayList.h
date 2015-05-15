@@ -70,6 +70,11 @@ public:
 		filters[unread] = true;
 	}
 
+	void setInvert()
+	{
+		inverse_order = !inverse_order;
+	}
+
 	void closeFilter()
 	{
 		for (int i = Filter::subject; i <= Filter::unread; i++)

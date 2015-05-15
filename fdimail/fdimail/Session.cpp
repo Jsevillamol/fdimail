@@ -45,7 +45,6 @@ void Session::launch()
 	active_list = false;
 	visible.link(active_tray());
 	int opt;
-	bool invert = false;
 
 	do{
 		GraphInter::get()->clearConsole();
@@ -284,8 +283,10 @@ void Session::fastRead()
 		visible.filterByRead(false);
 		visible.orderByDate();
 		visible.orderBySubject();
-		if (visible.length() > 0){
-			for (int i = 0; i < visible.length(); i++){
+		if (visible.length() > 0)
+		{
+			for (int i = 0; i < visible.length(); i++)
+			{
 				//Display mail
 				GraphInter::get()->drawMail(visible[i]->mail);
 				GraphInter::get()->linea();
@@ -530,7 +531,7 @@ void Session::chooseOrder()
 {
 	Filter filter;
 
-	GraphInter::get()->choose("order", filter);
+	GraphInter::get()->choose("order", filter, this);
 
 	this->get_visible()->changeOrder(filter);
 }
@@ -541,7 +542,7 @@ void Session::chooseFilter()
 
 	this->get_visible()->closeFilter();
 	
-	GraphInter::get()->choose("filter", filter);
+	GraphInter::get()->choose("filter", filter, this);
 
 	if (filter == date)
 	{

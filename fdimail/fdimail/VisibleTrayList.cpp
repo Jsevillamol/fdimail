@@ -121,7 +121,7 @@ void VisibleTrayList::orderBy(Funct order)
 			}
 		}
 	} while (change_made);
-	
+	setInvert();
 }
 
 void VisibleTrayList::orderByDate()
@@ -149,15 +149,18 @@ void VisibleTrayList::orderByBody()
 	orderBy([](tElemTray* a, tElemTray* b) { return (a->mail->body < b->mail->body); });
 }
 
-void VisibleTrayList::reverse(){
-	for (int i = 0; i < length() / 2; i++){
+void VisibleTrayList::reverse()
+{
+	for (int i = 0; i <= length() / 2; i++)
+	{
 		change(i, length() - i);
 	}
 }
 
 void VisibleTrayList::erase()
 {
-	for (int i = 0; i < length(); i++){
+	for (int i = 0; i < length(); i++)
+	{
 		list[i] = nullptr;
 	}
 	counter = 0;

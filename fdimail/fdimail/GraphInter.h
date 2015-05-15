@@ -62,7 +62,7 @@ public:
 	void enter(Date &date);
 	std::string HideLimitPassword();
 	std::string HidePassword();
-	void choose(std::string parameter, Filter &filter);
+	void choose(std::string parameter, Filter &filter, Session* session);
 	int filter();
 	void pause();
 	void clearConsole();

@@ -794,7 +794,7 @@ std::string GraphInter::HidePassword()
 	return word;
 }
 
-void GraphInter::choose(std::string parameter, Filter &filter)
+void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 {
 	display(linea());
 
@@ -810,6 +810,10 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 		tab_word("6- Read");
 		tab_word("7- Unread");
 	}
+	else
+	{
+		tab_word("4- Invert order");
+	}
 
 	display(linea());
 
@@ -823,7 +827,7 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 	}
 	else
 	{
-		option = digitBetween(1, 3);
+		option = digitBetween(1, 4);
 	}
 
 	switch (option)
@@ -838,7 +842,14 @@ void GraphInter::choose(std::string parameter, Filter &filter)
 		filter = date;
 		break;
 	case 4:
-		filter = recipients;
+		if (parameter == "filter")
+		{
+			filter = recipients;
+		}
+		else
+		{
+			session->get_visible()->setInvert();
+		}
 		break;
 	case 5:
 		filter = body;
