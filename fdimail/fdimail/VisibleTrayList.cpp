@@ -70,6 +70,7 @@ void VisibleTrayList::filterBy(Funct filter, K key)
 		if (!filter(list[i], key))
 		{
 			shiftLeft(i);
+			list[counter] = nullptr;
 			counter--;
 			i--;
 		}
@@ -162,6 +163,9 @@ void VisibleTrayList::reverse(){
 
 void VisibleTrayList::erase()
 {
+	for (int i = 0; i < length(); i++){
+		list[i] = nullptr;
+	}
 	counter = 0;
 }
 
