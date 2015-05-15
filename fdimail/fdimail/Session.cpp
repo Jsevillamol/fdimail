@@ -44,6 +44,7 @@ void Session::launch()
 {
 	active_list = false;
 	visible.link(active_tray());
+	visible.setInvert();
 	int opt;
 
 	do{
