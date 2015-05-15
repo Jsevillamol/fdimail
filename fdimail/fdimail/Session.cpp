@@ -124,188 +124,6 @@ void Session::readMail()
 	}
 }
 
-//Internal part of AccountOptions(), it
-//let you choose what to do with your
-//account
-void Session::AccountOptions(int &option)
-{
-	int menu;
-	
-	do
-	{
-		GraphInter::get()->clearConsole();
-
-		menu = GraphInter::get()->AccountOptions();
-
-		if (menu == 1)
-		{
-			changeUsername();
-		}
-		else if (menu == 2)
-		{
-			changePassword();
-		}
-		else if (menu == 3)
-		{
-			manager->deleteAccount(user->getId());
-			option = 0;
-		}
-	} while (menu != 0 && option != 0);
-}
-
-//Allow you to change your username
-//To do: Move this to session
-void Session::changeUsername()
-{
-	bool name_ok;
-	std::string data;
-
-	do
-	{
-		GraphInter::get()->clearConsole();
-
-		name_ok = true;
-
-		data = GraphInter::get()->valid_user();
-
-		if (manager->getUserList()->get(data) != nullptr)
-		{
-			GraphInter::get()->display("This username already exists");
-			GraphInter::get()->pause();
-
-			name_ok = false;
-		}
-	} while (!name_ok);
-
-
-	GraphInter::get()->checkUsername(data);
-
-	user->setId(data);
-}
-
-//Allow you to change your password
-void Session::changePassword()
-{
-	std::string data;
-
-	GraphInter::get()->display("Enter your new password");
-
-	data = GraphInter::get()->HidePassword();
-
-	GraphInter::get()->checkPassword(data);
-
-	user->setPassword(data);
-}
-
-void Session::AliasOptions()
-{
-	int option;
-
-	do
-	{
-		GraphInter::get()->clearConsole();
-
-		option = GraphInter::get()->FastName(user->getContactlist());
-
-		if (option == 1)
-		{
-			AddFastName(this->getUser());
-		}
-		else if (option != 0)
-		{
-			if (this->getUser()->getContactlist()->length() == 0)
-			{
-				GraphInter::get()->display("You have no alias to delete");
-				GraphInter::get()->pause();
-			}
-			else
-			{
-				if (option == 2)
-				{
-					if (this->getUser()->getContactlist()->length() > 1)
-					{
-						std::string name = GraphInter::get()->selectAlias(this);
-
-						if (this->getUser()->getContactlist()->get(name)->alias == "Me")
-						{
-							GraphInter::get()->display("You cannot delete your self alias");
-							GraphInter::get()->pause();
-						}
-						else
-						{
-							this->getUser()->getContactlist()->destroy(name);
-						}
-					}
-					else
-					{
-						GraphInter::get()->display("You cannot delete your self alias");
-						GraphInter::get()->pause();
-					}
-				}
-				else if (option == 3)
-				{
-					if (this->getUser()->getContactlist()->length() > 1)
-					{
-						int namelenth = this->getUser()->getContactlist()->length();
-
-						for (int i = namelenth - 1; i >= 0; i--)
-						{
-							if (this->getUser()->getContactlist()->get(this->getUser()->getContactlist()->operator[](i)->user)->alias != "Me")
-							{
-								this->getUser()->getContactlist()->destroy(this->getUser()->getContactlist()->operator[](i)->getId());
-							}
-						}
-					}
-					else
-					{
-						GraphInter::get()->display("You cannot delete your self alias");
-						GraphInter::get()->pause();
-					}
-				}
-			}
-		}
-	} while (option != 0);
-}
-
-
-
-//It shows you all the mails that you did not
-//read from your input box
-void Session::fastRead()
-{	
-
-	GraphInter::get()->clearConsole();
-
-	if (get_visible()->length() == 0)
-	{
-		GraphInter::get()->display("You do not have any mail on your active tray");
-		GraphInter::get()->pause();
-	}
-	else
-	{
-		visible.filterByRead(false);
-		visible.orderByDate();
-		visible.orderBySubject();
-		if (visible.length() > 0)
-		{
-			for (int i = 0; i < visible.length(); i++)
-			{
-				//Display mail
-				GraphInter::get()->drawMail(visible[i]->mail);
-				GraphInter::get()->pause();
-
-				//Change mail status to read
-				visible[i]->read = true;
-			}
-		}
-		else
-		{
-			GraphInter::get()->display("You do not have any unread mail");
-			GraphInter::get()->pause();
-		}
-	}
-}
-
 //If it can, sends the mail to the users who must be sent
 void Session::sendMail()
 {
@@ -407,7 +225,73 @@ void Session::deleteMail()
 				}
 			}
 		} while (visible.length() != 0 && option != 0);
-	} 
+	}
+}
+
+//It shows you all the mails that you did not
+//read from your input box
+void Session::fastRead()
+{
+
+	GraphInter::get()->clearConsole();
+
+	if (get_visible()->length() == 0)
+	{
+		GraphInter::get()->display("You do not have any mail on your active tray");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		visible.filterByRead(false);
+		visible.orderByDate();
+		visible.orderBySubject();
+		if (visible.length() > 0)
+		{
+			for (int i = 0; i < visible.length(); i++)
+			{
+				//Display mail
+				GraphInter::get()->drawMail(visible[i]->mail);
+				GraphInter::get()->pause();
+
+				//Change mail status to read
+				visible[i]->read = true;
+			}
+		}
+		else
+		{
+			GraphInter::get()->display("You do not have any unread mail");
+			GraphInter::get()->pause();
+		}
+	}
+}
+
+//Internal part of AccountOptions(), it
+//let you choose what to do with your
+//account
+void Session::AccountOptions(int &option)
+{
+	int menu;
+	
+	do
+	{
+		GraphInter::get()->clearConsole();
+
+		menu = GraphInter::get()->AccountOptions();
+
+		if (menu == 1)
+		{
+			changeUsername();
+		}
+		else if (menu == 2)
+		{
+			changePassword();
+		}
+		else if (menu == 3)
+		{
+			manager->deleteAccount(user->getId());
+			option = 0;
+		}
+	} while (menu != 0 && option != 0);
 }
 
 void Session::AddFastName(User* user)
@@ -529,17 +413,102 @@ void Session::AddFastName(User* user)
 	}
 }
 
-void Session::chooseOrder(Filter filter)
+void Session::AliasOptions()
 {
-	GraphInter::get()->choose("order", filter, this);
+	int option;
 
-	this->get_visible()->changeOrder(filter);
+	do
+	{
+		GraphInter::get()->clearConsole();
+
+		option = GraphInter::get()->FastName(user->getContactlist());
+
+		if (option == 1)
+		{
+			AddFastName(this->getUser());
+		}
+		else if (option != 0)
+		{
+			if (this->getUser()->getContactlist()->length() == 0)
+			{
+				GraphInter::get()->display("You have no alias to delete");
+				GraphInter::get()->pause();
+			}
+			else
+			{
+				if (option == 2)
+				{
+					if (this->getUser()->getContactlist()->length() > 1)
+					{
+						std::string name = GraphInter::get()->selectAlias(this);
+
+						if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+						{
+							GraphInter::get()->display("You cannot delete your self alias");
+							GraphInter::get()->pause();
+						}
+						else
+						{
+							this->getUser()->getContactlist()->destroy(name);
+						}
+					}
+					else
+					{
+						GraphInter::get()->display("You cannot delete your self alias");
+						GraphInter::get()->pause();
+					}
+				}
+				else if (option == 3)
+				{
+					if (this->getUser()->getContactlist()->length() > 1)
+					{
+						int namelenth = this->getUser()->getContactlist()->length();
+
+						for (int i = namelenth - 1; i >= 0; i--)
+						{
+							if (this->getUser()->getContactlist()->get(this->getUser()->getContactlist()->operator[](i)->user)->alias != "Me")
+							{
+								this->getUser()->getContactlist()->destroy(this->getUser()->getContactlist()->operator[](i)->getId());
+							}
+						}
+					}
+					else
+					{
+						GraphInter::get()->display("You cannot delete your self alias");
+						GraphInter::get()->pause();
+					}
+				}
+			}
+		}
+	} while (option != 0);
+}
+
+void Session::filterOptions(Filter filter)
+{
+	int option;
+
+	GraphInter::get()->clearConsole();
+
+	option = GraphInter::get()->filter();
+
+	if (option == 1)
+	{
+		chooseOrder(filter);
+	}
+	else if (option == 2)
+	{
+		chooseFilter(filter);
+	}
+	else if (option == 3)
+	{
+		this->get_visible()->closeFilter();
+	}
 }
 
 void Session::chooseFilter(Filter filter)
 {
 	this->get_visible()->closeFilter();
-	
+
 	GraphInter::get()->choose("filter", filter, this);
 
 	if (filter == date)
@@ -572,24 +541,53 @@ void Session::chooseFilter(Filter filter)
 	}
 }
 
-void Session::filterOptions(Filter filter)
+void Session::chooseOrder(Filter filter)
 {
-	int option;
+	GraphInter::get()->choose("order", filter, this);
 
-	GraphInter::get()->clearConsole();
+	this->get_visible()->changeOrder(filter);
+}
 
-	option = GraphInter::get()->filter();
+//Allow you to change your username
+//To do: Move this to session
+void Session::changeUsername()
+{
+	bool name_ok;
+	std::string data;
 
-	if (option == 1)
+	do
 	{
-		chooseOrder(filter);
-	}
-	else if (option == 2)
-	{
-		chooseFilter(filter);
-	}
-	else if (option == 3)
-	{
-		this->get_visible()->closeFilter();
-	}
+		GraphInter::get()->clearConsole();
+
+		name_ok = true;
+
+		data = GraphInter::get()->valid_user();
+
+		if (manager->getUserList()->get(data) != nullptr)
+		{
+			GraphInter::get()->display("This username already exists");
+			GraphInter::get()->pause();
+
+			name_ok = false;
+		}
+	} while (!name_ok);
+
+
+	GraphInter::get()->checkUsername(data);
+
+	user->setId(data);
+}
+
+//Allow you to change your password
+void Session::changePassword()
+{
+	std::string data;
+
+	GraphInter::get()->display("Enter your new password");
+
+	data = GraphInter::get()->HidePassword();
+
+	GraphInter::get()->checkPassword(data);
+
+	user->setPassword(data);
 }

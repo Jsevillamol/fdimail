@@ -2,30 +2,6 @@
 #include "tElemTray.h"
 #include "Manager.h"
 
-//Saves all the elements on the you choose
-void TrayList::save(std::ofstream &file)const
-{
-	file << this->counter << std::endl;
-
-	for (int i = 0; i < this->length(); i++)
-	{
-		this->list[i]->save(file);
-	}
-}
-
-//Load all elements from the file you choose
-void TrayList::load(std::ifstream &file)
-{
-	file >> this->counter;
-
-	for (int i = 0; (i < this->length()) && (!file.fail()); i++)
-	{
-		tElemTray* elem = new tElemTray();
-		elem->load(file);
-		this->list[i] = elem;
-	}
-}
-
 //Searchs the position of the element you choose
 //Returns true if found it, fasle if not
 bool TrayList::search(std::string &id, int &pos)
@@ -51,6 +27,32 @@ void TrayList::insert(tElemTray * const elem)
 		list[counter++] = elem;
 	}
 }
+
+//Saves all the elements on the you choose
+void TrayList::save(std::ofstream &file)const
+{
+	file << this->counter << std::endl;
+
+	for (int i = 0; i < this->length(); i++)
+	{
+		this->list[i]->save(file);
+	}
+}
+
+//Load all elements from the file you choose
+void TrayList::load(std::ifstream &file)
+{
+	file >> this->counter;
+
+	for (int i = 0; (i < this->length()) && (!file.fail()); i++)
+	{
+		tElemTray* elem = new tElemTray();
+		elem->load(file);
+		this->list[i] = elem;
+	}
+}
+
+
 
 //Changes the read status of a mail, from 
 //'not read' to 'read', when you read it

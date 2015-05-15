@@ -8,7 +8,8 @@ VisibleTrayList::VisibleTrayList()
 	init(nullptr);
 }
 
-void VisibleTrayList::init(TrayList* trayList){
+void VisibleTrayList::init(TrayList* trayList)
+{
 	filters[date] = false;
 	filters[Filter::subject] = false;
 	filters[Filter::body] = false;
@@ -145,15 +146,6 @@ void VisibleTrayList::reverse()
 	}
 }
 
-void VisibleTrayList::erase()
-{
-	for (int i = 0; i < length(); i++)
-	{
-		list[i] = nullptr;
-	}
-	counter = 0;
-}
-
 bool VisibleTrayList::insert(tElemTray* elem)
 {
 	if (!full())
@@ -179,3 +171,13 @@ void VisibleTrayList::shiftLeft(int pos){
 		list[i] = list[i + 1];
 	}
 }
+
+void VisibleTrayList::erase()
+{
+	for (int i = 0; i < length(); i++)
+	{
+		list[i] = nullptr;
+	}
+	counter = 0;
+}
+
