@@ -106,22 +106,10 @@ const std::string Mail::header()const
 
 std::string Mail::getsubject()
 {
-	std::string re;
-	bool has_re;
-
-	do
+	while (this->subject.substr(0, 4) == "Re: ")
 	{
-		has_re = true;
-
-		if (this->subject.substr(0, 4) == "Re: ")
-		{
-			this->subject.substr(4);
-		}
-		else
-		{
-			has_re = false;
-		}
-	} while (has_re);
+		this->subject.substr(4);
+	}
 
 	return this->subject;
 }
