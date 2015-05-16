@@ -512,34 +512,37 @@ void Session::chooseFilter(Filter filter)
 
 	GraphInter::get()->choose("filter", filter, this);
 
-	if (filter == date)
+	if (filter != none)
 	{
-		char* lowdate = new char[256]; 
-		char* update  = new char[256];
+		if (filter == date)
+		{
+			char* lowdate = new char[256];
+			char* update  = new char[256];
 
-		GraphInter::get()->display("Enter the lower date");
-		GraphInter::get()->enter(lowdate);
-		GraphInter::get()->display("Enter the upper date");
-		GraphInter::get()->enter(update);
+			GraphInter::get()->display("Enter the lower date");
+			GraphInter::get()->enter(lowdate);
+			GraphInter::get()->display("Enter the upper date");
+			GraphInter::get()->enter(update);
 
-		this->get_visible()->setFilterDate(lowdate, update);
-	}
-	else if (filter == read)
-	{
-		this->get_visible()->setFilterRead();
-	}
-	else if (filter == unread)
-	{
-		this->get_visible()->setFilterUnread();
-	}
-	else
-	{
-		std::string reference;
+			this->get_visible()->setFilterDate(lowdate, update);
+		}
+		else if (filter == read)
+		{
+			this->get_visible()->setFilterRead();
+		}
+		else if (filter == unread)
+		{
+			this->get_visible()->setFilterUnread();
+		}
+		else
+		{
+			std::string reference;
 
-		GraphInter::get()->display("Enter your reference word");
-		GraphInter::get()->enter(reference);
+			GraphInter::get()->display("Enter your reference word");
+			GraphInter::get()->enter(reference);
 
-		this->get_visible()->setFilter(reference, filter);
+			this->get_visible()->setFilter(reference, filter);
+		}
 	}
 }
 

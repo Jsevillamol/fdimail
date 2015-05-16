@@ -535,8 +535,6 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 		}
 		else
 		{
-			session->get_visible()->setInvert();
-
 			int select = GraphInter::get()->WhatToInvert();
 
 			switch (select)
@@ -548,6 +546,7 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 				filter = subject;
 				break;
 			}
+			session->get_visible()->setInvert();
 		}
 	case 4:
 		filter = recipients;
@@ -560,6 +559,9 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 		break;
 	case 7:
 		filter = unread;
+		break;
+	case 0:
+		filter = none;
 		break;
 	}
 }
