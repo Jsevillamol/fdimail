@@ -497,10 +497,6 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 		tab_word("6- Read");
 		tab_word("7- Unread");
 	}
-	else
-	{
-		tab_word("3- Invert order");
-	}
 
 	tab_word("0- Exit to session menu");
 
@@ -516,38 +512,54 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 	}
 	else
 	{
-		option = digitBetween(0, 3);
+		option = digitBetween(0, 2);
 	}
 
 	switch (option)
 	{
 	case 1:
 		filter = subject;
-		break;
-	case 2:
-		filter = date;
-		break;
-	case 3:
-		if (parameter == "filter")
+
+		if (parameter != "filter")
 		{
-			filter = emissor;
-			break;
-		}
-		else
-		{
-			int select = GraphInter::get()->WhatToInvert();
+			int select = Invert();
+			bool invert;
 
 			switch (select)
 			{
 			case 1:
-				filter = date;
+				invert = true;
 				break;
 			case 2:
-				filter = subject;
+				invert = false;
 				break;
 			}
-			session->get_visible()->setInvert();
+			session->get_visible()->setInvert(invert);
 		}
+		break;
+	case 2:
+		filter = date;
+
+		if (parameter != "filter")
+		{
+			int select = Invert();
+			bool invert;
+
+			switch (select)
+			{
+			case 1:
+				invert = true;
+				break;
+			case 2:
+				invert = false;
+				break;
+			}
+			session->get_visible()->setInvert(invert);
+		}
+		break;
+	case 3:
+		filter = emissor;
+		break;
 	case 4:
 		filter = recipients;
 		break;
@@ -611,13 +623,13 @@ int GraphInter::WhatToDelete()
 	return digitBetween(0, 2);
 }
 
-int GraphInter::WhatToInvert()
+int GraphInter::Invert()
 {
 	display(linea());
 
-	display("Choose the order you want to invert: ");
-	tab_word("1- Date");
-	tab_word("2- Subject");
+	display("Choose the order you want the list to be shown: ");
+	tab_word("1- Invert list");
+	tab_word("2- Reorder list");
 
 	display(linea());
 
