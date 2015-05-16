@@ -22,6 +22,6 @@ typedef std::time_t Date;
 std::string showDate(Date d);
 std::string showDay(Date d);
 
-Date turnDate(char str[256]);
+Date turnDate(char* str);
 
 #endif // !DATE

@@ -522,7 +522,7 @@ void Session::chooseFilter(Filter filter)
 		GraphInter::get()->display("Enter the upper date");
 		GraphInter::get()->enter(update);
 
-		this->get_visible()->setFilterDate(update, lowdate);
+		this->get_visible()->setFilterDate(lowdate, update);
 	}
 	else if (filter == read)
 	{

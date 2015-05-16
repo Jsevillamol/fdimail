@@ -41,7 +41,9 @@ Date turnDate(char* str)
 	timeinfo->tm_year = year - 1900;
 	timeinfo->tm_mon = month - 1;
 	timeinfo->tm_mday = day;
-	mktime(timeinfo);
+	timeinfo->tm_hour = 0;
+	timeinfo->tm_min = 0;
+	timeinfo->tm_sec = 0;
 
-	return strftime(str, sizeof(str), "%A", timeinfo);
+	return mktime(timeinfo);
 }

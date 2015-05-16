@@ -715,7 +715,7 @@ void GraphInter::enter(int &digit)
 void GraphInter::enter(char* str)
 {
 	std::cin.sync();
-	std::cin >> digit;
+	std::cin >> str;
 	std::cin.clear();
 }
 
