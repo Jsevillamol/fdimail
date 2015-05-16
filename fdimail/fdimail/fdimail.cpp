@@ -27,6 +27,7 @@ Apart from the order in the enunciate of the practice, we have implemented:
 
 #include "Manager.h"
 #include "Session.h"
+
 int main() 
 {
 	Manager manager("fdimail.com");
