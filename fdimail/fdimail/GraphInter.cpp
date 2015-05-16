@@ -691,6 +691,7 @@ void GraphInter::checkPassword(std::string &password)
 {
 	std::string newPassword;
 
+	display("");
 	display("Confirm your password: ");
 
 	newPassword = HidePassword();
