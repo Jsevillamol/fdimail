@@ -808,11 +808,11 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	{
 		if (i == 0)
 		{
-			display("To ('Me' to send it to yourself): ");
+			display("To: ");
 		}
 		else
 		{
-			display("CC ('Me' to send it to yourself): ");
+			display("CC: ");
 		}
 
 		std::string recipient;
