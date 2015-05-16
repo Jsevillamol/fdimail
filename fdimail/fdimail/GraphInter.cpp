@@ -685,13 +685,6 @@ void GraphInter::enter(int &digit)
 	std::cin.clear();
 }
 
-void GraphInter::enter(Date &date)
-{
-	std::cin.sync();
-	std::cin >> date;
-	std::cin.clear();
-}
-
 std::string GraphInter::HideLimitPassword()
 {
 	std::string word;

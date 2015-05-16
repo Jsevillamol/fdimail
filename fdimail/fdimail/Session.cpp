@@ -514,7 +514,7 @@ void Session::chooseFilter(Filter filter)
 
 	if (filter == date)
 	{
-		Date lowdate, update;
+		std::string lowdate, update;
 
 		GraphInter::get()->display("Enter the lower date");
 		GraphInter::get()->enter(lowdate);

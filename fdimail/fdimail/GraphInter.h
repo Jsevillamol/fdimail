@@ -66,7 +66,6 @@ public:
 
 	void enter(std::string &word);
 	void enter(int &digit);
-	void enter(Date &date);
 
 	std::string HideLimitPassword();
 	std::string HidePassword();

@@ -23,7 +23,7 @@ public:
 
 	template<typename Funct, typename K>
 	void filterBy(Funct filter, K key);
-	void filterByDate(Date lower, Date upper);
+	void filterByDate(std::string lower, std::string upper);
 	void filterBySubject(std::string key);
 	void filterByBody(std::string key);
 	void filterByEmissor(std::string key);
@@ -37,12 +37,12 @@ public:
 
 	void reverse();
 
-	inline bool full() const  { return this->counter == MAX_ELEMS; }
+	inline bool full()  const { return this->counter == MAX_ELEMS; }
 	inline int length() const { return this->counter; }
 
 	tElemTray* operator [](int i) { return list[i]; }
 
-	void setFilterDate(Date up, Date low)
+	void setFilterDate(std::string up, std::string low)
 	{
 		filters[date] = true;
 
@@ -95,8 +95,8 @@ private:
 
 	//Filters
 	std::map<Filter, bool> filters;
-	Date lower;
-	Date upper;
+	std::string lower;
+	std::string upper;
 	std::map<Filter, std::string> keys;
 
 	int counter;
