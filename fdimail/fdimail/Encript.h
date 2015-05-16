@@ -3,7 +3,9 @@
 
 /*
 Class responsible for encript te users passwords, 
-so that no one can read them from the save file
+so that no one can read them from the save file.
+Thanks to http://www.zedwood.com/article/cpp-sha1-function
+for make us possible to take this code.
 */
 
 #include <iostream>
