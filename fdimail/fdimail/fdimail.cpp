@@ -1,5 +1,6 @@
 /*-------------------------------
-2048:
+Fdimail
+=======
 
 Authors:
 Jaime Sevilla Molina.
@@ -12,7 +13,7 @@ Version:
 4.0
 
 Features:
-Apart from the order in the title of the practice, we have implemented:
+Apart from the order in the enunciate of the practice, we have implemented:
 	1. A submenu to order or filter the active tray by the paramenter you choose.
 	2. A submenu to change your username, password or delete your account.
 	3. An option to send, or forward a mail to more than one destinatary.
