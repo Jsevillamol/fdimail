@@ -26,6 +26,8 @@ public:
 	MailList* getMailList(){ return &mailList; }
 	UserList* getUserList(){ return &userList; }
 
+	std::string getDomain(){ return domain; }
+
 	User* registerUser();
 	User* createAccount();
 

@@ -14,6 +14,7 @@ public:
 	//If name is in contacts, returns address associated.
 	//Else, it returns name unchanged
 	std::string SearchFastName(std::string &name);
+	void changeMe(std::string new_name);
 
 	void save(std::ofstream &file)const;
 	void load(std::ifstream &file);
