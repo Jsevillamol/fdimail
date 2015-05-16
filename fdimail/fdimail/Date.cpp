@@ -1,4 +1,10 @@
-#include"Date.h"
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+#include "Date.h"
+#include <time.h>
+#include <algorithm>
 
 //Shows the complete date, day and hour
 std::string showDate(Date d)
@@ -19,4 +25,23 @@ std::string showDay(Date d)
 	localtime_s(&ltm, &d);
 	resultado << 1900 + ltm.tm_year << '/' << 1 + ltm.tm_mon << '/' << ltm.tm_mday;
 	return resultado.str();
+}
+
+Date turnDate(char* str)
+{
+	Date rawtime;
+	tm* timeinfo;
+	int year, month, day;
+
+	std::replace(str, str + strlen(str), '/', ' ');
+	std::istringstream(str) >> year >> month >> day;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	timeinfo->tm_year = year - 1900;
+	timeinfo->tm_mon = month - 1;
+	timeinfo->tm_mday = day;
+	mktime(timeinfo);
+
+	return strftime(str, sizeof(str), "%A", timeinfo);
 }

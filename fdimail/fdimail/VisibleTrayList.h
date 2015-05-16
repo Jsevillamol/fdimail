@@ -42,14 +42,12 @@ public:
 
 	tElemTray* operator [](int i) { return list[i]; }
 
-	void setFilterDate(std::string up, std::string low)
+	void setFilterDate(char* up, char* low)
 	{
 		filters[date] = true;
 
-		Date update, lowdate;
-
-		up = showDay(update);
-		low = showDay(lowdate);
+		Date update = turnDate(up);
+		Date lowdate = turnDate(low);
 
 		lower = update;
 		upper = lowdate;

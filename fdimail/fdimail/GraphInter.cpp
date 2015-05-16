@@ -323,7 +323,7 @@ int GraphInter::FastName(ContactList* contactList)
 	display("Choose your desired option: ");
 	tab_word("1- Add an alias");
 	tab_word("2- Delete an alias");
-	tab_word("3- Delete all names");
+	tab_word("3- Delete all alias");
 	tab_word("0- Exit to session menu");
 
 	display(linea());
@@ -706,6 +706,13 @@ void GraphInter::enter(std::string &word)
 
 //Enters in console the digit you choose
 void GraphInter::enter(int &digit)
+{
+	std::cin.sync();
+	std::cin >> digit;
+	std::cin.clear();
+}
+
+void GraphInter::enter(char* str)
 {
 	std::cin.sync();
 	std::cin >> digit;
