@@ -29,8 +29,9 @@ std::string ContactList::SearchFastName(std::string &name)
 	return name + "@fdimail.com";
 }
 
-void ContactList::changeMe(std::string new_name){
-	this->get("Me")->alias=new_name;
+void ContactList::changeMe(std::string new_name)
+{
+	this->get("Me")->alias = new_name;
 }
 
 void ContactList::save(std::ofstream &file)const
