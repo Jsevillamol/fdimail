@@ -17,16 +17,10 @@ std::string ContactList::SearchFastName(std::string &name)
 	}
 
 	//Search in contactList
-	for (int i = 0; i < this->counter; i++)
-	{
-		if (this->list[i]->getAlias() == name)
-		{
-			return this->list[i]->getId();
-		}
-	}
-
+	tContact* contact = get("name");
+	if (contact != nullptr) return contact->getAddress();
 	//if it is not a direction nor an alias, append @fdimail.com and return
-	return name + "@fdimail.com";
+	else return name + "@fdimail.com";
 }
 
 void ContactList::changeMe(std::string new_name){

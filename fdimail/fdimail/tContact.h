@@ -12,8 +12,8 @@ struct tContact
 	tContact(std::string realName, std::string fastName) : user(realName), alias(fastName) {}
 	tContact() {}
 	
-	std::string& getId() { return user; }
-	std::string& getAlias() { return alias; }
+	std::string& getId() { return alias; }
+	std::string& getAddress() { return user; }
 
 	void save(std::ofstream &file)const
 	{
