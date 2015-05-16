@@ -1,6 +1,7 @@
 #include "TrayList.h"
 #include "tElemTray.h"
 #include "Manager.h"
+#include "checkML.h"
 
 //Searchs the position of the element you choose
 //Returns true if found it, fasle if not

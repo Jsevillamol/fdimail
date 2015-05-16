@@ -78,6 +78,7 @@
     <ClCompile Include="VisibleTrayList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="checkML.h" />
     <ClInclude Include="ContactList.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Encript.h" />

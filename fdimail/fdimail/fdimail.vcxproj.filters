@@ -116,6 +116,9 @@
     <ClInclude Include="VisibleTrayList.h">
       <Filter>Client</Filter>
     </ClInclude>
+    <ClInclude Include="checkML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fdimail.com_mails.txt" />

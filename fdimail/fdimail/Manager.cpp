@@ -1,5 +1,6 @@
 #include "Manager.h"
 #include "GraphInter.h"
+#include "checkML.h"
 #include <sstream>
 
 Manager* Manager::manager = nullptr;

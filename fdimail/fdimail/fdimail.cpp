@@ -30,6 +30,8 @@ Apart from the order in the enunciate of the practice, we have implemented:
 
 int main() 
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	Manager manager("fdimail.com");
 	Session session(&manager);
 	return 0;
