@@ -396,7 +396,7 @@ void Session::AddFastName(User* user)
 
 					for (j = 0; j < user->getContactlist()->length() && alias_right; j++)
 					{
-						if (newId == user->getContactlist()->operator[](j)->getAlias())
+						if (newId == user->getContactlist()->operator[](j)->getId())
 						{
 							GraphInter::get()->display("This alias is already asigned to an user");
 							GraphInter::get()->pause();
