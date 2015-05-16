@@ -57,6 +57,7 @@ public:
 	void clearConsole();
 	
 	int WhatToDelete();
+	int WhatToInvert();
 	
 	int AccountOptions();
 

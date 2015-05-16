@@ -23,7 +23,7 @@ public:
 
 	template<typename Funct, typename K>
 	void filterBy(Funct filter, K key);
-	void filterByDate(std::string lower, std::string upper);
+	void filterByDate(Date lower, Date upper);
 	void filterBySubject(std::string key);
 	void filterByBody(std::string key);
 	void filterByEmissor(std::string key);
@@ -46,8 +46,13 @@ public:
 	{
 		filters[date] = true;
 
-		lower = low;
-		upper = up;
+		Date update, lowdate;
+
+		up = showDay(update);
+		low = showDay(lowdate);
+
+		lower = update;
+		upper = lowdate;
 	}
 
 	void setFilter(std::string search, Filter field)
@@ -95,8 +100,8 @@ private:
 
 	//Filters
 	std::map<Filter, bool> filters;
-	std::string lower;
-	std::string upper;
+	Date lower;
+	Date upper;
 	std::map<Filter, std::string> keys;
 
 	int counter;

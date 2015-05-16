@@ -531,12 +531,24 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 		if (parameter == "filter")
 		{
 			filter = emissor;
+			break;
 		}
 		else
 		{
 			session->get_visible()->setInvert();
+
+			int select = GraphInter::get()->WhatToInvert();
+
+			switch (select)
+			{
+			case 1:
+				filter = date;
+				break;
+			case 2:
+				filter = subject;
+				break;
+			}
 		}
-		break;
 	case 4:
 		filter = recipients;
 		break;
@@ -595,6 +607,21 @@ int GraphInter::WhatToDelete()
 	display("Enter an option:");
 
 	return digitBetween(0, 2);
+}
+
+int GraphInter::WhatToInvert()
+{
+	display(linea());
+
+	display("Choose the order you want to invert: ");
+	tab_word("1- Date");
+	tab_word("2- Subject");
+
+	display(linea());
+
+	display("Enter an option:");
+
+	return digitBetween(1, 2);
 }
 
 //Little options menu
