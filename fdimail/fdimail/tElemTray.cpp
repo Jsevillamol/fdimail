@@ -11,5 +11,4 @@ void tElemTray::load(std::ifstream &file)
 	std::string idMail;
 	(file >> idMail) >> this->read;
 	this->mail = Manager::getManager()->getMailList()->get(idMail);
-	if (this->mail == nullptr) (this->mail) = Manager::getManager()->getMailList()->getError();
 }

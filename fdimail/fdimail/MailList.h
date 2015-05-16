@@ -27,10 +27,5 @@ public:
 		}
 		else return false;
 	}
-
-	Mail* getError(){ return &error; }
-
-private:
-	Mail error;
 };
 #endif
