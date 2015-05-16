@@ -69,9 +69,9 @@ public:
 		filters[unread] = true;
 	}
 
-	void setInvert()
+	void setInvert(bool invert)
 	{
-		inverse_order = !inverse_order;
+		inverse_order = invert;
 	}
 
 	void closeFilter()
