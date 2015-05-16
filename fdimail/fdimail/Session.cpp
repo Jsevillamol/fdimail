@@ -593,6 +593,7 @@ void Session::changePassword()
 
 	data = GraphInter::get()->HidePassword();
 
+	GraphInter::get()->display("");
 	GraphInter::get()->checkPassword(data);
 
 	user->setPassword(data);
