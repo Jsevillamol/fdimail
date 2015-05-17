@@ -629,8 +629,8 @@ int GraphInter::Invert()
 	display(linea());
 
 	display("Choose the order you want the list to be shown: ");
-	tab_word("1- Invert list");
-	tab_word("2- Reorder list");
+	tab_word("1- Order list");
+	tab_word("2- Invert list");
 
 	display(linea());
 
