@@ -56,8 +56,6 @@ int GraphInter::sessionMenu(Session* session)
 
 	showTray(session);
 
-	display(linea());
-
 	display("Choose your desired option: ");
 	tab_word("1- Read mail");
 	tab_word("2- Send mail");
@@ -422,6 +420,7 @@ void GraphInter::showTray(Session* session)
 			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
 			display(show.str());
 		}
+		display(linea());
 	}
 }
 
@@ -549,10 +548,10 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 			switch (select)
 			{
 			case 1:
-				invert = true;
+				invert = false;
 				break;
 			case 2:
-				invert = false;
+				invert = true;
 				break;
 			}
 			session->get_visible()->setInvert(invert);

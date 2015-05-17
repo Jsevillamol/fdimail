@@ -120,9 +120,10 @@ void Manager::sendMail(User* user, Mail* mail)
 	if (mailList.insert(mail))
 	{
 		//Add to sender's outbox
-		user->getOutbox()->insert(new tElemTray(mail));
+		tElemTray* elem = new tElemTray(mail);
+		elem->read = true;
 
-		user->getOutbox()->get(mail->getId())->read = true;
+		user->getOutbox()->insert(elem);
 
 		for (int j = 0; j < mail->recipient_count; j++)
 		{

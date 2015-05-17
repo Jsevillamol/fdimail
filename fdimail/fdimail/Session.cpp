@@ -103,6 +103,8 @@ void Session::readMail()
 	{
 		//Select mail to read
 		GraphInter::get()->clearConsole();
+
+		GraphInter::get()->showTray(this);
 		//Display mail
 		Mail* mail = GraphInter::get()->selectMail(this);
 		GraphInter::get()->drawMail(mail);
@@ -578,11 +580,13 @@ void Session::changeUsername()
 		}
 	} while (!name_ok);
 
-
 	GraphInter::get()->checkUsername(data);
+
+	manager->getUserList()->pop(user);
 
 	user->setId(data);
 	user->getContactlist()->changeMe(std::string(data));
+	manager->getUserList()->insert(user);
 }
 
 //Allow you to change your password
