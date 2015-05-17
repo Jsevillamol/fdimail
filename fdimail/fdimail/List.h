@@ -90,7 +90,8 @@ template<class T, int MAX>
 bool List<T, MAX>::pop(T* elem)
 {
 	int pos;
-	if (search(elem->getId(), pos)){
+	if (search(elem->getId(), pos))
+	{
 		shiftLeft(pos);
 		counter--;
 		return true;
