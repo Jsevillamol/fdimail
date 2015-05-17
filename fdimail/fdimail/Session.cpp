@@ -580,8 +580,11 @@ void Session::changeUsername()
 
 	GraphInter::get()->checkUsername(data);
 
+	manager->getUserList()->pop(user);
+
 	user->setId(data);
 	user->getContactlist()->changeMe(std::string(data));
+	manager->getUserList()->insert(user);
 }
 
 //Allow you to change your password

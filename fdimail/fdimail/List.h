@@ -23,7 +23,8 @@ public:
 	T* operator [](int i) { return list[i]; }
 
 	bool insert(T* elem);
-	bool destroy(const std::string &id);
+	bool destroy(const std::string &id); //Deletes element and erases from list.
+	bool pop(T* elem); //Erases elem from list. WARNING: Does not delete!
 
 	void erase();
 
@@ -78,6 +79,18 @@ bool List<T, MAX>::destroy(const std::string &id)
 	if (search(id, pos))
 	{
 		delete list[pos];
+		shiftLeft(pos);
+		counter--;
+		return true;
+	}
+	else return false;
+}
+
+template<class T, int MAX>
+bool List<T, MAX>::pop(T* elem)
+{
+	int pos;
+	if (search(elem->getId(), pos)){
 		shiftLeft(pos);
 		counter--;
 		return true;
