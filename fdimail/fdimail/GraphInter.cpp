@@ -420,8 +420,8 @@ void GraphInter::showTray(Session* session)
 			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
 			display(show.str());
 		}
-		display(linea());
 	}
+	display(linea());
 }
 
 //Check the username to not have spaces, and
