@@ -167,7 +167,7 @@ bool Manager::answer(User* user, Mail* mail)
 	else return false;
 }
 
-//Delete the mail you choose from the thay where you are
+//Delete the mail you choose from the tray where you are
 void Manager::deleteMail(TrayList* box, const std::string &idMail)
 {
 	Mail* mail = mailList.get(idMail);
@@ -175,13 +175,8 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	//Delete from user's in/outbox
 	box->destroy(idMail);
 
-	mail->user_count--;
-
-	if (mail->user_count == 0)
-	{
-		//Delete from database
-		mailList.delete_mail(idMail);
-	}
+	//Delete from database
+	mailList.delete_mail(idMail);
 }
 
 //Asks you for the userfile location, just if
