@@ -2,7 +2,8 @@
 #include "tElemTray.h"
 #include "Manager.h"
 
-tElemTray* TrayList::get(std::string &id){
+tElemTray* TrayList::get(std::string &id)
+{
 	int pos = 0;
 	if (search(id, pos)) return list[pos];
 	else return nullptr;
@@ -57,8 +58,6 @@ void TrayList::load(std::ifstream &file)
 		this->list[i] = elem;
 	}
 }
-
-
 
 //Changes the read status of a mail, from 
 //'not read' to 'read', when you read it
