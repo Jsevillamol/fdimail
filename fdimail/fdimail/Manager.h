@@ -31,7 +31,7 @@ public:
 	User* registerUser();
 	User* createAccount();
 
-	void deleteAccount(const std::string &id);
+	void deleteAccount(User* user);
 
 	void sendMail(User* user, Mail* mail);
 	bool answer(User* user, Mail* mail);

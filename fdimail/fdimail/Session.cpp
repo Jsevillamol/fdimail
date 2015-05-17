@@ -95,7 +95,7 @@ void Session::readMail()
 {
 	if (this->active_tray()->length() == 0)
 	{
-		GraphInter::get()->display("Error, you have no mails to read");
+		GraphInter::get()->display("You have no mails to read");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
 	}
@@ -236,9 +236,6 @@ void Session::deleteMail()
 //read from your input box
 void Session::fastRead()
 {
-
-	GraphInter::get()->clearConsole();
-
 	if (get_visible()->length() == 0)
 	{
 		GraphInter::get()->display("You do not have any mail on your active tray");
@@ -246,6 +243,8 @@ void Session::fastRead()
 	}
 	else
 	{
+		GraphInter::get()->clearConsole();
+
 		visible.filterByRead(false);
 		visible.orderByDate();
 		visible.orderBySubject();
@@ -292,7 +291,7 @@ void Session::AccountOptions(int &option)
 		}
 		else if (menu == 3)
 		{
-			manager->deleteAccount(user->getId());
+			manager->deleteAccount(user);
 			option = 0;
 		}
 	} while (menu != 0 && option != 0);
@@ -489,23 +488,31 @@ void Session::AliasOptions()
 
 void Session::filterOptions(Filter filter)
 {
-	int option;
-
-	GraphInter::get()->clearConsole();
-
-	option = GraphInter::get()->filter();
-
-	if (option == 1)
+	if (visible.length() == 0)
 	{
-		chooseOrder(filter);
+		GraphInter::get()->display("You have no mails to filterf");
+		GraphInter::get()->pause();
 	}
-	else if (option == 2)
+	else
 	{
-		chooseFilter(filter);
-	}
-	else if (option == 3)
-	{
-		this->get_visible()->closeFilter();
+		GraphInter::get()->clearConsole();
+
+		int option;
+
+		option = GraphInter::get()->filter();
+
+		if (option == 1)
+		{
+			chooseOrder(filter);
+		}
+		else if (option == 2)
+		{
+			chooseFilter(filter);
+		}
+		else if (option == 3)
+		{
+			this->get_visible()->closeFilter();
+		}
 	}
 }
 

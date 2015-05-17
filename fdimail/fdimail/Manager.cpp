@@ -93,23 +93,20 @@ User* Manager::createAccount()
 }
 
 //Allows a user to delete his account
-void Manager::deleteAccount(const std::string &id)
+void Manager::deleteAccount(User* user)
 {
-	User* user = userList.get(id);
-	int inlength = user->getInbox()->length();
-	int outlength = user->getOutbox()->length();
-
 	//Delete inbox
-	for (int i = 0; i < inlength; i++)
+	while (user->getInbox()->length() > 0)
 	{
-		mailList.delete_mail(user->getInbox()->operator[](i)->getId());
+		deleteMail(user->getInbox(), user->getInbox()->operator[](0)->getId());
 	}
 	//Delete outbox
-	for (int i = 0; i < outlength; i++)
+	while (user->getOutbox()->length() > 0)
 	{
-		mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
+		deleteMail(user->getOutbox(), user->getOutbox()->operator[](0)->getId());
 	}
-	userList.destroy(id);
+
+	userList.destroy(user->getId());
 }
 
 //it search the mail recipients, and if it find them
@@ -168,7 +165,7 @@ bool Manager::answer(User* user, Mail* mail)
 	else return false;
 }
 
-//Delete the mail you choose from the thay where you are
+//Delete the mail you choose from the tray where you are
 void Manager::deleteMail(TrayList* box, const std::string &idMail)
 {
 	Mail* mail = mailList.get(idMail);
@@ -176,13 +173,8 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 	//Delete from user's in/outbox
 	box->destroy(idMail);
 
-	mail->user_count--;
-
-	if (mail->user_count == 0)
-	{
-		//Delete from database
-		mailList.delete_mail(idMail);
-	}
+	//Delete from database
+	mailList.delete_mail(idMail);
 }
 
 //Asks you for the userfile location, just if

@@ -35,6 +35,19 @@ void TrayList::insert(tElemTray * const elem)
 	}
 }
 
+bool TrayList::destroy(const std::string &id)
+{
+	int pos;
+	if (search(id, pos))
+	{
+		delete list[pos];
+		shiftLeft(pos);
+		counter--;
+		return true;
+	}
+	else return false;
+}
+
 //Saves all the elements on the you choose
 void TrayList::save(std::ofstream &file)const
 {
