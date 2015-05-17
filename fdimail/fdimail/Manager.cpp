@@ -92,9 +92,8 @@ User* Manager::createAccount()
 }
 
 //Allows a user to delete his account
-void Manager::deleteAccount(const std::string &id)
+void Manager::deleteAccount(User* user)
 {
-	User* user = userList.get(id);
 	int inlength = user->getInbox()->length();
 	int outlength = user->getOutbox()->length();
 
@@ -108,7 +107,7 @@ void Manager::deleteAccount(const std::string &id)
 	{
 		mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
 	}
-	userList.destroy(id);
+	userList.destroy(user->getId());
 }
 
 //it search the mail recipients, and if it find them

@@ -291,7 +291,7 @@ void Session::AccountOptions(int &option)
 		}
 		else if (menu == 3)
 		{
-			manager->deleteAccount(user->getId());
+			manager->deleteAccount(user);
 			option = 0;
 		}
 	} while (menu != 0 && option != 0);
