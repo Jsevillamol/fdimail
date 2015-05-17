@@ -577,7 +577,6 @@ void Session::changeUsername()
 		}
 	} while (!name_ok);
 
-
 	GraphInter::get()->checkUsername(data);
 
 	manager->getUserList()->pop(user);
