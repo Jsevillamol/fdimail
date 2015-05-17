@@ -94,19 +94,17 @@ User* Manager::createAccount()
 //Allows a user to delete his account
 void Manager::deleteAccount(User* user)
 {
-	int inlength = user->getInbox()->length();
-	int outlength = user->getOutbox()->length();
-
 	//Delete inbox
-	for (int i = 0; i < inlength; i++)
+	while (user->getInbox()->length() > 0)
 	{
-		mailList.delete_mail(user->getInbox()->operator[](i)->getId());
+		deleteMail(user->getInbox(), user->getInbox()->operator[](0)->getId());
 	}
 	//Delete outbox
-	for (int i = 0; i < outlength; i++)
+	while (user->getOutbox()->length() > 0)
 	{
-		mailList.delete_mail(user->getOutbox()->operator[](i)->getId());
+		deleteMail(user->getOutbox(), user->getOutbox()->operator[](0)->getId());
 	}
+
 	userList.destroy(user->getId());
 }
 
