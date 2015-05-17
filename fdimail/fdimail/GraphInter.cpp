@@ -548,10 +548,10 @@ void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
 			switch (select)
 			{
 			case 1:
-				invert = true;
+				invert = false;
 				break;
 			case 2:
-				invert = false;
+				invert = true;
 				break;
 			}
 			session->get_visible()->setInvert(invert);
