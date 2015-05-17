@@ -18,7 +18,7 @@ std::string ContactList::SearchFastName(std::string &name)
 	}
 
 	//Search in contactList
-	tContact* contact = get("name");
+	tContact* contact = get(name);
 	if (contact != nullptr) return contact->getAddress();
 	//if it is not a direction nor an alias, append @fdimail.com and return
 	else return name + "@fdimail.com";
