@@ -2,6 +2,12 @@
 #include "tElemTray.h"
 #include "Manager.h"
 
+tElemTray* TrayList::get(std::string &id){
+	int pos = 0;
+	if (search(id, pos)) return list[pos];
+	else return nullptr;
+}
+
 //Searchs the position of the element you choose
 //Returns true if found it, fasle if not
 bool TrayList::search(std::string &id, int &pos)
