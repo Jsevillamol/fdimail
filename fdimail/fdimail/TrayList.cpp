@@ -2,7 +2,7 @@
 #include "tElemTray.h"
 #include "Manager.h"
 
-tElemTray* TrayList::get(std::string &id){
+tElemTray* TrayList::get(const std::string &id){
 	int pos = 0;
 	if (search(id, pos)) return list[pos];
 	else return nullptr;
@@ -10,7 +10,7 @@ tElemTray* TrayList::get(std::string &id){
 
 //Searchs the position of the element you choose
 //Returns true if found it, fasle if not
-bool TrayList::search(std::string &id, int &pos)
+bool TrayList::search(const std::string &id, int &pos)
 {
 	for (pos = 0; pos < this->counter && list[pos]->getId() != id; pos++);
 	if (pos < this->counter) return true;

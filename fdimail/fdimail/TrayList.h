@@ -15,8 +15,8 @@ class TrayList: public List<tElemTray, MAX_ELEMS>
 {
 public:
 	//Overrides
-	tElemTray* get(std::string &id);
-	bool search(std::string &id, int &pos);
+	tElemTray* get(const std::string &id);
+	bool search(const std::string &id, int &pos);
 	void insert(tElemTray * const elem);
 
 	void save(std::ofstream &file)const;
