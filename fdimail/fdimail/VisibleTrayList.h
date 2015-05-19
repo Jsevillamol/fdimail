@@ -13,6 +13,7 @@ class VisibleTrayList
 {
 public:
 	VisibleTrayList();
+	~VisibleTrayList() { release(); }
 
 	void init(TrayList* trayList);
 	void link(TrayList* trayList);
@@ -87,10 +88,14 @@ public:
 
 private:
 
-	bool insert(tElemTray* elem);
+	void insert(tElemTray* elem);
 	void change(int pos1, int pos2);
 	void shiftLeft(int pos);
 	void erase();
+
+	void start(int dim);
+	void release();
+	void resize(int dim);
 
 	TrayList* trayList;
 	Filter active_order;
@@ -102,9 +107,9 @@ private:
 	Date upper;
 	std::map<Filter, std::string> keys;
 
-	int counter;
+	int counter, dim;
 
-	tElemTray* list[MAX_ELEMS];
+	tElemTray** list;
 };
 
 
