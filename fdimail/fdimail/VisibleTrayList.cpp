@@ -204,10 +204,8 @@ void VisibleTrayList::release()
 	{
 		for (int i = 0; i < this->dim; i++)
 		{
-			delete list[i];
 			list[i] = nullptr;
 		}
-		delete[] list;
 		list = nullptr;
 		this->counter = 0;
 		this->dim = 0;
