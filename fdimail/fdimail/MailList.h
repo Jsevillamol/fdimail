@@ -11,7 +11,7 @@ Derived class from list, responsible
 for work whith all mails
 */
 
-class MailList: public List<Mail, MAX_MAILS>
+class MailList: public List<Mail>
 {
 public:
 	//Deletes the mail you want from the maillist

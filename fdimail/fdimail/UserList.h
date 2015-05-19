@@ -11,6 +11,6 @@ Derived class from list, responsible
 for holding the user database
 */
 
-class UserList: public List<User, MAX_USERS> {};
+class UserList: public List<User> {};
 
 #endif

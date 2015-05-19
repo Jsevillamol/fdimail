@@ -5,7 +5,7 @@
 #include "MailList.h"
 #include "GlobalConstants.h"
 
-class ContactList : public List < tContact, MAX_FASTNAMES >
+class ContactList : public List < tContact>
 {
 public:
 	ContactList(){}

@@ -2,8 +2,8 @@
 #define LIST
 #include "checkML.h"
 #include <assert.h>
-#include <iostream>
-
+#include <string>
+#include"GlobalConstants.h"
 /*
 This is a base class for all the list this program has
 We have used a template to be able to work whith diferent
@@ -11,23 +11,23 @@ types of arguments
 */
 
 //Template for lists
-template <class T, int MAX>
+template <class T>
 class List
 {
 public:
-	List() : counter(0) {}
-	~List();
+	List() : counter(0), list(nullptr) { init(START_ELEM); }
+	~List() { release(); }
 
-	inline bool full() const  { return this->counter == MAX; }
+	inline bool full() const  { return this->counter == dim; }
 	inline int length() const { return this->counter; }
 
-	T* operator [](int i) { return list[i]; }
+	T* operator [](int i) { assert(0 <= i && i < counter);  return list[i]; }
 
 	bool insert(T* elem);
 	bool destroy(const std::string &id); //Deletes element and erases from list.
 	bool pop(T* elem); //Erases elem from list. WARNING: Does not delete!
 
-	void erase();
+	void erase(); //Points list to null. Doesn't delete
 
 	bool search(const std::string &id, int &pos) const;
 	T* get(const std::string &id);
@@ -37,7 +37,7 @@ public:
 
 protected:
 	int counter, dim;
-	T* list[MAX];
+	T** list;
 
 	//Moves the list one space right from pos to end
 	void shiftRight(const int pos);
@@ -49,36 +49,27 @@ protected:
 	void resize(int dim);
 };
 
-template<class T, int MAX>
-List<T, MAX>::~List()
-{
-	erase();
-}
-
 //It search the position where an element should be,
 //makes space for him, and inserts it in this position
-template<class T, int MAX>
-bool List<T, MAX>::insert(T* elem)
+template<class T>
+bool List<T>::insert(T* elem)
 {
-	if (counter < MAX)
-	{
-		//Look for corresponding position
-		int pos;
-		search(elem->getId(), pos);
-		//Make space for newcomer
-		shiftRight(pos);
-		//Insert the elem
-		list[pos] = elem;
-		counter++;
-		return true;
-	}
-	else return false;
+	if (full()) resize(dim*(3/2));
+	//Look for corresponding position
+	int pos;
+	search(elem->getId(), pos);
+	//Make space for newcomer
+	shiftRight(pos);
+	//Insert the elem
+	list[pos] = elem;
+	counter++;
+	return true;
 }
 
 //Searchs for the element you choose
 //on the list, and deletes it
-template<class T, int MAX>
-bool List<T, MAX>::destroy(const std::string &id)
+template<class T>
+bool List<T>::destroy(const std::string &id)
 {
 	int pos;
 	if (search(id, pos))
@@ -91,8 +82,8 @@ bool List<T, MAX>::destroy(const std::string &id)
 	else return false;
 }
 
-template<class T, int MAX>
-bool List<T, MAX>::pop(T* elem)
+template<class T>
+bool List<T>::pop(T* elem)
 {
 	int pos;
 	if (search(elem->getId(), pos))
@@ -104,12 +95,11 @@ bool List<T, MAX>::pop(T* elem)
 	else return false;
 }
 
-template<class T, int MAX>
-void List<T, MAX>::erase()
+template<class T>
+void List<T>::erase()
 {
 	for (int i = 0; i < this->counter; i++)
 	{
-		delete list[i];
 		list[i] = nullptr;
 	}
 	this->counter = 0;
@@ -117,8 +107,8 @@ void List<T, MAX>::erase()
 
 //Searchs the position where 
 //an element should be
-template<class T, int MAX>
-bool List<T, MAX>::search(const std::string &id, int &pos) const
+template<class T>
+bool List<T>::search(const std::string &id, int &pos) const
 {
 	int left_key = 0, right_key = counter - 1;
 	pos = (left_key + right_key) / 2;
@@ -145,8 +135,8 @@ bool List<T, MAX>::search(const std::string &id, int &pos) const
 //Using the id of an element, searchs it 
 //on the list and returns the position 
 //where it is placed
-template<class T, int MAX>
-T* List<T, MAX>::get(const std::string &id)
+template<class T>
+T* List<T>::get(const std::string &id)
 {
 	int pos = 0;
 	if (search(id, pos))
@@ -162,8 +152,8 @@ T* List<T, MAX>::get(const std::string &id)
 //Saves all the elements of the list on the
 //file you choose, and put the scentinel at
 //the end of the file
-template<class T, int MAX>
-void List<T, MAX>::save(const std::string &name)
+template<class T>
+void List<T>::save(const std::string &name)
 {
 	std::ofstream file;
 
@@ -181,8 +171,8 @@ void List<T, MAX>::save(const std::string &name)
 
 //Loads the elemrnts of the list
 //from the file you choose
-template<class T, int MAX>
-bool List<T, MAX>::load(const std::string &name)
+template<class T>
+bool List<T>::load(const std::string &name)
 {
 	std::ifstream file;
 	bool right;
@@ -194,7 +184,7 @@ bool List<T, MAX>::load(const std::string &name)
 	{
 		right = true;
 
-		for (int i = 0; (i < MAX) && (right); i++)
+		for (int i = 0; right; i++)
 		{
 			elem = new T;
 
@@ -212,10 +202,10 @@ bool List<T, MAX>::load(const std::string &name)
 
 //It moves every elemnts on the list
 //to the right from the position you choose
-template<class T, int MAX>
-void List<T, MAX>::shiftRight(const int pos)
+template<class T>
+void List<T>::shiftRight(const int pos)
 {
-	assert(counter < MAX);
+	assert(!full());
 	for (int i = counter; i > pos; i--)
 	{
 		list[i] = list[i - 1];
@@ -224,8 +214,8 @@ void List<T, MAX>::shiftRight(const int pos)
 
 //It moves every elemnts on the list
 //to the right from the position you choose
-template<class T, int MAX>
-void List<T, MAX>::shiftLeft(const int pos)
+template<class T>
+void List<T>::shiftLeft(const int pos)
 {
 	assert(0 <= pos && pos < counter);
 	for (int i = pos; i < counter - 1; i++)
@@ -234,10 +224,11 @@ void List<T, MAX>::shiftLeft(const int pos)
 	}
 }
 
-template<class T, int MAX>
-void List<T, MAX>::init(int dim)
+template<class T>
+void List<T>::init(int dim)
 {
-	T* list = new T[dim];
+	assert(list == nullptr);
+	list = new T*[dim];
 
 	for (int i = 0; i < dim; i++)
 	{
@@ -247,12 +238,14 @@ void List<T, MAX>::init(int dim)
 	if (dim <= 0)
 	{
 		list = nullptr;
-		dim = 0;
+		this->dim = 0;
 	}
+	else this->dim = dim;
+	this->counter = 0;
 }
 
-template<class T, int MAX>
-void List<T, MAX>::release()
+template<class T>
+void List<T>::release()
 {
 	if (this->dim != 0)
 	{
@@ -264,12 +257,12 @@ void List<T, MAX>::release()
 		delete[] list;
 		list = nullptr;
 		this->counter = 0;
-		this->dim = 0
+		this->dim = 0;
 	}
 }
 
-template<class T, int MAX>
-void List<T, MAX>::resize(int dim)
+template<class T>
+void List<T>::resize(int dim)
 {
 	if (dim > this->dim)
 	{
@@ -281,6 +274,7 @@ void List<T, MAX>::resize(int dim)
 		}
 		delete[] list;
 		list = newlist;
+		this->dim = dim;
 	}
 }
 #endif // !LIST
