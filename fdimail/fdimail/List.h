@@ -54,7 +54,8 @@ protected:
 template<class T>
 bool List<T>::insert(T* elem)
 {
-	if (full()) resize(dim*(3/2));
+	//resize if necessary
+	if (full()) resize(dim*(3/2)+1);
 	//Look for corresponding position
 	int pos;
 	search(elem->getId(), pos);
