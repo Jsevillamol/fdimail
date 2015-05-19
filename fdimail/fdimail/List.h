@@ -188,8 +188,10 @@ bool List<T>::load(const std::string &name)
 		{
 			elem = new T;
 
-			if (!elem->load(file)) right = false;
-
+			if (!elem->load(file)) {
+				delete elem;
+				right = false;
+			}
 			else this->insert(elem);
 		}
 
