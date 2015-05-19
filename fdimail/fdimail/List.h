@@ -1,5 +1,6 @@
 #ifndef LIST
 #define LIST
+#include "checkML.h"
 #include <assert.h>
 #include <iostream>
 
@@ -32,16 +33,20 @@ public:
 	T* get(const std::string &id);
 
 	void save(const std::string &name);
-	bool load(const std::string &name/*, const std::string &url*/);
+	bool load(const std::string &name);
 
 protected:
+	int counter, dim;
 	T* list[MAX];
-	int counter;
 
 	//Moves the list one space right from pos to end
 	void shiftRight(const int pos);
 	//Eliminates pointer in pos
 	void shiftLeft(const int pos);
+
+	void init(int dim);
+	void release();
+	void resize(int dim);
 };
 
 template<class T, int MAX>
@@ -226,6 +231,56 @@ void List<T, MAX>::shiftLeft(const int pos)
 	for (int i = pos; i < counter - 1; i++)
 	{
 		list[i] = list[i+1];
+	}
+}
+
+template<class T, int MAX>
+void List<T, MAX>::init(int dim)
+{
+	T* list = new T[dim];
+
+	for (int i = 0; i < dim; i++)
+	{
+		list[i] = nullptr;
+	}
+
+	if (dim <= 0)
+	{
+		list = nullptr;
+		dim = 0;
+	}
+}
+
+template<class T, int MAX>
+void List<T, MAX>::release()
+{
+	if (this->dim != 0)
+	{
+		for (int i = 0; i < this->dim; i++)
+		{
+			delete list[i];
+			list[i] = nullptr;
+		}
+		delete[] list;
+		list = nullptr;
+		this->counter = 0;
+		this->dim = 0
+	}
+}
+
+template<class T, int MAX>
+void List<T, MAX>::resize(int dim)
+{
+	if (dim > this->dim)
+	{
+		T** newlist = new T*[dim];
+
+		for (int i = 0; i < this->counter; i++)
+		{
+			newlist[i] = list[i];
+		}
+		delete[] list;
+		list = newlist;
 	}
 }
 #endif // !LIST
