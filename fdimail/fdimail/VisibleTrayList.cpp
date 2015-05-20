@@ -10,6 +10,8 @@ VisibleTrayList::VisibleTrayList()
 
 void VisibleTrayList::init(TrayList* trayList)
 {
+	start(START_ELEM);
+
 	filters[date] = false;
 	filters[Filter::subject] = false;
 	filters[Filter::body] = false;
@@ -17,7 +19,7 @@ void VisibleTrayList::init(TrayList* trayList)
 	filters[Filter::recipients] = false;
 
 	active_order = none;
-	inverse_order = true;
+	inverse_order = false;
 
 	link(trayList);
 }
@@ -146,15 +148,11 @@ void VisibleTrayList::reverse()
 	}
 }
 
-bool VisibleTrayList::insert(tElemTray* elem)
+void VisibleTrayList::insert(tElemTray* elem)
 {
-	if (!full())
-	{
-		list[length()] = elem;
-		counter++;
-		return true;
-	}
-	else return false;
+	if (full()) resize(dim*(3 / 2) + 1);
+	list[length()] = elem;
+	counter++;
 }
 
 void VisibleTrayList::change(int pos1, int pos2)
@@ -181,3 +179,52 @@ void VisibleTrayList::erase()
 	counter = 0;
 }
 
+void VisibleTrayList::start(int dim)
+{
+	assert(list == nullptr);
+	list = new tElemTray*[dim];
+
+	for (int i = 0; i < dim; i++)
+	{
+		list[i] = nullptr;
+	}
+
+	if (dim <= 0)
+	{
+		list = nullptr;
+		this->dim = 0;
+	}
+	else this->dim = dim;
+	this->counter = 0;
+}
+
+void VisibleTrayList::release()
+{
+	if (this->dim != 0)
+	{
+		for (int i = 0; i < this->dim; i++)
+		{
+			list[i] = nullptr;
+		}
+		delete[] list;
+		list = nullptr;
+		this->counter = 0;
+		this->dim = 0;
+	}
+}
+
+void VisibleTrayList::resize(int dim)
+{
+	if (dim > this->dim)
+	{
+		tElemTray** newlist = new tElemTray*[dim];
+
+		for (int i = 0; i < this->counter; i++)
+		{
+			newlist[i] = list[i];
+		}
+		delete[] list;
+		list = newlist;
+		this->dim = dim;
+	}
+}
