@@ -38,7 +38,7 @@ public:
 
 	void reverse();
 
-	inline bool full()  const { return this->counter == MAX_ELEMS; }
+	inline bool full()  const { return this->counter == MAX_USERS; }
 	inline int length() const { return this->counter; }
 
 	tElemTray* operator [](int i) { return list[i]; }

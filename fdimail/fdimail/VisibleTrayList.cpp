@@ -206,6 +206,7 @@ void VisibleTrayList::release()
 		{
 			list[i] = nullptr;
 		}
+		delete[] list;
 		list = nullptr;
 		this->counter = 0;
 		this->dim = 0;
