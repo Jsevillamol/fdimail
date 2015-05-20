@@ -24,15 +24,8 @@ bool TrayList::search(const std::string &id, int &pos)
 void TrayList::insert(tElemTray * const elem)
 {
 	//std::cout << "Inserting in TrayList the object " << elem << std::endl;
-	if (counter == MAX_ELEMS)
-	{
-		shiftLeft(0);
-		list[counter-1] = elem;
-	}
-	else
-	{
-		list[counter++] = elem;
-	}
+	if (counter == dim) resize(dim*(3 / 2));
+	list[counter++] = elem;
 }
 
 bool TrayList::destroy(const std::string &id)
@@ -63,12 +56,12 @@ void TrayList::save(std::ofstream &file)const
 void TrayList::load(std::ifstream &file)
 {
 	file >> this->counter;
-
-	for (int i = 0; (i < this->length()) && (!file.fail()); i++)
+	resize(counter);
+	for (int i = 0; !file.fail(); i++)
 	{
 		tElemTray* elem = new tElemTray();
 		elem->load(file);
-		this->list[i] = elem;
+		insert(elem);
 	}
 }
 
