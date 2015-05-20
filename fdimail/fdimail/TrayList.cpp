@@ -24,6 +24,7 @@ bool TrayList::search(const std::string &id, int &pos)
 void TrayList::insert(tElemTray * const elem)
 {
 	//std::cout << "Inserting in TrayList the object " << elem << std::endl;
+	if (counter == dim) resize(dim*(3/2)+1);
 	list[counter++] = elem;
 }
 
