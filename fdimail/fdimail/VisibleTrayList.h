@@ -1,5 +1,6 @@
 #ifndef VISIBLETRAYLIST
 #define VISIBLETRAYLIST
+#include "List.h"
 #include "GlobalConstants.h"
 #include "Filters.h"
 #include "Date.h"
@@ -9,11 +10,11 @@
 struct tElemTray;
 class TrayList;
 
-class VisibleTrayList
+class VisibleTrayList: public List<tElemTray>
 {
 public:
 	VisibleTrayList();
-	~VisibleTrayList() { release(); }
+	~VisibleTrayList() { erase(); }
 
 	void init(TrayList* trayList);
 	void link(TrayList* trayList);
@@ -37,9 +38,6 @@ public:
 	void orderBySubject();
 
 	void reverse();
-
-	inline bool full()  const { return this->counter == MAX_USERS; }
-	inline int length() const { return this->counter; }
 
 	tElemTray* operator [](int i) { return list[i]; }
 
@@ -90,12 +88,6 @@ private:
 
 	void insert(tElemTray* elem);
 	void change(int pos1, int pos2);
-	void shiftLeft(int pos);
-	void erase();
-
-	void start(int dim);
-	void release();
-	void resize(int dim);
 
 	TrayList* trayList;
 	Filter active_order;
