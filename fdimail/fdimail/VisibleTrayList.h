@@ -100,8 +100,6 @@ private:
 	std::map<Filter, std::string> keys;
 
 	int counter, dim;
-
-	tElemTray** list;
 };
 
 

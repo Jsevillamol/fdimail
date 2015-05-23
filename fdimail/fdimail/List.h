@@ -18,7 +18,7 @@ public:
 	List() : counter(0), list(nullptr) { init(START_ELEM); }
 	~List() { release(); }
 
-	inline bool full() const  { return this->counter == dim; }
+	inline bool full() const  { return (counter == dim); }
 	inline int length() const { return this->counter; }
 
 	T* operator [](int i) { assert(0 <= i && i < counter);  return list[i]; }
@@ -231,19 +231,21 @@ template<class T>
 void List<T>::init(int dim)
 {
 	assert(list == nullptr);
-	list = new T*[dim];
-
-	for (int i = 0; i < dim; i++)
-	{
-		list[i] = nullptr;
-	}
-
 	if (dim <= 0)
 	{
 		list = nullptr;
 		this->dim = 0;
 	}
-	else this->dim = dim;
+	else {
+		list = new T*[dim];
+
+		for (int i = 0; i < dim; i++)
+		{
+			list[i] = nullptr;
+		}
+
+		this->dim = dim;
+	}
 	this->counter = 0;
 }
 
@@ -271,11 +273,13 @@ void List<T>::resize(int dim)
 	{
 		T** newlist = new T*[dim];
 
-		for (int i = 0; i < this->counter; i++)
-		{
-			newlist[i] = list[i];
+		if (list != nullptr){
+			for (int i = 0; i < this->counter; i++)
+			{
+				newlist[i] = list[i];
+			}
+			delete[] list;
 		}
-		delete[] list;
 		list = newlist;
 		this->dim = dim;
 	}
