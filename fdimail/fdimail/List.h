@@ -29,7 +29,7 @@ public:
 
 	void erase(); //Points list to null. Doesn't delete
 
-	bool search(const std::string &id, int &pos) const;
+	bool search(const std::string &id, int &pos, int &left_key, int &right_key) const;
 	T* get(const std::string &id);
 
 	void save(const std::string &name);
@@ -58,7 +58,8 @@ bool List<T>::insert(T* elem)
 	if (full()) resize(dim*(3/2)+1);
 	//Look for corresponding position
 	int pos;
-	search(elem->getId(), pos);
+	int left_key = 0, right_key = counter - 1;
+	search(elem->getId(), pos, left_key, right_key);
 	//Make space for newcomer
 	shiftRight(pos);
 	//Insert the elem
@@ -73,7 +74,8 @@ template<class T>
 bool List<T>::destroy(const std::string &id)
 {
 	int pos;
-	if (search(id, pos))
+	int left_key = 0, right_key = counter - 1;
+	if (search(id, pos, left_key, right_key))
 	{
 		delete list[pos];
 		shiftLeft(pos);
@@ -87,7 +89,8 @@ template<class T>
 bool List<T>::pop(T* elem)
 {
 	int pos;
-	if (search(elem->getId(), pos))
+	int left_key = 0, right_key = counter - 1;
+	if (search(elem->getId(), pos, left_key, right_key))
 	{
 		shiftLeft(pos);
 		counter--;
@@ -109,28 +112,23 @@ void List<T>::erase()
 //Searchs the position where 
 //an element should be
 template<class T>
-bool List<T>::search(const std::string &id, int &pos) const
+bool List<T>::search(const std::string &id, int &pos, int &left_key, int &right_key) const
 {
-	int left_key = 0, right_key = counter - 1;
 	pos = (left_key + right_key) / 2;
-	while (left_key <= right_key)
+
+	if (list[pos]->getId() == id)
 	{
-		if (list[pos]->getId() == id)
-		{
-			return true;
-		}
-		else if (list[pos]->getId() < id)
-		{
-			left_key = pos + 1;
-		}
-		else //if id < list[pos]->getId()
-		{
-			right_key = pos - 1;
-		}
-		pos = (left_key + right_key) / 2;
+		return true;
 	}
-	pos = left_key;
-	return false;
+	else if (left_key < right_key)
+	{
+		if (list[pos]->getId() < id)
+			left_key = pos + 1;
+		else if (id < list[pos]->getId())
+			right_key = pos - 1;
+		return search(id, pos, left_key, right_key);
+	}
+	else return false;
 }
 
 //Using the id of an element, searchs it 
@@ -140,7 +138,8 @@ template<class T>
 T* List<T>::get(const std::string &id)
 {
 	int pos = 0;
-	if (search(id, pos))
+	int left_key = 0, right_key = counter - 1;
+	if (search(id, pos, left_key, right_key))
 	{
 		return list[pos];
 	}

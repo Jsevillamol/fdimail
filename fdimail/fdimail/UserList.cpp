@@ -7,7 +7,8 @@ bool UserList::insert(User* elem)
 	{
 		//Look for corresponding position
 		int pos;
-		search(elem->getId(), pos);
+		int left_key = 0, right_key = counter - 1;
+		search(elem->getId(), pos, left_key, right_key);
 		//Make space for newcomer
 		shiftRight(pos);
 		//Insert the elem
