@@ -14,7 +14,6 @@ class VisibleTrayList: public List<tElemTray>
 {
 public:
 	VisibleTrayList();
-	~VisibleTrayList() { erase(); }
 
 	void init(TrayList* trayList);
 	void link(TrayList* trayList);
@@ -98,8 +97,6 @@ private:
 	Date lower;
 	Date upper;
 	std::map<Filter, std::string> keys;
-
-	int counter, dim;
 };
 
 
