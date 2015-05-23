@@ -82,6 +82,7 @@ void Session::launch()
 			break;
 		}
 	} while (opt != 0);
+	visible.erase();
 	visible.link(nullptr);
 	user = nullptr;
 }

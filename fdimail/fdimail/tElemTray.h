@@ -19,7 +19,7 @@ struct tElemTray
 
 	std::string getId() const { return mail->getId(); }
 
-	void save(std::ofstream &file);
+	void save(std::ofstream &file) const;
 	void load(std::ifstream &file);
 };
 
