@@ -55,9 +55,9 @@ void TrayList::save(std::ofstream &file)const
 //Load all elements from the file you choose
 void TrayList::load(std::ifstream &file)
 {
-	file >> this->counter;
-	resize(counter);
-	for (int i = 0; !file.fail(); i++)
+	int counter;
+	file >> counter;
+	for (int i = 0; i<counter; i++)
 	{
 		tElemTray* elem = new tElemTray();
 		elem->load(file);

@@ -1,8 +1,9 @@
 #include "tElemTray.h"
 #include "Manager.h"
 
-void tElemTray::save(std::ofstream &file)
+void tElemTray::save(std::ofstream &file) const
 {
+	//if (mail != nullptr)
 	file << (this->mail->getId()) << " " << (this->read) << std::endl;
 }
 
