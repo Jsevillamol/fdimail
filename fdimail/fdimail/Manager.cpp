@@ -29,8 +29,8 @@ void Manager::bootUp()
 	mail_file << domain << "_mails.txt";
 	user_file << domain << "_users.txt";
 
-	manualMails(mail_file.str());
-	manualUsers(user_file.str());
+	loadMails(mail_file.str());
+	loadUsers(user_file.str());
 }
 
 //It saves the users and mails on the default files
@@ -179,7 +179,7 @@ void Manager::deleteMail(TrayList* box, const std::string &idMail)
 
 //Asks you for the userfile location, just if
 //is not found in the default url
-void Manager::manualUsers(std::string &name)
+void Manager::loadUsers(std::string &name)
 {
 	std::string userLocation = "Hola"; //to avoid the string to be empty
 
@@ -198,7 +198,7 @@ void Manager::manualUsers(std::string &name)
 
 //Asks you for the mailfile location, just if
 //is not found in the default url
-void Manager::manualMails(std::string &name)
+void Manager::loadMails(std::string &name)
 {
 	std::string mailLocation = "Hola"; //to avoid the string to be empty
 

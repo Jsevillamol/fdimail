@@ -2,7 +2,6 @@
 
 bool UserList::insert(User* elem)
 {
-	//resize if necessary
 	if (!full())
 	{
 		//Look for corresponding position

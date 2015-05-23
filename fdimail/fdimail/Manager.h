@@ -44,7 +44,7 @@ private:
 	MailList mailList;
 	UserList userList;
 
-	void manualUsers(std::string &name);
-	void manualMails(std::string &name);
+	void loadUsers(std::string &name);
+	void loadMails(std::string &name);
 };
 #endif
