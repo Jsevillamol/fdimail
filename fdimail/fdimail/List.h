@@ -114,21 +114,23 @@ void List<T>::erase()
 template<class T>
 bool List<T>::search(const std::string &id, int &pos, int &left_key, int &right_key) const
 {
-	pos = (left_key + right_key) / 2;
+	if (left_key <= right_key)
+	{
+		pos = (left_key + right_key) / 2;
 
-	if (list[pos]->getId() == id)
-	{
-		return true;
-	}
-	else if (left_key < right_key)
-	{
-		if (list[pos]->getId() < id)
-			left_key = pos + 1;
-		else if (id < list[pos]->getId())
-			right_key = pos - 1;
+		if (list[pos]->getId() == id) return true;
+		
+		else if (list[pos]->getId() < id)
+				left_key = pos + 1;
+		else right_key = pos - 1;
+
 		return search(id, pos, left_key, right_key);
 	}
-	else return false;
+	else
+	{
+		pos = left_key;
+		return false;
+	}
 }
 
 //Using the id of an element, searchs it 
