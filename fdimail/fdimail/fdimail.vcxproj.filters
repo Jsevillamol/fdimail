@@ -107,9 +107,6 @@
     <ClInclude Include="Encript.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
-    <ClInclude Include="Filters.h">
-      <Filter>Auxiliar</Filter>
-    </ClInclude>
     <ClInclude Include="GraphInter.h">
       <Filter>Client</Filter>
     </ClInclude>
@@ -120,6 +117,12 @@
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="checkML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Filters.h">
+      <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="utilsWin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

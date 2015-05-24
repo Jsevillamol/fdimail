@@ -96,6 +96,7 @@
     <ClInclude Include="TrayList.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserList.h" />
+    <ClInclude Include="utilsWin.h" />
     <ClInclude Include="VisibleTrayList.h" />
   </ItemGroup>
   <ItemGroup>

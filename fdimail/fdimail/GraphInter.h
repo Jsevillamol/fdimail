@@ -25,7 +25,7 @@ public:
 	static GraphInter* get();
 	static void load();
 	static void close();
-
+	
 	//Menus
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);

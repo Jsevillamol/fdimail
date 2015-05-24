@@ -3,7 +3,8 @@
 #include "Manager.h"
 #include "checkML.h"
 
-tElemTray* TrayList::get(const std::string &id){
+tElemTray* TrayList::get(const std::string &id)
+{
 	int pos = 0;
 	if (search(id, pos)) return list[pos];
 	else return nullptr;
