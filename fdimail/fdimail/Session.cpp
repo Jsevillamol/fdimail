@@ -206,11 +206,10 @@ void Session::deleteMail()
 
 			visible.refresh();
 			GraphInter::get()->clearConsole();
-			GraphInter::get()->showTray(this);
 
 			if (visible.length() != 0)
 			{
-				option = GraphInter::get()->WhatToDelete();
+				option = GraphInter::get()->WhatToDelete(this);
 
 				if (option == 0)
 				{
@@ -522,7 +521,35 @@ void Session::chooseFilter(Filter filter)
 {
 	this->get_visible()->closeFilter();
 
-	GraphInter::get()->choosefilter(filter, this);
+	int option = GraphInter::get()->choosefilter(this);
+
+	switch (option)
+	{
+	case 0:
+		filter = subject;
+		break;
+	case 1:
+		filter = date;
+		break;
+	case 2:
+		filter = emissor;
+		break;
+	case 3:
+		filter = recipients;
+		break;
+	case 4:
+		filter = body;
+		break;
+	case 5:
+		filter = read;
+		break;
+	case 6:
+		filter = unread;
+		break;
+	case 7:
+		filter = none;
+		break;
+	}
 
 	if (filter != none)
 	{
@@ -560,7 +587,44 @@ void Session::chooseFilter(Filter filter)
 
 void Session::chooseOrder(Filter filter)
 {
-	GraphInter::get()->chooseorder(filter, this);
+	int option = GraphInter::get()->chooseorder(this);
+
+	if (option == 0)
+	{
+		filter = subject;
+
+		int select = GraphInter::get()->Invert();
+		bool invert;
+
+		switch (select)
+		{
+		case 0:
+			invert = true;
+			break;
+		case 1:
+			invert = false;
+			break;
+		}
+		this->get_visible()->setInvert(invert);
+	}
+	else if (option == 1)
+	{
+		filter = date;
+
+		int to_select = GraphInter::get()->Invert();
+		bool to_invert;
+
+		switch (to_select)
+		{
+		case 0:
+			to_invert = false;
+			break;
+		case 1:
+			to_invert = true;
+			break;
+		}
+		this->get_visible()->setInvert(to_invert);
+	}
 
 	this->get_visible()->changeOrder(filter);
 }

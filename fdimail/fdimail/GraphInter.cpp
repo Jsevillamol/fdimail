@@ -43,34 +43,69 @@ int actualizar(int key, int &elem, int max_elems)
 		}
 		else return ++elem;
 	}
-	else return key;
+	else return elem;
 }
 
-
-
-//Options: sign in and sign up
-int GraphInter::mainMenu()
+int GraphInter::menu(std::string elems[], int max_elems)
 {
-	int key = UP, elem = 0, choose;
+	int key = UP, elem = 0;
 
 	do
 	{
-		choose = actualizar(key, elem, 3);
-
 		display("Choose your desired option: ");
-		tab_word("Sign up", 0, elem);
-		tab_word("Sign in", 1, elem);
-		tab_word("Exit", 2, elem);
 
-		display(linea());
+		for (int i = 0; i < max_elems; i++)
+		{
+			tab_word(elems[i], i, elem);
+		}
 
 		key = getKey();
+		elem = actualizar(key, elem, max_elems);
 
 		clearConsole();
 
 	} while (key != ENTER);
 
-	return choose;
+	return elem;
+}
+
+int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		showTray(session);
+
+		display(linea());
+
+		display("Choose your desired option: ");
+
+		for (int i = 0; i < max_elems; i++)
+		{
+			tab_word(elems[i], i, elem);
+		}
+
+		key = getKey();
+		elem = actualizar(key, elem, max_elems);
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return elem;
+}
+
+//Options: sign in and sign up
+int GraphInter::mainMenu()
+{
+	std::string elems[3];
+
+	elems[0] = "Sign up";
+	elems[1] = "Sign in";
+	elems[2] = "Exit";
+
+	return menu(elems, 3);
 }
 
 //Returns username and password
@@ -86,11 +121,11 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 //Shows active tray, returns user options (read mail, delete mail, etc)
 int GraphInter::sessionMenu(Session* session)
 {
-	int key = UP, elem = 0, choose;
+	int key = UP, elem = 0;
 
 	do
 	{
-		choose = actualizar(key, elem, 9);
+		
 
 		display("Mail of " + session->getUser()->getId());
 
@@ -116,12 +151,13 @@ int GraphInter::sessionMenu(Session* session)
 		tab_word("Sign out", 8, elem);
 
 		key = getKey();
+		elem = actualizar(key, elem, 9);
 
 		clearConsole();
 
 	} while (key != ENTER);
 
-	return choose;
+	return elem;
 }
 
 //Shows active tray, returns idMail of mail selected
@@ -159,24 +195,13 @@ std::string GraphInter::selectAlias(Session* session)
 //Shows mail, returns options answer, forward, or return to sessionMenu
 int GraphInter::mailMenu()
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[3];
 
-	do
-	{
-		choose = actualizar(key, elem, 3);
+	elems[0] = "Answer";
+	elems[1] = "Forward";
+	elems[2] = "Exit to session menu";
 
-		display("Choose an option:");
-		tab_word("Answer", 0, elem);
-		tab_word("Forward", 1, elem);
-		tab_word("Exit to sesion menu", 2, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return menu(elems, 3);
 }
 
 //Returns a full mail
@@ -367,27 +392,14 @@ Mail* GraphInter::errorMail(const std::string &sender)
 
 int GraphInter::FastName(ContactList* contactList)
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[4];
 
-	do
-	{
-		choose = actualizar(key, elem, 4);
+	elems[0] = "Add an alias";
+	elems[1] = "Delete an alias";
+	elems[2] = "Delete all alias";
+	elems[3] = "Exit to session menu";
 
-		showFastNames(contactList);
-
-		display("Choose your desired option: ");
-		tab_word("Add an alias", 0, elem);
-		tab_word("Delete an alias", 1, elem);
-		tab_word("Delete all alias", 2, elem);
-		tab_word("Exit to session menu", 3, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return menu(elems, 4);
 }
 
 void GraphInter::showFastNames(ContactList* contactList)
@@ -543,139 +555,42 @@ std::string GraphInter::valid_user()
 	return id;
 }
 
-void GraphInter::choosefilter(Filter &filter, Session* session)
+int GraphInter::choosefilter(Session* session)
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[8];
 
-	do
-	{
-		choose = actualizar(key, elem, 8);
+	elems[0] = "Subject";
+	elems[1] = "Date";
+	elems[2] = "Emissor";
+	elems[3] = "Recipients";
+	elems[4] = "Body";
+	elems[5] = "Read";
+	elems[6] = "Unread";
+	elems[7] = "Exit to session menu";
 
-		display("Choose your filter: ");
-		tab_word("Subject", 0, elem);
-		tab_word("Date", 1, elem);
-		tab_word("Emissor", 2, elem);
-		tab_word("Recipients", 3, elem);
-		tab_word("Body", 4, elem);
-		tab_word("Read", 5, elem);
-		tab_word("Unread", 6, elem);
-		tab_word("Exit to session menu", 7, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	switch (choose)
-	{
-	case 0:
-		filter = subject;
-		break;
-	case 1:
-		filter = date;
-		break;
-	case 2:
-		filter = emissor;
-		break;
-	case 3:
-		filter = recipients;
-		break;
-	case 4:
-		filter = body;
-		break;
-	case 5:
-		filter = read;
-		break;
-	case 6:
-		filter = unread;
-		break;
-	case 7:
-		filter = none;
-		break;
-	}
+	return menu(elems, 8);
 }
 
-void GraphInter::chooseorder(Filter &filter, Session* session)
+int GraphInter::chooseorder(Session* session)
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[2];
 
-	do
-	{
-		choose = actualizar(key, elem, 2);
+	elems[0] = "Subject";
+	elems[1] = "Date";
 
-		display("Choose your filter: ");
-		tab_word("Subject", 0, elem);
-		tab_word("Date", 1, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	switch (choose)
-	{
-	case 0:
-		filter = subject;
-
-		int select = Invert();
-		bool invert;
-
-		switch (select)
-		{
-		case 0:
-			invert = true;
-			break;
-		case 1:
-			invert = false;
-			break;
-		}
-		session->get_visible()->setInvert(invert);
-		break;
-	case 1:
-		filter = date;
-
-		int select = Invert();
-		bool invert;
-
-		switch (select)
-		{
-		case 0:
-			invert = false;
-			break;
-		case 1:
-			invert = true;
-			break;
-		}
-		session->get_visible()->setInvert(invert);
-		break;
-	}
+	return menu(elems, 2);
 }
 
 int GraphInter::filter()
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[4];
 
-	do
-	{
-		choose = actualizar(key, elem, 4);
+	elems[0] = "Change order";
+	elems[1] = "Change filter";
+	elems[2] = "Quit filter";
+	elems[3] = "Exit to session menu";
 
-		display(linea());
-
-		display("Choose your desired option: ");
-		tab_word("Change order", 0, elem);
-		tab_word("Change filter", 1, elem);
-		tab_word("Quit filter", 2, elem);
-		tab_word("Exit to session menu", 3, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return menu(elems, 4);
 }
 
 //It pauses the program, you must
@@ -690,74 +605,38 @@ void GraphInter::pause()
 void GraphInter::clearConsole(){ system("cls"); }
 
 //Little options menu
-int GraphInter::WhatToDelete()
+int GraphInter::WhatToDelete(Session* session)
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[3];
 
-	do
-	{
-		choose = actualizar(key, elem, 3);
-		display(linea());
+	elems[0] = "Choose mail";
+	elems[1] = "Delete all mails";
+	elems[2] = "Exit to session menu";
 
-		display("Choose your desired option: ");
-		tab_word("Choose mail", 0, elem);
-		tab_word("Delete all mails", 1, elem);
-		tab_word("Exit to session menu", 2, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return trayMenu(session, elems, 3);
 }
 
 int GraphInter::Invert()
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[2];
 
-	do
-	{
-		choose = actualizar(key, elem, 2);
-		display(linea());
+	elems[0] = "Order list";
+	elems[1] = "Invert list";
 
-		display("Choose the order you want the list to be shown: ");
-		tab_word("Order list", 0, elem);
-		tab_word("Invert list", 1, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return menu(elems, 2);
 }
 
 //Little options menu
 int GraphInter::AccountOptions()
 {
-	int key = UP, elem = 0, choose;
+	std::string elems[4];
 
-	do
-	{
-		choose = actualizar(key, elem, 4);
-		display(linea());
+	elems[0] = "Change username";
+	elems[1] = "Change password";
+	elems[2] = "Delete account";
+	elems[3] = "Exit to session menu";
 
-		display("Choose your desired option: ");
-		tab_word("Change username", 0, elem);
-		tab_word("Change password", 1, elem);
-		tab_word("Delete account", 2, elem);
-		tab_word("Exit to session menu", 3, elem);
-
-		key = getKey();
-
-		clearConsole();
-
-	} while (key != ENTER);
-
-	return choose;
+	return menu(elems, 4);
 }
 
 //Asks you to enter your username again, and

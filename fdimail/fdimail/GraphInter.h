@@ -27,6 +27,8 @@ public:
 	static void close();
 	
 	//Menus
+	int menu(std::string elems[], int max_elems);
+	int trayMenu(Session* session, std::string elems[], int max_elems);
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
@@ -51,13 +53,13 @@ public:
 
 	std::string valid_user();
 	
-	void choosefilter(Filter &filter, Session* session);
-	void chooseorder(Filter &filter, Session* session);
+	int choosefilter(Session* session);
+	int chooseorder(Session* session);
 	int filter();
 	void pause();
 	void clearConsole();
 	
-	int WhatToDelete();
+	int WhatToDelete(Session* session);
 	int Invert();
 	
 	int AccountOptions();
