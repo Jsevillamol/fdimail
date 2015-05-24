@@ -66,6 +66,9 @@
     <ClCompile Include="UserList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utilsWin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrayList.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="checkML.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilsWin.h">
+      <Filter>Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

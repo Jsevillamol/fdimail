@@ -60,7 +60,8 @@ void VisibleTrayList::refresh()
 void VisibleTrayList::sync()
 {
 	erase();
-	for (int i = 0; i < this->trayList->length(); i++){
+	for (int i = 0; i < this->trayList->length(); i++)
+	{
 		insert(trayList->operator[](i));
 	}
 }
@@ -149,10 +150,12 @@ void VisibleTrayList::reverse()
 	}
 }
 
-void VisibleTrayList::filterPage(){
+void VisibleTrayList::filterPage()
+{
 	tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
 	int i;
-	for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++){
+	for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
+	{
 		newList[i] = list[MAILS_X_PAGE*page + i];
 	}
 	delete[] list;
