@@ -29,6 +29,7 @@ public:
 	//Menus
 	int menu(std::string elems[], int max_elems);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
+
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion); 
@@ -88,6 +89,8 @@ private:
 	void send_to_multiple(Mail* mail, ContactList* contactList);
 
 	int digitBetween(int a, int b);
+
+	int update(int key, int &elem, int max_elems);
 
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);

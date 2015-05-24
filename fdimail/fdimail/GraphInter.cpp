@@ -25,7 +25,7 @@ void GraphInter::close()
 	if (inter != nullptr) delete inter;
 }
 
-int actualizar(int key, int &elem, int max_elems)
+int GraphInter::update(int key, int &elem, int max_elems)
 {
 	if (key == UP)
 	{
@@ -60,7 +60,7 @@ int GraphInter::menu(std::string elems[], int max_elems)
 		}
 
 		key = getKey();
-		elem = actualizar(key, elem, max_elems);
+		elem = update(key, elem, max_elems);
 
 		clearConsole();
 
@@ -87,7 +87,7 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 		}
 
 		key = getKey();
-		elem = actualizar(key, elem, max_elems);
+		elem = update(key, elem, max_elems);
 
 		clearConsole();
 
@@ -125,8 +125,6 @@ int GraphInter::sessionMenu(Session* session)
 
 	do
 	{
-		
-
 		display("Mail of " + session->getUser()->getId());
 
 		showTray(session);
@@ -151,7 +149,7 @@ int GraphInter::sessionMenu(Session* session)
 		tab_word("Sign out", 8, elem);
 
 		key = getKey();
-		elem = actualizar(key, elem, 9);
+		elem = update(key, elem, 9);
 
 		clearConsole();
 
