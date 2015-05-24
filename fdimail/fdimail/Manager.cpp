@@ -131,6 +131,7 @@ void Manager::sendMail(User* user, Mail* mail)
 			}
 			else
 			{
+				mail->user_count--;
 				GraphInter::get()->display("Destinatary " + mail->recipients[j] + " not found");
 				GraphInter::get()->display("He was not sent the mail");
 				GraphInter::get()->pause();
