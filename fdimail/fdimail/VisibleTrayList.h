@@ -38,6 +38,8 @@ public:
 
 	void reverse();
 
+	void filterPage();
+
 	tElemTray* operator [](int i) { return list[i]; }
 
 	void setFilterDate(char* up, char* low)
@@ -83,6 +85,9 @@ public:
 		}
 	}
 
+	void increasePage(){ if(length() == 10) page++; } //Only lets you pass page if the current page is full
+	void decreasePage(){ if(page > 0) page--; }
+
 private:
 
 	void insert(tElemTray* elem);
@@ -91,6 +96,8 @@ private:
 	TrayList* trayList;
 	Filter active_order;
 	bool inverse_order;
+
+	int page;
 
 	//Filters
 	std::map<Filter, bool> filters;
