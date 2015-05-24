@@ -39,7 +39,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	{
 		if (elem == max_elems - 1)
 		{
-			return max_elems;
+			return max_elems - 1;
 		}
 		else return ++elem;
 	}
