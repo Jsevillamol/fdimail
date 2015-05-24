@@ -122,6 +122,9 @@
     <ClInclude Include="Filters.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
+    <ClInclude Include="utilsWin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="fdimail.com_mails.txt" />
