@@ -25,6 +25,7 @@ void VisibleTrayList::init(TrayList* trayList)
 void VisibleTrayList::link(TrayList* trayList)
 {
 	this->trayList = trayList;
+	page = 0;
 }
 
 void VisibleTrayList::refresh()
@@ -52,6 +53,8 @@ void VisibleTrayList::refresh()
 	}
 
 	if (inverse_order) reverse();
+
+	filterPage();
 }
 
 void VisibleTrayList::sync()
@@ -144,6 +147,18 @@ void VisibleTrayList::reverse()
 	{
 		change(i, length() - i - 1);
 	}
+}
+
+void VisibleTrayList::filterPage(){
+	tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
+	int i;
+	for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++){
+		newList[i] = list[MAILS_X_PAGE*page + i];
+	}
+	delete[] list;
+	list = newList;
+	dim = 10;
+	counter = i;
 }
 
 void VisibleTrayList::insert(tElemTray* elem)
