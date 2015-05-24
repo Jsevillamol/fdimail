@@ -51,7 +51,8 @@ public:
 
 	std::string valid_user();
 	
-	void choose(std::string parameter, Filter &filter, Session* session);
+	void choosefilter(Filter &filter, Session* session);
+	void chooseorder(Filter &filter, Session* session);
 	int filter();
 	void pause();
 	void clearConsole();
@@ -78,6 +79,7 @@ public:
 
 private:
 	static GraphInter* inter;
+
 	GraphInter() {}//to prevent instantation
 
 	//Auxiliar input functions
@@ -87,7 +89,7 @@ private:
 
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);
-	void tab_word(std::string word);
+	void tab_word(std::string word, int pos, int cont);
 	std::string linea();
 };
 #endif //GRAPHINTER

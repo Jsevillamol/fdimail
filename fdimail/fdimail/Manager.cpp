@@ -8,7 +8,8 @@ Manager* Manager::manager = nullptr;
 Manager::Manager(const std::string &new_domain) :
 domain(new_domain)
 {
-	if (manager == nullptr){
+	if (manager == nullptr)
+	{
 		manager = this;
 		bootUp();
 	}

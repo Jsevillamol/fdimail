@@ -11,12 +11,12 @@ manager(manager)
 	int option;
 	do{
 		option = GraphInter::get()->mainMenu();
-		if (option == 1)
+		if (option == 0)
 		{
 			GraphInter::get()->clearConsole();
 			user = manager->createAccount();
 		}
-		else if (option == 2)
+		else if (option == 1)
 		{
 			GraphInter::get()->clearConsole();
 			user = manager->registerUser();
@@ -27,7 +27,7 @@ manager(manager)
 			launch();
 		}
 		GraphInter::get()->clearConsole();
-	} while (option != 0);
+	} while (option != 2);
 }
 
 Session::~Session()
@@ -55,33 +55,33 @@ void Session::launch()
 
 		switch (opt)
 		{
-		case 1:
+		case 0:
 			readMail();
 			break;
-		case 2:
+		case 1:
 			sendMail();
 			break;
-		case 3:
+		case 2:
 			deleteMail();
 			break;
-		case 4:
+		case 3:
 			changeTray();
 			visible.link(active_tray());
 			break;
-		case 5:
+		case 4:
 			fastRead();
 			break;
-		case 6:
+		case 5:
 			AccountOptions(opt);
 			break;
-		case 7:
+		case 6:
 			AliasOptions();
 			break;
-		case 8:
+		case 7:
 			filterOptions(filter);
 			break;
 		}
-	} while (opt != 0);
+	} while (opt != 8);
 	visible.erase();
 	visible.link(nullptr);
 	user = nullptr;
@@ -118,11 +118,11 @@ void Session::readMail()
 
 		GraphInter::get()->clearConsole();
 
-		if (option == 1)
+		if (option == 0)
 		{
 			answerMail(mail);
 		}
-		else if (option == 2)
+		else if (option == 1)
 		{
 			forwardMail(mail);
 		}
@@ -212,7 +212,7 @@ void Session::deleteMail()
 			{
 				option = GraphInter::get()->WhatToDelete();
 
-				if (option == 1)
+				if (option == 0)
 				{
 					//Select mail
 					std::string id = GraphInter::get()->selectMail(this)->getId();
@@ -220,7 +220,7 @@ void Session::deleteMail()
 					manager->deleteMail(active_tray(), id);
 					GraphInter::get()->clearConsole();
 				}
-				else if (option == 2)
+				else if (option == 1)
 				{
 					for (int i = 0; i < visible.length(); i++)
 					{
@@ -230,7 +230,7 @@ void Session::deleteMail()
 					}
 				}
 			}
-		} while (visible.length() != 0 && option != 0);
+		} while (visible.length() != 0 && option != 2);
 	}
 }
 
@@ -283,20 +283,20 @@ void Session::AccountOptions(int &option)
 
 		menu = GraphInter::get()->AccountOptions();
 
-		if (menu == 1)
+		if (menu == 0)
 		{
 			changeUsername();
 		}
-		else if (menu == 2)
+		else if (menu == 1)
 		{
 			changePassword();
 		}
-		else if (menu == 3)
+		else if (menu == 2)
 		{
 			manager->deleteAccount(user);
-			option = 0;
+			option = 8;
 		}
-	} while (menu != 0 && option != 0);
+	} while (menu != 3 && option != 8);
 }
 
 void Session::AddFastName(User* user)
@@ -428,11 +428,11 @@ void Session::AliasOptions()
 
 		option = GraphInter::get()->FastName(user->getContactlist());
 
-		if (option == 1)
+		if (option == 0)
 		{
 			AddFastName(this->getUser());
 		}
-		else if (option != 0)
+		else if (option != 3)
 		{
 			if (this->getUser()->getContactlist()->length() == 0)
 			{
@@ -441,7 +441,7 @@ void Session::AliasOptions()
 			}
 			else
 			{
-				if (option == 2)
+				if (option == 1)
 				{
 					if (this->getUser()->getContactlist()->length() > 1)
 					{
@@ -463,7 +463,7 @@ void Session::AliasOptions()
 						GraphInter::get()->pause();
 					}
 				}
-				else if (option == 3)
+				else if (option == 2)
 				{
 					if (this->getUser()->getContactlist()->length() > 1)
 					{
@@ -485,7 +485,7 @@ void Session::AliasOptions()
 				}
 			}
 		}
-	} while (option != 0);
+	} while (option != 3);
 }
 
 void Session::filterOptions(Filter filter)
@@ -503,15 +503,15 @@ void Session::filterOptions(Filter filter)
 
 		option = GraphInter::get()->filter();
 
-		if (option == 1)
+		if (option == 0)
 		{
 			chooseOrder(filter);
 		}
-		else if (option == 2)
+		else if (option == 1)
 		{
 			chooseFilter(filter);
 		}
-		else if (option == 3)
+		else if (option == 2)
 		{
 			this->get_visible()->closeFilter();
 		}
@@ -522,7 +522,7 @@ void Session::chooseFilter(Filter filter)
 {
 	this->get_visible()->closeFilter();
 
-	GraphInter::get()->choose("filter", filter, this);
+	GraphInter::get()->choosefilter(filter, this);
 
 	if (filter != none)
 	{
@@ -560,7 +560,7 @@ void Session::chooseFilter(Filter filter)
 
 void Session::chooseOrder(Filter filter)
 {
-	GraphInter::get()->choose("order", filter, this);
+	GraphInter::get()->chooseorder(filter, this);
 
 	this->get_visible()->changeOrder(filter);
 }

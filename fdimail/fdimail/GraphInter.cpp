@@ -2,6 +2,7 @@
 #include "Session.h"
 #include "GlobalConstants.h"
 #include "checkML.h"
+#include "utilsWin.h"
 #include <sstream>
 #include <iostream>
 #include <iomanip>
@@ -24,19 +25,52 @@ void GraphInter::close()
 	if (inter != nullptr) delete inter;
 }
 
+int actualizar(int key, int &elem, int max_elems)
+{
+	if (key == UP)
+	{
+		if (elem == 0)
+		{
+			return 0;
+		}
+		else return --elem;
+	}
+	else if (key == DOWN)
+	{
+		if (elem == max_elems - 1)
+		{
+			return max_elems;
+		}
+		else return ++elem;
+	}
+	else return key;
+}
+
+
+
 //Options: sign in and sign up
 int GraphInter::mainMenu()
 {
-	display("Choose your desired option: ");
-	tab_word("1- Sign up");
-	tab_word("2- Sign in");
-	tab_word("0- Exit");
+	int key = UP, elem = 0, choose;
 
-	display(linea());
+	do
+	{
+		choose = actualizar(key, elem, 3);
 
-	display("Enter an option:");
+		display("Choose your desired option: ");
+		tab_word("Sign up", 0, elem);
+		tab_word("Sign in", 1, elem);
+		tab_word("Exit", 2, elem);
 
-	return digitBetween(0, 2);
+		display(linea());
+
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //Returns username and password
@@ -52,34 +86,42 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 //Shows active tray, returns user options (read mail, delete mail, etc)
 int GraphInter::sessionMenu(Session* session)
 {
-	display("Mail of " + session->getUser()->getId());
+	int key = UP, elem = 0, choose;
 
-	showTray(session);
-
-	display("Choose your desired option: ");
-	tab_word("1- Read mail");
-	tab_word("2- Send mail");
-	tab_word("3- Delete mail");
-
-	if (session->get_active_list())
+	do
 	{
-		tab_word("4- See inbox");
-	}
-	else
-	{
-		tab_word("4- See outbox");
-	}
-	tab_word("5- Fast read of unread mails");
-	tab_word("6- Account options");
-	tab_word("7- Alias options");
-	tab_word("8- Filter options");
-	tab_word("0- Sign out");
+		choose = actualizar(key, elem, 9);
 
-	display(linea());
+		display("Mail of " + session->getUser()->getId());
 
-	display("Enter an option:");
+		showTray(session);
 
-	return digitBetween(0, 8);
+		display("Choose your desired option: ");
+		tab_word("Read mail", 0, elem);
+		tab_word("Send mail", 1, elem);
+		tab_word("Delete mail", 2, elem);
+
+		if (session->get_active_list())
+		{
+			tab_word("See inbox", 3, elem);
+		}
+		else
+		{
+			tab_word("See outbox", 3, elem);
+		}
+		tab_word("Fast read of unread mails", 4, elem);
+		tab_word("Account options", 5, elem);
+		tab_word("Alias options", 6, elem);
+		tab_word("Filter options", 7, elem);
+		tab_word("Sign out", 8, elem);
+
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //Shows active tray, returns idMail of mail selected
@@ -117,16 +159,24 @@ std::string GraphInter::selectAlias(Session* session)
 //Shows mail, returns options answer, forward, or return to sessionMenu
 int GraphInter::mailMenu()
 {
-	display("Choose an option:");
-	tab_word("1- Answer");
-	tab_word("2- Forward");
-	tab_word("0- Exit to sesion menu");
+	int key = UP, elem = 0, choose;
 
-	display(linea());
+	do
+	{
+		choose = actualizar(key, elem, 3);
 
-	display("Enter an option:");
+		display("Choose an option:");
+		tab_word("Answer", 0, elem);
+		tab_word("Forward", 1, elem);
+		tab_word("Exit to sesion menu", 2, elem);
 
-	return digitBetween(0, 2);
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //Returns a full mail
@@ -317,19 +367,27 @@ Mail* GraphInter::errorMail(const std::string &sender)
 
 int GraphInter::FastName(ContactList* contactList)
 {
-	showFastNames(contactList);
+	int key = UP, elem = 0, choose;
 
-	display("Choose your desired option: ");
-	tab_word("1- Add an alias");
-	tab_word("2- Delete an alias");
-	tab_word("3- Delete all alias");
-	tab_word("0- Exit to session menu");
+	do
+	{
+		choose = actualizar(key, elem, 4);
 
-	display(linea());
+		showFastNames(contactList);
 
-	display("Enter an option:");
+		display("Choose your desired option: ");
+		tab_word("Add an alias", 0, elem);
+		tab_word("Delete an alias", 1, elem);
+		tab_word("Delete all alias", 2, elem);
+		tab_word("Exit to session menu", 3, elem);
 
-	return digitBetween(0, 3);
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 void GraphInter::showFastNames(ContactList* contactList)
@@ -485,118 +543,139 @@ std::string GraphInter::valid_user()
 	return id;
 }
 
-void GraphInter::choose(std::string parameter, Filter &filter, Session* session)
+void GraphInter::choosefilter(Filter &filter, Session* session)
 {
-	display(linea());
+	int key = UP, elem = 0, choose;
 
-	display("Choose your " + parameter + ": ");
-	tab_word("1- Subject");
-	tab_word("2- Date");
-
-	if (parameter == "filter")
+	do
 	{
-		tab_word("3- Emissor");
-		tab_word("4- Recipients");
-		tab_word("5- Body");
-		tab_word("6- Read");
-		tab_word("7- Unread");
-	}
+		choose = actualizar(key, elem, 8);
 
-	tab_word("0- Exit to session menu");
+		display("Choose your filter: ");
+		tab_word("Subject", 0, elem);
+		tab_word("Date", 1, elem);
+		tab_word("Emissor", 2, elem);
+		tab_word("Recipients", 3, elem);
+		tab_word("Body", 4, elem);
+		tab_word("Read", 5, elem);
+		tab_word("Unread", 6, elem);
+		tab_word("Exit to session menu", 7, elem);
 
-	display(linea());
+		key = getKey();
 
-	display("Enter an option:");
+		clearConsole();
 
-	int option;
+	} while (key != ENTER);
 
-	if (parameter == "filter")
+	switch (choose)
 	{
-		option = digitBetween(0, 7);
-	}
-	else
-	{
-		option = digitBetween(0, 2);
-	}
-
-	switch (option)
-	{
-	case 1:
+	case 0:
 		filter = subject;
-
-		if (parameter != "filter")
-		{
-			int select = Invert();
-			bool invert;
-
-			switch (select)
-			{
-			case 1:
-				invert = true;
-				break;
-			case 2:
-				invert = false;
-				break;
-			}
-			session->get_visible()->setInvert(invert);
-		}
+		break;
+	case 1:
+		filter = date;
 		break;
 	case 2:
-		filter = date;
-
-		if (parameter != "filter")
-		{
-			int select = Invert();
-			bool invert;
-
-			switch (select)
-			{
-			case 1:
-				invert = false;
-				break;
-			case 2:
-				invert = true;
-				break;
-			}
-			session->get_visible()->setInvert(invert);
-		}
-		break;
-	case 3:
 		filter = emissor;
 		break;
-	case 4:
+	case 3:
 		filter = recipients;
 		break;
-	case 5:
+	case 4:
 		filter = body;
 		break;
-	case 6:
+	case 5:
 		filter = read;
 		break;
-	case 7:
+	case 6:
 		filter = unread;
 		break;
-	case 0:
+	case 7:
 		filter = none;
+		break;
+	}
+}
+
+void GraphInter::chooseorder(Filter &filter, Session* session)
+{
+	int key = UP, elem = 0, choose;
+
+	do
+	{
+		choose = actualizar(key, elem, 2);
+
+		display("Choose your filter: ");
+		tab_word("Subject", 0, elem);
+		tab_word("Date", 1, elem);
+
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	switch (choose)
+	{
+	case 0:
+		filter = subject;
+
+		int select = Invert();
+		bool invert;
+
+		switch (select)
+		{
+		case 0:
+			invert = true;
+			break;
+		case 1:
+			invert = false;
+			break;
+		}
+		session->get_visible()->setInvert(invert);
+		break;
+	case 1:
+		filter = date;
+
+		int select = Invert();
+		bool invert;
+
+		switch (select)
+		{
+		case 0:
+			invert = false;
+			break;
+		case 1:
+			invert = true;
+			break;
+		}
+		session->get_visible()->setInvert(invert);
 		break;
 	}
 }
 
 int GraphInter::filter()
 {
-	display(linea());
+	int key = UP, elem = 0, choose;
 
-	display("Choose your desired option: ");
-	tab_word("1- Change order");
-	tab_word("2- Change filter");
-	tab_word("3- Quit filter");
-	tab_word("0- Exit to session menu");
+	do
+	{
+		choose = actualizar(key, elem, 4);
 
-	display(linea());
+		display(linea());
 
-	display("Enter an option:");
+		display("Choose your desired option: ");
+		tab_word("Change order", 0, elem);
+		tab_word("Change filter", 1, elem);
+		tab_word("Quit filter", 2, elem);
+		tab_word("Exit to session menu", 3, elem);
 
-	return digitBetween(0, 3);
+		key = getKey();
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //It pauses the program, you must
@@ -613,51 +692,72 @@ void GraphInter::clearConsole(){ system("cls"); }
 //Little options menu
 int GraphInter::WhatToDelete()
 {
-	display(linea());
+	int key = UP, elem = 0, choose;
 
-	display("Choose your desired option: ");
-	tab_word("1- Choose mail");
-	tab_word("2- Delete all mails");
-	tab_word("0- Exit to session menu");
+	do
+	{
+		choose = actualizar(key, elem, 3);
+		display(linea());
 
-	display(linea());
+		display("Choose your desired option: ");
+		tab_word("Choose mail", 0, elem);
+		tab_word("Delete all mails", 1, elem);
+		tab_word("Exit to session menu", 2, elem);
 
-	display("Enter an option:");
+		key = getKey();
 
-	return digitBetween(0, 2);
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 int GraphInter::Invert()
 {
-	display(linea());
+	int key = UP, elem = 0, choose;
 
-	display("Choose the order you want the list to be shown: ");
-	tab_word("1- Order list");
-	tab_word("2- Invert list");
+	do
+	{
+		choose = actualizar(key, elem, 2);
+		display(linea());
 
-	display(linea());
+		display("Choose the order you want the list to be shown: ");
+		tab_word("Order list", 0, elem);
+		tab_word("Invert list", 1, elem);
 
-	display("Enter an option:");
+		key = getKey();
 
-	return digitBetween(1, 2);
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //Little options menu
 int GraphInter::AccountOptions()
 {
-	display(linea());
+	int key = UP, elem = 0, choose;
 
-	display("Choose your desired option: ");
-	tab_word("1- Change username");
-	tab_word("2- Change password");
-	tab_word("3- Delete account");
-	tab_word("0- Exit to session menu");
+	do
+	{
+		choose = actualizar(key, elem, 4);
+		display(linea());
 
-	display(linea());
+		display("Choose your desired option: ");
+		tab_word("Change username", 0, elem);
+		tab_word("Change password", 1, elem);
+		tab_word("Delete account", 2, elem);
+		tab_word("Exit to session menu", 3, elem);
 
-	display("Enter an option:");
+		key = getKey();
 
-	return digitBetween(0, 3);
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return choose;
 }
 
 //Asks you to enter your username again, and
@@ -898,10 +998,18 @@ std::string GraphInter::center_word(std::string word, int length, std::string ar
 
 //It prints the word you choose on console,
 //after two empty spaces
-void GraphInter::tab_word(std::string word)
+void GraphInter::tab_word(std::string word, int pos, int cont)
 {
 	std::ostringstream tab;
 
+	if (pos == cont)
+	{
+		word = "* " + word;
+	}
+	else
+	{
+		word = "  " + word;
+	}
 	tab << std::setw(2 + word.size()) << word;
 
 	display(tab.str());
