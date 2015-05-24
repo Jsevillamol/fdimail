@@ -66,9 +66,6 @@
     <ClCompile Include="UserList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilsWin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TrayList.h">
@@ -110,9 +107,6 @@
     <ClInclude Include="Encript.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
-    <ClInclude Include="Filters.h">
-      <Filter>Auxiliar</Filter>
-    </ClInclude>
     <ClInclude Include="GraphInter.h">
       <Filter>Client</Filter>
     </ClInclude>
@@ -125,8 +119,8 @@
     <ClInclude Include="checkML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilsWin.h">
-      <Filter>Client</Filter>
+    <ClInclude Include="Filters.h">
+      <Filter>Auxiliar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

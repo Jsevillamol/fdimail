@@ -69,7 +69,6 @@
     <ClCompile Include="Encript.cpp" />
     <ClCompile Include="fdimail.cpp" />
     <ClCompile Include="GraphInter.cpp" />
-    <ClCompile Include="utilsWin.cpp" />
     <ClCompile Include="Mail.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Session.cpp" />
@@ -88,7 +87,6 @@
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GraphInter.h" />
     <ClInclude Include="List.h" />
-    <ClInclude Include="utilsWin.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="tContact.h" />
     <ClInclude Include="tElemTray.h" />

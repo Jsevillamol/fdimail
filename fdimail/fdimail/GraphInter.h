@@ -6,6 +6,7 @@
 #include "UserList.h"
 #include "ContactList.h"
 #include "Filters.h"
+#include <windows.h>
 #include <iomanip>
 #include <iostream>
 
@@ -25,6 +26,12 @@ public:
 	static GraphInter* get();
 	static void load();
 	static void close();
+
+	//Enums
+	enum keys { UP = VK_UP, RIGHT = VK_RIGHT, LEFT = VK_LEFT, DOWN = VK_DOWN, ESCAPE = VK_ESCAPE };
+
+	//Keys
+	int getKey();
 
 	//Menus
 	int mainMenu(); 
