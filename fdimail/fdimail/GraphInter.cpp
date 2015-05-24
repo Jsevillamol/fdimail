@@ -471,6 +471,10 @@ std::string GraphInter::valid_user()
 
 						id_right = false;
 					}
+					else if (id[i] <= 'Z' && 'A' <= id[i])
+					{
+						id[i] += 32; //transforms uppercase in lowercase
+					}
 				}
 			}
 		}
