@@ -18,7 +18,8 @@ public:
 	bool MailList::delete_mail(const std::string &id)
 	{
 		int pos;
-		if (search(id, pos))
+		int left_key = 0, right_key = counter - 1;
+		if (search(id, pos, left_key, right_key))
 		{
 			list[pos]->lowerCounter();
 			if (list[pos]->getCounter() <= 0)
