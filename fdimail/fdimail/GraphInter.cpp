@@ -212,7 +212,7 @@ std::string GraphInter::selectAlias(Session* session)
 	{
 		if (session->getUser()->getContactlist()->operator[](i) != nullptr)
 		{
-			elems[i] = session->get_visible()->operator[](i)->mail->header();
+			elems[i] = session->getUser()->getContactlist()->operator[](i)->header();
 			counter++;
 		}
 	}
@@ -445,13 +445,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		for (int i = contactList->length() - 1; i >= 0; i--)
 		{
-			std::ostringstream newAlias;
-
-			std::string user = std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user;
-
-			newAlias << std::setw(36) << std::left << user << std::left << contactList->operator[](i)->alias;
-
-			display(newAlias.str());
+			contactList->operator[](i)->header();
 		}
 		display(linea());
 	}
