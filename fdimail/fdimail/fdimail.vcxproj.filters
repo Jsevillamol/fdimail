@@ -116,14 +116,14 @@
     <ClInclude Include="VisibleTrayList.h">
       <Filter>Client</Filter>
     </ClInclude>
-    <ClInclude Include="checkML.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Filters.h">
       <Filter>Auxiliar</Filter>
     </ClInclude>
     <ClInclude Include="utilsWin.h">
-      <Filter>Header Files</Filter>
+      <Filter>Auxiliar</Filter>
+    </ClInclude>
+    <ClInclude Include="checkML.h">
+      <Filter>Auxiliar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

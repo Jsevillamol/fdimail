@@ -59,12 +59,12 @@ int GraphInter::menu(std::string elems[], int max_elems)
 			tab_word(elems[i], i, elem);
 		}
 
-		key = getKey();
+		key = getKey(key);
 		elem = update(key, elem, max_elems);
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != SPACE);
 
 	return elem;
 }
@@ -86,12 +86,12 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 			tab_word(elems[i], i, elem);
 		}
 
-		key = getKey();
+		key = getKey(key);
 		elem = update(key, elem, max_elems);
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != SPACE);
 
 	return elem;
 }
@@ -148,12 +148,12 @@ int GraphInter::sessionMenu(Session* session)
 		tab_word("Filter options", 7, elem);
 		tab_word("Sign out", 8, elem);
 
-		key = getKey();
+		key = getKey(key);
 		elem = update(key, elem, 9);
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != SPACE);
 
 	return elem;
 }
