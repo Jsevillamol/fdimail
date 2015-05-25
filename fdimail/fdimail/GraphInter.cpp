@@ -35,23 +35,13 @@ void GraphInter::close()
 
 int GraphInter::update(int key, int &elem, int max_elems)
 {
-	if (key == UP)
-	{
-		if (elem == 0)
-		{
-			return max_elems - 1;
-		}
-		else return --elem;
-	}
-	else if (key == DOWN)
-	{
-		if (elem == max_elems - 1)
-		{
-			return 0;
-		}
-		else return ++elem;
-	}
-	else return elem;
+	if (key == UP) elem--;
+	else if (key == DOWN) elem++;
+
+	if (elem < 0) elem = max_elems - 1;
+	else if (elem >= max_elems) elem = 0;
+
+	return elem;
 }
 
 void GraphInter::updateTray(int key, Session* session)
@@ -92,35 +82,24 @@ int GraphInter::menu(std::string elems[], int max_elems, std::string to_choose)
 int GraphInter::mailMenu(Session* session)
 {
 	int key = UP, elem = 0;
-	int counter = 0;
-	std::string elems[MAILS_X_PAGE];
-
 
 	do
 	{
-		session->get_visible()->filterPage();
-
-		for (int i = 0; i < MAILS_X_PAGE; i++)
-		{
-			if (session->get_visible()->operator[](i)->mail != nullptr)
-			{
-				elems[i] = session->get_visible()->operator[](i)->mail->header();
-				counter++;
-			}
-		}
+		session->get_visible()->refresh();
 
 		display("Choose your desired mail: ");
 
-		for (int i = 0; i < counter; i++)
+		for (int i = 0; i < session->get_visible()->length(); i++)
 		{
-			tab_word(elems[i], i, elem);
+			tab_word(session->get_visible()->operator[](i)->mail->header(), i, elem);
 		}
+
 		display(linea());
 		display(pags(session));
 		display(linea());
 
 		key = getKey();
-		elem = update(key, elem, counter);
+		elem = update(key, elem, session->get_visible()->length());
 		updateTray(key, session);
 
 		clearConsole();
