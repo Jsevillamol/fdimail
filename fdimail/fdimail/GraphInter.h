@@ -29,6 +29,7 @@ public:
 	//Menus
 	int menu(std::string elems[], int max_elems, std::string to_choose);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
+	int mailMenu(Session* session);
 
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);

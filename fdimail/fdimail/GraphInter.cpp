@@ -81,6 +81,47 @@ int GraphInter::menu(std::string elems[], int max_elems, std::string to_choose)
 	return elem;
 }
 
+int GraphInter::mailMenu(Session* session)
+{
+	int key = UP, elem = 0;
+	int counter = 0;
+	std::string elems[MAILS_X_PAGE];
+
+
+	do
+	{
+		session->get_visible()->filterPage();
+
+		for (int i = 0; i < MAILS_X_PAGE; i++)
+		{
+			if (session->get_visible()->operator[](i)->mail != nullptr)
+			{
+				elems[i] = session->get_visible()->operator[](i)->mail->header();
+				counter++;
+			}
+		}
+
+		display("Choose your desired mail: ");
+
+		for (int i = 0; i < counter; i++)
+		{
+			tab_word(elems[i], i, elem);
+		}
+		display(linea());
+		display(pags(session));
+		display(linea());
+
+		key = getKey();
+		elem = update(key, elem, counter);
+		updateTray(key, session);
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return elem;
+}
+
 int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 {
 	int key = UP, elem = 0;
@@ -177,21 +218,11 @@ int GraphInter::sessionMenu(Session* session)
 //Shows active tray, returns idMail of mail selected
 Mail* GraphInter::selectMail(Session* session)
 {
-	int number, counter = 0;
-	std::string elems[MAILS_X_PAGE];
-
-	for (int i = 0; i < MAILS_X_PAGE; i++)
-	{
-		if (session->get_visible()->operator[](i)->mail != nullptr)
-		{
-			elems[i] = session->get_visible()->operator[](i)->mail->header();
-			counter++;
-		}
-	}
+	int number;
 
 	if (session->get_visible()->length() != 0)
 	{
-		number = menu(elems, counter, "mail");
+		number = mailMenu(session);
 
 		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
 	}

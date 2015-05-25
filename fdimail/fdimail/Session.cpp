@@ -105,8 +105,6 @@ void Session::readMail()
 	{
 		//Select mail to read
 		GraphInter::get()->clearConsole();
-
-		GraphInter::get()->showTray(this);
 		//Display mail
 		Mail* mail = GraphInter::get()->selectMail(this);
 		GraphInter::get()->drawMail(mail);
