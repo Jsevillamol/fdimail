@@ -198,7 +198,7 @@ int GraphInter::sessionMenu(Session* session)
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != ENTER && key != ESCAPE);
 
 	return elem;
 }
