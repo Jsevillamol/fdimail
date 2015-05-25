@@ -181,7 +181,7 @@ Mail* GraphInter::selectMail(Session* session)
 
 	if (session->get_visible()->length() != 0)
 	{
-		number = menu(session->get_visible()->operator[], session->get_visible()->length(), "mail");
+		number = menu(session->get_visible()->getlist()->mail->header(), session->get_visible()->length(), "mail");
 
 		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
 	}
@@ -197,7 +197,7 @@ std::string GraphInter::selectAlias(Session* session)
 {
 	int number;
 
-	number = menu(session->getUser()->getContactlist()->operator[], session->getUser()->getContactlist()->length(), "alias");
+	number = menu(session->getUser()->getContactlist()->getlist()->alias, session->getUser()->getContactlist()->length(), "alias");
 
 	return session->getUser()->getContactlist()->operator[](session->getUser()->getContactlist()->length() - number + 1)->user;
 }
