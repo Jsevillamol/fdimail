@@ -136,12 +136,11 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 int GraphInter::sessionMenu(Session* session)
 {
 	int key = UP, elem = 0;
-
 	do
 	{
 		display("Mail of " + session->getUser()->getId());
 
-		session->get_visible()->filterPage();
+		session->get_visible()->sync();
 		showTray(session);
 
 		display("Choose your desired option: ");
@@ -177,23 +176,19 @@ int GraphInter::sessionMenu(Session* session)
 //Shows active tray, returns idMail of mail selected
 Mail* GraphInter::selectMail(Session* session)
 {
-	int number, counter = 0;
-	std::string elems[MAILS_X_PAGE];
-
-	for (int i = 0; i < MAILS_X_PAGE; i++)
-	{
-		if (session->get_visible()->operator[](i)->mail != nullptr)
-		{
-			elems[i] = session->get_visible()->operator[](i)->mail->header();
-			counter++;
-		}
-	}
-
 	if (session->get_visible()->length() != 0)
 	{
-		number = menu(elems, counter, "mail");
+		int number;
+		std::string elems[MAILS_X_PAGE];
 
-		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
+		for (int i = 0; i < session->get_visible()->length(); i++)
+		{
+			elems[i] = session->get_visible()->operator[](i)->mail->header();
+		}
+
+		number = menu(elems, session->get_visible()->length(), "mail");
+
+		return session->get_visible()->operator[](number)->mail;
 	}
 	else
 	{
@@ -494,7 +489,7 @@ void GraphInter::showTray(Session* session)
 	}
 	else
 	{
-		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
+		for (int i = 0; i< session->get_visible()->length(); i--)
 		{
 			std::ostringstream show;
 
