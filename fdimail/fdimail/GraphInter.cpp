@@ -31,7 +31,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	{
 		if (elem == 0)
 		{
-			return 0;
+			return max_elems - 1;
 		}
 		else return --elem;
 	}
@@ -39,7 +39,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	{
 		if (elem == max_elems - 1)
 		{
-			return max_elems - 1;
+			return 0;
 		}
 		else return ++elem;
 	}
@@ -207,11 +207,11 @@ std::string GraphInter::selectAlias(Session* session)
 	{
 		if (session->getUser()->getContactlist()->operator[](i) != nullptr)
 		{
-			elems[i] = session->get_visible()->operator[](i)->mail->header();
+			elems[i] = session->getUser()->getContactlist()->operator[](i)->header();
 			counter++;
 		}
 	}
-	number = menu(elems, counter, "mail");
+	number = menu(elems, counter, "alias");
 
 	return session->getUser()->getContactlist()->operator[](session->get_visible()->length() - number + 1)->user;
 }
@@ -440,13 +440,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		for (int i = contactList->length() - 1; i >= 0; i--)
 		{
-			std::ostringstream newAlias;
-
-			std::string user = std::to_string(contactList->length() - i) + ": " + contactList->operator[](i)->user;
-
-			newAlias << std::setw(36) << std::left << user << std::left << contactList->operator[](i)->alias;
-
-			display(newAlias.str());
+			contactList->operator[](i)->header();
 		}
 		display(linea());
 	}

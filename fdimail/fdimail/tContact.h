@@ -2,7 +2,9 @@
 #define TCONTACT
 
 #include <string>
+#include <sstream>
 #include <fstream>
+#include <iomanip>
 
 struct tContact
 {
@@ -23,6 +25,15 @@ struct tContact
 	void load(std::ifstream &file)
 	{
 		file >> (this->user) >> (this->alias);
+	}
+
+	std::string header()
+	{
+		std::ostringstream contact;
+
+		contact << std::setw(36) << std::left << this->user << std::left << this->alias;
+
+		return contact.str();
 	}
 };
 
