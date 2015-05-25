@@ -189,7 +189,7 @@ int GraphInter::sessionMenu(Session* session)
 	{
 		display("Mail of " + session->getUser()->getId());
 
-		session->get_visible()->sync();
+		session->get_visible()->refresh();
 		showTray(session);
 
 		display("Choose your desired option: ");
