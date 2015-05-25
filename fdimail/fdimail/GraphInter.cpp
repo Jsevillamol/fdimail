@@ -177,11 +177,21 @@ int GraphInter::sessionMenu(Session* session)
 //Shows active tray, returns idMail of mail selected
 Mail* GraphInter::selectMail(Session* session)
 {
-	int number;
+	int number, counter = 0;
+	std::string elems[MAILS_X_PAGE];
+
+	for (int i = 0; i < MAILS_X_PAGE; i++)
+	{
+		if (session->get_visible()->operator[](i)->mail != nullptr)
+		{
+			elems[i] = session->get_visible()->operator[](i)->mail->header();
+			counter++;
+		}
+	}
 
 	if (session->get_visible()->length() != 0)
 	{
-		number = menu(session->get_visible()->getlist()->mail->header(), session->get_visible()->length(), "mail");
+		number = menu(elems, counter, "mail");
 
 		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
 	}
@@ -195,11 +205,20 @@ Mail* GraphInter::selectMail(Session* session)
 
 std::string GraphInter::selectAlias(Session* session)
 {
-	int number;
+	int number, counter = 0;
+	std::string elems[MAILS_X_PAGE];
 
-	number = menu(session->getUser()->getContactlist()->getlist()->alias, session->getUser()->getContactlist()->length(), "alias");
+	for (int i = 0; i < MAILS_X_PAGE; i++)
+	{
+		if (session->getUser()->getContactlist()->operator[](i) != nullptr)
+		{
+			elems[i] = session->get_visible()->operator[](i)->mail->header();
+			counter++;
+		}
+	}
+	number = menu(elems, counter, "mail");
 
-	return session->getUser()->getContactlist()->operator[](session->getUser()->getContactlist()->length() - number + 1)->user;
+	return session->getUser()->getContactlist()->operator[](session->get_visible()->length() - number + 1)->user;
 }
 
 //Shows mail, returns options answer, forward, or return to sessionMenu
