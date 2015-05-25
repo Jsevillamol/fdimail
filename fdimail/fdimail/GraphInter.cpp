@@ -1,5 +1,6 @@
 #include "GraphInter.h"
 #include "Session.h"
+#include "Mail.h"
 #include "GlobalConstants.h"
 #include "checkML.h"
 #include "utilsWin.h"
@@ -9,6 +10,7 @@
 #include <conio.h>
 
 GraphInter* GraphInter::inter = nullptr;
+Mail* GraphInter::error = nullptr;
 
 GraphInter* GraphInter::get()
 {
@@ -17,12 +19,18 @@ GraphInter* GraphInter::get()
 
 void GraphInter::load()
 {
-	if (inter == nullptr) inter = new GraphInter;
+	if (inter == nullptr){
+		inter = new GraphInter;
+		error = errorMail();
+	}
 }
 
 void GraphInter::close()
 {
-	if (inter != nullptr) delete inter;
+	if (inter != nullptr) {
+		delete inter;
+		delete error;
+	}
 }
 
 int GraphInter::update(int key, int &elem, int max_elems)
@@ -392,7 +400,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 //Returns a default mail, which is sent when one of the 
 //user active tray mails does not exist
-Mail* GraphInter::errorMail(const std::string &sender)
+Mail* GraphInter::errorMail()
 {
 	std::ostringstream ID;
 	Mail* mail = new Mail;
@@ -401,11 +409,11 @@ Mail* GraphInter::errorMail(const std::string &sender)
 	mail->date = time(0);
 	mail->user_count = 2;
 
-	ID << sender << "_" << mail->date;
+	ID << "fdimail" << "_" << mail->date;
 	mail->id = ID.str();
 
 	mail->recipient_count = 1;
-	mail->recipients[0] = sender;
+	mail->recipients[0] = "fdimail";
 
 	mail->subject = "Mail error";
 
@@ -500,7 +508,7 @@ void GraphInter::showTray(Session* session)
 
 			if (mail == nullptr)
 			{
-				mail = errorMail(session->getUser()->getId());
+				mail = error;
 			}
 
 			thisMail = mail->header();
