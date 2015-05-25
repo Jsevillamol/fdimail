@@ -31,7 +31,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	{
 		if (elem == 0)
 		{
-			return 0;
+			return max_elems - 1;
 		}
 		else return --elem;
 	}
@@ -39,7 +39,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	{
 		if (elem == max_elems - 1)
 		{
-			return max_elems - 1;
+			return 0;
 		}
 		else return ++elem;
 	}
@@ -216,7 +216,7 @@ std::string GraphInter::selectAlias(Session* session)
 			counter++;
 		}
 	}
-	number = menu(elems, counter, "mail");
+	number = menu(elems, counter, "alias");
 
 	return session->getUser()->getContactlist()->operator[](session->get_visible()->length() - number + 1)->user;
 }
