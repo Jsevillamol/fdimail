@@ -41,6 +41,7 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	if (elem < 0) elem = max_elems - 1;
 	else if (elem >= max_elems) elem = 0;
 
+	if (key == ESCAPE) elem = max_elems - 1;
 	return elem;
 }
 
@@ -74,7 +75,7 @@ int GraphInter::menu(std::string elems[], int max_elems, std::string to_choose)
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != ENTER && key != ESCAPE);
 
 	return elem;
 }
@@ -93,18 +94,19 @@ int GraphInter::mailMenu(Session* session)
 		{
 			tab_word(session->get_visible()->operator[](i)->mail->header(), i, elem);
 		}
+		tab_word("Back", session->get_visible()->length(), elem);
 
 		display(linea());
 		display(pags(session));
 		display(linea());
 
 		key = getKey();
-		elem = update(key, elem, session->get_visible()->length());
+		elem = update(key, elem, session->get_visible()->length()+1);
 		updateTray(key, session);
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != ENTER && key != ESCAPE);
 
 	return elem;
 }
@@ -210,7 +212,14 @@ Mail* GraphInter::selectMail(Session* session)
 	{
 		number = mailMenu(session);
 
-		return session->get_visible()->operator[](number)->mail;
+		if (number != session->get_visible()->length())
+		{
+			return session->get_visible()->operator[](number)->mail;
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 	else
 	{
@@ -527,7 +536,7 @@ void GraphInter::showTray(Session* session)
 
 			thisMail = mail->header();
 
-			show << std::setw(2) << (session->get_visible()->length() - i) << " - " << thisMail;
+			show << std::setw(2) << (i + 1) << " - " << thisMail;
 			display(show.str());
 		}
 	}

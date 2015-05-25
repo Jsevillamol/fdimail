@@ -107,22 +107,25 @@ void Session::readMail()
 		GraphInter::get()->clearConsole();
 		//Display mail
 		Mail* mail = GraphInter::get()->selectMail(this);
-		GraphInter::get()->drawMail(mail);
-		//Change mail status to read
-		active_tray()->readMail(mail->getId());
-
-		GraphInter::get()->pause();
-		int option = GraphInter::get()->mailMenu();
-
-		GraphInter::get()->clearConsole();
-
-		if (option == 0)
+		if (mail != nullptr)
 		{
-			answerMail(mail);
-		}
-		else if (option == 1)
-		{
-			forwardMail(mail);
+			GraphInter::get()->drawMail(mail);
+			//Change mail status to read
+			active_tray()->readMail(mail->getId());
+
+			GraphInter::get()->pause();
+			int option = GraphInter::get()->mailMenu();
+
+			GraphInter::get()->clearConsole();
+
+			if (option == 0)
+			{
+				answerMail(mail);
+			}
+			else if (option == 1)
+			{
+				forwardMail(mail);
+			}
 		}
 	}
 }
