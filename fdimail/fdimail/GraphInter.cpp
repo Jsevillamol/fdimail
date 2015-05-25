@@ -483,7 +483,7 @@ void GraphInter::showTray(Session* session)
 	}
 	else
 	{
-		for (int i = 0; i< session->get_visible()->length(); i--)
+		for (int i = 0; i < session->get_visible()->length(); i++)
 		{
 			std::ostringstream show;
 
