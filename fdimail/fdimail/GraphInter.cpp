@@ -177,12 +177,11 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 int GraphInter::sessionMenu(Session* session)
 {
 	int key = UP, elem = 0;
-
 	do
 	{
 		display("Mail of " + session->getUser()->getId());
 
-		session->get_visible()->filterPage();
+		session->get_visible()->sync();
 		showTray(session);
 
 		display("Choose your desired option: ");
@@ -224,7 +223,7 @@ Mail* GraphInter::selectMail(Session* session)
 	{
 		number = mailMenu(session);
 
-		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
+		return session->get_visible()->operator[](number)->mail;
 	}
 	else
 	{
@@ -519,7 +518,7 @@ void GraphInter::showTray(Session* session)
 	}
 	else
 	{
-		for (int i = session->get_visible()->length() - 1; i >= 0; i--)
+		for (int i = 0; i < session->get_visible()->length(); i++)
 		{
 			std::ostringstream show;
 

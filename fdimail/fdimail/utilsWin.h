@@ -9,6 +9,7 @@ int getKey()
 {
 	int key; DWORD cNumRead; INPUT_RECORD irInBuf;
 	HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
+	FlushConsoleInputBuffer(hStdIn);
 	do{
 		do{
 			ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
