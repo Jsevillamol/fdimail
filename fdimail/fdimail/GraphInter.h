@@ -43,8 +43,6 @@ public:
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
 	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
 
-	Mail* errorMail(const std::string &sender);
-
 	//Fastnames
 	int FastName(ContactList* contactList);
 	void showFastNames(ContactList* contactList);
@@ -83,6 +81,8 @@ public:
 
 private:
 	static GraphInter* inter;
+	static Mail* error;
+	static Mail* errorMail();
 
 	GraphInter() {}//to prevent instantation
 
