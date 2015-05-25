@@ -27,7 +27,7 @@ public:
 	static void close();
 	
 	//Menus
-	int menu(std::string elems[], int max_elems);
+	int menu(std::string elems[], int max_elems, std::string to_choose);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
 
 	int mainMenu(); 
@@ -91,10 +91,12 @@ private:
 	int digitBetween(int a, int b);
 
 	int update(int key, int &elem, int max_elems);
+	void updateTray(int key, Session* session);
 
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word, int pos, int cont);
 	std::string linea();
+	std::string pags(Session* session);
 };
 #endif //GRAPHINTER

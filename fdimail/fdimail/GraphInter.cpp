@@ -46,25 +46,37 @@ int GraphInter::update(int key, int &elem, int max_elems)
 	else return elem;
 }
 
-int GraphInter::menu(std::string elems[], int max_elems)
+void GraphInter::updateTray(int key, Session* session)
+{
+	if (key == RIGHT)
+	{
+		session->get_visible()->increasePage();
+	}
+	else if (key == LEFT)
+	{
+		session->get_visible()->decreasePage();
+	}
+}
+
+int GraphInter::menu(std::string elems[], int max_elems, std::string to_choose)
 {
 	int key = UP, elem = 0;
 
 	do
 	{
-		display("Choose your desired option: ");
+		display("Choose your desired " + to_choose + ": ");
 
 		for (int i = 0; i < max_elems; i++)
 		{
 			tab_word(elems[i], i, elem);
 		}
 
-		key = getKey(key);
+		key = getKey();
 		elem = update(key, elem, max_elems);
 
 		clearConsole();
 
-	} while (key != SPACE);
+	} while (key != ENTER);
 
 	return elem;
 }
@@ -75,6 +87,7 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 
 	do
 	{
+		session->get_visible()->filterPage();
 		showTray(session);
 
 		display(linea());
@@ -86,12 +99,13 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 			tab_word(elems[i], i, elem);
 		}
 
-		key = getKey(key);
+		key = getKey();
 		elem = update(key, elem, max_elems);
+		updateTray(key, session);
 
 		clearConsole();
 
-	} while (key != SPACE);
+	} while (key != ENTER);
 
 	return elem;
 }
@@ -105,7 +119,7 @@ int GraphInter::mainMenu()
 	elems[1] = "Sign in";
 	elems[2] = "Exit";
 
-	return menu(elems, 3);
+	return menu(elems, 3, "option");
 }
 
 //Returns username and password
@@ -127,6 +141,7 @@ int GraphInter::sessionMenu(Session* session)
 	{
 		display("Mail of " + session->getUser()->getId());
 
+		session->get_visible()->filterPage();
 		showTray(session);
 
 		display("Choose your desired option: ");
@@ -148,12 +163,13 @@ int GraphInter::sessionMenu(Session* session)
 		tab_word("Filter options", 7, elem);
 		tab_word("Sign out", 8, elem);
 
-		key = getKey(key);
+		key = getKey();
 		elem = update(key, elem, 9);
+		updateTray(key, session);
 
 		clearConsole();
 
-	} while (key != SPACE);
+	} while (key != ENTER);
 
 	return elem;
 }
@@ -163,13 +179,11 @@ Mail* GraphInter::selectMail(Session* session)
 {
 	int number;
 
-	display("Enter the number of the mail you choose:");
-
 	if (session->get_visible()->length() != 0)
 	{
-		number = digitBetween(1, session->get_visible()->length());
+		number = menu(session->get_visible()->operator[], session->get_visible()->length(), "mail");
 
-		return session->get_visible()->operator[](session->get_visible()->length() - number)->mail;
+		return session->get_visible()->operator[](session->get_visible()->length() - number + 1)->mail;
 	}
 	else
 	{
@@ -183,11 +197,9 @@ std::string GraphInter::selectAlias(Session* session)
 {
 	int number;
 
-	display("Enter the number of the mail you choose:");
+	number = menu(session->getUser()->getContactlist()->operator[], session->getUser()->getContactlist()->length(), "alias");
 
-	number = digitBetween(1, session->getUser()->getContactlist()->length());
-
-	return session->getUser()->getContactlist()->operator[](session->getUser()->getContactlist()->length() - number)->user;
+	return session->getUser()->getContactlist()->operator[](session->getUser()->getContactlist()->length() - number + 1)->user;
 }
 
 //Shows mail, returns options answer, forward, or return to sessionMenu
@@ -199,7 +211,7 @@ int GraphInter::mailMenu()
 	elems[1] = "Forward";
 	elems[2] = "Exit to session menu";
 
-	return menu(elems, 3);
+	return menu(elems, 3, "option");
 }
 
 //Returns a full mail
@@ -397,7 +409,7 @@ int GraphInter::FastName(ContactList* contactList)
 	elems[2] = "Delete all alias";
 	elems[3] = "Exit to session menu";
 
-	return menu(elems, 4);
+	return menu(elems, 4, "option");
 }
 
 void GraphInter::showFastNames(ContactList* contactList)
@@ -490,6 +502,8 @@ void GraphInter::showTray(Session* session)
 		}
 	}
 	display(linea());
+	display(pags(session));
+	display(linea());
 }
 
 //Check the username to not have spaces, and
@@ -566,7 +580,7 @@ int GraphInter::choosefilter(Session* session)
 	elems[6] = "Unread";
 	elems[7] = "Exit to session menu";
 
-	return menu(elems, 8);
+	return menu(elems, 8, "option");
 }
 
 int GraphInter::chooseorder(Session* session)
@@ -576,7 +590,7 @@ int GraphInter::chooseorder(Session* session)
 	elems[0] = "Subject";
 	elems[1] = "Date";
 
-	return menu(elems, 2);
+	return menu(elems, 2, "option");
 }
 
 int GraphInter::filter()
@@ -588,7 +602,7 @@ int GraphInter::filter()
 	elems[2] = "Quit filter";
 	elems[3] = "Exit to session menu";
 
-	return menu(elems, 4);
+	return menu(elems, 4, "option");
 }
 
 //It pauses the program, you must
@@ -621,7 +635,7 @@ int GraphInter::Invert()
 	elems[0] = "Order list";
 	elems[1] = "Invert list";
 
-	return menu(elems, 2);
+	return menu(elems, 2, "option");
 }
 
 //Little options menu
@@ -634,7 +648,7 @@ int GraphInter::AccountOptions()
 	elems[2] = "Delete account";
 	elems[3] = "Exit to session menu";
 
-	return menu(elems, 4);
+	return menu(elems, 4, "option");
 }
 
 //Asks you to enter your username again, and
@@ -881,15 +895,13 @@ void GraphInter::tab_word(std::string word, int pos, int cont)
 
 	if (pos == cont)
 	{
-		word = "* " + word;
+		word = "->" + word;
 	}
 	else
 	{
 		word = "  " + word;
 	}
-	tab << std::setw(2 + word.size()) << word;
-
-	display(tab.str());
+	display(word);
 }
 
 //Returns a guion line
@@ -902,4 +914,27 @@ std::string GraphInter::linea()
 		<< std::setfill(' ');
 
 	return line.str();
+}
+
+std::string GraphInter::pags(Session* session)
+{
+	std::ostringstream pags;
+
+	if (session->get_visible()->getPage() > 0)
+	{
+		pags << "<- (prev page)";
+	}
+	else
+	{
+		pags << "              ";
+	}
+
+	pags << std::setw(HORIZONTAL- 14);
+
+	if (session->get_visible()->getPage() < (session->get_visible()->length()/MAILS_X_PAGE))
+	{
+		pags << "(next page) ->";
+	}
+
+	return pags.str();
 }

@@ -3,11 +3,11 @@
 
 #include <Windows.h>
 
-enum keys { UP = VK_UP, RIGHT = VK_RIGHT, LEFT = VK_LEFT, DOWN = VK_DOWN, ESCAPE = VK_ESCAPE, SPACE = VK_SPACE };
+enum keys { UP = VK_UP, RIGHT = VK_RIGHT, LEFT = VK_LEFT, DOWN = VK_DOWN, ESCAPE = VK_ESCAPE, ENTER = VK_RETURN };
 
-int getKey(int key)
+int getKey()
 {
-	DWORD cNumRead; INPUT_RECORD irInBuf;
+	int key; DWORD cNumRead; INPUT_RECORD irInBuf;
 	HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
 	do{
 		do{
@@ -19,7 +19,7 @@ int getKey(int key)
 		}
 		else key = irInBuf.Event.KeyEvent.uChar.AsciiChar;
 	} while (key != VK_ESCAPE && key != VK_LEFT && key != VK_UP
-		&& key != VK_RIGHT  && key != VK_DOWN && key != VK_SPACE);
+		&& key != VK_RIGHT  && key != VK_DOWN && key != VK_RETURN);
 	//loop until game key is pressed
 	return key;
 }
