@@ -428,7 +428,7 @@ void Session::AliasOptions()
 	{
 		GraphInter::get()->clearConsole();
 
-		option = GraphInter::get()->FastName(user->getContactlist());
+		option = GraphInter::get()->AliasMenu(this);
 
 		if (option == 0)
 		{

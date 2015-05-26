@@ -105,6 +105,29 @@ int GraphInter::menumail(Mail* mail, std::string elems[], int max_elems, std::st
 	return elem;
 }
 
+int GraphInter::AliasMenu(Session* session)
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		showFastNames(session->getUser()->getContactlist());
+
+		tab_word("Add an alias", 0, elem);
+		tab_word("Delete an alias", 1, elem);
+		tab_word("Delete all alias", 2, elem);
+		tab_word("Exit to session menu", 3, elem);
+
+		key = getKey();
+		elem = update(key, elem, 4);
+
+		clearConsole();
+
+	} while (key != ENTER && key != ESCAPE);
+
+	return elem;
+}
+
 int GraphInter::mailMenu(Session* session)
 {
 	int key = UP, elem = 0;
@@ -156,13 +179,13 @@ int GraphInter::aliasMenu(Session* session)
 	{
 		session->get_visible()->refresh();
 
-		display("Choose your desired mail: ");
+		display("Choose your desired alias: ");
 
 		for (int i = 0; i < session->getUser()->getContactlist()->length(); i++)
 		{
 			tab_word(session->getUser()->getContactlist()->operator[](i)->header(), i, elem);
 		}
-		tab_word("  Back", session->get_visible()->length(), elem);
+		tab_word("Back", session->get_visible()->length(), elem);
 
 		display(linea());
 		display(pags(session));
@@ -520,18 +543,6 @@ Mail* GraphInter::errorMail()
 	return mail;
 }
 
-int GraphInter::FastName(ContactList* contactList)
-{
-	std::string elems[4];
-
-	elems[0] = "Add an alias";
-	elems[1] = "Delete an alias";
-	elems[2] = "Delete all alias";
-	elems[3] = "Exit to session menu";
-
-	return menu(elems, 4, "option");
-}
-
 void GraphInter::showFastNames(ContactList* contactList)
 {
 	if (contactList->length() != 0)
@@ -544,7 +555,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		display(linea());
 
-		for (int i = contactList->length() - 1; i >= 0; i--)
+		for (int i = 0; i < contactList->length(); i--)
 		{
 			contactList->operator[](i)->header();
 		}
