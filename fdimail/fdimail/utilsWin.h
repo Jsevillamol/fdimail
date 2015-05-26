@@ -9,8 +9,9 @@ int getKey()
 {
 	int key; DWORD cNumRead; INPUT_RECORD irInBuf;
 	HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
-	FlushConsoleInputBuffer(hStdIn);
+	
 	do{
+		FlushConsoleInputBuffer(hStdIn);
 		do{
 			ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
 		} while (irInBuf.EventType != KEY_EVENT);
@@ -21,7 +22,7 @@ int getKey()
 		else key = irInBuf.Event.KeyEvent.uChar.AsciiChar;
 	} while (key != VK_ESCAPE && key != VK_LEFT && key != VK_UP && key != VK_ESCAPE
 		&& key != VK_RIGHT  && key != VK_DOWN && key != VK_RETURN);
-	//loop until game key is pressed
+	//loop until key is pressed
 	return key;
 }
 
