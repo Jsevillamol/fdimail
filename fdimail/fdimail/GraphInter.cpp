@@ -92,9 +92,21 @@ int GraphInter::mailMenu(Session* session)
 
 		for (int i = 0; i < session->get_visible()->length(); i++)
 		{
-			tab_word(session->get_visible()->operator[](i)->mail->header(), i, elem);
+			std::ostringstream mail;
+
+			if (!session->get_visible()->operator[](i)->read)
+			{
+				mail << "* ";
+			}
+			else
+			{
+				mail << "  ";
+			}
+			mail << session->get_visible()->operator[](i)->mail->header();
+
+			tab_word(mail.str(), i, elem);
 		}
-		tab_word("Back", session->get_visible()->length(), elem);
+		tab_word("  Back", session->get_visible()->length(), elem);
 
 		display(linea());
 		display(pags(session));
@@ -959,18 +971,41 @@ std::string GraphInter::pags(Session* session)
 {
 	std::ostringstream pags;
 
-	if (session->get_visible()->getPage() > 0)
-	{
-		pags << "<- (prev page)";
-	}
-	else
+	if (session->get_visible()->getLastPage() == 0)
 	{
 		pags << "              ";
 	}
+	else
+	{
+		if (session->get_visible()->getPage() > 0)
+		{
+			pags << "<- (prev page)";
+		}
+		else
+		{
+			pags << "<- (last page)";
+		}
+	}
 
-	pags << std::setw(HORIZONTAL- 14);
-	
-	pags << "(next page) ->";
+	pags << std::setw((HORIZONTAL- 14)/2);
+	pags << (session->get_visible()->getPage()) + 1;
+	pags << std::setw((HORIZONTAL - 14) / 2);
+
+	if (session->get_visible()->getLastPage() == 0)
+	{
+		pags << "              ";
+	}
+	else
+	{
+		if (session->get_visible()->LastPage())
+		{
+			pags << "(first page) ->";
+		}
+		else
+		{
+			pags << "(next page) ->";
+		}
+	}
 
 	return pags.str();
 }

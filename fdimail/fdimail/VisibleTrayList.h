@@ -87,6 +87,7 @@ public:
 
 	int getPage(){ return page; }
 	int getLastPage(){ return lastPage; }
+	bool LastPage(){ return page == lastPage; }
 	void increasePage(){ page++; }
 	void decreasePage(){ page--; }
 

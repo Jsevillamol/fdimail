@@ -114,6 +114,7 @@ void Session::readMail()
 			active_tray()->readMail(mail->getId());
 
 			GraphInter::get()->pause();
+			GraphInter::get()->clearConsole();
 			int option = GraphInter::get()->mailMenu();
 
 			GraphInter::get()->clearConsole();

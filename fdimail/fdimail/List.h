@@ -22,7 +22,6 @@ public:
 	inline int length() const { return this->counter; }
 
 	T* operator [](int i) { assert(0 <= i && i < counter);  return list[i]; }
-	T* getlist() { return list[]; }
 
 	bool insert(T* elem);
 	bool destroy(const std::string &id); //Deletes element and erases from list.
