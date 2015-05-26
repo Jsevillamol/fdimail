@@ -86,7 +86,7 @@ public:
 	}
 
 	int getPage(){ return page; }
-
+	int getLastPage(){ return lastPage; }
 	void increasePage(){ page++; }
 	void decreasePage(){ page--; }
 
@@ -100,6 +100,7 @@ private:
 	bool inverse_order;
 
 	int page;
+	int lastPage;
 
 	//Filters
 	std::map<Filter, bool> filters;
