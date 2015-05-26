@@ -555,9 +555,9 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		display(linea());
 
-		for (int i = 0; i < contactList->length(); i--)
+		for (int i = 0; i < contactList->length(); i++)
 		{
-			contactList->operator[](i)->header();
+			display(contactList->operator[](i)->header());
 		}
 		display(linea());
 	}
