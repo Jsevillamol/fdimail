@@ -274,13 +274,12 @@ void List<T>::resize(int dim)
 	{
 		T** newlist = new T*[dim];
 
-		if (list != nullptr){
-			for (int i = 0; i < this->counter; i++)
-			{
-				newlist[i] = list[i];
-			}
-			delete[] list;
+		for (int i = 0; i < this->counter; i++)
+		{
+			newlist[i] = list[i];
 		}
+		delete[] list;
+
 		list = newlist;
 		this->dim = dim;
 	}
