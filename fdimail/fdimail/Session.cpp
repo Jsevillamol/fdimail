@@ -109,13 +109,10 @@ void Session::readMail()
 		Mail* mail = GraphInter::get()->selectMail(this);
 		if (mail != nullptr)
 		{
-			GraphInter::get()->drawMail(mail);
 			//Change mail status to read
 			active_tray()->readMail(mail->getId());
 
-			GraphInter::get()->pause();
-			GraphInter::get()->clearConsole();
-			int option = GraphInter::get()->mailMenu();
+			int option = GraphInter::get()->mailMenu(mail);
 
 			GraphInter::get()->clearConsole();
 
@@ -216,10 +213,14 @@ void Session::deleteMail()
 				if (option == 0)
 				{
 					//Select mail
-					std::string id = GraphInter::get()->selectMail(this)->getId();
-					//Delete
-					manager->deleteMail(active_tray(), id);
-					GraphInter::get()->clearConsole();
+					Mail* mail = GraphInter::get()->selectMail(this);
+
+					if (mail != nullptr)
+					{
+						//Delete
+						manager->deleteMail(active_tray(), mail->getId());
+						GraphInter::get()->clearConsole();
+					}
 				}
 				else if (option == 1)
 				{
@@ -448,14 +449,17 @@ void Session::AliasOptions()
 					{
 						std::string name = GraphInter::get()->selectAlias(this);
 
-						if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+						if (name != "")
 						{
-							GraphInter::get()->display("You cannot delete your self alias");
-							GraphInter::get()->pause();
-						}
-						else
-						{
-							this->getUser()->getContactlist()->destroy(name);
+							if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+							{
+								GraphInter::get()->display("You cannot delete your self alias");
+								GraphInter::get()->pause();
+							}
+							else
+							{
+								this->getUser()->getContactlist()->destroy(name);
+							}
 						}
 					}
 					else

@@ -28,8 +28,10 @@ public:
 	
 	//Menus
 	int menu(std::string elems[], int max_elems, std::string to_choose);
+	int aliasMenu(Session* session);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
 	int mailMenu(Session* session);
+	int menumail(Mail* mail, std::string elems[], int max_elems, std::string to_choose);
 
 	int mainMenu(); 
 	void logMenu(std::string &username, std::string &password);
@@ -38,7 +40,7 @@ public:
 	std::string selectAlias(Session* session);
 
 	//Mail functions
-	int mailMenu(); 
+	int mailMenu(Mail* mail); 
 	Mail* newMail(const std::string &sender, ContactList* contactList);
 	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
 	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);

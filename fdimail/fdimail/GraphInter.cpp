@@ -80,6 +80,31 @@ int GraphInter::menu(std::string elems[], int max_elems, std::string to_choose)
 	return elem;
 }
 
+int GraphInter::menumail(Mail* mail, std::string elems[], int max_elems, std::string to_choose)
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		drawMail(mail);
+
+		display("Choose your desired " + to_choose + ": ");
+
+		for (int i = 0; i < max_elems; i++)
+		{
+			tab_word(elems[i], i, elem);
+		}
+
+		key = getKey();
+		elem = update(key, elem, max_elems);
+
+		clearConsole();
+
+	} while (key != ENTER && key != ESCAPE);
+
+	return elem;
+}
+
 int GraphInter::mailMenu(Session* session)
 {
 	int key = UP, elem = 0;
@@ -114,6 +139,37 @@ int GraphInter::mailMenu(Session* session)
 
 		key = getKey();
 		elem = update(key, elem, session->get_visible()->length()+1);
+		updateTray(key, session);
+
+		clearConsole();
+
+	} while (key != ENTER && key != ESCAPE);
+
+	return elem;
+}
+
+int GraphInter::aliasMenu(Session* session)
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		session->get_visible()->refresh();
+
+		display("Choose your desired mail: ");
+
+		for (int i = 0; i < session->getUser()->getContactlist()->length(); i++)
+		{
+			tab_word(session->getUser()->getContactlist()->operator[](i)->header(), i, elem);
+		}
+		tab_word("  Back", session->get_visible()->length(), elem);
+
+		display(linea());
+		display(pags(session));
+		display(linea());
+
+		key = getKey();
+		elem = update(key, elem, session->get_visible()->length() + 1);
 		updateTray(key, session);
 
 		clearConsole();
@@ -254,13 +310,20 @@ std::string GraphInter::selectAlias(Session* session)
 			counter++;
 		}
 	}
-	number = menu(elems, counter, "alias");
+	number = aliasMenu(session);
 
-	return session->getUser()->getContactlist()->operator[](session->get_visible()->length() - number + 1)->user;
+	if (number < session->getUser()->getContactlist()->length())
+	{
+		return session->getUser()->getContactlist()->operator[](session->get_visible()->length() - number + 1)->user;
+	}
+	else
+	{
+		return "";
+	}
 }
 
 //Shows mail, returns options answer, forward, or return to sessionMenu
-int GraphInter::mailMenu()
+int GraphInter::mailMenu(Mail* mail)
 {
 	std::string elems[3];
 
@@ -268,7 +331,7 @@ int GraphInter::mailMenu()
 	elems[1] = "Forward";
 	elems[2] = "Exit to session menu";
 
-	return menu(elems, 3, "option");
+	return menumail(mail, elems, 3, "option");
 }
 
 //Returns a full mail
