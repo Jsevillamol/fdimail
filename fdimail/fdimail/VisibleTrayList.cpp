@@ -152,7 +152,8 @@ void VisibleTrayList::reverse()
 
 void VisibleTrayList::filterPage()
 {
-	if (page < 0 || page*MAILS_X_PAGE >= length()) page = 0;
+	if (page*MAILS_X_PAGE >= length()) page = 0;
+	else if(page < 0) page = lastPage;
 
 	if (dim > MAILS_X_PAGE){
 		tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
