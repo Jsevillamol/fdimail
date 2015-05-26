@@ -87,8 +87,8 @@ public:
 
 	int getPage(){ return page; }
 
-	void increasePage(){ if(length() > MAILS_X_PAGE*page) page++; } //Only lets you pass page if the current page is full
-	void decreasePage(){ if(page > 0) page--; }
+	void increasePage(){ page++; }
+	void decreasePage(){ page--; }
 
 private:
 
