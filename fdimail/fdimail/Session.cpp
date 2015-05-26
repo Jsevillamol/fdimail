@@ -650,28 +650,22 @@ void Session::changeUsername()
 
 		data = GraphInter::get()->valid_user();
 
-		if (data.size() != 0)
+		if (manager->getUserList()->get(data) != nullptr)
 		{
-			if (manager->getUserList()->get(data) != nullptr)
-			{
-				GraphInter::get()->display("This username already exists");
-				GraphInter::get()->pause();
+			GraphInter::get()->display("This username already exists");
+			GraphInter::get()->pause();
 
-				name_ok = false;
-			}
+			name_ok = false;
 		}
-	} while (!name_ok && data.size() != 0);
+	} while (!name_ok);
 
-	if (data.size() != 0)
-	{
-		GraphInter::get()->checkUsername(data);
+	GraphInter::get()->checkUsername(data);
 
-		manager->getUserList()->pop(user);
+	manager->getUserList()->pop(user);
 
-		user->setId(data);
-		user->getContactlist()->changeMe(std::string(data));
-		manager->getUserList()->insert(user);
-	}
+	user->setId(data);
+	user->getContactlist()->changeMe(std::string(data));
+	manager->getUserList()->insert(user);
 }
 
 //Allow you to change your password
@@ -683,11 +677,8 @@ void Session::changePassword()
 
 	data = GraphInter::get()->HideLimitPassword();
 
-	if (data.size() != 0)
-	{
-		GraphInter::get()->display("");
-		GraphInter::get()->checkPassword(data);
+	GraphInter::get()->display("");
+	GraphInter::get()->checkPassword(data);
 
-		user->setPassword(data);
-	}
+	user->setPassword(data);
 }
