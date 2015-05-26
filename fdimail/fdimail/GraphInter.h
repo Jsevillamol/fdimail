@@ -81,6 +81,8 @@ public:
 	void display(std::string error);
 	void display(char sign);
 
+	std::string linea();
+
 private:
 	static GraphInter* inter;
 	static Mail* error;
@@ -99,7 +101,6 @@ private:
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word, int pos, int cont);
-	std::string linea();
 	std::string pags(Session* session);
 };
 #endif //GRAPHINTER
