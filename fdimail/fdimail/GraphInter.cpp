@@ -969,11 +969,8 @@ std::string GraphInter::pags(Session* session)
 	}
 
 	pags << std::setw(HORIZONTAL- 14);
-
-	if (session->get_visible()->getPage() < (session->get_visible()->length()/MAILS_X_PAGE))
-	{
-		pags << "(next page) ->";
-	}
+	
+	pags << "(next page) ->";
 
 	return pags.str();
 }
