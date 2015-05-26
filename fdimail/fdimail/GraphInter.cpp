@@ -19,7 +19,8 @@ GraphInter* GraphInter::get()
 
 void GraphInter::load()
 {
-	if (inter == nullptr){
+	if (inter == nullptr)
+	{
 		inter = new GraphInter;
 		error = errorMail();
 	}
@@ -27,7 +28,8 @@ void GraphInter::load()
 
 void GraphInter::close()
 {
-	if (inter != nullptr) {
+	if (inter != nullptr) 
+	{
 		delete inter;
 		delete error;
 	}
@@ -248,9 +250,16 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
 
-	display("Enter your password");
+	if (username.size() != 0)
+	{
+		display("Enter your password");
 
-	password = HideLimitPassword();
+		password = HideLimitPassword();
+	}
+	else
+	{
+		password = "";
+	}
 }
 
 //Shows active tray, returns user options (read mail, delete mail, etc)
@@ -647,45 +656,41 @@ std::string GraphInter::valid_user()
 		display("Enter your id: ");
 		enter(id);
 
-		if (id.size() > 15)
+		if (id.size() != 0)
 		{
-			display("Error, your id cannot be longer than 15 characters ");
-			pause();
-
-			id_right = false;
-		}
-		else if (id.size() == 0)
-		{
-			display("Error, your id cannot be empty ");
-			pause();
-
-			id_right = false;
-		}
-		else
-		{
-			std::ostringstream character;
-
-			for (int i = 0; i < int(id.size()) && id_right; i++)
+			if (id.size() > 15)
 			{
-				for (int j = 0; j < CENSORED_CHARS; j++)
+				display("Error, your id cannot be longer than 15 characters ");
+				pause();
+
+				id_right = false;
+			}
+			else
+			{
+				std::ostringstream character;
+
+				for (int i = 0; i < int(id.size()) && id_right; i++)
 				{
-					if (id[i] == forbidden[j])
+					for (int j = 0; j < CENSORED_CHARS; j++)
 					{
-						character << "(" << char(forbidden[j]) << ")";
+						if (id[i] == forbidden[j])
+						{
+							character << "(" << char(forbidden[j]) << ")";
 
-						display("Error, your id cannot contain the character " + character.str());
-						pause();
+							display("Error, your id cannot contain the character " + character.str());
+							pause();
 
-						id_right = false;
-					}
-					else if (id[i] <= 'Z' && 'A' <= id[i])
-					{
-						id[i] += 32; //transforms uppercase in lowercase
+							id_right = false;
+						}
+						else if (id[i] <= 'Z' && 'A' <= id[i])
+						{
+							id[i] += 32; //transforms uppercase in lowercase
+						}
 					}
 				}
 			}
 		}
-	} while (!id_right);
+	} while (!id_right && id.size() != 0);
 
 	id = id + "@fdimail.com";
 
@@ -867,7 +872,7 @@ std::string GraphInter::HideLimitPassword()
 			display(msg);
 			display("Enter your password");
 		}
-	} while (word.size() < PASSWORD_MIN_LENGTH);
+	} while (word.size() != 0 && word.size() < PASSWORD_MIN_LENGTH);
 
 	display("");
 
@@ -903,8 +908,6 @@ std::string GraphInter::HidePassword()
 	}
 
 	word[i] = NULL;
-
-	//display("");
 
 	return word;
 }
@@ -959,8 +962,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 			}
 		}
 	}
-	
-		mail->user_count = mail->recipient_count + 1;
+	mail->user_count = mail->recipient_count + 1;
 }
 
 //It asks you for a digit, and makes sure that digit
