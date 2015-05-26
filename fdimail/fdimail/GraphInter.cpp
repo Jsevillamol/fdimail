@@ -548,7 +548,7 @@ void GraphInter::showTray(Session* session)
 
 			thisMail = mail->header();
 
-			show << std::setw(2) << (i + 1) << " - " << thisMail;
+			show << std::setw(2) << (i + 1 + (5*session->get_visible()->getPage())) << " - " << thisMail;
 			display(show.str());
 		}
 	}
