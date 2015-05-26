@@ -681,7 +681,7 @@ void Session::changePassword()
 
 	GraphInter::get()->display("Enter your new password");
 
-	data = GraphInter::get()->HidePassword();
+	data = GraphInter::get()->HideLimitPassword();
 
 	if (data.size() != 0)
 	{
