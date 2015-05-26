@@ -134,7 +134,7 @@ void VisibleTrayList::orderBy(Funct order)
 
 void VisibleTrayList::orderByDate()
 {
-	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date <= b->mail->date; });
+	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date >= b->mail->date; });
 }
 
 void VisibleTrayList::orderBySubject()
