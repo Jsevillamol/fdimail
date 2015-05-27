@@ -606,10 +606,10 @@ void Session::chooseOrder(Filter filter)
 		switch (select)
 		{
 		case 0:
-			invert = true;
+			invert = false;
 			break;
 		case 1:
-			invert = false;
+			invert = true;
 			break;
 		}
 		this->get_visible()->setInvert(invert);
