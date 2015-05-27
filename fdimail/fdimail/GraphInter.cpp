@@ -974,6 +974,8 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	mail->recipient_count = i;
 	mail->user_count = ++i;
 
+	display("From: " + mail->from);
+
 	if (mail->recipient_count != 0)
 	{
 		for (int i = 0; i < mail->recipient_count; i++)
