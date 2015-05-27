@@ -156,15 +156,20 @@ void VisibleTrayList::filterPage()
 	else if(page < 0) page = lastPage;
 
 	if (dim > MAILS_X_PAGE){
-		tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
+		//tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
 		int i;
 		for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
 		{
-			newList[i] = (*this)[MAILS_X_PAGE*page + i];
+			list[i] = (*this)[MAILS_X_PAGE*page + i];
 		}
-		delete[] list;
-		list = newList;
-		dim = MAILS_X_PAGE;
+		//delete[] list;
+		//list = newList;
+		//dim = MAILS_X_PAGE;
+		
+		for (int k = i; k < length(); k++){
+			list[k] = nullptr;
+		}
+
 		counter = i;
 	}
 }
