@@ -69,17 +69,17 @@ void VisibleTrayList::sync()
 template<typename Funct, typename K>
 void VisibleTrayList::filterBy(Funct filter, K key)
 {
-	//erase();
-	for (int i = 0; i < this->length(); i++)
+	//Copies list direction, then copies back elems which pass the filter
+	tElemTray** oldList = list;
+	this->list = new tElemTray*[dim];
+	int oldCounter = counter;
+	this->counter = 0;
+	for (int i = 0; i < oldCounter; i++)
 	{
-		if (!filter(list[i], key))
-		{
-			shiftLeft(i);
-			list[counter] = nullptr;
-			counter--;
-			i--;
-		}
+		if (filter(oldList[i], key))
+			insert(oldList[i]);
 	}
+	delete oldList;
 }
 
 void VisibleTrayList::filterByDate(Date lower, Date upper)
