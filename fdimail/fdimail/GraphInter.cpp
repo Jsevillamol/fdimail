@@ -957,7 +957,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 			}
 			else
 			{
-				for (int j = 0; j <= i - 1; j++)
+				for (int j = 0; j < i; j++)
 				{
 					if (i != j && mail->recipients[j] == mail->recipients[i - 1])
 					{
