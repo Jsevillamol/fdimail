@@ -10,15 +10,24 @@
 struct tElemTray;
 class TrayList;
 
+/*------------------------
+Unordered list of tElemTrays (email references), with capacity to apply filters, orders and easily extendible.
+The main method is refresh, which performs a sync (loading every element in the linked TrayList),
+applies fliters, orders (bubble sort), and finally discards every element but those of the current page.
+
+Setters are provided to change the filters and sort order applied.
+Suborders may be achived by calling the order methods in the proper order (pun not intended).
+------------------------------*/
+
 class VisibleTrayList: public List<tElemTray>
 {
 public:
 	VisibleTrayList();
 
 	void init(TrayList* trayList);
-	void link(TrayList* trayList);
-	void refresh();
-	void sync();
+	void link(TrayList* trayList); //Sets a new traylist to get elements from
+	void refresh(); //Syncs and applies active filters + order + active_page
+	void sync(); //Loads every element of the linked trayList
 
 	void changeOrder(Filter order){ active_order = order; }
 
@@ -38,7 +47,7 @@ public:
 
 	void reverse();
 
-	void filterPage();
+	void filterPage(); //Only elements in the active page remain after calling this method.
 
 	tElemTray* operator [](int i) { return list[i]; }
 
@@ -74,14 +83,11 @@ public:
 		inverse_order = invert;
 	}
 
-	void closeFilter()
+	void closeFilter() //Desactivates every filter
 	{
 		for (int i = Filter::subject; i <= Filter::unread; i++)
 		{
-			if (filters[Filter(i)] == true)
-			{
-				filters[Filter(i)] = false;
-			}
+			filters[Filter(i)] = false;
 		}
 	}
 

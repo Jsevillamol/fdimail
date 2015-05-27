@@ -5,9 +5,17 @@
 #include <string>
 #include"GlobalConstants.h"
 /*
-This is a base class for all the list this program has
+This is a base class for all the lists this program has
 We have used a template to be able to work whith diferent
-types of arguments
+types of arguments.
+
+The list is dynamic and resizes automatically when inserting elements.
+On destruction deletes every dynamic object held.
+To prevent this (ie elements held should not be destroyed), call erase in child destructor.
+
+By default, the list orders itself according to the valor returned by getId method of
+elements inserted. If you choose to override insert to prevent order, make sure you override
+search as well (it is a binary search)
 */
 
 //Template for lists

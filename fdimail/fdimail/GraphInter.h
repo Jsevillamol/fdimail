@@ -27,16 +27,18 @@ public:
 	static void close();
 	
 	//Menus
-	int menu(std::string elems[], int max_elems, std::string to_choose);
-	int aliasMenu(Session* session);
+	
+
+	int mainMenu();
+	void logMenu(std::string &username, std::string &password);
+	int sessionMenu(Session* sesion);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
 	int mailMenu(Session* session);
+	int aliasMenu(Session* session);
 	int menumail(Mail* mail, std::string elems[], int max_elems, std::string to_choose);
-	int AliasMenu(Session* session);
-
-	int mainMenu(); 
-	void logMenu(std::string &username, std::string &password);
-	int sessionMenu(Session* sesion); 
+	int AliasMenu(Session* session); 
+	
+	
 	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
 	int selectRecipient(Mail* mail);
@@ -99,6 +101,7 @@ private:
 	int update(int key, int &elem, int max_elems);
 	void updateTray(int key, Session* session);
 
+	int menu(std::string elems[], int max_elems, std::string to_choose);
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word, int pos, int cont);
