@@ -21,7 +21,7 @@ manager(manager)
 			GraphInter::get()->clearConsole();
 			user = manager->registerUser();
 		}
-		if (user != nullptr && option != 0)
+		if (user != nullptr && option != 2)
 		{
 			GraphInter::get()->clearConsole();
 			launch();

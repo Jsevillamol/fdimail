@@ -570,7 +570,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 	{
 		std::ostringstream alias;
 
-		alias << "N" << std::setw(10) << "Username" << std::setw(30) << "Alias";
+		alias << std::setw(10) << "Username" << std::setw(33) << "Alias";
 
 		display(alias.str());
 
@@ -578,7 +578,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		for (int i = 0; i < contactList->length(); i++)
 		{
-			display(contactList->operator[](i)->header());
+			display("  " + contactList->operator[](i)->header());
 		}
 		display(linea());
 	}
