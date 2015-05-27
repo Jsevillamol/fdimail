@@ -393,8 +393,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 
 	display("From: " + sender);
 
-	display("How many recipients do you want this mail to be sent?");
-	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
+	send_to_multiple(mail, contactList);
 
 	if (mail->recipient_count == 0)
 	{
@@ -403,8 +402,6 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 	}
 	else
 	{
-		send_to_multiple(mail, contactList);
-
 		display("Subject: ");
 		enter(mail->subject);
 
@@ -503,8 +500,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 	display("From: " + sender);
 
-	display("How many recipients do you want this mail to be sent?");
-	mail->recipient_count = digitBetween(0, MAX_RECIPIENTS);
+	send_to_multiple(mail, contactList);
 
 	if (mail->recipient_count == 0)
 	{
@@ -513,8 +509,6 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 	}
 	else
 	{
-		send_to_multiple(mail, contactList);
-
 		display("Subject: " + mail->subject);
 
 		display("Body (enter twice (ENTER) to end the body): ");
