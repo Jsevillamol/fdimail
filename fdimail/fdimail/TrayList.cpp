@@ -62,7 +62,7 @@ void TrayList::load(std::ifstream &file)
 	{
 		tElemTray* elem = new tElemTray();
 		elem->load(file);
-		insert(elem);
+		if(elem->mail != nullptr) insert(elem);
 	}
 }
 
