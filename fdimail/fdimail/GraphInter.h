@@ -96,7 +96,7 @@ private:
 
 	int digitBetween(int a, int b);
 
-	int update(int key, int &elem, int max_elems);
+	int update(int key, int elem, int max_elems);
 	void updateTray(int key, Session* session);
 
 	//Formatting strings

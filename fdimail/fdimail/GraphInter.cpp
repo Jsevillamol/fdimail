@@ -35,7 +35,7 @@ void GraphInter::close()
 	}
 }
 
-int GraphInter::update(int key, int &elem, int max_elems)
+int GraphInter::update(int key, int elem, int max_elems)
 {
 	if (key == UP) elem--;
 	else if (key == DOWN) elem++;
