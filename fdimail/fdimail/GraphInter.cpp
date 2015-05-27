@@ -256,6 +256,7 @@ int GraphInter::selectRecipient(Mail* mail)
 
 		tab_word("Add recipient", 0, elem);
 		tab_word("Continue", 1, elem);
+		display(linea());
 
 		key = getKey();
 
@@ -941,8 +942,6 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 
 		recipient = selectRecipient(mail);
 
-		clearConsole();
-
 		if (recipient == 0)
 		{
 			std::string recipient;
@@ -969,6 +968,9 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 				}
 			}
 		}
+
+		clearConsole();
+
 	} while (i < MAX_RECIPIENTS && recipient == 0);
 	
 	mail->recipient_count = i;
