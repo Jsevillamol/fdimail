@@ -608,7 +608,7 @@ void Session::chooseOrder(Filter filter)
 		case 0:
 			invert = false;
 			break;
-		case 1:
+		default:
 			invert = true;
 			break;
 		}
@@ -626,7 +626,7 @@ void Session::chooseOrder(Filter filter)
 		case 0:
 			to_invert = false;
 			break;
-		case 1:
+		default:
 			to_invert = true;
 			break;
 		}
