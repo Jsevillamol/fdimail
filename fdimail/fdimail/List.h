@@ -276,7 +276,7 @@ void List<T>::resize(int dim)
 
 		for (int i = 0; i < this->counter; i++)
 		{
-			newlist[i] = list[i];
+			newlist[i] = (*this)[i];
 		}
 		for (int i = this->counter; i < dim; i++){
 			newlist[i] = nullptr;

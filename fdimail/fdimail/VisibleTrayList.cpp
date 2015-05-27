@@ -160,7 +160,7 @@ void VisibleTrayList::filterPage()
 		int i;
 		for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
 		{
-			newList[i] = list[MAILS_X_PAGE*page + i];
+			newList[i] = (*this)[MAILS_X_PAGE*page + i];
 		}
 		delete[] list;
 		list = newList;
