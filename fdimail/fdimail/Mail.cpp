@@ -107,10 +107,10 @@ const std::string Mail::header()const
 std::string Mail::getsubject()
 {
 	std::string subject = this->subject;
-	while (subject.substr(0, 4) == "Re: ")
+	/*while (subject.substr(0, 4) == "Re: ")
 	{
 		subject = subject.substr(4);
-	}
+	}*/
 
 	return subject;
 }

@@ -245,6 +245,24 @@ int GraphInter::mainMenu()
 	return menu(elems, 3, "option");
 }
 
+int GraphInter::selectRecipient()
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		tab_word("Add recipient", 0, elem);
+		tab_word("Continue", 1, elem);
+
+		elem = update(key, elem, 2);
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return elem;
+}
+
 //Returns username and password
 void GraphInter::logMenu(std::string &username, std::string &password)
 {
@@ -916,44 +934,41 @@ void GraphInter::display(char sign)
 
 void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 {
-	int i;
-	for (i = 0; i < mail->recipient_count; i++)
+	int recipient, i = 0;
+	
+	do
 	{
-		if (i == 0)
-		{
-			display("To: ");
-		}
-		else
-		{
-			display("CC: ");
-		}
+		recipient = selectRecipient();
 
-		std::string recipient;
-
-		//std::cin.ignore();
-		enter(recipient);
-
-		mail->recipients[i] = contactList->SearchFastName(recipient);
-
-		if (mail->recipients[i] == "@fdimail.com")
+		if (recipient == 0)
 		{
-			mail->recipient_count--;
-			i--;
-		}
-		else
-		{
-			for (int j = 0; j <= i; j++)
+			std::string recipient;
+
+			//std::cin.ignore();
+			enter(recipient);
+
+			mail->recipients[i] = contactList->SearchFastName(recipient);
+			i++;
+
+			if (mail->recipients[i] == "@fdimail.com")
 			{
-				if (i != j && mail->recipients[j] == mail->recipients[i])
+				i--;
+			}
+			else
+			{
+				for (int j = 0; j <= i; j++)
 				{
-					display("You have already choose this destinatary, you cannot choose it again");
+					if (i != j && mail->recipients[j] == mail->recipients[i])
+					{
+						display("You have already choose this destinatary, you cannot choose it again");
 
-					i--;
+						i--;
+					}
 				}
 			}
 		}
-	}
-	mail->user_count = mail->recipient_count + 1;
+	} while (i < MAX_RECIPIENTS && recipient == 0);
+	
 }
 
 //It asks you for a digit, and makes sure that digit
