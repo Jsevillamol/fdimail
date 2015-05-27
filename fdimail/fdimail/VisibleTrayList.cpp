@@ -53,7 +53,7 @@ void VisibleTrayList::refresh()
 	}
 
 	if (inverse_order) reverse();
-	lastPage = length()/MAILS_X_PAGE;
+	lastPage = (length()-1)/MAILS_X_PAGE;
 	filterPage();
 }
 
