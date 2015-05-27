@@ -937,7 +937,11 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	
 	do
 	{
+		clearConsole();
+
 		recipient = selectRecipient(mail);
+
+		clearConsole();
 
 		if (recipient == 0)
 		{
