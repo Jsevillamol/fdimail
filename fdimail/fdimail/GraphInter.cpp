@@ -969,6 +969,8 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		}
 	} while (i < MAX_RECIPIENTS && recipient == 0);
 	
+	mail->recipient_count = i;
+	mail->user_count = ++i;
 }
 
 //It asks you for a digit, and makes sure that digit
