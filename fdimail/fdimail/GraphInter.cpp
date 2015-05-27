@@ -946,6 +946,14 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		{
 			std::string recipient;
 
+			if (i == 0)
+			{
+				display("To:");
+			}
+			else
+			{
+				display("CC:");
+			}
 			enter(recipient);
 
 			mail->recipients[i] = contactList->SearchFastName(recipient);
@@ -968,13 +976,14 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 				}
 			}
 		}
-
 		clearConsole();
 
 	} while (i < MAX_RECIPIENTS && recipient == 0);
 	
-	mail->recipient_count = i;
-	mail->user_count = ++i;
+	i--;
+
+	mail->recipient_count = ++i;
+	mail->user_count = ++mail->recipient_count;
 
 	display("From: " + mail->from);
 
