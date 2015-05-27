@@ -245,12 +245,15 @@ int GraphInter::mainMenu()
 	return menu(elems, 3, "option");
 }
 
-int GraphInter::selectRecipient()
+int GraphInter::selectRecipient(Mail* mail)
 {
 	int key = UP, elem = 0;
 
 	do
 	{
+		display("From: " + mail->from);
+		display("");
+
 		tab_word("Add recipient", 0, elem);
 		tab_word("Continue", 1, elem);
 
@@ -934,7 +937,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	
 	do
 	{
-		recipient = selectRecipient();
+		recipient = selectRecipient(mail);
 
 		if (recipient == 0)
 		{
@@ -966,6 +969,21 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	
 	mail->recipient_count = i;
 	mail->user_count = ++i;
+
+	if (mail->recipient_count != 0)
+	{
+		for (int i = 0; i < mail->recipient_count; i++)
+		{
+			if (i == 0)
+			{
+				display("To: " + mail->recipients[i]);
+			}
+			else
+			{
+				display("CC: " + mail->recipients[i]);
+			}
+		}
+	}
 }
 
 //It asks you for a digit, and makes sure that digit

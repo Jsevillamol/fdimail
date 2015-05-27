@@ -39,7 +39,7 @@ public:
 	int sessionMenu(Session* sesion); 
 	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
-	int selectRecipient();
+	int selectRecipient(Mail* mail);
 
 	//Mail functions
 	int mailMenu(Mail* mail); 
