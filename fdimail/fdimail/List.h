@@ -278,6 +278,9 @@ void List<T>::resize(int dim)
 		{
 			newlist[i] = list[i];
 		}
+		for (int i = this->counter; i < dim; i++){
+			newlist[i] = nullptr;
+		}
 		delete[] list;
 
 		list = newlist;

@@ -178,6 +178,7 @@ void VisibleTrayList::insert(tElemTray* elem)
 
 void VisibleTrayList::change(int pos1, int pos2)
 {
+	assert(0 <= pos1 && pos1 < counter && 0 <= pos2 && pos2 < counter);
 	tElemTray* aux = list[pos1];
 	list[pos1] = list[pos2];
 	list[pos2] = aux;

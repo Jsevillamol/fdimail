@@ -254,6 +254,8 @@ int GraphInter::selectRecipient()
 		tab_word("Add recipient", 0, elem);
 		tab_word("Continue", 1, elem);
 
+		key = getKey();
+
 		elem = update(key, elem, 2);
 
 		clearConsole();
