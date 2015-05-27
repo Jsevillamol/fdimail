@@ -944,7 +944,6 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		{
 			std::string recipient;
 
-			//std::cin.ignore();
 			enter(recipient);
 
 			mail->recipients[i] = contactList->SearchFastName(recipient);
