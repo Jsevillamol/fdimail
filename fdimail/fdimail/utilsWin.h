@@ -14,9 +14,9 @@ int getKey()
 		FlushConsoleInputBuffer(hStdIn);
 		do{
 			ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
-		} while (irInBuf.EventType != KEY_EVENT);
+		} while (irInBuf.EventType != KEY_EVENT || irInBuf.Event.KeyEvent.bKeyDown);
 		if (irInBuf.Event.KeyEvent.uChar.AsciiChar == 0){
-			ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
+			//ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
 			key = irInBuf.Event.KeyEvent.wVirtualKeyCode;
 		}
 		else key = irInBuf.Event.KeyEvent.uChar.AsciiChar;
