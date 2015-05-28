@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string>
 #include"GlobalConstants.h"
-/*
+/*----------------------------
 This is a base class for all the lists this program has
 We have used a template to be able to work whith diferent
 types of arguments.
@@ -16,7 +16,7 @@ To prevent this (ie elements held should not be destroyed), call erase in child 
 By default, the list orders itself according to the valor returned by getId method of
 elements inserted. If you choose to override insert to prevent order, make sure you override
 search as well (it is a binary search)
-*/
+------------------------------*/
 
 //Template for lists
 template <class T>

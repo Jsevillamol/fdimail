@@ -6,11 +6,11 @@
 #include "Date.h"
 #include "GlobalConstants.h"
 
-/*
+/*----------------------------
 This class contains the mail datos of a mail
 and the neccesary functions to make it work
 correctly
-*/
+------------------------------*/
 
 class Mail
 {

@@ -6,6 +6,12 @@
 #include <fstream>
 #include <iomanip>
 
+/*----------------------------
+This struct is responsible for load and save 
+the id of an user and its associated alias;
+it also turns an user and its alias to string
+------------------------------*/
+
 struct tContact
 {
 	std::string user;
@@ -36,5 +42,4 @@ struct tContact
 		return contact.str();
 	}
 };
-
 #endif

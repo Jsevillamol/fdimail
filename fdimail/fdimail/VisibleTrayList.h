@@ -2,15 +2,14 @@
 #define VISIBLETRAYLIST
 #include "List.h"
 #include "GlobalConstants.h"
+#include "tElemTray.h"
+#include "TrayList.h"
 #include "Filters.h"
 #include "Date.h"
 #include <string>
 #include <map>
 
-struct tElemTray;
-class TrayList;
-
-/*------------------------
+/*----------------------------
 Unordered list of tElemTrays (email references), with capacity to apply filters, orders and easily extendible.
 The main method is refresh, which performs a sync (loading every element in the linked TrayList),
 applies fliters, orders (bubble sort), and finally discards every element but those of the current page.
@@ -115,6 +114,4 @@ private:
 	Date upper;
 	std::map<Filter, std::string> keys;
 };
-
-
 #endif

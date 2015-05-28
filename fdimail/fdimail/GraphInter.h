@@ -1,6 +1,7 @@
 #ifndef GRAPHINTER
 #define GRAPHINTER
 #include "Mail.h"
+#include "User.h"
 #include "Filters.h"
 #include "TrayList.h"
 #include "UserList.h"
@@ -9,13 +10,12 @@
 #include <iomanip>
 #include <iostream>
 
-/*
+/*----------------------------
 Class responsible for interacting with the user
 through the console
-*/
+------------------------------*/
 
 class Session;
-class User;
 
 class GraphInter
 {

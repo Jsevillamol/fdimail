@@ -6,10 +6,10 @@
 #include "Mail.h"
 #include "GlobalConstants.h"
 
-/*
+/*----------------------------
 Derived class from list, responsible 
 for work whith all mails
-*/
+------------------------------*/
 
 class MailList: public List<Mail>
 {

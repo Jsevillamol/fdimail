@@ -5,11 +5,11 @@
 #include "tElemTray.h"
 #include "GlobalConstants.h"
 
-/*
+/*----------------------------
 Derived class from list, responsible
 for work whith the id of the mails, 
 and its read status
-*/
+------------------------------*/
 
 class TrayList: public List<tElemTray>
 {
@@ -27,6 +27,4 @@ public:
 	bool readMail(const std::string &idMail);
 
 };
-
-
 #endif
