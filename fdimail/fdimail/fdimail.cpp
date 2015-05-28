@@ -10,7 +10,7 @@ Date:
 2015/5
 
 Version:
-4.0
+6.0
 
 Features:
 Apart from the order in the enunciate of the practice, we have implemented:
