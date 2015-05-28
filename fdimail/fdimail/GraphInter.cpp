@@ -887,9 +887,9 @@ std::string GraphInter::linea()
 
 void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 {
-	int i = 0;
+	int i;
 
-	do
+	for (i = 0; i < MAX_RECIPIENTS && mail->recipients[i] != "@fdimail.com"; i++)
 	{
 		clearConsole();
 
@@ -926,9 +926,8 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		enter(recipient);
 
 		mail->recipients[i] = contactList->SearchFastName(recipient);
-		i++;
 
-		if (mail->recipients[i - 1] == "@fdimail.com")
+		if (mail->recipients[i] == "@fdimail.com")
 		{
 			i--;
 		}
@@ -939,17 +938,16 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 				if (i != j && mail->recipients[j] == mail->recipients[i - 1])
 				{
 					display("You have already choose this destinatary, you cannot choose it again");
-
+					
 					i--;
 				}
 			}
 		}
 		clearConsole();
+	}
 
-	} while (i < MAX_RECIPIENTS && mail->recipients[i] != "@fdimail.com");
-
-	mail->recipient_count = i;
-	mail->user_count = ++i;
+	mail->recipient_count = ++i;
+	mail->user_count = ++mail->recipient_count;
 
 	display("From: " + mail->from);
 

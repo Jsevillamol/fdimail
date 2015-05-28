@@ -90,8 +90,6 @@ private:
 	//Auxiliar input functions
 	void send_to_multiple(Mail* mail, ContactList* contactList);
 
-	int digitBetween(int a, int b);
-
 	int update(int key, int elem, int max_elems);
 	void updateTray(int key, Session* session);
 
