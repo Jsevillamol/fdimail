@@ -87,7 +87,7 @@ victor@fdimail.com
 The final mail
 Hope this works#
 victor@fdimail.com_1432646033
-0
+2
 1432646033
 victor@fdimail.com
 1
@@ -102,7 +102,7 @@ Subject: The final mail
 
 Hope this works#
 victor@fdimail.com_1432751512
-1
+2
 1432751512
 victor@fdimail.com
 1

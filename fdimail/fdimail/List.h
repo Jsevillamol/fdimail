@@ -85,6 +85,7 @@ bool List<T>::destroy(const std::string &id)
 	int left_key = 0, right_key = counter - 1;
 	if (search(id, pos, left_key, right_key))
 	{
+		assert(0 <= pos && pos < counter);
 		delete list[pos];
 		shiftLeft(pos);
 		counter--;
@@ -263,7 +264,7 @@ void List<T>::release()
 {
 	if (this->dim != 0)
 	{
-		for (int i = 0; i < this->dim; i++)
+		for (int i = 0; i < this->counter; i++)
 		{
 			delete list[i];
 			list[i] = nullptr;
