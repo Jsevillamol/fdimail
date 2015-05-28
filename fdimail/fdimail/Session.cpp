@@ -235,7 +235,7 @@ void Session::deleteMail()
 					}
 				}
 			}
-		} while (visible.length() != 0 && option != 2);
+		} while (active_tray()->length() != 0 && option != 2);
 	}
 }
 

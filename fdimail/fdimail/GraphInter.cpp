@@ -210,7 +210,7 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 
 	do
 	{
-		session->get_visible()->filterPage();
+		session->get_visible()->refresh();
 		showTray(session);
 
 		display(linea());
