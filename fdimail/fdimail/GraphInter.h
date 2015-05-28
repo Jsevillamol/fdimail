@@ -20,34 +20,27 @@ class User;
 class GraphInter
 {
 public:
-	~GraphInter() {}
-
-	static GraphInter* get();
-	static void load();
-	static void close();
+	static GraphInter* get(); //Returns the single instance of grapHinter
+	static void load(); //Creates the singleton
+	static void close(); //Deletes the singleton
 	
 	//Menus
-	
-
 	int mainMenu();
 	void logMenu(std::string &username, std::string &password);
 	int sessionMenu(Session* sesion);
 	int trayMenu(Session* session, std::string elems[], int max_elems);
 	int mailMenu(Session* session);
+	int mailMenu(Mail* mail);
 	int aliasMenu(Session* session);
 	int menumail(Mail* mail, std::string elems[], int max_elems, std::string to_choose);
 	int AliasMenu(Session* session); 
-	
-	
+	int Invert();
+	int AccountOptions();
+
+	//Select menus
 	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
 	int selectRecipient(Mail* mail);
-
-	//Mail functions
-	int mailMenu(Mail* mail); 
-	Mail* newMail(const std::string &sender, ContactList* contactList);
-	Mail* answerMail(Mail* &originalMail, const std::string &sender); 
-	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
 
 	//Fastnames
 	void showFastNames(ContactList* contactList);
@@ -55,23 +48,20 @@ public:
 	//Auxiliar funtions
 	void drawMail(const Mail* mail);
 	void showTray(Session* session);
-
-	std::string valid_user();
 	
 	int choosefilter(Session* session);
 	int chooseorder(Session* session);
 	int filter();
+
 	void pause();
 	void clearConsole();
 	
 	int WhatToDelete(Session* session);
-	int Invert();
 	
-	int AccountOptions();
-
 	//Input
 	void checkUsername(std::string &password);
 	void checkPassword(std::string &password);
+	std::string valid_user();
 
 	void enter(std::string &word);
 	void enter(int &digit);
@@ -80,7 +70,12 @@ public:
 	std::string HideLimitPassword();
 	std::string HidePassword();
 
-	//Outout
+	//Mail functions
+	Mail* newMail(const std::string &sender, ContactList* contactList);
+	Mail* answerMail(Mail* &originalMail, const std::string &sender);
+	Mail* forward(Mail* &originalMail, const std::string &sender, ContactList* contactList);
+
+	//Output
 	void display(std::string error);
 	void display(char sign);
 
