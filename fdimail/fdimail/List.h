@@ -199,7 +199,8 @@ bool List<T>::load(const std::string &name)
 		{
 			elem = new T;
 
-			if (!elem->load(file)) {
+			if (!elem->load(file))
+			{
 				delete elem;
 				right = false;
 			}
@@ -287,7 +288,8 @@ void List<T>::resize(int dim)
 		{
 			newlist[i] = (*this)[i];
 		}
-		for (int i = this->counter; i < dim; i++){
+		for (int i = this->counter; i < dim; i++)
+		{
 			newlist[i] = nullptr;
 		}
 		delete[] list;
