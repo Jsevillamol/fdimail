@@ -97,7 +97,7 @@ void Session::launch()
 //so you can read it
 void Session::readMail()
 {
-	if (this->active_tray()->length() == 0)
+	if (this->visible.length() == 0)
 	{
 		GraphInter::get()->display("You have no mails to read");
 		GraphInter::get()->pause();
@@ -499,6 +499,28 @@ void Session::AliasOptions()
 
 void Session::filterOptions(Filter filter)
 {
+	GraphInter::get()->clearConsole();
+
+	int option;
+
+	option = GraphInter::get()->filter();
+
+	if (option == 0)
+	{
+		chooseOrder(filter);
+	}
+	else if (option == 1)
+	{
+		chooseFilter(filter);
+	}
+	else if (option == 2)
+	{
+		this->get_visible()->closeFilter();
+	}
+}
+
+void Session::chooseFilter(Filter filter)
+{
 	if (visible.length() == 0)
 	{
 		GraphInter::get()->display("You have no mails to filterf");
@@ -506,137 +528,122 @@ void Session::filterOptions(Filter filter)
 	}
 	else
 	{
-		GraphInter::get()->clearConsole();
+		this->get_visible()->closeFilter();
 
-		int option;
+		int option = GraphInter::get()->choosefilter(this);
 
-		option = GraphInter::get()->filter();
-
-		if (option == 0)
+		switch (option)
 		{
-			chooseOrder(filter);
+		case 0:
+			filter = subject;
+			break;
+		case 1:
+			filter = date;
+			break;
+		case 2:
+			filter = emissor;
+			break;
+		case 3:
+			filter = recipients;
+			break;
+		case 4:
+			filter = body;
+			break;
+		case 5:
+			filter = read;
+			break;
+		case 6:
+			filter = unread;
+			break;
+		case 7:
+			filter = none;
+			break;
 		}
-		else if (option == 1)
+
+		if (filter != none)
 		{
-			chooseFilter(filter);
-		}
-		else if (option == 2)
-		{
-			this->get_visible()->closeFilter();
-		}
-	}
-}
+			if (filter == date)
+			{
+				char* lowdate = new char[256];
+				char* update = new char[256];
 
-void Session::chooseFilter(Filter filter)
-{
-	this->get_visible()->closeFilter();
+				GraphInter::get()->display("Enter the lower date");
+				GraphInter::get()->enter(lowdate);
+				GraphInter::get()->display("Enter the upper date");
+				GraphInter::get()->enter(update);
 
-	int option = GraphInter::get()->choosefilter(this);
+				this->get_visible()->setFilterDate(lowdate, update);
+			}
+			else if (filter == read)
+			{
+				this->get_visible()->setFilterRead();
+			}
+			else if (filter == unread)
+			{
+				this->get_visible()->setFilterUnread();
+			}
+			else
+			{
+				std::string reference;
 
-	switch (option)
-	{
-	case 0:
-		filter = subject;
-		break;
-	case 1:
-		filter = date;
-		break;
-	case 2:
-		filter = emissor;
-		break;
-	case 3:
-		filter = recipients;
-		break;
-	case 4:
-		filter = body;
-		break;
-	case 5:
-		filter = read;
-		break;
-	case 6:
-		filter = unread;
-		break;
-	case 7:
-		filter = none;
-		break;
-	}
+				GraphInter::get()->display("Enter your reference word");
+				GraphInter::get()->enter(reference);
 
-	if (filter != none)
-	{
-		if (filter == date)
-		{
-			char* lowdate = new char[256];
-			char* update  = new char[256];
-
-			GraphInter::get()->display("Enter the lower date");
-			GraphInter::get()->enter(lowdate);
-			GraphInter::get()->display("Enter the upper date");
-			GraphInter::get()->enter(update);
-
-			this->get_visible()->setFilterDate(lowdate, update);
-		}
-		else if (filter == read)
-		{
-			this->get_visible()->setFilterRead();
-		}
-		else if (filter == unread)
-		{
-			this->get_visible()->setFilterUnread();
-		}
-		else
-		{
-			std::string reference;
-
-			GraphInter::get()->display("Enter your reference word");
-			GraphInter::get()->enter(reference);
-
-			this->get_visible()->setFilter(reference, filter);
+				this->get_visible()->setFilter(reference, filter);
+			}
 		}
 	}
 }
 
 void Session::chooseOrder(Filter filter)
 {
-	int option = GraphInter::get()->chooseorder(this);
-
-	if (option == 0)
+	if (visible.length() == 0)
 	{
-		filter = subject;
-
-		int select = GraphInter::get()->Invert();
-		bool invert;
-
-		switch (select)
-		{
-		case 0:
-			invert = false;
-			break;
-		default:
-			invert = true;
-			break;
-		}
-		this->get_visible()->setInvert(invert);
+		GraphInter::get()->display("You have no mails to filterf");
+		GraphInter::get()->pause();
 	}
-	else if (option == 1)
+	else
 	{
-		filter = date;
+		int option = GraphInter::get()->chooseorder(this);
 
-		int to_select = GraphInter::get()->Invert();
-		bool to_invert;
-
-		switch (to_select)
+		if (option == 0)
 		{
-		case 0:
-			to_invert = false;
-			break;
-		default:
-			to_invert = true;
-			break;
-		}
-		this->get_visible()->setInvert(to_invert);
-	}
+			filter = subject;
 
-	this->get_visible()->changeOrder(filter);
+			int select = GraphInter::get()->Invert();
+			bool invert;
+
+			switch (select)
+			{
+			case 0:
+				invert = false;
+				break;
+			default:
+				invert = true;
+				break;
+			}
+			this->get_visible()->setInvert(invert);
+		}
+		else if (option == 1)
+		{
+			filter = date;
+
+			int to_select = GraphInter::get()->Invert();
+			bool to_invert;
+
+			switch (to_select)
+			{
+			case 0:
+				to_invert = false;
+				break;
+			default:
+				to_invert = true;
+				break;
+			}
+			this->get_visible()->setInvert(to_invert);
+		}
+		this->get_visible()->changeOrder(filter);
+	}
 }
 
 //Allow you to change your username
