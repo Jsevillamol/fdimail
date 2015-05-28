@@ -40,7 +40,6 @@ public:
 	//Select menus
 	Mail* selectMail(Session* sesion); 
 	std::string selectAlias(Session* session);
-	int selectRecipient(Mail* mail);
 
 	//Fastnames
 	void showFastNames(ContactList* contactList);
