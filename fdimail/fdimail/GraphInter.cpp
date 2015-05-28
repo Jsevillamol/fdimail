@@ -379,20 +379,23 @@ void GraphInter::showTray(Session* session)
 
 	display(linea());
 
-	menu << title << "\n" << "\n" << "R N"
-		<< std::setw(7) << "FROM" << std::setw(33)
-		<< "SUBJECT" << std::setw(31) << "DATE";
-
-	display(menu.str());
-
-	display(linea());
+	display(title);
 
 	if (session->get_visible()->length() == 0)
 	{
+		display(linea());
+
 		display(center_word("You have no mails", HORIZONTAL, " "));
 	}
 	else
 	{
+		menu << "\n" << "\n" << "R N" << std::setw(7) << "FROM" 
+			<< std::setw(33) << "SUBJECT" << std::setw(31) << "DATE";
+
+		display(menu.str());
+
+		display(linea());
+
 		for (int i = 0; i < session->get_visible()->length(); i++)
 		{
 			std::ostringstream show;

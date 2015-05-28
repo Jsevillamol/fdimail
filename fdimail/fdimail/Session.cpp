@@ -243,9 +243,9 @@ void Session::deleteMail()
 //read from your input box
 void Session::fastRead()
 {
-	if (get_visible()->length() == 0)
+	if (visible.length() == 0)
 	{
-		GraphInter::get()->display("You do not have any mail on your active tray");
+		GraphInter::get()->display("You do not have any mail on your tray");
 		GraphInter::get()->pause();
 	}
 	else
