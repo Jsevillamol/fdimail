@@ -934,56 +934,69 @@ void GraphInter::display(char sign)
 
 void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 {
-	int recipient, i = 0;
+	int i = 0;
 	
 	do
 	{
 		clearConsole();
 
-		recipient = selectRecipient(mail);
+		mail->recipient_count = i;
 
-		if (recipient == 0)
+		display("From: " + mail->from);
+
+		if (mail->recipient_count > 0)
 		{
-			std::string recipient;
-
-			if (i == 0)
+			for (int j = 0; j < mail->recipient_count; j++)
 			{
-				display("To:");
-			}
-			else
-			{
-				display("CC:");
-			}
-			enter(recipient);
-
-			mail->recipients[i] = contactList->SearchFastName(recipient);
-			i++;
-
-			if (mail->recipients[i - 1] == "@fdimail.com")
-			{
-				i--;
-			}
-			else
-			{
-				for (int j = 0; j < i; j++)
+				if (i == 0)
 				{
-					if (i != j && mail->recipients[j] == mail->recipients[i - 1])
-					{
-						display("You have already choose this destinatary, you cannot choose it again");
+					display("To: " + mail->recipients[i]);
+				}
+				else
+				{
+					display("CC: " + mail->recipients[i]);
+				}
+			}
+			display(linea());
+		}
+		std::string recipient;
 
-						i--;
-					}
+		if (i == 0)
+
+		{
+			display("To:");
+		}
+		else
+		{
+			display("CC:");
+		}
+		enter(recipient);
+
+		mail->recipients[i] = contactList->SearchFastName(recipient);
+		i++;
+
+		if (mail->recipients[i - 1] == "@fdimail.com")
+		{
+			i--;
+		}
+		else
+		{
+			for (int j = 0; j < i; j++)
+			{
+				if (i != j && mail->recipients[j] == mail->recipients[i - 1])
+				{
+					display("You have already choose this destinatary, you cannot choose it again");
+
+					i--;
 				}
 			}
 		}
 		clearConsole();
 
-	} while (i < MAX_RECIPIENTS && recipient == 0);
-	
-	i--;
+	} while (i < MAX_RECIPIENTS && mail->recipients[i] != "@fdimail.com");
 
-	mail->recipient_count = ++i;
-	mail->user_count = ++mail->recipient_count;
+	mail->recipient_count = i;
+	mail->user_count = ++i;
 
 	display("From: " + mail->from);
 
