@@ -226,7 +226,8 @@ void Session::deleteMail()
 				}
 				else if (option == 1)
 				{
-					for (int i = 0; i < visible.length(); i++)
+					int counter = active_tray()->length();
+					for (int i = 0; i < counter; i++)
 					{
 						std::string newId = (*(this->active_tray()))[0]->getId();
 
