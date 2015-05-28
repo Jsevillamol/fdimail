@@ -888,13 +888,10 @@ std::string GraphInter::linea()
 void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 {
 	int i;
-	bool repeat;
 
 	for (i = 0; i < MAX_RECIPIENTS && mail->recipients[i] != "@fdimail.com"; i++)
 	{
 		clearConsole();
-
-		repeat = false;
 
 		display("From: " + mail->from);
 
@@ -934,6 +931,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		}
 		else
 		{
+			bool repeat = false;
 			for (int j = 0; j < i && !repeat; j++)
 			{
 				if (i != j && mail->recipients[j] == mail->recipients[i])
