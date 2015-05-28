@@ -224,7 +224,7 @@ void Session::deleteMail()
 						GraphInter::get()->clearConsole();
 					}
 				}
-				else if (option == 1)
+				else if (option == 1) //Delete all mails
 				{
 					int counter = active_tray()->length();
 					for (int i = 0; i < counter; i++)
