@@ -708,7 +708,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 		mail->body = "";
 		do{
 			enter(line);
-			mail->body += line;
+			mail->body += line + "\n";
 		} while (line != "");
 
 		if (mail->body == "")
@@ -754,7 +754,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 	WhatToSay = "";
 	do{
 		enter(line);
-		WhatToSay += line;
+		WhatToSay += line + "\n";
 	} while (line != "");
 
 	if (WhatToSay == "")
@@ -809,7 +809,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 		WhatToSay = "";
 		do{
 			enter(line);
-			WhatToSay += line;
+			WhatToSay += line + "\n";
 		} while (line != "");
 
 		if (WhatToSay == "")
@@ -915,11 +915,11 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		if (i == 0)
 
 		{
-			display("To:");
+			display("To (enter (ENTER) to end the recipients):");
 		}
 		else
 		{
-			display("CC:");
+			display("CC (enter (ENTER) to end the recipients):");
 		}
 		enter(recipient);
 
