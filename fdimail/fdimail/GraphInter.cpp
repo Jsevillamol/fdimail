@@ -893,13 +893,12 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	{
 		clearConsole();
 
-		mail->recipient_count = i;
 
 		display("From: " + mail->from);
 
-		if (mail->recipient_count > 0)
+		if (i > 0)
 		{
-			for (int j = 0; j < mail->recipient_count; j++)
+			for (int j = 0; j < i; j++)
 			{
 				if (j == 0)
 				{
@@ -935,7 +934,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		{
 			for (int j = 0; j < i; j++)
 			{
-				if (i != j && mail->recipients[j] == mail->recipients[i - 1])
+				if (i != j && mail->recipients[j] == mail->recipients[i])
 				{
 					display("You have already choose this destinatary, you cannot choose it again");
 					
@@ -946,8 +945,8 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		clearConsole();
 	}
 
-	mail->recipient_count = ++i;
-	mail->user_count = ++mail->recipient_count;
+	mail->recipient_count = i;
+	mail->user_count = ++i;
 
 	display("From: " + mail->from);
 
@@ -955,7 +954,7 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 	{
 		for (int k = 0; k < mail->recipient_count; k++)
 		{
-			if (i == 0)
+			if (k == 0)
 			{
 				display("To: " + mail->recipients[k]);
 			}
