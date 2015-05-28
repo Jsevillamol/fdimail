@@ -123,7 +123,7 @@ int GraphInter::trayMenu(Session* session, std::string elems[], int max_elems)
 
 		clearConsole();
 
-	} while (key != ENTER);
+	} while (key != ENTER && key != ESCAPE);
 
 	return elem;
 }
