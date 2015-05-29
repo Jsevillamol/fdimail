@@ -313,7 +313,7 @@ Mail* GraphInter::selectMail(Session* session)
 
 std::string GraphInter::selectAlias(Session* session)
 {
-	int number, counter = 0;
+	int number;
 	std::string elems[MAILS_X_PAGE];
 
 	for (int i = 0; i < MAILS_X_PAGE; i++)
@@ -321,7 +321,6 @@ std::string GraphInter::selectAlias(Session* session)
 		if (session->getUser()->getContactlist()->operator[](i) != nullptr)
 		{
 			elems[i] = session->getUser()->getContactlist()->operator[](i)->header();
-			counter++;
 		}
 	}
 	number = aliasMenu(session);
