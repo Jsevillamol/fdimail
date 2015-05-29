@@ -670,13 +670,16 @@ void Session::changeUsername()
 		}
 	} while (!name_ok);
 
-	GraphInter::get()->checkUsername(data);
+	if (data != "@fdimail.com")
+	{
+		GraphInter::get()->checkUsername(data);
 
-	manager->getUserList()->pop(user);
+		manager->getUserList()->pop(user);
 
-	user->setId(data);
-	user->getContactlist()->changeMe(std::string(data));
-	manager->getUserList()->insert(user);
+		user->setId(data);
+		user->getContactlist()->changeMe(std::string(data));
+		manager->getUserList()->insert(user);
+	}
 }
 
 //Allow you to change your password
@@ -688,8 +691,11 @@ void Session::changePassword()
 
 	data = GraphInter::get()->HideLimitPassword();
 
-	GraphInter::get()->display("");
-	GraphInter::get()->checkPassword(data);
+	if (data.size() != 0)
+	{
+		GraphInter::get()->display("");
+		GraphInter::get()->checkPassword(data);
 
-	user->setPassword(data);
+		user->setPassword(data);
+	}
 }

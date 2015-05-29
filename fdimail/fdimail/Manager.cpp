@@ -52,22 +52,29 @@ User* Manager::registerUser()
 	std::string last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 
-	User* user = (userList.get(idUser));
-	if (user != nullptr)
+	if (idUser != "@fdimail.com" && last_password != "")
 	{
-		if (user->checkPassword(last_password))
-			return user;
+		User* user = (userList.get(idUser));
+		if (user != nullptr)
+		{
+			if (user->checkPassword(last_password))
+				return user;
+			else
+			{
+				GraphInter::get()->display("Wrong password");
+				GraphInter::get()->pause();
+				return nullptr;
+			}
+		}
 		else
 		{
-			GraphInter::get()->display("Wrong password");
+			GraphInter::get()->display("User does not exist");
 			GraphInter::get()->pause();
 			return nullptr;
 		}
 	}
 	else
 	{
-		GraphInter::get()->display("User does not exist");
-		GraphInter::get()->pause();
 		return nullptr;
 	}
 }
@@ -79,17 +86,24 @@ User* Manager::createAccount()
 	std::string last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
 	
-	if (userList.get(idUser) == nullptr)
+	if (idUser != "@fdimail.com" && last_password != "")
 	{
-		GraphInter::get()->checkPassword(last_password);
-		User* user = new User(idUser, last_password);
-		userList.insert(user);
-		return user;
+		if (userList.get(idUser) == nullptr)
+		{
+			GraphInter::get()->checkPassword(last_password);
+			User* user = new User(idUser, last_password);
+			userList.insert(user);
+			return user;
+		}
+		else
+		{
+			GraphInter::get()->display("This username already exists");
+			GraphInter::get()->pause();
+			return nullptr;
+		}
 	}
 	else
 	{
-		GraphInter::get()->display("This username already exists");
-		GraphInter::get()->pause();
 		return nullptr;
 	}
 }

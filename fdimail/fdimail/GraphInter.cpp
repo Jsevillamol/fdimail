@@ -52,10 +52,16 @@ void GraphInter::logMenu(std::string &username, std::string &password)
 {
 	username = valid_user();
 
-	display("Enter your password");
+	if (username != "@fdimail.com")
+	{
+		display("Enter your password");
 
-	password = HideLimitPassword();
-
+		password = HideLimitPassword();
+	}
+	else
+	{
+		password = "";
+	}
 }
 
 //Shows active tray, returns user options (read mail, delete mail, etc)
@@ -528,6 +534,7 @@ void GraphInter::checkPassword(std::string &password)
 
 	while (newPassword != password)
 	{
+		display("");
 		display("Error, passwords are not the same");
 		display("Enter your new passwords:");
 
@@ -536,8 +543,6 @@ void GraphInter::checkPassword(std::string &password)
 		display("Confirm your passwords:");
 
 		newPassword = HidePassword();
-
-		display("");
 	}
 }
 
@@ -625,14 +630,17 @@ std::string GraphInter::HideLimitPassword()
 	{
 		word = HidePassword();
 
-		if (word.size() < PASSWORD_MIN_LENGTH)
+		if (word.size() != 0)
 		{
-			display("");
-			std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH) + std::string(" characters or more");
-			display(msg);
-			display("Enter your password");
+			if (word.size() < PASSWORD_MIN_LENGTH)
+			{
+				display("");
+				std::string msg = std::string("Error, your password must contain ") + std::to_string(PASSWORD_MIN_LENGTH) + std::string(" characters or more");
+				display(msg);
+				display("Enter your password");
+			}
 		}
-	} while (word.size() < PASSWORD_MIN_LENGTH);
+	} while (word.size() != 0 && word.size() < PASSWORD_MIN_LENGTH);
 
 	display("");
 
