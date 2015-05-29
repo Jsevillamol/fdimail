@@ -4,14 +4,13 @@
 #include "GraphInter.h"
 #include "Manager.h"
 #include "User.h"
+#include "Mail.h"
 #include "VisibleTrayList.h"
 
-class Mail;
-
-/*
+/*----------------------------
 This class is responsible for the user session, 
 for what he can do on it
-*/
+------------------------------*/
 
 class Session
 {
@@ -23,10 +22,6 @@ private:
 
 	bool active_list; //0 for inbox, 1 for outbox
 	void changeTray() { active_list = !active_list; }
-public:
-	
-	Session(Manager* manager); //logIn
-	~Session();
 
 	void launch();
 
@@ -47,6 +42,11 @@ public:
 
 	void changeUsername();
 	void changePassword();
+
+public:
+
+	Session(Manager* manager); //logIn
+	~Session();
 
 	Manager* getManager(){ return manager; }
 	User* getUser(){ return user; }

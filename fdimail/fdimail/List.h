@@ -4,11 +4,19 @@
 #include <assert.h>
 #include <string>
 #include"GlobalConstants.h"
-/*
-This is a base class for all the list this program has
+/*----------------------------
+This is a base class for all the lists this program has
 We have used a template to be able to work whith diferent
-types of arguments
-*/
+types of arguments.
+
+The list is dynamic and resizes automatically when inserting elements.
+On destruction deletes every dynamic object held.
+To prevent this (ie elements held should not be destroyed), call erase in child destructor.
+
+By default, the list orders itself according to the valor returned by getId method of
+elements inserted. If you choose to override insert to prevent order, make sure you override
+search as well (it is a binary search)
+------------------------------*/
 
 //Template for lists
 template <class T>
@@ -77,6 +85,7 @@ bool List<T>::destroy(const std::string &id)
 	int left_key = 0, right_key = counter - 1;
 	if (search(id, pos, left_key, right_key))
 	{
+		assert(0 <= pos && pos < counter);
 		delete list[pos];
 		shiftLeft(pos);
 		counter--;
@@ -190,7 +199,8 @@ bool List<T>::load(const std::string &name)
 		{
 			elem = new T;
 
-			if (!elem->load(file)) {
+			if (!elem->load(file))
+			{
 				delete elem;
 				right = false;
 			}
@@ -255,7 +265,7 @@ void List<T>::release()
 {
 	if (this->dim != 0)
 	{
-		for (int i = 0; i < this->dim; i++)
+		for (int i = 0; i < this->counter; i++)
 		{
 			delete list[i];
 			list[i] = nullptr;
@@ -274,13 +284,16 @@ void List<T>::resize(int dim)
 	{
 		T** newlist = new T*[dim];
 
-		if (list != nullptr){
-			for (int i = 0; i < this->counter; i++)
-			{
-				newlist[i] = list[i];
-			}
-			delete[] list;
+		for (int i = 0; i < this->counter; i++)
+		{
+			newlist[i] = (*this)[i];
 		}
+		for (int i = this->counter; i < dim; i++)
+		{
+			newlist[i] = nullptr;
+		}
+		delete[] list;
+
 		list = newlist;
 		this->dim = dim;
 	}

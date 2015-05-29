@@ -1,5 +1,5 @@
-#ifndef DATE
-#define DATE
+#ifndef MY_DATE
+#define MY_DATE
 #include <ctime>
 #include <string>
 #include <sstream>
@@ -24,4 +24,4 @@ std::string showDay(Date d);
 
 Date turnDate(char* str);
 
-#endif // !DATE
+#endif // !MY_DATE

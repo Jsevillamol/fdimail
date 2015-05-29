@@ -6,10 +6,10 @@
 #include "User.h"
 #include "GlobalConstants.h"
 
-/*
+/*----------------------------
 Derived class from list, responsible
 for holding the user database
-*/
+------------------------------*/
 
 class UserList: public List<User> 
 {
@@ -19,5 +19,4 @@ private:
 public:
 	bool insert(User* user);
 };
-
 #endif

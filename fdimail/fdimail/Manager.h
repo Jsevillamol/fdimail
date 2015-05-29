@@ -5,16 +5,16 @@
 #include "MailList.h"
 #include "UserList.h"
 
-/*
-This class is responsible for dealing with every sessions,
-so that the mails are sent, or the account are manipulated
-It also loads and saves the mails and the users from the save files
-It acts as the backend server
-*/
+/*----------------------------
+Manager holds the mail and user databases
+He is responsible for loading and saving them to text files
+It acts as the backend server, providing service to Sessions requesting GETS and POSTS
+------------------------------*/
 
 class Manager
 {
 public:
+
 	Manager(const std::string &new_domain);
 	~Manager();
 
@@ -38,6 +38,7 @@ public:
 	void deleteMail(TrayList* box, const std::string &idMail);
 
 private:
+
 	static Manager* manager;
 
 	std::string domain;

@@ -11,23 +11,23 @@ manager(manager)
 	int option;
 	do{
 		option = GraphInter::get()->mainMenu();
-		if (option == 1)
+		if (option == 0)
 		{
 			GraphInter::get()->clearConsole();
 			user = manager->createAccount();
 		}
-		else if (option == 2)
+		else if (option == 1)
 		{
 			GraphInter::get()->clearConsole();
 			user = manager->registerUser();
 		}
-		if (user != nullptr && option != 0)
+		if (user != nullptr && option != 2)
 		{
 			GraphInter::get()->clearConsole();
 			launch();
 		}
 		GraphInter::get()->clearConsole();
-	} while (option != 0);
+	} while (option != 2);
 }
 
 Session::~Session()
@@ -55,33 +55,35 @@ void Session::launch()
 
 		switch (opt)
 		{
-		case 1:
+		case 0:
 			readMail();
 			break;
-		case 2:
+		case 1:
 			sendMail();
 			break;
-		case 3:
+		case 2:
 			deleteMail();
 			break;
-		case 4:
+		case 3:
 			changeTray();
 			visible.link(active_tray());
 			break;
-		case 5:
+		case 4:
 			fastRead();
 			break;
-		case 6:
+		case 5:
 			AccountOptions(opt);
 			break;
-		case 7:
+		case 6:
 			AliasOptions();
 			break;
-		case 8:
+		case 7:
 			filterOptions(filter);
 			break;
 		}
-	} while (opt != 0);
+	} while (opt != 8);
+	visible.closeFilter();
+	visible.refresh();
 	visible.erase();
 	visible.link(nullptr);
 	user = nullptr;
@@ -95,7 +97,7 @@ void Session::launch()
 //so you can read it
 void Session::readMail()
 {
-	if (this->active_tray()->length() == 0)
+	if (this->visible.length() == 0)
 	{
 		GraphInter::get()->display("You have no mails to read");
 		GraphInter::get()->pause();
@@ -105,26 +107,25 @@ void Session::readMail()
 	{
 		//Select mail to read
 		GraphInter::get()->clearConsole();
-
-		GraphInter::get()->showTray(this);
 		//Display mail
 		Mail* mail = GraphInter::get()->selectMail(this);
-		GraphInter::get()->drawMail(mail);
-		//Change mail status to read
-		active_tray()->readMail(mail->getId());
-
-		GraphInter::get()->pause();
-		int option = GraphInter::get()->mailMenu();
-
-		GraphInter::get()->clearConsole();
-
-		if (option == 1)
+		if (mail != nullptr)
 		{
-			answerMail(mail);
-		}
-		else if (option == 2)
-		{
-			forwardMail(mail);
+			//Change mail status to read
+			active_tray()->readMail(mail->getId());
+
+			int option = GraphInter::get()->mailMenu(mail);
+
+			GraphInter::get()->clearConsole();
+
+			if (option == 0)
+			{
+				answerMail(mail);
+			}
+			else if (option == 1)
+			{
+				forwardMail(mail);
+			}
 		}
 	}
 }
@@ -206,23 +207,27 @@ void Session::deleteMail()
 
 			visible.refresh();
 			GraphInter::get()->clearConsole();
-			GraphInter::get()->showTray(this);
 
 			if (visible.length() != 0)
 			{
-				option = GraphInter::get()->WhatToDelete();
+				option = GraphInter::get()->WhatToDelete(this);
 
-				if (option == 1)
+				if (option == 0)
 				{
 					//Select mail
-					std::string id = GraphInter::get()->selectMail(this)->getId();
-					//Delete
-					manager->deleteMail(active_tray(), id);
-					GraphInter::get()->clearConsole();
+					Mail* mail = GraphInter::get()->selectMail(this);
+
+					if (mail != nullptr)
+					{
+						//Delete
+						manager->deleteMail(active_tray(), mail->getId());
+						GraphInter::get()->clearConsole();
+					}
 				}
-				else if (option == 2)
+				else if (option == 1) //Delete all mails
 				{
-					for (int i = 0; i < visible.length(); i++)
+					int counter = active_tray()->length();
+					for (int i = 0; i < counter; i++)
 					{
 						std::string newId = (*(this->active_tray()))[0]->getId();
 
@@ -230,7 +235,7 @@ void Session::deleteMail()
 					}
 				}
 			}
-		} while (visible.length() != 0 && option != 0);
+		} while (active_tray()->length() != 0 && option != 2);
 	}
 }
 
@@ -238,9 +243,9 @@ void Session::deleteMail()
 //read from your input box
 void Session::fastRead()
 {
-	if (get_visible()->length() == 0)
+	if (visible.length() == 0)
 	{
-		GraphInter::get()->display("You do not have any mail on your active tray");
+		GraphInter::get()->display("You do not have any mail on your tray");
 		GraphInter::get()->pause();
 	}
 	else
@@ -256,6 +261,7 @@ void Session::fastRead()
 			{
 				//Display mail
 				GraphInter::get()->drawMail(visible[i]->mail);
+				GraphInter::get()->display(GraphInter::get()->linea());
 				GraphInter::get()->pause();
 
 				//Change mail status to read
@@ -283,20 +289,20 @@ void Session::AccountOptions(int &option)
 
 		menu = GraphInter::get()->AccountOptions();
 
-		if (menu == 1)
+		if (menu == 0)
 		{
 			changeUsername();
 		}
-		else if (menu == 2)
+		else if (menu == 1)
 		{
 			changePassword();
 		}
-		else if (menu == 3)
+		else if (menu == 2)
 		{
 			manager->deleteAccount(user);
-			option = 0;
+			option = 8;
 		}
-	} while (menu != 0 && option != 0);
+	} while (menu != 3 && option != 8);
 }
 
 void Session::AddFastName(User* user)
@@ -426,13 +432,13 @@ void Session::AliasOptions()
 	{
 		GraphInter::get()->clearConsole();
 
-		option = GraphInter::get()->FastName(user->getContactlist());
+		option = GraphInter::get()->AliasMenu(this);
 
-		if (option == 1)
+		if (option == 0)
 		{
 			AddFastName(this->getUser());
 		}
-		else if (option != 0)
+		else if (option != 3)
 		{
 			if (this->getUser()->getContactlist()->length() == 0)
 			{
@@ -441,20 +447,23 @@ void Session::AliasOptions()
 			}
 			else
 			{
-				if (option == 2)
+				if (option == 1)
 				{
 					if (this->getUser()->getContactlist()->length() > 1)
 					{
 						std::string name = GraphInter::get()->selectAlias(this);
 
-						if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+						if (name != "")
 						{
-							GraphInter::get()->display("You cannot delete your self alias");
-							GraphInter::get()->pause();
-						}
-						else
-						{
-							this->getUser()->getContactlist()->destroy(name);
+							if (this->getUser()->getContactlist()->get(name)->alias == "Me")
+							{
+								GraphInter::get()->display("You cannot delete your self alias");
+								GraphInter::get()->pause();
+							}
+							else
+							{
+								this->getUser()->getContactlist()->destroy(name);
+							}
 						}
 					}
 					else
@@ -463,7 +472,7 @@ void Session::AliasOptions()
 						GraphInter::get()->pause();
 					}
 				}
-				else if (option == 3)
+				else if (option == 2)
 				{
 					if (this->getUser()->getContactlist()->length() > 1)
 					{
@@ -485,10 +494,32 @@ void Session::AliasOptions()
 				}
 			}
 		}
-	} while (option != 0);
+	} while (option != 3);
 }
 
 void Session::filterOptions(Filter filter)
+{
+	GraphInter::get()->clearConsole();
+
+	int option;
+
+	option = GraphInter::get()->filter();
+
+	if (option == 0)
+	{
+		chooseOrder(filter);
+	}
+	else if (option == 1)
+	{
+		chooseFilter(filter);
+	}
+	else if (option == 2)
+	{
+		this->get_visible()->closeFilter();
+	}
+}
+
+void Session::chooseFilter(Filter filter)
 {
 	if (visible.length() == 0)
 	{
@@ -497,72 +528,122 @@ void Session::filterOptions(Filter filter)
 	}
 	else
 	{
-		GraphInter::get()->clearConsole();
+		this->get_visible()->closeFilter();
 
-		int option;
+		int option = GraphInter::get()->choosefilter(this);
 
-		option = GraphInter::get()->filter();
-
-		if (option == 1)
+		switch (option)
 		{
-			chooseOrder(filter);
+		case 0:
+			filter = subject;
+			break;
+		case 1:
+			filter = date;
+			break;
+		case 2:
+			filter = emissor;
+			break;
+		case 3:
+			filter = recipients;
+			break;
+		case 4:
+			filter = body;
+			break;
+		case 5:
+			filter = read;
+			break;
+		case 6:
+			filter = unread;
+			break;
+		case 7:
+			filter = none;
+			break;
 		}
-		else if (option == 2)
+
+		if (filter != none)
 		{
-			chooseFilter(filter);
-		}
-		else if (option == 3)
-		{
-			this->get_visible()->closeFilter();
-		}
-	}
-}
+			if (filter == date)
+			{
+				char* lowdate = new char[256];
+				char* update = new char[256];
 
-void Session::chooseFilter(Filter filter)
-{
-	this->get_visible()->closeFilter();
+				GraphInter::get()->display("Enter the lower date");
+				GraphInter::get()->enter(lowdate);
+				GraphInter::get()->display("Enter the upper date");
+				GraphInter::get()->enter(update);
 
-	GraphInter::get()->choose("filter", filter, this);
+				this->get_visible()->setFilterDate(lowdate, update);
+			}
+			else if (filter == read)
+			{
+				this->get_visible()->setFilterRead();
+			}
+			else if (filter == unread)
+			{
+				this->get_visible()->setFilterUnread();
+			}
+			else
+			{
+				std::string reference;
 
-	if (filter != none)
-	{
-		if (filter == date)
-		{
-			char* lowdate = new char[256];
-			char* update  = new char[256];
+				GraphInter::get()->display("Enter your reference word");
+				GraphInter::get()->enter(reference);
 
-			GraphInter::get()->display("Enter the lower date");
-			GraphInter::get()->enter(lowdate);
-			GraphInter::get()->display("Enter the upper date");
-			GraphInter::get()->enter(update);
-
-			this->get_visible()->setFilterDate(lowdate, update);
-		}
-		else if (filter == read)
-		{
-			this->get_visible()->setFilterRead();
-		}
-		else if (filter == unread)
-		{
-			this->get_visible()->setFilterUnread();
-		}
-		else
-		{
-			std::string reference;
-
-			GraphInter::get()->display("Enter your reference word");
-			GraphInter::get()->enter(reference);
-
-			this->get_visible()->setFilter(reference, filter);
+				this->get_visible()->setFilter(reference, filter);
+			}
 		}
 	}
 }
 
 void Session::chooseOrder(Filter filter)
 {
-	GraphInter::get()->choose("order", filter, this);
+	if (visible.length() == 0)
+	{
+		GraphInter::get()->display("You have no mails to filterf");
+		GraphInter::get()->pause();
+	}
+	else
+	{
+		int option = GraphInter::get()->chooseorder(this);
 
-	this->get_visible()->changeOrder(filter);
+		if (option == 0)
+		{
+			filter = subject;
+
+			int select = GraphInter::get()->Invert();
+			bool invert;
+
+			switch (select)
+			{
+			case 0:
+				invert = false;
+				break;
+			default:
+				invert = true;
+				break;
+			}
+			this->get_visible()->setInvert(invert);
+		}
+		else if (option == 1)
+		{
+			filter = date;
+
+			int to_select = GraphInter::get()->Invert();
+			bool to_invert;
+
+			switch (to_select)
+			{
+			case 0:
+				to_invert = false;
+				break;
+			default:
+				to_invert = true;
+				break;
+			}
+			this->get_visible()->setInvert(to_invert);
+		}
+		this->get_visible()->changeOrder(filter);
+	}
 }
 
 //Allow you to change your username
@@ -605,7 +686,7 @@ void Session::changePassword()
 
 	GraphInter::get()->display("Enter your new password");
 
-	data = GraphInter::get()->HidePassword();
+	data = GraphInter::get()->HideLimitPassword();
 
 	GraphInter::get()->display("");
 	GraphInter::get()->checkPassword(data);

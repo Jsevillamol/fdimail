@@ -8,7 +8,8 @@ Manager* Manager::manager = nullptr;
 Manager::Manager(const std::string &new_domain) :
 domain(new_domain)
 {
-	if (manager == nullptr){
+	if (manager == nullptr)
+	{
 		manager = this;
 		bootUp();
 	}
@@ -50,8 +51,9 @@ User* Manager::registerUser()
 	std::string idUser;
 	std::string last_password;
 	GraphInter::get()->logMenu(idUser, last_password);
+
 	User* user = (userList.get(idUser));
-	if  (user != nullptr)
+	if (user != nullptr)
 	{
 		if (user->checkPassword(last_password))
 			return user;

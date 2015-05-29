@@ -53,7 +53,7 @@ void VisibleTrayList::refresh()
 	}
 
 	if (inverse_order) reverse();
-
+	lastPage = (length()-1)/MAILS_X_PAGE;
 	filterPage();
 }
 
@@ -69,17 +69,17 @@ void VisibleTrayList::sync()
 template<typename Funct, typename K>
 void VisibleTrayList::filterBy(Funct filter, K key)
 {
-	//erase();
-	for (int i = 0; i < this->length(); i++)
+	//Copies list direction, then copies back elems which pass the filter
+	tElemTray** oldList = list;
+	this->list = new tElemTray*[dim];
+	int oldCounter = counter;
+	this->counter = 0;
+	for (int i = 0; i < oldCounter; i++)
 	{
-		if (!filter(list[i], key))
-		{
-			shiftLeft(i);
-			list[counter] = nullptr;
-			counter--;
-			i--;
-		}
+		if (filter(oldList[i], key))
+			insert(oldList[i]);
 	}
+	delete oldList;
 }
 
 void VisibleTrayList::filterByDate(Date lower, Date upper)
@@ -134,7 +134,7 @@ void VisibleTrayList::orderBy(Funct order)
 
 void VisibleTrayList::orderByDate()
 {
-	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date <= b->mail->date; });
+	orderBy([](tElemTray* a, tElemTray* b){ return a->mail->date >= b->mail->date; });
 }
 
 void VisibleTrayList::orderBySubject()
@@ -152,18 +152,26 @@ void VisibleTrayList::reverse()
 
 void VisibleTrayList::filterPage()
 {
-	if (page < 0 || page*MAILS_X_PAGE >= length()) page = 0;
+	if (page*MAILS_X_PAGE >= length()) page = 0;
+	else if(page < 0) page = lastPage;
 
-	tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
-	int i;
-	for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
-	{
-		newList[i] = list[MAILS_X_PAGE*page + i];
+	if (dim > MAILS_X_PAGE){
+		//tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
+		int i;
+		for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
+		{
+			list[i] = (*this)[MAILS_X_PAGE*page + i];
+		}
+		//delete[] list;
+		//list = newList;
+		//dim = MAILS_X_PAGE;
+		
+		for (int k = i; k < length(); k++){
+			list[k] = nullptr;
+		}
+
+		counter = i;
 	}
-	delete[] list;
-	list = newList;
-	dim = 10;
-	counter = i;
 }
 
 void VisibleTrayList::insert(tElemTray* elem)
@@ -175,6 +183,7 @@ void VisibleTrayList::insert(tElemTray* elem)
 
 void VisibleTrayList::change(int pos1, int pos2)
 {
+	assert(0 <= pos1 && pos1 < counter && 0 <= pos2 && pos2 < counter);
 	tElemTray* aux = list[pos1];
 	list[pos1] = list[pos2];
 	list[pos2] = aux;

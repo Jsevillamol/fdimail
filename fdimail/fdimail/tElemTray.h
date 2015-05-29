@@ -4,10 +4,10 @@
 #include <string>
 #include "Mail.h"
 
-/*
+/*----------------------------
 This struct is responsible for load and save the id of a mail
 and its read status
-*/
+------------------------------*/
 
 struct tElemTray
 {
@@ -22,5 +22,4 @@ struct tElemTray
 	void save(std::ofstream &file) const;
 	void load(std::ifstream &file);
 };
-
 #endif
