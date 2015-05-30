@@ -312,6 +312,7 @@ Mail* GraphInter::selectMail(Session* session)
 	else
 	{
 		display("The active tray is empty");
+		pause();
 
 		return nullptr;
 	}
