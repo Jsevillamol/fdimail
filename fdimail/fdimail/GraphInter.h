@@ -97,6 +97,7 @@ private:
 	//Formatting strings
 	std::string center_word(std::string number, int length, std::string arround);
 	void tab_word(std::string word, int pos, int cont);
+	std::string tab_word(std::string word);
 	std::string pags(Session* session);
 };
 #endif //GRAPHINTER

@@ -320,15 +320,7 @@ Mail* GraphInter::selectMail(Session* session)
 std::string GraphInter::selectAlias(Session* session)
 {
 	int number;
-	std::string elems[MAILS_X_PAGE];
-
-	for (int i = 0; i < MAILS_X_PAGE; i++)
-	{
-		if (session->getUser()->getContactlist()->operator[](i) != nullptr)
-		{
-			elems[i] = session->getUser()->getContactlist()->operator[](i)->header();
-		}
-	}
+	
 	number = aliasMenu(session);
 
 	if (number < session->getUser()->getContactlist()->length())
@@ -355,7 +347,7 @@ void GraphInter::showFastNames(ContactList* contactList)
 
 		for (int i = 0; i < contactList->length(); i++)
 		{
-			display("  " + contactList->operator[](i)->header());
+			display(tab_word(contactList->operator[](i)->header()));
 		}
 		display(linea());
 	}
@@ -1041,20 +1033,25 @@ std::string GraphInter::center_word(std::string word, int length, std::string ar
 //after two empty spaces
 void GraphInter::tab_word(std::string word, int pos, int cont)
 {
-	std::ostringstream tab;
-
 	if (pos == cont)
 	{
 		word = "->" + word;
 	}
 	else
 	{
-		word = "  " + word;
+		word = tab_word(word);
 	}
 	display(word);
 }
 
+std::string GraphInter::tab_word(std::string word)
+{
+	std::ostringstream tab;
 
+	tab << std::setw(word.size() + 2) << word;
+
+	return tab.str();
+}
 
 std::string GraphInter::pags(Session* session)
 {
