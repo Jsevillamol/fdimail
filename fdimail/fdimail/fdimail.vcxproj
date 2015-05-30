@@ -75,7 +75,6 @@
     <ClCompile Include="tElemTray.cpp" />
     <ClCompile Include="TrayList.cpp" />
     <ClCompile Include="User.cpp" />
-    <ClCompile Include="UserList.cpp" />
     <ClCompile Include="VisibleTrayList.cpp" />
   </ItemGroup>
   <ItemGroup>

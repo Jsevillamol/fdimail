@@ -51,4 +51,3 @@ void ContactList::load(std::ifstream &file)
 		this->insert(cont);
 	}
 }
-

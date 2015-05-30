@@ -25,6 +25,5 @@ public:
 
 	//Class Exclusive
 	bool readMail(const std::string &idMail);
-
 };
 #endif
