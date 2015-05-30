@@ -1,9 +1,11 @@
 #ifndef LIST
 #define LIST
+
+#include "GlobalConstants.h"
 #include "checkML.h"
 #include <assert.h>
 #include <string>
-#include"GlobalConstants.h"
+
 /*----------------------------
 This is a base class for all the lists this program has
 We have used a template to be able to work whith diferent

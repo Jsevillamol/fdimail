@@ -1,11 +1,11 @@
 #ifndef USER
 #define USER
 
-#include <string>
-#include <fstream>
-#include "TrayList.h"
 #include "ContactList.h"
+#include "TrayList.h"
 #include "Encript.h"
+#include <fstream>
+#include <string>
 
 /*----------------------------
 Contains the user variables, and the

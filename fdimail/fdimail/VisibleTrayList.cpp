@@ -119,7 +119,8 @@ void VisibleTrayList::orderBy(Funct order)
 	//Bubblesort
 	bool change_made;
 
-	do{
+	do
+	{
 		change_made = false;
 		for (int i = 0; i < this->length() - 1; i++)
 		{
@@ -155,21 +156,18 @@ void VisibleTrayList::filterPage()
 	if (page*MAILS_X_PAGE >= length()) page = 0;
 	else if(page < 0) page = lastPage;
 
-	if (dim > MAILS_X_PAGE){
-		//tElemTray** newList = new tElemTray*[MAILS_X_PAGE];
+	if (dim > MAILS_X_PAGE)
+	{
 		int i;
 		for (i = 0; i < MAILS_X_PAGE && MAILS_X_PAGE*page + i < length(); i++)
 		{
 			list[i] = (*this)[MAILS_X_PAGE*page + i];
 		}
-		//delete[] list;
-		//list = newList;
-		//dim = MAILS_X_PAGE;
 		
-		for (int k = i; k < length(); k++){
+		for (int k = i; k < length(); k++)
+		{
 			list[k] = nullptr;
 		}
-
 		counter = i;
 	}
 }

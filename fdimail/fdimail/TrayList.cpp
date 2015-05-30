@@ -1,5 +1,5 @@
-#include "TrayList.h"
 #include "tElemTray.h"
+#include "TrayList.h"
 #include "Manager.h"
 #include "checkML.h"
 
@@ -20,8 +20,7 @@ bool TrayList::search(const std::string &id, int &pos)
 }
 
 //Inserts the element you choose at the end of the list
-//If the list is full, deletes the first element, and
-//move the rest to the left, and insert the new one
+//If the list is full, resizes the list
 void TrayList::insert(tElemTray * const elem)
 {
 	//std::cout << "Inserting in TrayList the object " << elem << std::endl;

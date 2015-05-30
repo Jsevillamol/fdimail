@@ -1,10 +1,10 @@
 #ifndef MAILLIST
 #define MAILLIST
 
+#include "GlobalConstants.h"
 #include <string>
 #include "List.h"
 #include "Mail.h"
-#include "GlobalConstants.h"
 
 /*----------------------------
 Derived class from list, responsible 

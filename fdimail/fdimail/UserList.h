@@ -1,10 +1,10 @@
 #ifndef USERLIST
 #define USERLIST
 
+#include "GlobalConstants.h"
 #include <string>
 #include "List.h"
 #include "User.h"
-#include "GlobalConstants.h"
 
 /*----------------------------
 Derived class from list, responsible

@@ -1,14 +1,14 @@
 #ifndef GRAPHINTER
 #define GRAPHINTER
-#include "Mail.h"
-#include "User.h"
-#include "Filters.h"
+
+#include "ContactList.h"
 #include "TrayList.h"
 #include "UserList.h"
-#include "ContactList.h"
 #include "Filters.h"
-#include <iomanip>
 #include <iostream>
+#include <iomanip>
+#include "Mail.h"
+#include "User.h"
 
 /*----------------------------
 Class responsible for interacting with the user

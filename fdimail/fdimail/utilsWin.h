@@ -10,12 +10,15 @@ int getKey()
 	int key; DWORD cNumRead; INPUT_RECORD irInBuf;
 	HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
 	
-	do{
+	do
+	{
 		FlushConsoleInputBuffer(hStdIn);
-		do{
+		do
+		{
 			ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
 		} while (irInBuf.EventType != KEY_EVENT || irInBuf.Event.KeyEvent.bKeyDown);
-		if (irInBuf.Event.KeyEvent.uChar.AsciiChar == 0){
+		if (irInBuf.Event.KeyEvent.uChar.AsciiChar == 0)
+		{
 			//ReadConsoleInput(hStdIn, &irInBuf, 1, &cNumRead);
 			key = irInBuf.Event.KeyEvent.wVirtualKeyCode;
 		}

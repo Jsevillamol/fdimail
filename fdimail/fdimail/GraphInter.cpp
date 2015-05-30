@@ -1,13 +1,13 @@
-#include "GraphInter.h"
-#include "Session.h"
-#include "Mail.h"
 #include "GlobalConstants.h"
-#include "checkML.h"
+#include "GraphInter.h"
 #include "utilsWin.h"
-#include <sstream>
+#include "checkML.h"
+#include "Session.h"
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <conio.h>
+#include "Mail.h"
 
 GraphInter* GraphInter::inter = nullptr;
 Mail* GraphInter::error = nullptr;
@@ -502,15 +502,11 @@ void GraphInter::checkUsername(std::string& username)
 		display("Error, usernames are not the same");
 		display("Enter your new username:");
 
-		enter(username);
-
-		username += "@fdimail.com";
+		username = valid_user();
 
 		display("Confirm your username:");
 
-		enter(newUsername);
-
-		newUsername += "@fdimail.com";
+		newUsername = valid_user();
 	}
 }
 
@@ -708,7 +704,8 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 
 		std::string line;
 		mail->body = "";
-		do{
+		do
+		{
 			enter(line);
 			mail->body += line + "\n";
 		} while (line != "");
@@ -754,7 +751,8 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 
 	std::string line;
 	WhatToSay = "";
-	do{
+	do
+	{
 		enter(line);
 		WhatToSay += line + "\n";
 	} while (line != "");
@@ -809,7 +807,8 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 
 		std::string line;
 		WhatToSay = "";
-		do{
+		do
+		{
 			enter(line);
 			WhatToSay += line + "\n";
 		} while (line != "");
@@ -915,7 +914,6 @@ void GraphInter::send_to_multiple(Mail* mail, ContactList* contactList)
 		std::string recipient;
 
 		if (i == 0)
-
 		{
 			display("To (enter (ENTER) to end the recipients):");
 		}
@@ -1029,8 +1027,6 @@ std::string GraphInter::center_word(std::string word, int length, std::string ar
 	return word;
 }
 
-//It prints the word you choose on console,
-//after two empty spaces
 void GraphInter::tab_word(std::string word, int pos, int cont)
 {
 	if (pos == cont)
@@ -1044,6 +1040,8 @@ void GraphInter::tab_word(std::string word, int pos, int cont)
 	display(word);
 }
 
+//It prints the word you choose on console,
+//after two empty spaces
 std::string GraphInter::tab_word(std::string word)
 {
 	std::ostringstream tab;
@@ -1092,6 +1090,5 @@ std::string GraphInter::pags(Session* session)
 			pags << "(next page) ->";
 		}
 	}
-
 	return pags.str();
 }

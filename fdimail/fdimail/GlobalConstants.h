@@ -1,7 +1,6 @@
 #ifndef GCONSTANTS
 #define GCONSTANTS
 
-
 const int 
 	START_ELEM = 10, //dim of each dinamic list during construction
 	MAILS_X_PAGE = 5, //Mails shown in the app per page

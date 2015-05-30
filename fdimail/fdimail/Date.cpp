@@ -2,9 +2,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <algorithm>
 #include "Date.h"
 #include <time.h>
-#include <algorithm>
 
 //Shows the complete date, day and hour
 std::string showDate(Date d)

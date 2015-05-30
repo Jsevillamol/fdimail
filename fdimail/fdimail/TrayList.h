@@ -1,9 +1,10 @@
 #ifndef TRAYLIST
 #define TRAYLIST
+
+#include "GlobalConstants.h"
+#include "tElemTray.h"
 #include <fstream>
 #include "List.h"
-#include "tElemTray.h"
-#include "GlobalConstants.h"
 
 /*----------------------------
 Derived class from list, responsible

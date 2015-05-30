@@ -1,9 +1,10 @@
 #ifndef CONTACTLIST
 #define CONTACTLIST
-#include "List.h"
+
+#include "GlobalConstants.h"
 #include "tContact.h"
 #include "MailList.h"
-#include "GlobalConstants.h"
+#include "List.h"
 
 /*----------------------------
 Derived class from list, responsible

@@ -1,10 +1,10 @@
 #ifndef MAIL
 #define MAIL
 
-#include <string>
-#include <fstream>
-#include "Date.h"
 #include "GlobalConstants.h"
+#include <fstream>
+#include <string>
+#include "Date.h"
 
 /*----------------------------
 This class contains the mail datos of a mail

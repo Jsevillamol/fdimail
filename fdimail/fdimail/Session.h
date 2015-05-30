@@ -1,11 +1,11 @@
 #ifndef SESSION
 #define SESSION
 
+#include "VisibleTrayList.h"
 #include "GraphInter.h"
 #include "Manager.h"
 #include "User.h"
 #include "Mail.h"
-#include "VisibleTrayList.h"
 
 /*----------------------------
 This class is responsible for the user session, 

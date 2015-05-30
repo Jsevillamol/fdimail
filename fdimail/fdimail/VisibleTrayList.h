@@ -1,12 +1,13 @@
 #ifndef VISIBLETRAYLIST
 #define VISIBLETRAYLIST
-#include "List.h"
+
 #include "GlobalConstants.h"
 #include "tElemTray.h"
 #include "TrayList.h"
 #include "Filters.h"
-#include "Date.h"
 #include <string>
+#include "Date.h"
+#include "List.h"
 #include <map>
 
 /*----------------------------

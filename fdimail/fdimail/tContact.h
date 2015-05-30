@@ -1,10 +1,10 @@
 #ifndef TCONTACT
 #define TCONTACT
 
-#include <string>
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <string>
 
 /*----------------------------
 This struct is responsible for load and save 

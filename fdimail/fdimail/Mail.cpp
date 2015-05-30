@@ -1,9 +1,10 @@
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "Mail.h"
 #include "Date.h"
-#include <sstream>
-#include <iostream>
 #include <ctime>
-#include <iomanip>
+
 
 //It saves a mail in the file you choose
 void Mail::save(std::ofstream &file) const

@@ -1,5 +1,5 @@
-#include "Manager.h"
 #include "GraphInter.h"
+#include "Manager.h"
 #include "checkML.h"
 #include <sstream>
 

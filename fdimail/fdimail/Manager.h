@@ -1,9 +1,9 @@
 #ifndef MANAGER
 #define MANAGER
 
-#include <string>
 #include "MailList.h"
 #include "UserList.h"
+#include <string>
 
 /*----------------------------
 Manager holds the mail and user databases
