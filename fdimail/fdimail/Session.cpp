@@ -388,7 +388,7 @@ void Session::AddFastName(User* user)
 				}
 				else
 				{
-					for (int k = 0; k < newId.size() && alias_right; k++)
+					for (int k = 0; k < int(newId.size()) && alias_right; k++)
 					{
 						for (int j = 0; j < CENSORED_CHARS; j++)
 						{
@@ -573,6 +573,9 @@ void Session::chooseFilter(Filter filter)
 				GraphInter::get()->enter(update);
 
 				this->get_visible()->setFilterDate(lowdate, update);
+
+				delete lowdate;
+				delete update;
 			}
 			else if (filter == read)
 			{
@@ -647,7 +650,6 @@ void Session::chooseOrder(Filter filter)
 }
 
 //Allow you to change your username
-//To do: Move this to session
 void Session::changeUsername()
 {
 	bool name_ok;

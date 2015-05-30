@@ -9,7 +9,7 @@ ContactList::ContactList(std::string userID): List()
 
 std::string ContactList::SearchFastName(std::string &name)
 {
-	for (int j = 0; j < name.size(); j++)
+	for (int j = 0; j < int(name.size()); j++)
 	{
 		if (name[j] == '@')
 		{

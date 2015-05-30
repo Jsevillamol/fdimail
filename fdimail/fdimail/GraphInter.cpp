@@ -494,9 +494,7 @@ void GraphInter::checkUsername(std::string& username)
 
 	display("Confirm your new username: ");
 
-	enter(newUsername);
-
-	newUsername += "@fdimail.com";
+	newUsername = valid_user();
 
 	while (newUsername != username)
 	{
