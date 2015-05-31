@@ -1,6 +1,7 @@
 #include "GraphInter.h"
 #include "Session.h"
 #include "checkML.h"
+#include <ctype.h>
 #include "Mail.h"
 
 Session::Session(Manager* manager) :
@@ -390,17 +391,14 @@ void Session::AddFastName(User* user)
 				{
 					for (int k = 0; k < int(newId.size()) && alias_right; k++)
 					{
-						for (int j = 0; j < CENSORED_CHARS; j++)
+						if ('A' > newId[i] || newId[i] > 'Z' && newId[i] < 'a' || newId[i] > 'z')
 						{
-							if (newId[k] == forbidden[j])
-							{
-								character << "(" << char(forbidden[j]) << ")";
+							character << "(" << char(newId[i]) << ")";
 
-								GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
-								GraphInter::get()->pause();
+							GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
+							GraphInter::get()->pause();
 
-								alias_right = false;
-							}
+							alias_right = false;
 						}
 					}
 
@@ -592,6 +590,11 @@ void Session::chooseFilter(Filter filter)
 				GraphInter::get()->display("Enter your reference word");
 				GraphInter::get()->enter(reference);
 
+				for (int i = 0; i < int(reference.size()); i++)
+				{
+					reference = tolower(reference[i]);
+				}
+				
 				this->get_visible()->setFilter(reference, filter);
 			}
 		}

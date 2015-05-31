@@ -93,8 +93,10 @@ private:
 	void updateTray(int key, Session* session);
 
 	int menu(std::string elems[], int max_elems, std::string to_choose);
+	int SureToEmpty(Mail* mail);
+
 	//Formatting strings
-	std::string center_word(std::string number, int length, std::string arround);
+	std::string center_word(std::string word, int length, std::string arround);
 	void tab_word(std::string word, int pos, int cont);
 	std::string tab_word(std::string word);
 	std::string pags(Session* session);

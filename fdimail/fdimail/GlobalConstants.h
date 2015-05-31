@@ -8,18 +8,6 @@ const int
 	MAX_RECIPIENTS = 10,//N of users who can be sent the same mail at once
 	MAX_FASTNAMES = 10,
 	HORIZONTAL = 79,
-	CENSORED_CHARS = 26,
 	PASSWORD_MIN_LENGTH = 4;
-
-//Chars forbidden in user names
-const char forbidden[CENSORED_CHARS] =
-{
-	',', ';', '.', ':', '-',
-	'_', '{', '}', '[', ']', 
-	'*', '/', '?', '=', ')',
-	'(', '&', '%', '$', '#',
-	'@', '"', '|', '!', ' ',
-	'+'
-};
 
 #endif // !GCONSTANTS

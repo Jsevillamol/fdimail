@@ -4,6 +4,7 @@
 #include "checkML.h"
 #include "Session.h"
 #include <iostream>
+#include <ctype.h>
 #include <sstream>
 #include <iomanip>
 #include <conio.h>
@@ -278,6 +279,41 @@ int GraphInter::WhatToDelete(Session* session)
 	elems[2] = "Exit to session menu";
 
 	return trayMenu(session, elems, 3);
+}
+
+int GraphInter::SureToEmpty(Mail* mail)
+{
+	int key = UP, elem = 0;
+
+	do
+	{
+		display("From: " + mail->from);
+
+		for (int k = 0; k < mail->recipient_count; k++)
+		{
+			if (k == 0)
+			{
+				display("To: " + mail->recipients[k]);
+			}
+			else
+			{
+				display("CC: " + mail->recipients[k]);
+			}
+		}
+		display(linea());
+		display("Are you sure you do not want this mail to have subject?");
+
+		tab_word("No, I want to enter the subject", 0, elem);
+		tab_word("Yes, I do not want subject for this mail", 1, elem);
+		
+		key = getKey();
+		elem = update(key, elem, 2);
+
+		clearConsole();
+
+	} while (key != ENTER);
+
+	return elem;
 }
 
 int GraphInter::Invert()
@@ -562,21 +598,18 @@ std::string GraphInter::valid_user()
 
 			for (int i = 0; i < int(id.size()) && id_right; i++)
 			{
-				for (int j = 0; j < CENSORED_CHARS; j++)
+				if ('A' > id[i] || id[i] > 'Z' && id[i] < 'a' || id[i] > 'z')
 				{
-					if (id[i] == forbidden[j])
-					{
-						character << "(" << char(forbidden[j]) << ")";
+					character << "(" << char(id[i]) << ")";
 
-						display("Error, your id cannot contain the character " + character.str());
-						pause();
+					display("Error, your id cannot contain the character " + character.str());
+					pause();
 
-						id_right = false;
-					}
-					else if (id[i] <= 'Z' && 'A' <= id[i])
-					{
-						id[i] += 32; //transforms uppercase in lowercase
-					}
+					id_right = false;
+				}
+				else
+				{
+					id[i] = tolower(id[i]);
 				}
 			}
 		}
@@ -696,7 +729,50 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 
 		if (mail->subject == "")
 		{
-			mail->subject = "No subject";
+			int choose;
+
+			do
+			{
+				clearConsole();
+
+				choose = SureToEmpty(mail);
+
+				switch (choose)
+				{
+				case 0:
+					display("From: " + mail->from);
+					for (int k = 0; k < mail->recipient_count; k++)
+					{
+						if (k == 0)
+						{
+							display("To: " + mail->recipients[k]);
+						}
+						else
+						{
+							display("CC: " + mail->recipients[k]);
+						}
+					}
+					display("Subject: ");
+					enter(mail->subject);
+					break;
+				case 1:
+					mail->subject = "No subject";
+					display("From: " + mail->from);
+					for (int k = 0; k < mail->recipient_count; k++)
+					{
+						if (k == 0)
+						{
+							display("To: " + mail->recipients[k]);
+						}
+						else
+						{
+							display("CC: " + mail->recipients[k]);
+						}
+					}
+					display("Subject: " + mail->subject);
+					break;
+				}
+			} while (choose == 0 && mail->subject == "");
 		}
 
 		display("Body (enter twice (ENTER) to end the body): ");
@@ -709,7 +785,7 @@ Mail* GraphInter::newMail(const std::string &sender, ContactList* contactList)
 			mail->body += line + "\n";
 		} while (line != "");
 
-		if (mail->body == "")
+		if (mail->body == "" || mail->body == "\n")
 		{
 			delete mail;
 			return nullptr;
@@ -756,7 +832,7 @@ Mail* GraphInter::answerMail(Mail* &originalMail, const std::string &sender)
 		WhatToSay += line + "\n";
 	} while (line != "");
 
-	if (WhatToSay == "")
+	if (WhatToSay == "" || WhatToSay == "\n")
 	{
 		WhatToSay = "No body";
 	}
@@ -812,7 +888,7 @@ Mail* GraphInter::forward(Mail* &originalMail, const std::string &sender, Contac
 			WhatToSay += line + "\n";
 		} while (line != "");
 
-		if (WhatToSay == "")
+		if (WhatToSay == "" || WhatToSay == "\n")
 		{
 			WhatToSay = "No body";
 		}
