@@ -1070,9 +1070,7 @@ std::string GraphInter::pags(Session* session)
 		}
 	}
 
-	pags << std::setw(((HORIZONTAL - 28) / 2) + 1);
-	pags << (session->get_visible()->getPage()) + 1 << "/" << session->get_visible()->getLastPage() + 1;
-	pags << std::setw(((HORIZONTAL) / 2) - 2);
+	pags << center_word(std::to_string(session->get_visible()->getPage() + 1) + "/" + std::to_string(session->get_visible()->getLastPage() + 1), HORIZONTAL-28, " ");
 
 	if (session->get_visible()->getLastPage() == 0)
 	{
@@ -1082,7 +1080,7 @@ std::string GraphInter::pags(Session* session)
 	{
 		if (session->get_visible()->LastPage())
 		{
-			pags << "(first page) ->";
+			pags << "(first page)->";
 		}
 		else
 		{
