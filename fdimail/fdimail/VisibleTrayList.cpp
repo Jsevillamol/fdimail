@@ -10,10 +10,10 @@ VisibleTrayList::VisibleTrayList() : List()
 
 void VisibleTrayList::init(TrayList* trayList)
 {
-	filters[              date] = false;
-	filters[Filter::   subject] = false;
-	filters[Filter::      body] = false;
-	filters[Filter::   emissor] = false;
+	filters[date] = false;
+	filters[Filter::subject] = false;
+	filters[Filter::body] = false;
+	filters[Filter::emissor] = false;
 	filters[Filter::recipients] = false;
 
 	active_order = none;
@@ -33,13 +33,13 @@ void VisibleTrayList::refresh()
 	sync();
 	
 	//Apply activated filters
-	if (filters[              date]) filterByDate         (lower, upper);
-	if (filters[Filter::   subject]) filterBySubject     (keys[subject]);
-	if (filters[Filter::      body]) filterByBody           (keys[body]);
-	if (filters[Filter::   emissor]) filterByEmissor     (keys[emissor]);
-	if (filters[Filter::recipients]) filterByRecipient(keys[recipients]);
-	if (filters[Filter::      read]) filterByRead                 (true);
-	if (filters[Filter::    unread]) filterByRead                (false);
+	if (filters[date])				filterByDate(lower, upper);
+	if (filters[Filter::subject])	filterBySubject(keys[subject]);
+	if (filters[Filter::body])		filterByBody(keys[body]);
+	if (filters[Filter::emissor])	filterByEmissor(keys[emissor]);
+	if (filters[Filter::recipients])filterByRecipient(keys[recipients]);
+	if (filters[Filter::read])      filterByRead(true);
+	if (filters[Filter::unread])    filterByRead(false);
 
 	//Apply order
 	switch (active_order)
