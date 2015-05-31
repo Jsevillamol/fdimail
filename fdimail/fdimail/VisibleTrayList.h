@@ -48,8 +48,6 @@ public:
 
 	void filterPage(); //Only elements in the active page remain after calling this method.
 
-	tElemTray* operator [](int i) { return list[i]; }
-
 	void setFilterDate(char* up, char* low)
 	{
 		filters[date] = true;
