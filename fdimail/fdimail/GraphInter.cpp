@@ -77,23 +77,23 @@ int GraphInter::sessionMenu(Session* session)
 		showTray(session);
 
 		display("Choose your desired option: ");
-		tab_word("Read mail", 0, elem);
-		tab_word("Send mail", 1, elem);
+		tab_word("Read mail",   0, elem);
+		tab_word("Send mail",   1, elem);
 		tab_word("Delete mail", 2, elem);
 
 		if (session->get_active_list())
 		{
-			tab_word("See inbox", 3, elem);
+			tab_word("See inbox",  3, elem);
 		}
 		else
 		{
 			tab_word("See outbox", 3, elem);
 		}
 		tab_word("Fast read of unread mails", 4, elem);
-		tab_word("Account options", 5, elem);
-		tab_word("Alias options", 6, elem);
-		tab_word("Filter options", 7, elem);
-		tab_word("Sign out", 8, elem);
+		tab_word("Account options",           5, elem);
+		tab_word("Alias options",             6, elem);
+		tab_word("Filter options",            7, elem);
+		tab_word("Sign out",                  8, elem);
 
 		key = getKey();
 		elem = update(key, elem, 9);
@@ -254,9 +254,9 @@ int GraphInter::AliasMenu(Session* session)
 	{
 		showFastNames(session->getUser()->getContactlist());
 
-		tab_word("Add an alias", 0, elem);
-		tab_word("Delete an alias", 1, elem);
-		tab_word("Delete all alias", 2, elem);
+		tab_word("Add an alias",         0, elem);
+		tab_word("Delete an alias",      1, elem);
+		tab_word("Delete all alias",     2, elem);
 		tab_word("Exit to session menu", 3, elem);
 
 		key = getKey();
@@ -1146,7 +1146,7 @@ std::string GraphInter::pags(Session* session)
 		}
 	}
 
-	pags << center_word(std::to_string(session->get_visible()->getPage() + 1) + "/" + std::to_string(session->get_visible()->getLastPage() + 1), HORIZONTAL-28, " ");
+	pags << center_word(std::to_string(session->get_visible()->getPage() + 1) + "/" + std::to_string(session->get_visible()->getLastPage() + 1), HORIZONTAL - 28, " ");
 
 	if (session->get_visible()->getLastPage() == 0)
 	{
