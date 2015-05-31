@@ -195,10 +195,9 @@ void Session::deleteMail()
 
 	if (visible.length() == 0)
 	{
-		GraphInter::get()->display("Error, you have no mails to delete");
+		GraphInter::get()->display("You have no mails to delete");
 		GraphInter::get()->pause();
 		GraphInter::get()->clearConsole();
-
 	}
 	else
 	{
@@ -369,7 +368,7 @@ void Session::AddFastName(User* user)
 
 				GraphInter::get()->clearConsole();
 				GraphInter::get()->display("User: " + idUser);
-				GraphInter::get()->display("Enter the alias you choose for this user (cannot contain '@'):");
+				GraphInter::get()->display("Enter the alias you choose for this user:");
 				GraphInter::get()->enter(newId);
 
 				if (newId.size() == 0)
@@ -593,7 +592,6 @@ void Session::chooseFilter(Filter filter)
 				{
 					reference = tolower(reference[i]);
 				}
-				
 				this->get_visible()->setFilter(reference, filter);
 			}
 		}

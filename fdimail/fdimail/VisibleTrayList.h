@@ -5,7 +5,6 @@
 #include "tElemTray.h"
 #include "TrayList.h"
 #include "Filters.h"
-#include <string>
 #include "Date.h"
 #include "List.h"
 #include <map>

@@ -5,8 +5,6 @@
 #include "TrayList.h"
 #include "UserList.h"
 #include "Filters.h"
-#include <iostream>
-#include <iomanip>
 #include "Mail.h"
 #include "User.h"
 
@@ -20,6 +18,7 @@ class Session;
 class GraphInter
 {
 public:
+
 	static GraphInter* get(); //Returns the single instance of grapHinter
 	static void load(); //Creates the singleton
 	static void close(); //Deletes the singleton
@@ -54,6 +53,7 @@ public:
 	int filter();
 
 	void pause();
+	std::string linea();
 	void clearConsole();
 	
 	//Input
@@ -77,9 +77,8 @@ public:
 	void display(std::string error);
 	void display(char sign);
 
-	std::string linea();
-
 private:
+
 	static GraphInter* inter;
 	static Mail* error;
 	static Mail* errorMail();
