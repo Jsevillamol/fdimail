@@ -33,7 +33,8 @@ public:
 	int mailMenu(Mail* mail);
 	int aliasMenu(Session* session);
 	int menumail(Mail* mail, std::string elems[], int max_elems, std::string to_choose);
-	int AliasMenu(Session* session); 
+	int AliasMenu(Session* session);
+	int WhatToDelete(Session* session);
 	int Invert();
 	int AccountOptions();
 
@@ -54,8 +55,6 @@ public:
 
 	void pause();
 	void clearConsole();
-	
-	int WhatToDelete(Session* session);
 	
 	//Input
 	void checkUsername(std::string &password);

@@ -268,6 +268,18 @@ int GraphInter::AliasMenu(Session* session)
 	return elem;
 }
 
+//Little options menu
+int GraphInter::WhatToDelete(Session* session)
+{
+	std::string elems[3];
+
+	elems[0] = "Choose mail";
+	elems[1] = "Delete all mails";
+	elems[2] = "Exit to session menu";
+
+	return trayMenu(session, elems, 3);
+}
+
 int GraphInter::Invert()
 {
 	std::string elems[2];
@@ -321,7 +333,7 @@ Mail* GraphInter::selectMail(Session* session)
 std::string GraphInter::selectAlias(Session* session)
 {
 	int number;
-	
+
 	number = aliasMenu(session);
 
 	if (number < session->getUser()->getContactlist()->length())
@@ -473,18 +485,6 @@ void GraphInter::pause()
 
 //Clears the console
 void GraphInter::clearConsole(){ system("cls"); }
-
-//Little options menu
-int GraphInter::WhatToDelete(Session* session)
-{
-	std::string elems[3];
-
-	elems[0] = "Choose mail";
-	elems[1] = "Delete all mails";
-	elems[2] = "Exit to session menu";
-
-	return trayMenu(session, elems, 3);
-}
 
 //Asks you to enter your username again, and
 //checks both are the same.
