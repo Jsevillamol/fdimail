@@ -317,7 +317,6 @@ void Session::AddFastName(User* user)
 	}
 	else
 	{
-		int i, j;
 		bool name_right, alias_right;
 		std::string idUser, newId;
 
@@ -327,7 +326,7 @@ void Session::AddFastName(User* user)
 
 			GraphInter::get()->clearConsole();
 			GraphInter::get()->display("Enter the user id you want to asign:");
-			GraphInter::get()->enter(idUser);
+			idUser = GraphInter::get()->valid_user();
 
 			if (idUser != "")
 			{
@@ -347,7 +346,7 @@ void Session::AddFastName(User* user)
 				}
 				else
 				{
-					for (i = 0; i < user->getContactlist()->length() && name_right; i++)
+					for (int i = 0; i < user->getContactlist()->length() && name_right; i++)
 					{
 						if (idUser == user->getContactlist()->operator[](i)->user)
 						{
@@ -391,9 +390,9 @@ void Session::AddFastName(User* user)
 				{
 					for (int k = 0; k < int(newId.size()) && alias_right; k++)
 					{
-						if ('A' > newId[i] || newId[i] > 'Z' && newId[i] < 'a' || newId[i] > 'z')
+						if ('A' > newId[k] || newId[k] > 'Z' && newId[k] < 'a' || newId[k] > 'z')
 						{
-							character << "(" << char(newId[i]) << ")";
+							character << "(" << char(newId[k]) << ")";
 
 							GraphInter::get()->display("Error, your id cannot contain the character " + character.str());
 							GraphInter::get()->pause();
@@ -402,7 +401,7 @@ void Session::AddFastName(User* user)
 						}
 					}
 
-					for (j = 0; j < user->getContactlist()->length() && alias_right; j++)
+					for (int j = 0; j < user->getContactlist()->length() && alias_right; j++)
 					{
 						if (newId == user->getContactlist()->operator[](j)->getId())
 						{
