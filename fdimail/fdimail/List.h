@@ -65,7 +65,7 @@ template<class T>
 bool List<T>::insert(T* elem)
 {
 	//resize if necessary
-	if (full()) resize(dim*(3/2)+1);
+	if (full()) resize(dim*3/2+1);
 	//Look for corresponding position
 	int pos;
 	int left_key = 0, right_key = counter - 1;
