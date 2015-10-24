@@ -288,15 +288,15 @@ void List<T>::resize(int dim)
 
 		for (int i = 0; i < this->counter; i++)
 		{
-			newlist[i] = (*this)[i];
+			newlist[i] = this->list[i];
 		}
 		for (int i = this->counter; i < dim; i++)
 		{
 			newlist[i] = nullptr;
 		}
-		delete[] list;
+		delete[] this->list;
 
-		list = newlist;
+		this->list = newlist;
 		this->dim = dim;
 	}
 }
